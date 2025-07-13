@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b02c25d8a6cc0e48a7217d98b14bb01, type: 3}
+  m_Name: StagePrefabDatabase
+  m_EditorClassIdentifier: 
+  entries:
+  - key: Sphere
+    prefab: {fileID: 6672829937551852041, guid: a4a94178de18799448bc7600ee3f5cef, type: 3}
+  - key: AmidaTube
+    prefab: {fileID: 9070630108357824776, guid: 805b8b41df5f103448a009cbfe27538b, type: 3}
+  - key: AmidaBlock
+    prefab: {fileID: 7193193961408311223, guid: 2180d45a3f0bf874eae37df4dcaf4e95, type: 3}
+  - key: Floor
+    prefab: {fileID: 4518201756476195211, guid: 2b1b1d6c10054e94ca3cfdb7e3b94b13, type: 3}

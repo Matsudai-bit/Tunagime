@@ -1,0 +1,5028 @@
+{
+  "name": "StageObjects",
+  "tag": "Untagged",
+  "localPosition": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0,
+    "magnitude": 0.0,
+    "sqrMagnitude": 0.0
+  },
+  "localRotation": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0,
+    "magnitude": 0.0,
+    "sqrMagnitude": 0.0
+  },
+  "localScale": {
+    "x": 1.0,
+    "y": 1.0,
+    "z": 1.0,
+    "normalized": {
+      "x": 0.577350259,
+      "y": 0.577350259,
+      "z": 0.577350259,
+      "magnitude": 1.0,
+      "sqrMagnitude": 0.99999994
+    },
+    "magnitude": 1.73205078,
+    "sqrMagnitude": 3.0
+  },
+  "children": [
+    {
+      "name": "AmidaFloor",
+      "tag": "Untagged",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "normalized": {
+          "x": 0.577350259,
+          "y": 0.577350259,
+          "z": 0.577350259,
+          "magnitude": 1.0,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 1.73205078,
+        "sqrMagnitude": 3.0
+      },
+      "children": [
+        {
+          "name": "FloorPlatformBlocks",
+          "tag": "Untagged",
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localRotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localScale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "normalized": {
+              "x": 0.577350259,
+              "y": 0.577350259,
+              "z": 0.577350259,
+              "magnitude": 1.0,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.73205078,
+            "sqrMagnitude": 3.0
+          },
+          "children": [
+            {
+              "name": "GridEffects",
+              "tag": "Untagged",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            }
+          ],
+          "components": []
+        },
+        {
+          "name": "AmidaManager",
+          "tag": "Untagged",
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localRotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localScale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "normalized": {
+              "x": 0.577350259,
+              "y": 0.577350259,
+              "z": 0.577350259,
+              "magnitude": 1.0,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.73205078,
+            "sqrMagnitude": 3.0
+          },
+          "children": [],
+          "components": []
+        },
+        {
+          "name": "AmidaTubes",
+          "tag": "Untagged",
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localRotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localScale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "normalized": {
+              "x": 0.577350259,
+              "y": 0.577350259,
+              "z": 0.577350259,
+              "magnitude": 1.0,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.73205078,
+            "sqrMagnitude": 3.0
+          },
+          "children": [],
+          "components": []
+        }
+      ],
+      "components": []
+    },
+    {
+      "name": "TopFloor",
+      "tag": "Untagged",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "normalized": {
+          "x": 0.577350259,
+          "y": 0.577350259,
+          "z": 0.577350259,
+          "magnitude": 1.0,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 1.73205078,
+        "sqrMagnitude": 3.0
+      },
+      "children": [
+        {
+          "name": "FloorPlatformBlocks",
+          "tag": "Untagged",
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localRotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localScale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "normalized": {
+              "x": 0.577350259,
+              "y": 0.577350259,
+              "z": 0.577350259,
+              "magnitude": 1.0,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.73205078,
+            "sqrMagnitude": 3.0
+          },
+          "children": [
+            {
+              "name": "GridEffects",
+              "tag": "Untagged",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            }
+          ],
+          "components": []
+        },
+        {
+          "name": "Walls",
+          "tag": "Untagged",
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localRotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localScale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "normalized": {
+              "x": 0.577350259,
+              "y": 0.577350259,
+              "z": 0.577350259,
+              "magnitude": 1.0,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.73205078,
+            "sqrMagnitude": 3.0
+          },
+          "children": [],
+          "components": []
+        },
+        {
+          "name": "Blocks",
+          "tag": "Untagged",
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localRotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "magnitude": 0.0,
+            "sqrMagnitude": 0.0
+          },
+          "localScale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "normalized": {
+              "x": 0.577350259,
+              "y": 0.577350259,
+              "z": 0.577350259,
+              "magnitude": 1.0,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.73205078,
+            "sqrMagnitude": 3.0
+          },
+          "children": [
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.916157365,
+                  "y": 0.0,
+                  "z": 0.400818855,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 8.732124,
+                "sqrMagnitude": 76.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 7.826238,
+                "sqrMagnitude": 61.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.863778949,
+                  "y": 0.0,
+                  "z": 0.503871,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 6.946222,
+                "sqrMagnitude": 48.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.8192319,
+                  "y": 0.0,
+                  "z": 0.573462367,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 6.10327768,
+                "sqrMagnitude": 37.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.7525767,
+                  "y": 0.0,
+                  "z": 0.6585046,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.315073,
+                "sqrMagnitude": 28.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.650791347,
+                  "y": 0.0,
+                  "z": 0.7592566,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 4.609772,
+                "sqrMagnitude": 21.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.49613893,
+                  "y": 0.0,
+                  "z": 0.868243158,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.031129,
+                "sqrMagnitude": 16.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": -0.274721116,
+                  "y": 0.0,
+                  "z": 0.96152395,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.640055,
+                "sqrMagnitude": 13.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.5,
+                "sqrMagnitude": 12.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.274721116,
+                  "y": 0.0,
+                  "z": 0.96152395,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.640055,
+                "sqrMagnitude": 13.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.49613893,
+                  "y": 0.0,
+                  "z": 0.868243158,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.031129,
+                "sqrMagnitude": 16.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.650791347,
+                  "y": 0.0,
+                  "z": 0.7592566,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 4.609772,
+                "sqrMagnitude": 21.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.7525767,
+                  "y": 0.0,
+                  "z": 0.6585046,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.315073,
+                "sqrMagnitude": 28.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.8192319,
+                  "y": 0.0,
+                  "z": 0.573462367,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 6.10327768,
+                "sqrMagnitude": 37.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.863778949,
+                  "y": 0.0,
+                  "z": 0.503871,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 6.946222,
+                "sqrMagnitude": 48.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": 3.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 7.826238,
+                "sqrMagnitude": 61.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.95448,
+                  "y": 0.0,
+                  "z": 0.298275,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 8.381527,
+                "sqrMagnitude": 70.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.9417419,
+                  "y": 0.0,
+                  "z": 0.3363364,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.43303442,
+                "sqrMagnitude": 55.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.9230769,
+                  "y": 0.0,
+                  "z": 0.3846154,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 6.5,
+                "sqrMagnitude": 42.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.59017,
+                "sqrMagnitude": 31.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.8479983,
+                  "y": 0.0,
+                  "z": 0.529998958,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.71699047,
+                "sqrMagnitude": 22.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.768221259,
+                  "y": 0.0,
+                  "z": 0.6401844,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.905125,
+                "sqrMagnitude": 15.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.624695063,
+                  "y": 0.0,
+                  "z": 0.780868769,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 3.20156217,
+                "sqrMagnitude": 10.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": -0.371390671,
+                  "y": 0.0,
+                  "z": 0.9284767,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.69258237,
+                "sqrMagnitude": 7.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.5,
+                "sqrMagnitude": 6.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.371390671,
+                  "y": 0.0,
+                  "z": 0.9284767,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.69258237,
+                "sqrMagnitude": 7.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.624695063,
+                  "y": 0.0,
+                  "z": 0.780868769,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 3.20156217,
+                "sqrMagnitude": 10.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.768221259,
+                  "y": 0.0,
+                  "z": 0.6401844,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.905125,
+                "sqrMagnitude": 15.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.8479983,
+                  "y": 0.0,
+                  "z": 0.529998958,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.71699047,
+                "sqrMagnitude": 22.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.59017,
+                "sqrMagnitude": 31.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.9230769,
+                  "y": 0.0,
+                  "z": 0.3846154,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 6.5,
+                "sqrMagnitude": 42.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": 2.5,
+                "normalized": {
+                  "x": 0.9417419,
+                  "y": 0.0,
+                  "z": 0.3363364,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.43303442,
+                "sqrMagnitude": 55.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.982872248,
+                  "y": 0.0,
+                  "z": 0.184288546,
+                  "normalized": {
+                    "x": -0.9828721,
+                    "y": 0.0,
+                    "z": 0.184288532,
+                    "normalized": {
+                      "x": -0.9828722,
+                      "y": 0.0,
+                      "z": 0.184288546,
+                      "magnitude": 1.0,
+                      "sqrMagnitude": 1.0
+                    },
+                    "magnitude": 0.99999994,
+                    "sqrMagnitude": 0.9999999
+                  },
+                  "magnitude": 1.00000012,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 8.13941,
+                "sqrMagnitude": 66.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.9778024,
+                  "y": 0.0,
+                  "z": 0.209529087,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.15891075,
+                "sqrMagnitude": 51.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.9701425,
+                  "y": 0.0,
+                  "z": 0.242535621,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 6.18465853,
+                "sqrMagnitude": 38.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.957826257,
+                  "y": 0.0,
+                  "z": 0.287347883,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 5.22015333,
+                "sqrMagnitude": 27.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.9363292,
+                  "y": 0.0,
+                  "z": 0.351123452,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.27200174,
+                "sqrMagnitude": 18.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.354102,
+                "sqrMagnitude": 11.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.8,
+                  "y": 0.0,
+                  "z": 0.6,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.5,
+                "sqrMagnitude": 6.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": -0.5547002,
+                  "y": 0.0,
+                  "z": 0.8320503,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.80277562,
+                "sqrMagnitude": 3.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.5,
+                "sqrMagnitude": 2.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.5547002,
+                  "y": 0.0,
+                  "z": 0.8320503,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.80277562,
+                "sqrMagnitude": 3.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.8,
+                  "y": 0.0,
+                  "z": 0.6,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.5,
+                "sqrMagnitude": 6.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.354102,
+                "sqrMagnitude": 11.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.9363292,
+                  "y": 0.0,
+                  "z": 0.351123452,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.27200174,
+                "sqrMagnitude": 18.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.957826257,
+                  "y": 0.0,
+                  "z": 0.287347883,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 5.22015333,
+                "sqrMagnitude": 27.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.9701425,
+                  "y": 0.0,
+                  "z": 0.242535621,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 6.18465853,
+                "sqrMagnitude": 38.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": 1.5,
+                "normalized": {
+                  "x": 0.9778024,
+                  "y": 0.0,
+                  "z": 0.209529087,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.15891075,
+                "sqrMagnitude": 51.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.9980526,
+                  "y": 0.0,
+                  "z": 0.0623782873,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 8.01561,
+                "sqrMagnitude": 64.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.997458756,
+                  "y": 0.0,
+                  "z": 0.07124705,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 7.017834,
+                "sqrMagnitude": 49.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.9965458,
+                  "y": 0.0,
+                  "z": 0.08304548,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 6.02079725,
+                "sqrMagnitude": 36.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.9950372,
+                  "y": 0.0,
+                  "z": 0.0995037258,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.02493763,
+                "sqrMagnitude": 25.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.992277861,
+                  "y": 0.0,
+                  "z": 0.124034733,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 4.031129,
+                "sqrMagnitude": 16.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.986393869,
+                  "y": 0.0,
+                  "z": 0.164398983,
+                  "normalized": {
+                    "x": -0.9863939,
+                    "y": 0.0,
+                    "z": 0.164399,
+                    "magnitude": 1.0,
+                    "sqrMagnitude": 1.0
+                  },
+                  "magnitude": 0.99999994,
+                  "sqrMagnitude": 0.9999999
+                },
+                "magnitude": 3.04138136,
+                "sqrMagnitude": 9.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.970142543,
+                  "y": 0.0,
+                  "z": 0.242535636,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 2.06155276,
+                "sqrMagnitude": 4.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.118034,
+                "sqrMagnitude": 1.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 0.5,
+                "sqrMagnitude": 0.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": 0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.118034,
+                "sqrMagnitude": 1.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.970142543,
+                  "y": 0.0,
+                  "z": 0.242535636,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 2.06155276,
+                "sqrMagnitude": 4.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.986393869,
+                  "y": 0.0,
+                  "z": 0.164398983,
+                  "normalized": {
+                    "x": 0.9863939,
+                    "y": 0.0,
+                    "z": 0.164399,
+                    "magnitude": 1.0,
+                    "sqrMagnitude": 1.0
+                  },
+                  "magnitude": 0.99999994,
+                  "sqrMagnitude": 0.9999999
+                },
+                "magnitude": 3.04138136,
+                "sqrMagnitude": 9.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.992277861,
+                  "y": 0.0,
+                  "z": 0.124034733,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 4.031129,
+                "sqrMagnitude": 16.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.9950372,
+                  "y": 0.0,
+                  "z": 0.0995037258,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.02493763,
+                "sqrMagnitude": 25.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.9965458,
+                  "y": 0.0,
+                  "z": 0.08304548,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 6.02079725,
+                "sqrMagnitude": 36.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": 0.5,
+                "normalized": {
+                  "x": 0.997458756,
+                  "y": 0.0,
+                  "z": 0.07124705,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 7.017834,
+                "sqrMagnitude": 49.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.9980526,
+                  "y": 0.0,
+                  "z": -0.0623782873,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 8.01561,
+                "sqrMagnitude": 64.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.997458756,
+                  "y": 0.0,
+                  "z": -0.07124705,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 7.017834,
+                "sqrMagnitude": 49.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.9965458,
+                  "y": 0.0,
+                  "z": -0.08304548,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 6.02079725,
+                "sqrMagnitude": 36.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.9950372,
+                  "y": 0.0,
+                  "z": -0.0995037258,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.02493763,
+                "sqrMagnitude": 25.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.992277861,
+                  "y": 0.0,
+                  "z": -0.124034733,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 4.031129,
+                "sqrMagnitude": 16.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.986393869,
+                  "y": 0.0,
+                  "z": -0.164398983,
+                  "normalized": {
+                    "x": -0.9863939,
+                    "y": 0.0,
+                    "z": -0.164399,
+                    "magnitude": 1.0,
+                    "sqrMagnitude": 1.0
+                  },
+                  "magnitude": 0.99999994,
+                  "sqrMagnitude": 0.9999999
+                },
+                "magnitude": 3.04138136,
+                "sqrMagnitude": 9.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.970142543,
+                  "y": 0.0,
+                  "z": -0.242535636,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 2.06155276,
+                "sqrMagnitude": 4.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": -0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.118034,
+                "sqrMagnitude": 1.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": -1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 0.5,
+                "sqrMagnitude": 0.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": -0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.118034,
+                "sqrMagnitude": 1.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.970142543,
+                  "y": 0.0,
+                  "z": -0.242535636,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 2.06155276,
+                "sqrMagnitude": 4.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.986393869,
+                  "y": 0.0,
+                  "z": -0.164398983,
+                  "normalized": {
+                    "x": 0.9863939,
+                    "y": 0.0,
+                    "z": -0.164399,
+                    "magnitude": 1.0,
+                    "sqrMagnitude": 1.0
+                  },
+                  "magnitude": 0.99999994,
+                  "sqrMagnitude": 0.9999999
+                },
+                "magnitude": 3.04138136,
+                "sqrMagnitude": 9.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.992277861,
+                  "y": 0.0,
+                  "z": -0.124034733,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 4.031129,
+                "sqrMagnitude": 16.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.9950372,
+                  "y": 0.0,
+                  "z": -0.0995037258,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.02493763,
+                "sqrMagnitude": 25.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.9965458,
+                  "y": 0.0,
+                  "z": -0.08304548,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 6.02079725,
+                "sqrMagnitude": 36.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": -0.5,
+                "normalized": {
+                  "x": 0.997458756,
+                  "y": 0.0,
+                  "z": -0.07124705,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 7.017834,
+                "sqrMagnitude": 49.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.982872248,
+                  "y": 0.0,
+                  "z": -0.184288546,
+                  "normalized": {
+                    "x": -0.9828721,
+                    "y": 0.0,
+                    "z": -0.184288532,
+                    "normalized": {
+                      "x": -0.9828722,
+                      "y": 0.0,
+                      "z": -0.184288546,
+                      "magnitude": 1.0,
+                      "sqrMagnitude": 1.0
+                    },
+                    "magnitude": 0.99999994,
+                    "sqrMagnitude": 0.9999999
+                  },
+                  "magnitude": 1.00000012,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 8.13941,
+                "sqrMagnitude": 66.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.9778024,
+                  "y": 0.0,
+                  "z": -0.209529087,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.15891075,
+                "sqrMagnitude": 51.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.9701425,
+                  "y": 0.0,
+                  "z": -0.242535621,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 6.18465853,
+                "sqrMagnitude": 38.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.957826257,
+                  "y": 0.0,
+                  "z": -0.287347883,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 5.22015333,
+                "sqrMagnitude": 27.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.9363292,
+                  "y": 0.0,
+                  "z": -0.351123452,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.27200174,
+                "sqrMagnitude": 18.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": -0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.354102,
+                "sqrMagnitude": 11.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.8,
+                  "y": 0.0,
+                  "z": -0.6,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.5,
+                "sqrMagnitude": 6.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": -0.5547002,
+                  "y": 0.0,
+                  "z": -0.8320503,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.80277562,
+                "sqrMagnitude": 3.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": -1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.5,
+                "sqrMagnitude": 2.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.5547002,
+                  "y": 0.0,
+                  "z": -0.8320503,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 1.80277562,
+                "sqrMagnitude": 3.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.8,
+                  "y": 0.0,
+                  "z": -0.6,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.5,
+                "sqrMagnitude": 6.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": -0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.354102,
+                "sqrMagnitude": 11.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.9363292,
+                  "y": 0.0,
+                  "z": -0.351123452,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.27200174,
+                "sqrMagnitude": 18.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.957826257,
+                  "y": 0.0,
+                  "z": -0.287347883,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 5.22015333,
+                "sqrMagnitude": 27.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.9701425,
+                  "y": 0.0,
+                  "z": -0.242535621,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 6.18465853,
+                "sqrMagnitude": 38.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": -1.5,
+                "normalized": {
+                  "x": 0.9778024,
+                  "y": 0.0,
+                  "z": -0.209529087,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.15891075,
+                "sqrMagnitude": 51.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -8.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.95448,
+                  "y": 0.0,
+                  "z": -0.298275,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 8.381527,
+                "sqrMagnitude": 70.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.9417419,
+                  "y": 0.0,
+                  "z": -0.3363364,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.43303442,
+                "sqrMagnitude": 55.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.9230769,
+                  "y": 0.0,
+                  "z": -0.3846154,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 6.5,
+                "sqrMagnitude": 42.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -5.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.8944272,
+                  "y": 0.0,
+                  "z": -0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.59017,
+                "sqrMagnitude": 31.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.8479983,
+                  "y": 0.0,
+                  "z": -0.529998958,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.71699047,
+                "sqrMagnitude": 22.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.768221259,
+                  "y": 0.0,
+                  "z": -0.6401844,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.905125,
+                "sqrMagnitude": 15.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.624695063,
+                  "y": 0.0,
+                  "z": -0.780868769,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 3.20156217,
+                "sqrMagnitude": 10.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": -0.371390671,
+                  "y": 0.0,
+                  "z": -0.9284767,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.69258237,
+                "sqrMagnitude": 7.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": -1.0,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.5,
+                "sqrMagnitude": 6.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.371390671,
+                  "y": 0.0,
+                  "z": -0.9284767,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 2.69258237,
+                "sqrMagnitude": 7.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.624695063,
+                  "y": 0.0,
+                  "z": -0.780868769,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 3.20156217,
+                "sqrMagnitude": 10.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.768221259,
+                  "y": 0.0,
+                  "z": -0.6401844,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 3.905125,
+                "sqrMagnitude": 15.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.8479983,
+                  "y": 0.0,
+                  "z": -0.529998958,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 4.71699047,
+                "sqrMagnitude": 22.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.8944272,
+                  "y": 0.0,
+                  "z": -0.4472136,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 5.59017,
+                "sqrMagnitude": 31.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.9230769,
+                  "y": 0.0,
+                  "z": -0.3846154,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 6.5,
+                "sqrMagnitude": 42.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            },
+            {
+              "name": "Floor(Clone)",
+              "tag": "Floor",
+              "localPosition": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": -2.5,
+                "normalized": {
+                  "x": 0.9417419,
+                  "y": 0.0,
+                  "z": -0.3363364,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 7.43303442,
+                "sqrMagnitude": 55.25
+              },
+              "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "magnitude": 0.0,
+                "sqrMagnitude": 0.0
+              },
+              "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "normalized": {
+                  "x": 0.577350259,
+                  "y": 0.577350259,
+                  "z": 0.577350259,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 0.99999994
+                },
+                "magnitude": 1.73205078,
+                "sqrMagnitude": 3.0
+              },
+              "children": [],
+              "components": []
+            }
+          ],
+          "components": []
+        }
+      ],
+      "components": []
+    }
+  ],
+  "components": []
+}

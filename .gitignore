@@ -1,0 +1,14 @@
+# 全てを無視
+*
+
+# 扱っていいファイル
+!.gitignore
+!.editorconfig
+
+# 扱っていいディレクトリとその内容
+!Assets/
+!Assets/**
+!Packages/
+!Packages/**
+!ProjectSettings/
+!ProjectSettings/**
