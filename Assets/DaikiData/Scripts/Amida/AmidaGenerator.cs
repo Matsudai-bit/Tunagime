@@ -105,7 +105,7 @@ public class AmidaTubeGenerator : MonoBehaviour
 
                 amidaGrid[cy, cx]  = CreateAmidaTube(m_amidaGenerationDataGrid[cy, cx], cx, cy, map, map.GetCommonData().BaseTilePosY);
 
-                map.GetStageGridData().GetTileData()[cy, cx].amidaTube = amidaGrid[cy, cx].GetComponent<AmidaTube>();
+                map.GetStageGridData().GetTileData[cy, cx].amidaTube = amidaGrid[cy, cx].GetComponent<AmidaTube>();
             }
         }
 

@@ -86,6 +86,8 @@ public class FloorBlockGenerator : MonoBehaviour
                 // 生成
                 floorBlockGrid[cy, cx] = Instantiate(m_floorBlockPrefab, pos, Quaternion.identity, m_floorBlockParent.transform);
 
+
+                map.GetStageGridData().GetTileData[cy, cx].floor = floorBlockGrid[cy, cx];
             }
 
         }
@@ -96,10 +98,24 @@ public class FloorBlockGenerator : MonoBehaviour
         CreateGridEffects(map, map.GetCommonData().BaseTilePosY);
 
         // 上部の座標の算出
- //       topPartPosY = generationPosY + (m_floorBlockPrefab.transform.localScale.y / 2.0f);
+        //       topPartPosY = generationPosY + (m_floorBlockPrefab.transform.localScale.y / 2.0f);
 
-        // 生成したグリッドデータを返す
-        return floorBlockGrid;
+        var boxCollider = m_floorBlockParent.GetComponent<BoxCollider>();
+        if (boxCollider)
+        {
+            float sizeX = (float)map.GetCommonData().width * map.GetCommonData().tileSize;
+            float sizeY = 0.01f;
+            float sizeZ = (float)map.GetCommonData().height * map.GetCommonData().tileSize;
+            boxCollider.size =  new Vector3(sizeX, sizeY, sizeZ);
+
+            
+        }
+        else
+            Debug.LogWarning(m_floorBlockParent.name + "のBoxColliderが見つかりません");
+
+
+            // 生成したグリッドデータを返す
+            return floorBlockGrid;
     }
 
 

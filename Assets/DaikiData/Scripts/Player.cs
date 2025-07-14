@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameDirector m_gameDirector;
 
+    private StageBlock m_fluffBall;
+
 
     void Awake()
     {
@@ -46,8 +48,64 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var map = MapData.GetInstance;
+
         // リロード
         if (Input.GetKeyDown(KeyCode.Q)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (m_fluffBall)
+            {
+                // 近いグリッド座標の取得
+                var clossesPos = map.GetClosestGridPos(transform.position);
+                m_fluffBall.UpdatePosition(clossesPos);
+
+                m_fluffBall.SetActive(true);
+
+                map.GetStageGridData().TryPlaceTileObject(clossesPos, m_fluffBall.GetComponent<GameObject>());
+                m_fluffBall = null;
+
+            }
+            else
+            {
+
+                // 近いグリッド座標の取得
+                var clossesPos = map.GetClosestGridPos(transform.position);
+
+                // 処理用変数 : 正面方向ベクトル
+                Vector3 forward = transform.forward;
+
+                GridPos forward2D;
+                // 正面グリッド方向の取得
+
+                // 正面ベクトルの成分を比較して大きい方を正面ベクトルとして選択
+                // 注意 : めちゃくちゃ綺麗な斜めの場合バグる可能性あり Roundを使用しているため致命的ではないと判断
+                forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
+                    ? new GridPos((int)Mathf.Round(forward.x), 0)
+                    : new GridPos(0, -(int)Mathf.Round(forward.z));
+                GridPos checkPos = clossesPos + forward2D;
+
+                // でてきたグリッド座標がグリッド範囲内かチェック
+                if (map.CheckInnerGridPos(checkPos))
+                {
+                    TileObject tileObject = map.GetStageGridData().GetTileData[checkPos.y, checkPos.x].tileObject;
+
+                    // 毛糸だった時の処理
+                    if (tileObject.type == TileType.FLUFF_BALL && tileObject.gameObject)
+                    {
+                        GameObject gameObj = tileObject.gameObject;
+                        m_fluffBall = gameObj.GetComponent<StageBlock>();
+                        map.GetStageGridData().RemoveGridData(checkPos);
+                        Debug.Log(gameObj.name);
+
+                        m_fluffBall.SetActive(false);
+                    }
+                }
+            }
+
+          
+        }
 
     }
 

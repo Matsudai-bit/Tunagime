@@ -85,7 +85,7 @@ public class StageGeneratorNew : MonoBehaviour
             GridPos fixedGridPos = new GridPos ( generation.gridPos.x - 1, generation.gridPos.y - 1 );
 
             GameObject instanceObj = Instantiate(generation.prefab);
-            map.GetStageGridData().GetTileData()[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
+            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
 
             StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
 

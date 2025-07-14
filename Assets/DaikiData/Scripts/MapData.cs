@@ -1,3 +1,5 @@
+using System.Xml.Schema;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +16,8 @@ public struct GridPos
         this.x = x;
         this.y = y;
     }
+
+    public static GridPos operator +(GridPos lhs, GridPos rhs) => new GridPos(lhs.x + rhs.x, lhs.y + rhs.y);
 }
 
 [System.Serializable]
@@ -58,10 +62,12 @@ public class MapData : MonoBehaviour
     {
         public int width;     // 横幅（タイル数
         public int height;    // 縦幅 (タイル数)
+        public Vector2 center;// 中心座標
          
         public float tileSize; // タイルのサイズ
 
         public float BaseTilePosY;
+
     }
 
 
@@ -101,8 +107,25 @@ public class MapData : MonoBehaviour
         return m_stageGridData;
     }
 
-   
+    /// <summary>
+    /// グリッド（ステージ）の左上座標の取得
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 GetStageLeftTopPos()
+    {
+        //Transform gridTileTopLefTrans = m_stageGridData.GetTileData[0, 0].floor.transform;
+        //// グリッドのタイルの一番端（左上）の座標のを取得 (Ｙ軸は無視する)
+        //Vector2 gridTileLeftTopPos = new Vector2(gridTileTopLefTrans.transform.position.x, gridTileTopLefTrans.transform.position.z);
+        //// タイルの角(左上)座標を求める
+        //Vector2 tileLeftTopPos = new Vector2(gridTileLeftTopPos.x - gridTileTopLefTrans.localScale.x / 2.0f, gridTileLeftTopPos.y + gridTileTopLefTrans.localScale.z / 2.0f);
 
+        return new Vector2(m_commonData.center.x - (float)m_commonData.width / 2.0f, m_commonData.center.x + (float)m_commonData.height / 2.0f);
+    }
+
+    public Vector2 GetStageCenterPos()
+    {
+        return m_commonData.center;
+    }
 
 
     /// <summary>
@@ -128,7 +151,7 @@ public class MapData : MonoBehaviour
     {
         float posCoordinationValueX = (m_commonData.tileSize * m_commonData.width / 2.0f);
 
-        return (float)(x) * m_commonData.tileSize - posCoordinationValueX + m_commonData.tileSize / 2.0f;
+        return GetStageLeftTopPos().x + (float)x *  m_commonData.tileSize + m_commonData.tileSize / 2.0f;
     }
 
     public float ConvertGridToWorldPosZ(int y)
@@ -136,7 +159,7 @@ public class MapData : MonoBehaviour
 
         float posCoordinationValueZ = (m_commonData.tileSize * m_commonData.height / 2.0f);
 
-        return  posCoordinationValueZ - (float)(y) * m_commonData.tileSize;
+        return GetStageLeftTopPos().y - (float)(y) * m_commonData.tileSize - m_commonData.tileSize / 2.0f;
     }
 
     /// <summary>
@@ -153,6 +176,34 @@ public class MapData : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// 指定したワールド座標の真下の最も近い点を返す　真下に点が無い場合でも最も近い点を返す
+    /// </summary>
+    /// <param name="targetPos"></param>
+    /// <returns></returns>
+    public GridPos GetClosestGridPos(Vector3 targetPos)
+    {
+      
+        // ステージの角(左上)座標を取得
+        Vector2 tileLeftTopPos = GetStageLeftTopPos();
+
+        // 対象座標を2Dに変換する
+        Vector2 targetPosVec2 = new Vector2(targetPos.x, targetPos.z);
+
+
+        // 割合を求める 
+        // 割合 : pos.x / 横の長さ * マス数
+        float x = targetPosVec2.x  - tileLeftTopPos.x / ((float)m_commonData.width  * (float)m_commonData.tileSize) * (float)m_commonData.width;
+        float y = tileLeftTopPos.y - targetPosVec2.y / ((float)m_commonData.height * (float)m_commonData.tileSize) * (float)m_commonData.height;
+
+        GridPos gridPos = new GridPos();
+        // 切り捨てて代入
+        gridPos.x = (int)(x);
+        gridPos.y = (int)(y);
+
+        return gridPos;
     }
 
 

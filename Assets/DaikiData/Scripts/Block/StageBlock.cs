@@ -50,6 +50,7 @@ public class StageBlock : MonoBehaviour
         m_gridPos = gridPos;
     }
 
+
     /// <summary>
     /// グリッド位置を取得する
     /// </summary>
@@ -72,7 +73,7 @@ public class StageBlock : MonoBehaviour
 
         if (map.CheckInnerGridPos(gridPos) == false) return;
 
-        var tileData = MapData.GetInstance.GetStageGridData().GetTileData();
+        var tileData = MapData.GetInstance.GetStageGridData().GetTileData;
 
         // 何かオブジェクトがいる場合以下の処理を飛ばす
         if (tileData[gridPos.y, gridPos.x].tileObject.gameObject != null) return;
@@ -94,5 +95,10 @@ public class StageBlock : MonoBehaviour
         tileData[m_gridPos.y, m_gridPos.x].tileObject.gameObject = gameObject;
 
 
+    }
+
+    public void SetActive(bool activeSelf)
+    {
+        gameObject.SetActive(activeSelf);
     }
 }

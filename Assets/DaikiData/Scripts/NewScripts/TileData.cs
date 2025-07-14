@@ -4,7 +4,14 @@ public struct TileData
 {
     public TileObject tileObject;
     public AmidaTube amidaTube;
-    public GameDirector floor;
+    public GameObject floor;
+
+    public TileData(TileObject tileObject, AmidaTube amidaTube, GameObject floor)
+    {
+        this.tileObject = tileObject;
+        this.amidaTube = amidaTube;
+        this.floor = floor;
+    }
 }
 
 

@@ -14,9 +14,9 @@ public class StageGridData : MonoBehaviour
 
     private TileData[,] m_tileData = new TileData[,] { }; //　タイルデータ
                                     //　
-    public TileData[,]  GetTileData()
+    public  TileData[,]  GetTileData
     {
-        return m_tileData;
+        get{ return m_tileData; } 
     }
 
     public void SetData(TileData[,] tileData)
@@ -29,93 +29,76 @@ public class StageGridData : MonoBehaviour
         m_tileData = new TileData[gridHeight, gridWidth];
     }
 
-    ///// <summary>
-    ///// あみだ層のブロックグリッドを設定する
-    ///// </summary>
-    ///// <param name="grid">設定するグリッド</param>
-    //public void SetAmidaFloorBlockGrid(GameObject[,] grid)
-    //{
-    //    m_amidaFloorBlockGrid = grid;
-    //}
 
-    ///// <summary>
-    ///// あみだ層のブロックグリッドを取得する
-    ///// </summary>
-    ///// <returns>あみだ層のブロックグリッド</returns>
-    //public GameObject[,] GetAmidaFloorBlockGrid()
-    //{
-    //    return m_amidaFloorBlockGrid;
-    //}
+    /// <summary>
+    /// 指定したタイルのタイルオブジェクトを取り除く
+    /// </summary>
+    /// <param name="gridPos"></param>
+    public GameObject RemoveGridData(GridPos gridPos)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"RemoveTileObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return null;
+        }
 
-    ///// <summary>
-    ///// トップ層のブロックグリッドを設定する
-    ///// </summary>
-    ///// <param name="grid">設定するグリッド</param>
-    //public void SetTopFloorBlockGrid(GameObject[,] grid)
-    //{
-    //    m_topFloorBlockGrid = grid;
-    //}
+        // 既存のタイルデータを取得 (構造体なのでコピーされる)
+        TileData currentTile = m_tileData[gridPos.y, gridPos.x];
 
-    ///// <summary>
-    ///// トップ層のブロックグリッドを取得する
-    ///// </summary>
-    ///// <returns>トップ層のブロックグリッド</returns>
-    //public GameObject[,] GetTopFloorBlockGrid()
-    //{
-    //    return m_topFloorBlockGrid;
-    //}
+        // グリッドから取り除くGameObjectの参照を保持
+        GameObject removedObject = currentTile.tileObject.gameObject;
 
-    ///// <summary>
-    ///// あみだチューブのグリッドを設定する
-    ///// </summary>
-    ///// <param name="grid">設定するグリッド</param>
-    //public void SetAmidaTubeGrid(GameObject[,] grid)
-    //{
-    //    m_amidaTubeGrid = grid;
-    //}
+        // グリッド内の参照をnullにする
+        currentTile.tileObject.gameObject = null;
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
 
-    ///// <summary>
-    ///// あみだチューブのグリッドを取得する
-    ///// </summary>
-    ///// <returns>あみだチューブのグリッド</returns>
-    //public GameObject[,] GetAmidaTubeGrid()
-    //{
-    //    return m_amidaTubeGrid;
-    //}
+        if (removedObject != null)
+        {
+            Debug.Log($"RemoveTileObject: Removed {removedObject.name} from grid at ({gridPos.x},{gridPos.y}).");
+        }
+        else
+        {
+            Debug.Log($"RemoveTileObject: No object found at ({gridPos.x},{gridPos.y}) to remove.");
+        }
 
-    ///// <summary>
-    ///// ギミックブロックのグリッドを設定する
-    ///// </summary>
-    ///// <param name="grid">設定するグリッド</param>
-    //public void SetTopGimmickBlockGrid(GameObject[,] grid)
-    //{
-    //    m_topGimmickBlockGrid = grid;
-    //}
+        return removedObject; // 取り除いたオブジェクトを返す
+    }
 
-    ///// <summary>
-    ///// ギミックブロックのグリッドを取得する
-    ///// </summary>
-    ///// <returns>ギミックブロックのグリッド</returns>
-    //public GameObject[,] GetTopGimmickBlockGrid()
-    //{
-    //    return m_topGimmickBlockGrid;
-    //}
+    /// <summary>
+    /// 指定したグリッド座標にオブジェクトを配置します。
+    /// その場所に既に他のオブジェクトが存在しない場合にのみ設置します。
+    /// </summary>
+    /// <param name="gridPos">配置するグリッド座標</param>
+    /// <param name="objectToPlace">配置するGameObject</param>
+    /// <returns>オブジェクトが正常に配置された場合はtrue、既にオブジェクトが存在した場合はfalse。</returns>
+    public bool TryPlaceTileObject(GridPos gridPos, GameObject objectToPlace)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"TryPlaceTileObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return false;
+        }
 
-    ///// <summary>
-    ///// 壁のグリッドを設定する
-    ///// </summary>
-    ///// <param name="grid">設定するグリッド</param>
-    //public void SetWallGrid(GameObject[,] grid)
-    //{
-    //    m_wallGrid = grid;
-    //}
+        // 指定した場所にオブジェクトが既に存在するかチェック
+        // TileDataは構造体なので、コピーを取得してチェック
+        TileData currentTile = m_tileData[gridPos.y, gridPos.x];
 
-    ///// <summary>
-    ///// 壁のグリッドを取得する
-    ///// </summary>
-    ///// <returns>壁のグリッド</returns>
-    //public GameObject[,] GetWallGrid()
-    //{
-    //    return m_wallGrid;
-    //}
+        if (currentTile.tileObject.gameObject != null)
+        {
+            // 既にオブジェクトが存在する場合、設置しない
+            Debug.Log($"TryPlaceTileObject: Position ({gridPos.x},{gridPos.y}) already has an object: {currentTile.tileObject.gameObject.name}. Placement failed.");
+            return false;
+        }
+
+        // オブジェクトが存在しない場合、新しいオブジェクトを配置
+        currentTile.tileObject.gameObject = objectToPlace; // tileObjectを設定
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
+
+        Debug.Log($"TryPlaceTileObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
+        return true;
+    }
+
+  
 }
