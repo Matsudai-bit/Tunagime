@@ -62,19 +62,19 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
         if (m_startInstance)
             CreateAmidaTubeBlock();
-            
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-   /// <summary>
-   /// 通過方向を設定する
-   /// </summary>
-   /// <param name="directionPassage">設定する通過方向</param>
+    /// <summary>
+    /// 通過方向を設定する
+    /// </summary>
+    /// <param name="directionPassage">設定する通過方向</param>
     public void SetDirectionPassage(DirectionPassage directionPassage)
     {
         // 通過方向を設定
@@ -90,7 +90,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     public void CreateAmidaTubeBlock()
     {
         // 一旦リセットする
-     //   Reset();
+        //   Reset();
 
         // あみだチューブブロックのスケールを取得
         float scale = m_amidaTubeBlockPrefab.transform.localScale.x;
@@ -300,21 +300,31 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     }
 
     public object CaptureData()
-{
-    return new AmidaTubeData
     {
-        //directionPassage = this.m_directionPassage,
-        //amidaBlocks = this.m_amidaBlocks
-    };
-}
-
-public void ApplyData(object data)
-{
-    if (data is AmidaTubeData d)
-    {
-        //m_directionPassage = d.directionPassage;
-        //m_amidaBlocks = d.amidaBlocks;
+        return new AmidaTubeData
+        {
+            //directionPassage = this.m_directionPassage,
+            //amidaBlocks = this.m_amidaBlocks
+        };
     }
-}
 
+    public void ApplyData(object data)
+    {
+        if (data is AmidaTubeData d)
+        {
+            //m_directionPassage = d.directionPassage;
+            //m_amidaBlocks = d.amidaBlocks;
+        }
+    }
+
+    public void SetActive(bool activeSelf)
+    {
+        gameObject.SetActive(activeSelf);
+    }
+
+
+    public Transform GetTransform()
+    {
+        return gameObject.transform;
+    }
 }

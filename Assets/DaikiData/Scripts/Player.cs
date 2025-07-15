@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private StageBlock m_stageBlock;
 
     [SerializeField] private GameDirector m_gameDirector;
+    [SerializeField] private AmidaTubeGenerator m_amidaGenerator;
 
     private StageBlock m_fluffBall;
 
@@ -53,7 +54,20 @@ public class Player : MonoBehaviour
         // リロード
         if (Input.GetKeyDown(KeyCode.Q)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (m_fluffBall)
+            {        // 近いグリッド座標の取得
+                var clossesPos = map.GetClosestGridPos(transform.position);
+                var generateAmida = m_amidaGenerator.GenerateAmidaBridge(clossesPos);
+                
+
+                m_fluffBall = null;
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             if (m_fluffBall)
             {
@@ -67,7 +81,7 @@ public class Player : MonoBehaviour
                 m_fluffBall = null;
 
             }
-            else
+            else 
             {
 
                 // 近いグリッド座標の取得

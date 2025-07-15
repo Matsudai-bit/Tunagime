@@ -1,5 +1,6 @@
 using UnityEngine;
 using static AmidaManager;
+using static UnityEditor.PlayerSettings;
 
 
 /// <summary>
@@ -19,6 +20,8 @@ public class AmidaTubeGenerator : MonoBehaviour
 
     AmidaCellData[,] m_amidaGenerationDataGrid;
 
+    [SerializeField] private GameObject m_amidaKnotPrefab;    // 結び目
+    [SerializeField] private GameObject m_amidaBridgePrefab;    // あみだ橋
     [SerializeField] private GameObject m_amidaTubePrefab;    // あみだ
     [SerializeField] private GameObject m_amidaTubeParent;    // あみだの親
 
@@ -112,6 +115,34 @@ public class AmidaTubeGenerator : MonoBehaviour
 
         // 生成したグリッドデータを返す
         return amidaGrid;
+    }
+
+    public GameObject GenerateAmidaBridge(GridPos gridPos)
+    {
+        Vector3 generatePos = MapData.GetInstance.ConvertGridToWorldPos(gridPos.x, gridPos.y);
+
+        GameObject bridge = Instantiate(m_amidaBridgePrefab ,generatePos, Quaternion.identity, m_amidaTubeParent.transform);
+
+        Vector3 knotUpPos = MapData.GetInstance.ConvertGridToWorldPos(gridPos.x, gridPos.y - 1);
+        Vector3 knotDownPos = MapData.GetInstance.ConvertGridToWorldPos(gridPos.x, gridPos.y + 1);
+
+        GameObject knotUp = Instantiate(m_amidaKnotPrefab, knotUpPos  , Quaternion.identity, m_amidaTubeParent.transform);
+        GameObject knotDown = Instantiate(m_amidaKnotPrefab, knotDownPos, Quaternion.identity, m_amidaTubeParent.transform);
+
+        var map = MapData.GetInstance;
+
+        var tileData = map.GetStageGridData().GetTileData;
+
+
+        tileData[gridPos.y - 1, gridPos.x].amidaTube.SetActive(false);
+        tileData[gridPos.y - 1, gridPos.x].amidaTube = knotUp.GetComponent<AmidaTube>();
+
+        tileData[gridPos.y + 1, gridPos.x].amidaTube.SetActive(false);
+        tileData[gridPos.y + 1, gridPos.x].amidaTube = knotDown.GetComponent<AmidaTube>();
+
+        tileData[gridPos.y + 1, gridPos.x].amidaTube.GetTransform().transform.localEulerAngles += new Vector3(0.0f, 180.0f, 0.0f);
+
+        return bridge;
     }
 
 

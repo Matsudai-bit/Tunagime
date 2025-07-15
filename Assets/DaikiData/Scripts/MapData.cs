@@ -137,7 +137,8 @@ public class MapData : MonoBehaviour
     /// <returns>ワールド座標(Y座標は0)</returns>
     public Vector3 ConvertGridToWorldPos(int x, int y)
     {
-        
+        if (CheckInnerGridPos(new GridPos(x, y)))
+            Debug.LogWarning("ステージのグリッドの境界外を指定しています (x,y) = " + x + "," + y);
 
         Vector3 worldPos;
         worldPos.x = ConvertGridToWorldPosX(x);

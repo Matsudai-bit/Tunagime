@@ -265,6 +265,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3706240174953890465, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
   m_PrefabInstance: {fileID: 3615566620080152060}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &224795177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+  m_PrefabInstance: {fileID: 3615566620080152060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224795174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a30dd84c937e74385a4888b455a78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,9 +1658,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+      propertyPath: m_amidaKnotPrefab
+      value: 
+      objectReference: {fileID: 6987276737769117348, guid: 42e985bbc332c0d4590a00cef7fa2f88, type: 3}
+    - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
       propertyPath: m_amidaTubeParent
       value: 
       objectReference: {fileID: 2016825072}
+    - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+      propertyPath: m_amidaBridgePrefab
+      value: 
+      objectReference: {fileID: 5924926871160149315, guid: a5b1de4313d9b894b814fb2edbb0f5c1, type: 3}
     - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
       propertyPath: m_amidaTubeMeshis.Array.size
       value: 3
@@ -1700,6 +1719,10 @@ PrefabInstance:
       propertyPath: m_gameDirector
       value: 
       objectReference: {fileID: 434684992}
+    - target: {fileID: 1209453915936694064, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: m_amidaGenerator
+      value: 
+      objectReference: {fileID: 224795177}
     - target: {fileID: 1387963157203816652, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
       propertyPath: m_IsActive
       value: 1
