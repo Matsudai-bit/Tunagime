@@ -121,26 +121,22 @@ public class AmidaTubeGenerator : MonoBehaviour
     {
         Vector3 generatePos = MapData.GetInstance.ConvertGridToWorldPos(gridPos.x, gridPos.y);
 
-        GameObject bridge = Instantiate(m_amidaBridgePrefab ,generatePos, Quaternion.identity, m_amidaTubeParent.transform);
+        GameObject bridge = Instantiate(m_amidaTubePrefab ,generatePos, Quaternion.identity, m_amidaTubeParent.transform);
 
-        Vector3 knotUpPos = MapData.GetInstance.ConvertGridToWorldPos(gridPos.x, gridPos.y - 1);
-        Vector3 knotDownPos = MapData.GetInstance.ConvertGridToWorldPos(gridPos.x, gridPos.y + 1);
+        bridge.GetComponent<AmidaTube>().RequestChangedState(AmidaTube.State.BRIDGE);
 
-        GameObject knotUp = Instantiate(m_amidaKnotPrefab, knotUpPos  , Quaternion.identity, m_amidaTubeParent.transform);
-        GameObject knotDown = Instantiate(m_amidaKnotPrefab, knotDownPos, Quaternion.identity, m_amidaTubeParent.transform);
+        GridPos knotUpPos =  new GridPos(gridPos.x, gridPos.y - 1);
+        GridPos knotDownPos = new GridPos(gridPos.x, gridPos.y + 1);
 
         var map = MapData.GetInstance;
 
         var tileData = map.GetStageGridData().GetTileData;
 
 
-        tileData[gridPos.y - 1, gridPos.x].amidaTube.SetActive(false);
-        tileData[gridPos.y - 1, gridPos.x].amidaTube = knotUp.GetComponent<AmidaTube>();
+        tileData[knotUpPos.y, knotUpPos.x].amidaTube.RequestChangedState(AmidaTube.State.KNOT_UP);
+        tileData[knotDownPos.y, knotDownPos.x].amidaTube.RequestChangedState(AmidaTube.State.KNOT_DOWN);
 
-        tileData[gridPos.y + 1, gridPos.x].amidaTube.SetActive(false);
-        tileData[gridPos.y + 1, gridPos.x].amidaTube = knotDown.GetComponent<AmidaTube>();
-
-        tileData[gridPos.y + 1, gridPos.x].amidaTube.GetTransform().transform.localEulerAngles += new Vector3(0.0f, 180.0f, 0.0f);
+    
 
         return bridge;
     }
@@ -203,10 +199,12 @@ public class AmidaTubeGenerator : MonoBehaviour
         // 通過方向の設定
         newAmida.GetComponent<AmidaTube>().SetDirectionPassage(amidaData.passage);
 
-        int rnd = Random.Range(0, m_amidaTubeMeshis.Length);　// ※ 1～9の範囲でランダムな整数値が返る
+        newAmida.GetComponent<AmidaTube>().RequestChangedState(AmidaTube.State.NORMAL);
+
+        //int rnd = Random.Range(0, m_amidaTubeMeshis.Length);　// ※ 1～9の範囲でランダムな整数値が返る
 
 
-        newAmida.GetComponent<MeshFilter>().mesh = m_amidaTubeMeshis[rnd];
+        //newAmida.GetComponent<MeshFilter>().mesh = m_amidaTubeMeshis[rnd];
 
         // あみだチューブの登録
         return newAmida;

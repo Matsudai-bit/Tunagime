@@ -414,6 +414,59 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &331056845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331056847}
+  - component: {fileID: 331056846}
+  m_Layer: 0
+  m_Name: YarnMeshLibrary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &331056846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331056845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71c168b723aefa47a4ccbb943b638c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_meshEntries:
+  - meshType: 1
+    meshPrefab: {fileID: 5213873829271339784, guid: a37fc0ba3e97ad847ba68c4fbc1f0e6a, type: 3}
+  - meshType: 2
+    meshPrefab: {fileID: 2531373760927452301, guid: f93b46c60cdc00144be14779a457670d, type: 3}
+  - meshType: 3
+    meshPrefab: {fileID: 495726385779081217, guid: 480a922ef86546d4893e6f2794e08c14, type: 3}
+  - meshType: 4
+    meshPrefab: {fileID: 2639092868887292951, guid: 93757ee238e62ae4b9de119b34c944d1, type: 3}
+--- !u!4 &331056847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331056845}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.16631348, y: 0.7953943, z: -0.5942647}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &391585453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,6 +1719,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2016825072}
     - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+      propertyPath: m_amidaTubePrefab
+      value: 
+      objectReference: {fileID: 1485287712651525407, guid: 014f017145954ca49bc2913c402a40dd, type: 3}
+    - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
       propertyPath: m_amidaBridgePrefab
       value: 
       objectReference: {fileID: 5924926871160149315, guid: a5b1de4313d9b894b814fb2edbb0f5c1, type: 3}
@@ -1912,3 +1969,4 @@ SceneRoots:
   - {fileID: 686594425}
   - {fileID: 929367351}
   - {fileID: 7165559044752324462}
+  - {fileID: 331056847}

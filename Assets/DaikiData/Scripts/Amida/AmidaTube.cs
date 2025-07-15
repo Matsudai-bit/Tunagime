@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using static AmidaTube;
 
@@ -12,6 +13,21 @@ public class AmidaTubeData
 
 public class AmidaTube : MonoBehaviour, ISerializableComponent
 {
+    /// <summary>
+    /// 状態の種類
+    /// </summary>
+
+    [System.Serializable]
+
+    public enum State
+    {
+        NONE,
+        NORMAL,     // 通常状態
+        KNOT_UP,    // 上部の結び目
+        KNOT_DOWN,  // 下部の結び目
+        BRIDGE      // 橋
+    }
+
     /// <summary>
     /// 通過方向
     /// </summary>
@@ -34,11 +50,15 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
 
     [SerializeField] private bool m_startInstance = false;  // すぐに生成するかどうか
+    [SerializeField] private YarnMeshChanger m_meshChanger; // メッシュチェンジャー
 
 
     public GameObject m_amidaTubeBlockPrefab;       // あみだチューブの構成ブロック
 
     public DirectionPassage m_directionPassage;     // 通過できる方向
+
+    private State m_currentShapeType = State.NORMAL; // 現在の状態
+    private State m_requestChangeShape = State.NONE; // 状態の変更要求
 
     //private GameObject[] m_amidaBlocks ;
 
@@ -68,7 +88,26 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     // Update is called once per frame
     void Update()
     {
+        // 状態変更の要求があったかどうか
+        if (m_requestChangeShape != State.NONE)
+        {
+            // 違う状態の場合
+            if (m_requestChangeShape != m_currentShapeType)
+            {
+                m_meshChanger.SetMesh(m_requestChangeShape);
+            }
 
+            m_currentShapeType = m_requestChangeShape;
+        }
+    }
+
+    /// <summary>
+    /// 状態変更要求
+    /// </summary>
+    /// <param name="state"></param>
+    public void RequestChangedState(State state)
+    {
+        m_requestChangeShape = state;
     }
 
     /// <summary>

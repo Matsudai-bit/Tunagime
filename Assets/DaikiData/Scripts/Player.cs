@@ -59,6 +59,9 @@ public class Player : MonoBehaviour
             if (m_fluffBall)
             {        // 近いグリッド座標の取得
                 var clossesPos = map.GetClosestGridPos(transform.position);
+
+
+
                 var generateAmida = m_amidaGenerator.GenerateAmidaBridge(clossesPos);
                 
 
