@@ -1,0 +1,45 @@
+using UnityEngine;
+
+/// <summary>
+///  想いの核
+/// </summary>
+public class FeelingCore : MonoBehaviour
+{
+
+    private YarnMaterialLibrary.MaterialType m_materialType; // マテリアルのタイプ
+
+    /// <summary>
+    /// Awakeメソッド
+    /// </summary>
+    private void Awake()
+    {
+    }
+
+    /// <summary>
+    /// マテリアルを取得する
+    /// </summary>
+    /// <returns></returns>
+    public Material GetMaterial()
+    {
+        return YarnMaterialLibrary.Instance.GetMaterial(m_materialType); // マテリアルライブラリからマテリアルを取得
+    }
+
+    /// <summary>
+    /// マテリアルを設定する
+    /// </summary>
+    public void SetMaterial(YarnMaterialLibrary.MaterialType materialType)
+    {
+        m_materialType = materialType; // マテリアルを設定
+    }
+
+    /// <summary>
+    /// ゲームオブジェクトのアクティブ状態を設定する
+    /// </summary>
+    /// <param name="isActive"></param>
+    public void SetActive(bool isActive)
+    {
+        gameObject.SetActive(isActive); // ゲームオブジェクトのアクティブ状態を設定
+    }
+
+
+}

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public struct TileData 
 {
-    public TileObject tileObject;
-    public AmidaTube amidaTube;
-    public GameObject floor;
+    public TileObject tileObject;　// タイル上のオブジェクト情報
+    public AmidaTube amidaTube;    // あみだチューブ情報
+    public GameObject floor;       // 床のGameObject
 
     public TileData(TileObject tileObject, AmidaTube amidaTube, GameObject floor)
     {
@@ -15,6 +15,9 @@ public struct TileData
 }
 
 
+/// <summary>
+/// タイルの種類を定義する列挙型
+/// </summary>
 public enum TileType
 {
     FLUFF_BALL, // 毛糸玉

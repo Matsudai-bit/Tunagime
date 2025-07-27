@@ -273,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9f6231df3a391e48854a27f74d37e15, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9f6231df3a391e48854a27f74d37e15, type: 3}
       propertyPath: m_LocalRotation.w
@@ -846,11 +846,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e503d23f9873d8f4bb41b575148d3e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_meshEntries:
+  m_materialEntries:
   - meshType: 2
-    material: {fileID: 2100000, guid: af405d3c0bdb9754aaad7e63f176a509, type: 2}
+    material: {fileID: 2100000, guid: d4bf796add9221a41ac6758850f0eb42, type: 2}
   - meshType: 1
-    material: {fileID: 2100000, guid: dd6a9deaeff72dc4d874c00b41027564, type: 2}
+    material: {fileID: 2100000, guid: bab5617d358c63145abf148df5c96776, type: 2}
+  - meshType: 3
+    material: {fileID: 2100000, guid: 0d41d2fc7c97dae42b5478ed841e39da, type: 2}
+  - meshType: 4
+    material: {fileID: 2100000, guid: e4d0cee657f083c4a8efe4fefac2ec03, type: 2}
+  - meshType: 5
+    material: {fileID: 2100000, guid: 19f6c7a76316eb5488164e2cc0677ab2, type: 2}
 --- !u!4 &536179311
 Transform:
   m_ObjectHideFlags: 0
@@ -1822,6 +1828,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: e07f5b8804094f248ac36045ec2c3ff3, type: 2}
     - target: {fileID: 1209453915936694064, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: ROTATE_SPEED
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1209453915936694064, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
       propertyPath: m_gameDirector
       value: 
       objectReference: {fileID: 434684992}
@@ -2031,6 +2041,19 @@ MonoBehaviour:
       x: 14
       y: 5
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
+  m_floorData:
+  - gridPos:
+      x: 0
+      y: 1
+    prefab: {fileID: 8293287876587456767, guid: 860d38d067f34734ebe2f93bd53cdf12, type: 3}
+  - gridPos:
+      x: 0
+      y: 3
+    prefab: {fileID: 8293287876587456767, guid: b49c56834d9faef4abb06a139211cb32, type: 3}
+  - gridPos:
+      x: 0
+      y: 5
+    prefab: {fileID: 8293287876587456767, guid: 3ef907d43352c7d48af87523e51fb3f9, type: 3}
   m_amidaTubeGenerator:
     generator: {fileID: 224795174}
     posY: 0
