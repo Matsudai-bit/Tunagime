@@ -3,47 +3,47 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [Header("プレイヤーの移動速度")]
+    public float SPEED = 5.0f; // 移動速度
+    [Header("プレイヤーの回転速度")]
+    public float ROTATE_SPEED = 3.0f; // 回転速度
 
-    public float m_speed = 5.0f; // �ړ����x
-    private Rigidbody m_rb;           // Rigidbody�R���|�[�l���g
+    [Header("プレイヤーのアニメーター")]
+    [SerializeField] private Animator m_animator;
 
-    private StageBlock m_stageBlock;
-
+    [Header("ゲームディレクター")]
     [SerializeField] private GameDirector m_gameDirector;
+    [Header("現在のアミダ生成機")]
     [SerializeField] private AmidaTubeGenerator m_amidaGenerator;
 
-    private StageBlock m_fluffBall;
+    private Rigidbody m_rb;             // Rigidbodyコンポーネント
+    private StageBlock m_stageBlock;
 
+    private StageBlock m_fluffBall; // 綿毛ボール (fluff ball) を保持する変数
 
     void Awake()
     {
         m_stageBlock = GetComponent<StageBlock>();
 
+        // アプリケーションのフレームレートを60に設定
         Application.targetFrameRate = 60;
     }
 
     /// <summary>
-    /// ����������
+    /// 初期化処理
     /// </summary>
-    /// <param name="map"></param>
+    /// <param name="gridPos"></param>
     public void Initialize(GridPos gridPos)
     {
- 
-        // �M�~�b�N�̋��ʏ�����
+        // ギミックの初期位置を設定
         m_stageBlock.Initialize(gridPos);
     }
-
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Rigidbody�R���|�[�l���g�̎擾
+        // Rigidbodyコンポーネントの取得
         m_rb = GetComponent<Rigidbody>();
-
-        
-
     }
 
     // Update is called once per frame
@@ -51,160 +51,161 @@ public class Player : MonoBehaviour
     {
         var map = MapData.GetInstance;
 
-        // �����[�h
+        // リロード
         if (Input.GetKeyDown(KeyCode.Q)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+        // Xキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (m_fluffBall)
-            {        // �߂��O���b�h���W�̎擾
-                var clossesPos = map.GetClosestGridPos(transform.position);
+            if (m_fluffBall) // 綿毛ボールを持っている場合
+            {
+                // 最も近いグリッド位置の取得
+                var closestPos = map.GetClosestGridPos(transform.position);
 
+                // アミダ橋の生成
+                var generateAmida = m_amidaGenerator.GenerateAmidaBridge(closestPos);
 
-
-                var generateAmida = m_amidaGenerator.GenerateAmidaBridge(clossesPos);
-                
-
-                m_fluffBall = null;
+                m_fluffBall = null; // 綿毛ボールを解放
             }
-
         }
 
+        // Zキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (m_fluffBall)
+            if (m_fluffBall) // 綿毛ボールを持っている場合
             {
-                // �߂��O���b�h���W�̎擾
-                var clossesPos = map.GetClosestGridPos(transform.position);
-                m_fluffBall.UpdatePosition(clossesPos);
+                // 最も近いグリッド位置の取得
+                var closestPos = map.GetClosestGridPos(transform.position);
+                m_fluffBall.UpdatePosition(closestPos); // 綿毛ボールの位置を更新
 
-                m_fluffBall.SetActive(true);
+                m_fluffBall.SetActive(true); // 綿毛ボールをアクティブにする
 
-                map.GetStageGridData().TryPlaceTileObject(clossesPos, m_fluffBall.GetComponent<GameObject>());
-                m_fluffBall = null;
-
+                // グリッドデータに綿毛ボールを配置
+                map.GetStageGridData().TryPlaceTileObject(closestPos, m_fluffBall.GetComponent<GameObject>());
+                m_fluffBall = null; // 綿毛ボールを解放
             }
-            else 
+            else // 綿毛ボールを持っていない場合
             {
+                // 最も近いグリッド位置の取得
+                var closestPos = map.GetClosestGridPos(transform.position);
 
-                // �߂��O���b�h���W�̎擾
-                var clossesPos = map.GetClosestGridPos(transform.position);
-
-                // �����p�ϐ� : ���ʕ����x�N�g��
+                // 参照用変数 : 現在の向いている方向ベクトル
                 Vector3 forward = transform.forward;
 
                 GridPos forward2D;
-                // ���ʃO���b�h�����̎擾
+                // 周囲のグリッドデータの取得
 
-                // ���ʃx�N�g���̐������r���đ傫�����𐳖ʃx�N�g���Ƃ��đI��
-                // ���� : �߂��Ⴍ�����Y��Ȏ΂߂̏ꍇ�o�O��\������ Round���g�p���Ă��邽�ߒv���I�ł͂Ȃ��Ɣ��f
+                // 各軸の方向の大きさを比較して大きい方を正規化し、グリッド方向として選択
+                // 注意 : 小数点が絡むため、厳密ではない場合があるのでRoundを使用しているため不適切と判断
                 forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
                     ? new GridPos((int)Mathf.Round(forward.x), 0)
                     : new GridPos(0, -(int)Mathf.Round(forward.z));
-                GridPos checkPos = clossesPos + forward2D;
+                GridPos checkPos = closestPos + forward2D; // チェックするグリッド位置
 
-                // �łĂ����O���b�h���W���O���b�h�͈͓����`�F�b�N
+                // 拾うグリッド位置がグリッド範囲内かチェック
                 if (map.CheckInnerGridPos(checkPos))
                 {
                     TileObject tileObject = map.GetStageGridData().GetTileData[checkPos.y, checkPos.x].tileObject;
 
-                    // �ю����������̏���
+                    // 拾えるアイテムかどうかの判定 (綿毛ボールの場合)
                     if (tileObject.type == TileType.FLUFF_BALL && tileObject.gameObject)
                     {
-                        GameObject gameObj = tileObject.gameObject;
-                        m_fluffBall = gameObj.GetComponent<StageBlock>();
-                        map.GetStageGridData().RemoveGridData(checkPos);
-                        Debug.Log(gameObj.name);
+                        
+                        m_animator.SetTrigger("PickUp"); // 綿毛ボールを拾うアニメーションをトリガー
 
-                        m_fluffBall.SetActive(false);
+                        GameObject gameObj = tileObject.gameObject;
+                        m_fluffBall = gameObj.GetComponent<StageBlock>(); // 綿毛ボールを取得
+                        map.GetStageGridData().RemoveGridData(checkPos); // グリッドから綿毛ボールを削除
+                        Debug.Log(gameObj.name); // デバッグログに綿毛ボールの名前を出力
+
+                        m_fluffBall.SetActive(false); // 綿毛ボールを非アクティブにする
                     }
                 }
             }
-
-          
         }
-
     }
 
     private void FixedUpdate()
     {
-        // ����
-        Move();
-    }
+        // 回転処理
+        Rotate();
 
-    /// <summary>
-    /// �ړ��x�N�g���̎擾
-    /// </summary>
-    /// <returns>�ړ��x�N�g��</returns>
-    private Vector3 GetMovementVec()
-    {
-        // �L�[���͂ňړ�
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        // ���͂��Ȃ����
-        if (Mathf.Approximately(x, 0.0f) && Mathf.Approximately(z, 0.0f))
+        if (IsMoving()) // 移動している場合
         {
-            // �ړ���~
-            m_rb.linearVelocity = new Vector3(0.0f, m_rb.linearVelocity.y, 0.0f);
-       
-            return Vector3.zero;
+            // 歩行アニメーションを有効にする
+            m_animator.SetBool("Walk", true);
+            // 移動処理
+            Move();
         }
+        else // 移動していない場合
+        {
+            // 歩行アニメーションを無効にする
+            m_animator.SetBool("Walk", false);
+        }
+    }
 
-        // �ړ������̌v�Z
-        Vector3 moveVec = new Vector3(x, 0.0f, z);
-
- 
-
-        return moveVec;
-
-
+    private void Rotate()
+    {
+        // 回転入力の取得
+        float x = Input.GetAxis("Horizontal");
+        // x軸の入力が大きい場合、x軸を中心に回転
+        transform.rotation *= Quaternion.Euler(0.0f, x * ROTATE_SPEED, 0.0f);
     }
 
     /// <summary>
-    /// ����
+    /// 移動しているかどうかの判定
+    /// </summary>
+    /// <returns></returns>
+    private bool IsMoving()
+    {
+        // キー入力で移動
+        float z = Input.GetAxis("Vertical");
+        // 入力がない場合
+        if (z <= 0.0f)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 移動処理
     /// </summary>
     private void Move()
     {
-        // �ړ��x�N�g���̎擾
-        Vector3 movementVec = GetMovementVec();
+        // 移動ベクトルを取得
+        float z = Input.GetAxis("Vertical");
+        Vector3 movementVec = transform.forward * z;
 
         if (movementVec.magnitude > 0.0f)
         {
+            // アニメーションの設定
+            m_animator.SetBool("IsWalk", true);
 
-            // �P�ʃx�N�g���ł͂Ȃ��ꍇ���K��
+            // スケールベクトルではない場合を考慮
             if (movementVec.magnitude > 1.0f)
             {
-                movementVec.Normalize();
+                movementVec.Normalize(); // 正規化
             }
-
-
-
-
-
         }
 
-        // �����x
-        m_rb.linearVelocity = movementVec * m_speed;
-
-
-
+        // 移動速度を設定
+        m_rb.linearVelocity = movementVec * SPEED;
     }
 
     void HaveItem()
     {
-        m_gameDirector.AddHasItemNum();
+        m_gameDirector.AddHasItemNum(); // アイテム数を増やす
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("ClearItem"))
+        if (collision.gameObject.CompareTag("ClearItem")) // クリアアイテムに衝突した場合
         {
-            // �폜(�N���X�𕪂���ׂ�����)
-            collision.gameObject.SetActive(false);
-            // �A�C�e�����l����
+            // 削除 (クラスを削除するため全て削除)
+            collision.gameObject.SetActive(false); // オブジェクトを非アクティブにする
+            // アイテムをカウント
             HaveItem();
-
         }
     }
 }
