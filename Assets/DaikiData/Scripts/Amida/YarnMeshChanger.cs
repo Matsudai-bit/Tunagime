@@ -7,6 +7,7 @@ using UnityEngine;
 public class YarnMeshChanger : MonoBehaviour
 {
     private GameObject m_currentMeshInstance; // 現在のメッシュ
+    private AmidaTube.State m_currentMeshType = AmidaTube.State.NONE; // 現在のメッシュのタイプ
 
     private Dictionary<AmidaTube.State, GameObject> m_usedMeshes = new Dictionary<AmidaTube.State, GameObject>(); // 使用したメッシュを保管しておく(メモリ効率をよくするため)
 
@@ -26,6 +27,13 @@ public class YarnMeshChanger : MonoBehaviour
     /// <param name="type">切り替えたいメッシュのAmidaTube.State</param>
     public void SetMesh(AmidaTube.State type)
     {
+
+        // 既に同じタイプのメッシュが設定されている場合は何もしない
+        if (m_currentMeshType == type)
+        {
+            return; 
+        }
+
         if (m_currentMeshInstance != null)
         {
             m_currentMeshInstance.SetActive(false);
@@ -49,11 +57,72 @@ public class YarnMeshChanger : MonoBehaviour
             m_currentMeshInstance.transform.localRotation = Quaternion.identity;
             m_currentMeshInstance.transform.localScale = Vector3.one;
 
+            m_currentMeshType = type; // 現在のメッシュタイプを更新
+
             Debug.Log($"'{gameObject.name}' のメッシュを '{type}' に切り替えました。");
         }
         else
         {
             Debug.LogWarning($"'{gameObject.name}' のメッシュを切り替えできませんでした: '{type}' が見つかりません。");
+        }
+    }
+
+    /// <summary>
+    /// 指定されたマテリアルタイプのマテリアルを取得します。
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Material GetMaterial(YarnMaterialGetter.MaterialType type)
+    {
+        YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
+        if (materialGetter != null)
+        {
+            var materials = materialGetter.GetMaterials();
+            if (materials.TryGetValue(type, out MeshRenderer renderer))
+            {
+                return renderer.material;
+            }
+            else
+            {
+                Debug.LogWarning($"'{gameObject.name}' のマテリアルタイプ '{type}' が見つかりません。");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。");
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 指定されたマテリアルにメッシュのマテリアルを変更します。
+    /// </summary>
+    /// <param name="material"></param>
+    /// <param name="type"></param>
+    public void ChangeMaterial(Material material, YarnMaterialGetter.MaterialType type)
+    {
+        if (m_currentMeshInstance == null)
+        {
+            Debug.LogWarning("現在のメッシュインスタンスがありません。メッシュを設定してください。");
+            return;
+        }
+        YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
+        if (materialGetter != null)
+        {
+            // マテリアルを変更
+            MeshRenderer meshRenderer = materialGetter.GetMaterials()[type];
+            if (meshRenderer == null)
+            {
+                Debug.LogWarning($"'{gameObject.name}' のマテリアルタイプ '{type}' のMeshRendererが見つかりません。");
+                return;
+            }
+            meshRenderer.material = material;
+           
+            Debug.Log($"'{gameObject.name}' のメッシュのマテリアルを '{type}' に変更しました。");
+        }
+        else
+        {
+            Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。メッシュのマテリアルを変更できません。");
         }
     }
 }

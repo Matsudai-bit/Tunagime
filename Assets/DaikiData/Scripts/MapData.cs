@@ -170,14 +170,20 @@ public class MapData : MonoBehaviour
     /// <returns>グリッドの範囲内にいる場合は true、それ以外の場合は false</returns>
     public bool CheckInnerGridPos(GridPos checkGridPos)
     {
+        return CheckInnerGridPos(checkGridPos.x, checkGridPos.y);
+    }
+
+    public bool CheckInnerGridPos(int x, int y)
+    {
         // グリッドの範囲内にいるかどうかをチェック
-        if (checkGridPos.x >= 0 && checkGridPos.x < m_commonData.width &&
-            checkGridPos.y >= 0 && checkGridPos.y < m_commonData.height)
+        if (x >= 0 && x < m_commonData.width &&
+            y >= 0 && y < m_commonData.height)
         {
             return true;
         }
         return false;
     }
+
 
     /// <summary>
     /// 指定したワールド座標の真下の最も近い点を返す　真下に点が無い場合でも最も近い点を返す

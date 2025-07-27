@@ -55,7 +55,7 @@ public class Connector : MonoBehaviour
         GridPos gridPos = new GridPos(nearObj.GetComponent<StageBlock>().GetGridPos().x, nearObj.GetComponent<StageBlock>().GetGridPos().y);
         gridPos.x += 1;
 
-        m_amidaManager.RequestStartAmida(gridPos, Electric.ElectricFlowType.RED, Direction.RIGHT);
+      //  m_amidaManager.RequestStartAmida(gridPos, Electric.ElectricFlowType.RED, Direction.RIGHT);
 
         int pushedSwitchCount = 0;
 

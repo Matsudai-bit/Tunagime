@@ -5,25 +5,80 @@ using UnityEngine;
 /// </summary>
 public class StageGridData : MonoBehaviour
 {
-    //private GameObject[,] m_amidaFloorBlockGrid;   // あみだ層のブロックグリッド
-    //private GameObject[,] m_topFloorBlockGrid;     // トップ層のブロックグリッド
-    //private GameObject[,] m_amidaTubeGrid;         // あみだチューブのグリッド
-    //private GameObject[,] m_topGimmickBlockGrid;   // ギミックブロックのグリッド
-
-    //private GameObject[,] m_wallGrid;               // 壁のグリッド
-
     private TileData[,] m_tileData = new TileData[,] { }; //　タイルデータ
-                                    //　
-    public  TileData[,]  GetTileData
+
+    // あみだデータに変更があったかどうか
+    private bool m_isAmidaDataChanged = false;
+
+    /// <summary>
+    /// タイルデータを取得します。
+    /// </summary>
+    public TileData[,]  GetTileData
     {
         get{ return m_tileData; } 
     }
 
+    /// <summary>
+    /// 指定したグリッド座標に対応するタイルデータを取得します。
+    /// </summary>
+    /// <param name="gridPos"></param>
+    /// <returns></returns>
+    public AmidaTube GetAmidaTube(GridPos gridPos)
+    {
+        return GetAmidaTube(gridPos.x, gridPos.y);
+    }
+
+    public AmidaTube GetAmidaTube(int x, int y)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(new GridPos(x, y)))
+        {
+            Debug.LogWarning($"GetAmida: Grid position ({x},{y}) is out of bounds.");
+            return null;
+        }
+        // タイルデータからあみだチューブを取得
+        TileData tile = m_tileData[y, x];
+        return tile.amidaTube;
+    }
+
+    /// <summary>
+    /// 指定したグリッド座標にあみだチューブを設定します。
+    /// </summary>
+    /// <param name="gridPos"></param>
+    /// <param name="amidaTube"></param>
+    public void SetAmidaTube(GridPos gridPos, AmidaTube amidaTube)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"SetAmidaTube: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return;
+        }
+        // タイルデータを取得
+        TileData currentTile = m_tileData[gridPos.y, gridPos.x];
+        // あみだチューブを設定
+        currentTile.amidaTube = amidaTube;
+        // 変更を配列に反映
+        m_tileData[gridPos.y, gridPos.x] = currentTile;
+
+        // あみだデータが変更されたことを記録
+        m_isAmidaDataChanged = true;
+    }
+
+    /// <summary>
+    /// タイルデータを設定します。
+    /// </summary>
+    /// <param name="tileData"></param>
     public void SetData(TileData[,] tileData)
     {
         m_tileData = tileData;
     }
 
+    /// <summary>
+    /// グリッドデータを初期化します。
+    /// </summary>
+    /// <param name="gridWidth"></param>
+    /// <param name="gridHeight"></param>
     public void  Initialize(int gridWidth, int gridHeight)
     {
         m_tileData = new TileData[gridHeight, gridWidth];
@@ -100,5 +155,30 @@ public class StageGridData : MonoBehaviour
         return true;
     }
 
-  
+    /// <summary>
+    /// あみだデータが変更されたかどうかを確認します。
+    /// </summary>
+    /// <returns></returns>
+    public bool IsAmidaDataChanged()
+    {
+        return m_isAmidaDataChanged;
+    }
+
+    /// <summary>
+    /// あみだデータの変更フラグを設定
+    /// </summary>
+    public void SetAmidaDataChanged()
+    {
+        m_isAmidaDataChanged = true;
+    }
+
+    /// <summary>
+    /// あみだデータの変更フラグをリセットします。
+    /// </summary>
+    public void ResetAmidaDataChanged()
+    {
+        m_isAmidaDataChanged = false;
+    }
+
+
 }

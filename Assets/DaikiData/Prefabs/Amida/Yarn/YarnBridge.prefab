@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 786465855164323496}
   - component: {fileID: 1099230819319069906}
   m_Layer: 0
-  m_Name: bridge_B
+  m_Name: bridge_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,6 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6542553225517423330}
+  - component: {fileID: 694411171646201688}
   m_Layer: 0
   m_Name: YarnBridge
   m_TagString: Untagged
@@ -119,6 +120,23 @@ Transform:
   - {fileID: 8932395958659561617}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &694411171646201688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2639092868887292951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf45f0ae25331764e87970fd5114bd2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_yarnMaterialData:
+  - renderer: {fileID: 1374909139547810003}
+    type: 3
+  - renderer: {fileID: 1099230819319069906}
+    type: 2
 --- !u!1 &8669005218864684762
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +149,7 @@ GameObject:
   - component: {fileID: 3787363376583867305}
   - component: {fileID: 1374909139547810003}
   m_Layer: 0
-  m_Name: bridge_A
+  m_Name: bridge_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
