@@ -11,8 +11,6 @@ public class IdleStatePlayer : PlayerState
 
     public override void OnFixedUpdateState()
     {
-        // ‰ñ“]ˆ—
-        owner.Rotate();
 
         // ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
         if (owner.IsMoving())

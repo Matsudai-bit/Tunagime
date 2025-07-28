@@ -27,9 +27,7 @@ public class WalkStatePlayer : PlayerState
     /// </summary>
     public override void OnFixedUpdateState()
     {
-        // ‰ñ“]ˆ—
-        owner.Rotate();
-
+     
         // ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
         if (owner.IsMoving())
         {

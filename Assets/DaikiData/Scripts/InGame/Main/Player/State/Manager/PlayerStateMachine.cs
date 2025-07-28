@@ -35,7 +35,7 @@ public class PlayerStateMachine
     public void UpdateState()
     {
         // ó‘Ô‚Ì•ÏX—v‹‚ª‚ ‚éê‡
-        if (m_requestedStateID != PlayerStateID.NONE)
+        if (m_requestedStateID != PlayerStateID.NONE )
         {
            // ó‘Ô‚ğ•ÏX‚·‚é
            if (m_currentState != null)
@@ -114,9 +114,9 @@ public class PlayerStateMachine
             case PlayerStateID.WALK:
                 return new WalkStatePlayer(m_owner);
             case PlayerStateID.PICK_UP:
-                //return new PlayerPickUpState();
+                return new PickUpStatePlayer(m_owner);
             case PlayerStateID.PICK_DOWN:
-                //return new PlayerPickDownState();
+                return new PickDownStatePlayer(m_owner);
             default:
                 Debug.LogError("Unknown state ID: " + stateID);
                 return null;

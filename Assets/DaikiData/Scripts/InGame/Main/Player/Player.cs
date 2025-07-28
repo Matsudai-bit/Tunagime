@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
     private PlayerStateMachine m_stateMachine; // プレイヤーの状態マシン
 
+
     void Awake()
     {
         m_stageBlock = GetComponent<StageBlock>();
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // プレイヤーの状態マシンの更新
         m_stateMachine.UpdateState();
 
@@ -87,35 +89,21 @@ public class Player : MonoBehaviour
         {
             if (m_fluffBall) // 綿毛ボールを持っている場合
             {
-                // 最も近いグリッド位置の取得
-                var closestPos = map.GetClosestGridPos(transform.position);
-                m_fluffBall.UpdatePosition(closestPos); // 綿毛ボールの位置を更新
-
-                m_fluffBall.SetActive(true); // 綿毛ボールをアクティブにする
-
-                // グリッドデータに綿毛ボールを配置
-                map.GetStageGridData().TryPlaceTileObject(closestPos, m_fluffBall.GetComponent<GameObject>());
-                m_fluffBall = null; // 綿毛ボールを解放
-                m_animator.SetLayerWeight(m_animator.GetLayerIndex("TakeFluffBall"), 0); // 綿毛ボールを持つアニメーションレイヤーを無効化
+                // 綿毛ボールを置く状態に切り替える
+                m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN); // 綿毛ボールを置く状態に変更
+      
 
             }
             else // 綿毛ボールを持っていない場合
             {
+            
+
                 // 最も近いグリッド位置の取得
                 var closestPos = map.GetClosestGridPos(transform.position);
 
-                // 参照用変数 : 現在の向いている方向ベクトル
-                Vector3 forward = transform.forward;
-
-                GridPos forward2D;
-                // 周囲のグリッドデータの取得
-
-                // 各軸の方向の大きさを比較して大きい方を正規化し、グリッド方向として選択
-                // 注意 : 小数点が絡むため、厳密ではない場合があるのでRoundを使用しているため不適切と判断
-                forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
-                    ? new GridPos((int)Mathf.Round(forward.x), 0)
-                    : new GridPos(0, -(int)Mathf.Round(forward.z));
-                GridPos checkPos = closestPos + forward2D; // チェックするグリッド位置
+               
+             
+                GridPos checkPos = GetForwardGridPos(); // チェックするグリッド位置
 
                 // 拾うグリッド位置がグリッド範囲内かチェック
                 if (map.CheckInnerGridPos(checkPos))
@@ -126,14 +114,18 @@ public class Player : MonoBehaviour
                     if (tileObject.type == TileType.FLUFF_BALL && tileObject.gameObject)
                     {
                         
-                        m_animator.SetTrigger("PickUp"); // 綿毛ボールを拾うアニメーションをトリガー
-                        m_animator.SetLayerWeight(m_animator.GetLayerIndex("TakeFluffBall"), 1);
-                        GameObject gameObj = tileObject.gameObject;
-                        m_fluffBall = gameObj.GetComponent<StageBlock>(); // 綿毛ボールを取得
-                        map.GetStageGridData().RemoveGridData(checkPos); // グリッドから綿毛ボールを削除
-                        Debug.Log(gameObj.name); // デバッグログに綿毛ボールの名前を出力
+                        // 綿毛ボールを拾う状態に切り替える
+                        m_stateMachine.RequestStateChange(PlayerStateID.PICK_UP); // 綿毛ボールを拾う状態に変更
 
-                        m_fluffBall.SetActive(false); // 綿毛ボールを非アクティブにする
+                        //m_animator.SetTrigger("PickUp"); // 綿毛ボールを拾うアニメーションをトリガー
+                        //m_animator.SetLayerWeight(m_animator.GetLayerIndex("TakeFluffBall"), 1);
+
+                        //GameObject gameObj = tileObject.gameObject;
+                        //m_fluffBall = gameObj.GetComponent<StageBlock>(); // 綿毛ボールを取得
+                        //map.GetStageGridData().RemoveGridData(checkPos); // グリッドから綿毛ボールを削除
+                        //Debug.Log(gameObj.name); // デバッグログに綿毛ボールの名前を出力
+
+                        //m_fluffBall.SetActive(false); // 綿毛ボールを非アクティブにする
 
                     }
                 }
@@ -163,13 +155,6 @@ public class Player : MonoBehaviour
         //}
     }
 
-    public void Rotate()
-    {
-        // 回転入力の取得
-        float x = Input.GetAxis("Horizontal");
-        // x軸の入力が大きい場合、x軸を中心に回転
-        transform.rotation *= Quaternion.Euler(0.0f, x * ROTATE_SPEED, 0.0f);
-    }
 
     /// <summary>
     /// 移動しているかどうかの判定
@@ -178,12 +163,14 @@ public class Player : MonoBehaviour
     public bool IsMoving()
     {
         // キー入力で移動
+        float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         // 入力がない場合
-        if (z <= 0.0f)
+        if (Mathf.Approximately(x, 0.0f) && Mathf.Approximately(z, 0.0f))
         {
             return false;
         }
+
         return true;
     }
 
@@ -192,23 +179,33 @@ public class Player : MonoBehaviour
     /// </summary>
     public void Move()
     {
-        // 移動ベクトルを取得
+        // キー入力で移動
+        float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        Vector3 movementVec = transform.forward * z;
 
+        Vector3 movementVec = Vector3.forward * z + Vector3.right * x;
+
+        // 移動ベクトルの大きさが0でない場合
         if (movementVec.magnitude > 0.0f)
         {
-
-
             // スケールベクトルではない場合を考慮
             if (movementVec.magnitude > 1.0f)
             {
                 movementVec.Normalize(); // 正規化
             }
+            // 移動速度を設定
+            m_rb.linearVelocity = movementVec * SPEED;
+            // 徐々に回転
+            Quaternion targetRotation = Quaternion.LookRotation(movementVec, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, ROTATE_SPEED * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // 入力がない場合は速度をゼロにする
+            m_rb.linearVelocity = Vector3.zero;
         }
 
-        // 移動速度を設定
-        m_rb.linearVelocity = movementVec * SPEED;
+
     }
 
     /// <summary>
@@ -223,6 +220,34 @@ public class Player : MonoBehaviour
     public PlayerStateMachine GetStateMachine()
     {
         return m_stateMachine;
+    }
+
+    public void SetFluffBall(StageBlock fluffBall)
+    {
+        m_fluffBall = fluffBall; // 綿毛ボールを設定
+    }
+
+    public StageBlock GetFluffBall()
+    {
+        return m_fluffBall; // 綿毛ボールを取得
+    }
+
+    public GridPos GetForwardGridPos()
+    {
+        var map = MapData.GetInstance; // マップを取得
+
+        // 最も近いグリッド位置の取得
+        var closestPos = map.GetClosestGridPos(transform.position);
+
+        Vector3 forward = transform.forward;
+
+        // 各軸の方向の大きさを比較して大きい方を正規化し、グリッド方向として選択
+        // 注意 : 小数点が絡むため、厳密ではない場合があるのでRoundを使用しているため不適切と判断
+        GridPos forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
+            ? new GridPos((int)Mathf.Round(forward.x), 0)
+            : new GridPos(0, -(int)Mathf.Round(forward.z));
+
+        return closestPos + forward2D; // チェックするグリッド位置
     }
 
 }
