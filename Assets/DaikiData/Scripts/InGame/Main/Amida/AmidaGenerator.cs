@@ -45,6 +45,10 @@ public class AmidaTubeGenerator : MonoBehaviour
 
     [SerializeField] private Mesh[] m_amidaTubeMeshis;
 
+    [Header(" ==== テスト用 ====")]
+    [Header("あみだの横の位置のY")]
+    [SerializeField] private int[] m_horizonalAmidaPosY ;
+
     /// <summary>
     /// あみだの生成
     /// </summary>
@@ -104,12 +108,12 @@ public class AmidaTubeGenerator : MonoBehaviour
         //m_amidaGenerationDataGrid[6, 2] = straightUpDown;
 
         // 横向きのパイプを配置
-        for (int cy = 1; cy < map.GetCommonData().height; cy += 2)
+        foreach (var posY in m_horizonalAmidaPosY)
         {
             for (int cx = 0; cx < map.GetCommonData().width; cx++)
             {
 
-                m_amidaGenerationDataGrid[cy, cx] = straightLeftRight;
+                m_amidaGenerationDataGrid[posY, cx] = straightLeftRight;
             }
         }
         //m_amidaGenerationDataGrid[3, 16].isMake = false;

@@ -84,53 +84,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        // Zキーを押したときの処理
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            if (m_fluffBall) // 綿毛ボールを持っている場合
-            {
-                // 綿毛ボールを置く状態に切り替える
-                m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN); // 綿毛ボールを置く状態に変更
-      
-
-            }
-            else // 綿毛ボールを持っていない場合
-            {
-            
-
-                // 最も近いグリッド位置の取得
-                var closestPos = map.GetClosestGridPos(transform.position);
-
-               
-             
-                GridPos checkPos = GetForwardGridPos(); // チェックするグリッド位置
-
-                // 拾うグリッド位置がグリッド範囲内かチェック
-                if (map.CheckInnerGridPos(checkPos))
-                {
-                    TileObject tileObject = map.GetStageGridData().GetTileData[checkPos.y, checkPos.x].tileObject;
-
-                    // 拾えるアイテムかどうかの判定 (綿毛ボールの場合)
-                    if (tileObject.type == TileType.FLUFF_BALL && tileObject.gameObject)
-                    {
-                        
-                        // 綿毛ボールを拾う状態に切り替える
-                        m_stateMachine.RequestStateChange(PlayerStateID.PICK_UP); // 綿毛ボールを拾う状態に変更
-
-                        //m_animator.SetTrigger("PickUp"); // 綿毛ボールを拾うアニメーションをトリガー
-                        //m_animator.SetLayerWeight(m_animator.GetLayerIndex("TakeFluffBall"), 1);
-
-                        //GameObject gameObj = tileObject.gameObject;
-                        //m_fluffBall = gameObj.GetComponent<StageBlock>(); // 綿毛ボールを取得
-                        //map.GetStageGridData().RemoveGridData(checkPos); // グリッドから綿毛ボールを削除
-                        //Debug.Log(gameObj.name); // デバッグログに綿毛ボールの名前を出力
-
-                        //m_fluffBall.SetActive(false); // 綿毛ボールを非アクティブにする
-
-                    }
-                }
-            }
-        }
+    
+        
     }
 
     private void FixedUpdate()
@@ -248,6 +203,64 @@ public class Player : MonoBehaviour
             : new GridPos(0, -(int)Mathf.Round(forward.z));
 
         return closestPos + forward2D; // チェックするグリッド位置
+    }
+
+    /// <summary>
+    /// 綿毛ボールを拾う処理に挑戦
+    /// </summary>
+    /// <returns></returns>
+    public bool TryPickUp()
+    {
+        var map = MapData.GetInstance; // マップを取得
+
+        // Zキーを押したときの処理  綿毛ボールを持ってない場合
+        if (Input.GetKeyDown(KeyCode.Z) &&
+            m_fluffBall == false)
+        {
+            GridPos checkPos = GetForwardGridPos(); // チェックするグリッド位置
+
+            // 拾うグリッド位置がグリッド範囲内かチェック
+            if (map.CheckInnerGridPos(checkPos))
+            {
+                TileObject tileObject = map.GetStageGridData().GetTileData[checkPos.y, checkPos.x].tileObject;
+
+                // 拾えるアイテムかどうかの判定 (綿毛ボールの場合)
+                if (tileObject.type == TileType.FLUFF_BALL && tileObject.gameObject)
+                {
+
+                    // 綿毛ボールを拾う状態に切り替える
+                    m_stateMachine.RequestStateChange(PlayerStateID.PICK_UP); // 綿毛ボールを拾う状態に変更
+
+                    return true; // 綿毛ボールを拾う処理が成功した
+                }
+            }
+
+        }
+
+        return false; // 綿毛ボールを拾う処理が失敗した
+
+    }
+
+    /// <summary>
+    /// 綿毛ボールを置く処理に挑戦
+    /// </summary>
+    /// <returns></returns>
+    public bool TryPickDown()
+    {
+        // Zキーを押したときの処理
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (m_fluffBall) // 綿毛ボールを持っている場合
+            {
+                // 綿毛ボールを置く状態に切り替える
+                m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN); // 綿毛ボールを置く状態に変更
+
+                return true; // 綿毛ボールを置く処理が成功した
+            }
+        }
+
+        return false; // 綿毛ボールを置く処理が失敗した
+
     }
 
 }

@@ -1882,6 +1882,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
+--- !u!1001 &2101725203
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6562553762821227403, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_Name
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.582426
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.69579375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268236788342419240, guid: 33b33646e95cb7647a70964313c59435, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33b33646e95cb7647a70964313c59435, type: 3}
 --- !u!1 &2135820004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,6 +2057,18 @@ PrefabInstance:
       propertyPath: 'm_amidaTubeMeshis.Array.data[2]'
       value: 
       objectReference: {fileID: -2358549746050655023, guid: 038d76dcc71ad1147935242ac9e7de51, type: 3}
+    - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+      propertyPath: m_horizonalAmidaPosY.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+      propertyPath: 'm_horizonalAmidaPosY.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017478128515417234, guid: 6aa7cb5865cf9b94e93a41b2885810eb, type: 3}
+      propertyPath: 'm_horizonalAmidaPosY.Array.data[1]'
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2255,16 +2324,20 @@ MonoBehaviour:
   m_floorData:
   - gridPos:
       x: 0
-      y: 1
+      y: 2
     prefab: {fileID: 8293287876587456767, guid: 860d38d067f34734ebe2f93bd53cdf12, type: 3}
   - gridPos:
       x: 0
-      y: 3
+      y: 4
     prefab: {fileID: 8293287876587456767, guid: b49c56834d9faef4abb06a139211cb32, type: 3}
   - gridPos:
-      x: 0
-      y: 5
-    prefab: {fileID: 8293287876587456767, guid: 3ef907d43352c7d48af87523e51fb3f9, type: 3}
+      x: 15
+      y: 2
+    prefab: {fileID: 8293287876587456767, guid: b49c56834d9faef4abb06a139211cb32, type: 3}
+  - gridPos:
+      x: 15
+      y: 4
+    prefab: {fileID: 8293287876587456767, guid: 860d38d067f34734ebe2f93bd53cdf12, type: 3}
   m_amidaTubeGenerator:
     generator: {fileID: 224795174}
     posY: 0
@@ -2283,3 +2356,4 @@ SceneRoots:
   - {fileID: 951114567}
   - {fileID: 1095453624}
   - {fileID: 677565181}
+  - {fileID: 2101725203}

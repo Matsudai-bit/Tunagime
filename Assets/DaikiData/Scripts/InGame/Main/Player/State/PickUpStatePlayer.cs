@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PickUpStatePlayer : PlayerState
 {
+    private int m_pickUpAnimationHash;
+
     public PickUpStatePlayer(Player owner) : base(owner)
     {
 
@@ -13,8 +15,8 @@ public class PickUpStatePlayer : PlayerState
     {
         owner.GetAnimator().SetTrigger("PickUp"); // 綿毛ボールを拾うアニメーションをトリガー
 
+        m_pickUpAnimationHash = Animator.StringToHash("Normal.PickUp"); // アニメーションのハッシュを取得
 
-        
     }
 
     /// <summary>
@@ -22,8 +24,12 @@ public class PickUpStatePlayer : PlayerState
     /// </summary>
     public override void OnUpdateState()
     {
+        // 現在のアニメーションのハッシュを取得
+        int currentHash = owner.GetAnimator().GetCurrentAnimatorStateInfo(0).fullPathHash;
+
         // アニメーションの終了を待つ
-        if (owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        if (currentHash == m_pickUpAnimationHash &&
+            owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             // アニメーションが終了したら綿毛ボールを拾う処理を実行
             PickUp();

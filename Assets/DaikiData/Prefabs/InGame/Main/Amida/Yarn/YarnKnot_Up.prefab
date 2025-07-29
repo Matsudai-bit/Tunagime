@@ -48,9 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_yarnMaterialData:
   - renderer: {fileID: 3558635638974401856}
-    type: 1
+    emotionType: 0
+    key: 1
   - renderer: {fileID: 6561911682791508159}
-    type: 0
+    emotionType: 0
+    key: 0
 --- !u!1 &1642113301093632264
 GameObject:
   m_ObjectHideFlags: 0

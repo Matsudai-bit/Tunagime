@@ -77,10 +77,10 @@ public class YarnMeshChanger : MonoBehaviour
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
         if (materialGetter != null)
         {
-            var materials = materialGetter.GetMaterials();
-            if (materials.TryGetValue(type, out MeshRenderer renderer))
+            var meshRenderer = materialGetter.GetMeshRenderer(type);
+            if (meshRenderer)
             {
-                return renderer.material;
+                return meshRenderer.material;
             }
             else
             {
@@ -99,7 +99,7 @@ public class YarnMeshChanger : MonoBehaviour
     /// </summary>
     /// <param name="material"></param>
     /// <param name="type"></param>
-    public void ChangeMaterial(Material material, YarnMaterialGetter.MaterialType type)
+    public void ChangeMaterial(Material material, EmotionCurrent.Type changeEmotionType, YarnMaterialGetter.MaterialType type)
     {
         if (m_currentMeshInstance == null)
         {
@@ -110,14 +110,20 @@ public class YarnMeshChanger : MonoBehaviour
         if (materialGetter != null)
         {
             // マテリアルを変更
-            MeshRenderer meshRenderer = materialGetter.GetMaterials()[type];
+            MeshRenderer meshRenderer = materialGetter.GetMeshRenderer(type);
             if (meshRenderer == null)
             {
                 Debug.LogWarning($"'{gameObject.name}' のマテリアルタイプ '{type}' のMeshRendererが見つかりません。");
                 return;
             }
             meshRenderer.material = material;
-           
+
+            // 想いの種類を設定
+             materialGetter.SetEmotionType(type, changeEmotionType) ;
+          
+
+
+
             Debug.Log($"'{gameObject.name}' のメッシュのマテリアルを '{type}' に変更しました。");
         }
         else

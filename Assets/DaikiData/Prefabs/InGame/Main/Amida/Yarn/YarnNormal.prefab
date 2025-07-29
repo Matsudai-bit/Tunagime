@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_yarnMaterialData:
   - renderer: {fileID: 5634098361054461978}
-    type: 0
+    emotionType: 0
+    key: 0
   - renderer: {fileID: 5634098361054461978}
-    type: 1
+    emotionType: 0
+    key: 1

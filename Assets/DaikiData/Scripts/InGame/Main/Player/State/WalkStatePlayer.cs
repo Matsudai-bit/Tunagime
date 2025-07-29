@@ -20,7 +20,10 @@ public class WalkStatePlayer : PlayerState
     /// </summary>
     public override void OnUpdateState()
     {
-
+        // 綿毛ボールを拾う処理を試みる
+        owner.TryPickUp();
+        // 綿毛ボールを置く処理を試みる
+        owner.TryPickDown();
     }
     /// <summary>
     /// 歩行状態中のFixedUpdateで物理演算フレームごとに呼ばれる

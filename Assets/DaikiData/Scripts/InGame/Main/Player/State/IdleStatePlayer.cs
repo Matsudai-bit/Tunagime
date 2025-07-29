@@ -3,6 +3,8 @@ using UnityEngine;
 public class IdleStatePlayer : PlayerState
 {
 
+    private int m_idleAnimationHash;
+
     public IdleStatePlayer(Player owner) : base(owner)
     {
        
@@ -23,11 +25,15 @@ public class IdleStatePlayer : PlayerState
     public override void  OnStartState() 
     {
 
+    
     }
 
     public override void OnUpdateState() 
     {
-
+        // 綿毛ボールを拾う処理を試みる
+        owner.TryPickUp();
+        // 綿毛ボールを置く処理を試みる
+        owner.TryPickDown(); 
     }
     public override void OnFinishState()
     {
