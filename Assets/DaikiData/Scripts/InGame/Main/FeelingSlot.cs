@@ -35,11 +35,21 @@ public class FeelingSlot : MonoBehaviour
     /// <summary>
     /// 想いの核のマテリアルを設定する
     /// </summary>
-    /// <param name="material"></param>
+    /// <param name="material">マテリアルの種類</param>
     public void SetCoreMaterial(YarnMaterialLibrary.MaterialType materialType)
     {
         m_feelingCore.SetMaterial(materialType); // 想いの核のマテリアルを設定
     }
+
+    /// <summary>
+    /// 現在の感情タイプを取得する
+    /// </summary>
+    /// <returns>想いの種類</returns>
+    public EmotionCurrent.Type GetEmotionType()
+    {
+        return m_feelingCore.GetEmotionType(); // 想いの流れの種類を取得
+    }
+
 
     /// <summary>
     /// ステージブロックの取得

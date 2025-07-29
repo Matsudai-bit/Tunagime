@@ -61,7 +61,10 @@ public class AmidaManager : MonoBehaviour
 
                 var startAmidaTube = stageGridData.GetAmidaTube(startPos);
 
-                startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.INPUT, setStartMaterial); // スロットのマテリアルを設定
+                var emotionType = slot.GetEmotionType();
+
+                startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.INPUT,emotionType, setStartMaterial); // スロットのマテリアルを設定
+                startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.OUTPUT,emotionType, setStartMaterial); // スロットのマテリアルを設定
 
                 // あみだチューブを辿る処理
                 FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);

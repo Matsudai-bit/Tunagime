@@ -125,10 +125,17 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
         return m_meshChanger.GetMaterial(type);
     }
 
-    public void SetMaterial(YarnMaterialGetter.MaterialType type, Material material)
+
+    public EmotionCurrent.Type GetEmotionType(YarnMaterialGetter.MaterialType type)
+    {
+        // YarnMaterialGetterからエモーションタイプを取得
+        return m_meshChanger.GetEmotionType(type);
+    }
+
+    public void SetMaterial(YarnMaterialGetter.MaterialType type, EmotionCurrent.Type emotionType, Material material)
     {
         // YarnMaterialGetterにマテリアルを設定
-        m_meshChanger.ChangeMaterial(material, EmotionCurrent.Type.NONE, type);
+        m_meshChanger.ChangeMaterial(material, emotionType, type);
     }
 
     /// <summary>
@@ -152,8 +159,10 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
             {
                 return;
             }
-            Material material = m_neighborAmida.left.GetMaterial(YarnMaterialGetter.MaterialType.OUTPUT);
-            m_meshChanger.ChangeMaterial(material, EmotionCurrent.Type.NONE, YarnMaterialGetter.MaterialType.OUTPUT);
+            Material material                   = m_neighborAmida.left.GetMaterial(YarnMaterialGetter.MaterialType.OUTPUT);
+            EmotionCurrent.Type emotionTypeLeft     = m_neighborAmida.left.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT);
+            m_meshChanger.ChangeMaterial(material, emotionTypeLeft, YarnMaterialGetter.MaterialType.INPUT);
+            m_meshChanger.ChangeMaterial(material, emotionTypeLeft, YarnMaterialGetter.MaterialType.OUTPUT);
         }
         else if (m_currentShapeType == State.KNOT_UP || m_currentShapeType == State.KNOT_DOWN)
         {
@@ -162,8 +171,9 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
                 return;
             }
 
-            Material materialLeft= m_neighborAmida.left.GetMaterial(YarnMaterialGetter.MaterialType.OUTPUT);
-            m_meshChanger.ChangeMaterial(materialLeft, EmotionCurrent.Type.NONE, YarnMaterialGetter.MaterialType.INPUT);
+            Material materialLeft               = m_neighborAmida.left.GetMaterial(YarnMaterialGetter.MaterialType.OUTPUT);
+            EmotionCurrent.Type emotionTypeLeft = m_neighborAmida.left.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT);
+            m_meshChanger.ChangeMaterial(materialLeft, emotionTypeLeft, YarnMaterialGetter.MaterialType.INPUT);
 
             if (m_neighborAmida.right == null)
             {
@@ -173,14 +183,16 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
             if (m_currentShapeType == State.KNOT_UP &&
                 followDir == Direction.DOWN)
             {
-                Material materialUp = m_neighborAmida.up.GetMaterial(YarnMaterialGetter.MaterialType.BRIDGE_DOWN);
-                m_meshChanger.ChangeMaterial(materialUp, EmotionCurrent.Type.NONE, YarnMaterialGetter.MaterialType.OUTPUT);
+                Material materialUp               = m_neighborAmida.up.GetMaterial(YarnMaterialGetter.MaterialType.BRIDGE_DOWN);
+                EmotionCurrent.Type emotionTypeUp = m_neighborAmida.up.GetEmotionType(YarnMaterialGetter.MaterialType.BRIDGE_DOWN);
+                m_meshChanger.ChangeMaterial(materialUp, emotionTypeUp, YarnMaterialGetter.MaterialType.OUTPUT);
             }
             else if (m_currentShapeType == State.KNOT_DOWN &&
                 followDir == Direction.UP)
             {
-                Material materialDown = m_neighborAmida.down.GetMaterial(YarnMaterialGetter.MaterialType.BRIDGE_UP);
-                m_meshChanger.ChangeMaterial(materialDown, EmotionCurrent.Type.NONE, YarnMaterialGetter.MaterialType.OUTPUT);
+                Material materialDown               = m_neighborAmida.down.GetMaterial(YarnMaterialGetter.MaterialType.BRIDGE_UP);
+                EmotionCurrent.Type emotionTypeDown = m_neighborAmida.down.GetEmotionType(YarnMaterialGetter.MaterialType.BRIDGE_UP);
+                m_meshChanger.ChangeMaterial(materialDown, emotionTypeDown, YarnMaterialGetter.MaterialType.OUTPUT);
             }
 
          
@@ -195,15 +207,17 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
             if (followDir == Direction.DOWN)
             {
-                Material materialUp = m_neighborAmida.up.GetMaterial(YarnMaterialGetter.MaterialType.INPUT);
-                m_meshChanger.ChangeMaterial(materialUp, EmotionCurrent.Type.NONE, YarnMaterialGetter.MaterialType.BRIDGE_DOWN);
+                Material materialUp                 = m_neighborAmida.up.GetMaterial(YarnMaterialGetter.MaterialType.INPUT);
+                EmotionCurrent.Type emotionTypeUp   = m_neighborAmida.up.GetEmotionType(YarnMaterialGetter.MaterialType.INPUT);
+                m_meshChanger.ChangeMaterial(materialUp, emotionTypeUp, YarnMaterialGetter.MaterialType.BRIDGE_DOWN);
             }
 
 
             if (followDir == Direction.UP)
             {
-                Material materialDown = m_neighborAmida.down.GetMaterial(YarnMaterialGetter.MaterialType.INPUT);
-                m_meshChanger.ChangeMaterial(materialDown, EmotionCurrent.Type.NONE, YarnMaterialGetter.MaterialType.BRIDGE_UP);
+                Material materialDown               = m_neighborAmida.down.GetMaterial(YarnMaterialGetter.MaterialType.INPUT);
+                EmotionCurrent.Type emotionTypeDown = m_neighborAmida.down.GetEmotionType(YarnMaterialGetter.MaterialType.INPUT);
+                m_meshChanger.ChangeMaterial(materialDown, emotionTypeDown, YarnMaterialGetter.MaterialType.BRIDGE_UP);
             }
 
 

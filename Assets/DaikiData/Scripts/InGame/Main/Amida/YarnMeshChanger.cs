@@ -94,6 +94,20 @@ public class YarnMeshChanger : MonoBehaviour
         return null;
     }
 
+    public EmotionCurrent.Type GetEmotionType(YarnMaterialGetter.MaterialType type)
+    {
+        YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
+        if (materialGetter != null)
+        {
+            return materialGetter.GetEmotionType(type);
+        }
+        else
+        {
+            Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。");
+        }
+        return EmotionCurrent.Type.NONE;
+    }
+
     /// <summary>
     /// 指定されたマテリアルにメッシュのマテリアルを変更します。
     /// </summary>

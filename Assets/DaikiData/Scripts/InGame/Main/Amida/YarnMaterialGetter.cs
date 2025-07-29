@@ -12,7 +12,7 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     [System.Serializable]
-    public struct YarnMaterialData
+    public class YarnMaterialData
     {
        public MeshRenderer renderer;
        public EmotionCurrent.Type emotionType; // EmotionCurrent.Typeを使用してマテリアルの種類を指定
@@ -70,10 +70,10 @@ public class YarnMaterialGetter : MonoBehaviour
     public MeshRenderer GetMeshRenderer(MaterialType type)
     {
         // 指定されたタイプのマテリアルが存在するか確認 (配列を使用)
-        var findData = m_yarnMaterialData.Find(data => data.key == type);
-        if (findData.renderer != null)
+        int index = m_yarnMaterialData.FindIndex(data => data.key == type);
+        if (index != -1)
         {
-            return findData.renderer;
+            return m_yarnMaterialData[index].renderer;
         }
         else
         {
@@ -92,10 +92,10 @@ public class YarnMaterialGetter : MonoBehaviour
     public EmotionCurrent.Type GetEmotionType(MaterialType type)
     {
         // 指定されたタイプのEmotionCurrent.Typeを取得
-        var findData = m_yarnMaterialData.Find(data => data.key == type);
-        if (findData.emotionType != EmotionCurrent.Type.NONE)
+        int index = m_yarnMaterialData.FindIndex(data => data.key == type);
+        if (index != -1)
         {
-            return findData.emotionType;
+            return m_yarnMaterialData[index].emotionType;
         }
         else
         {
@@ -112,10 +112,10 @@ public class YarnMaterialGetter : MonoBehaviour
     public void SetEmotionType(MaterialType type, EmotionCurrent.Type emotionType)
     {
         // 指定されたタイプのEmotionCurrent.Typeを設定
-        var findData = m_yarnMaterialData.Find(data => data.key == type);
-        if (findData.renderer != null)
+        int index = m_yarnMaterialData.FindIndex(data => data.key == type);
+        if (index != -1)
         {
-            findData.emotionType = emotionType;
+            m_yarnMaterialData[index].emotionType = emotionType;
             Debug.Log($"Emotion type for material {type} set to {emotionType}.");
         }
         else
