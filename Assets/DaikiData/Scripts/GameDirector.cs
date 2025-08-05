@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GameDirector : MonoBehaviour
 {
-    private int m_hasItemNum;   // 所持クリアアイテム数
 
     [SerializeField] GameObject m_clearUI;
 
@@ -16,12 +15,23 @@ public class GameDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_hasItemNum >= 2)
-            m_clearUI.SetActive(true);
+
+
+        // Escキーが押されたらゲームを終了
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("ゲームを終了しました。");
+        }
     }
 
-    public void AddHasItemNum()
+    // ゲームがクリアした時に呼ばれる
+    public void OnGameClear()
     {
-        m_hasItemNum++;
+        // クリアUIを表示する処理
+        Debug.Log("ゲームクリア！");
+        // ここにゲームクリアの処理を追加
+        m_clearUI.SetActive(true);
     }
 }
+

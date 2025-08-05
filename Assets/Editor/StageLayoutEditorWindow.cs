@@ -48,7 +48,7 @@ public class StageLayoutEditorWindow : EditorWindow
             string json = JsonConvert.SerializeObject(data, Formatting.Indented, settings);
 
             // ファイルに書き出し（Assets配下に保存）
-            File.WriteAllText("Assets/SaveData/Test.json", json);
+            File.WriteAllText("Assets/DaikiData/SaveData/Test.json", json);
 
             Debug.Log("Hierarchy saved.");
         }
@@ -60,7 +60,7 @@ public class StageLayoutEditorWindow : EditorWindow
             StagePrefabDatabase prefabDatabase = Resources.Load<StagePrefabDatabase>("StagePrefabDatabase");
 
             // JSONファイルを読み込み
-            string json = File.ReadAllText("Assets/SaveData/Test.json");
+            string json = File.ReadAllText("Assets/DaikiData/SaveData/Test.json");
 
             // JSONから階層データに変換（デシリアライズ）
             var data = JsonConvert.DeserializeObject<StageSerializableChildData>(json, settings);

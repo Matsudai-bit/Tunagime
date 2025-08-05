@@ -116,7 +116,7 @@ public class YarnMaterialGetter : MonoBehaviour
         if (index != -1)
         {
             m_yarnMaterialData[index].emotionType = emotionType;
-            Debug.Log($"Emotion type for material {type} set to {emotionType}.");
+         //   Debug.Log($"Emotion type for material {type} set to {emotionType}.");
         }
         else
         {

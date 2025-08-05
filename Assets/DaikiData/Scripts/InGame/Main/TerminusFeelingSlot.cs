@@ -7,6 +7,9 @@ public class TerminusFeelingSlot : MonoBehaviour
 {
     private StageBlock m_stageBlock;    // ステージブロック
 
+    private FeelingSlot m_feelingSlot; // 想いの型
+
+
     private void Awake()
     {
         // ステージブロックを取得
@@ -14,6 +17,13 @@ public class TerminusFeelingSlot : MonoBehaviour
         if (m_stageBlock == null)
         {
             Debug.LogError("TerminusFeelingSlot requires a StageBlock component.");
+        }
+
+        // 想いの型を取得
+        m_feelingSlot = GetComponent<FeelingSlot>();
+        if (m_feelingSlot == null)
+        {
+            Debug.LogError("TerminusFeelingSlot requires a FeelingSlot component.");
         }
     }
 
@@ -35,11 +45,21 @@ public class TerminusFeelingSlot : MonoBehaviour
     /// <returns></returns>
     public bool IsConnected()
     {
+        //　グリッドデータの取得
+        StageGridData gridData = MapData.GetInstance.GetStageGridData();
+
+        //　グリッド位置の取得
+        GridPos gridPos = m_stageBlock.GetGridPos();
+        
+       var amidaTube =  gridData.GetAmidaTube(gridPos);
+
+        if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType())
+        {
+            // 終点の感情と一致している場合は繋がっている
+            return true;
+        }
 
 
-        // ステージブロックが存在し、接続されているかどうかを確認
-        //return m_stageBlock != null && m_stageBlock.IsConnected();
-
-        return true;
+        return false;
     }
 }

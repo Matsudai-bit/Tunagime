@@ -43,7 +43,6 @@ public class YarnMaterialLibrary : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             InitializeLibrary();
         }
         else

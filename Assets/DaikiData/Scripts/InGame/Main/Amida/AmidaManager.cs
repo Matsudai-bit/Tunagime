@@ -48,32 +48,37 @@ public class AmidaManager : MonoBehaviour
         var map = MapData.GetInstance;
         var stageGridData = map.GetStageGridData();
 
-        
+        int LOOP_COUNT = 2; // あみだチューブを辿る回数
 
         // あみだチューブを辿る処理
         if (m_isFollowingAmida || Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (var slot in m_feelingSlots)
+            // あみだチューブを辿る回数処理を実行
+            for (int i = 0; i < LOOP_COUNT; i++) 
             {
-                var startPos = slot.StageBlock.GetGridPos();
+                foreach (var slot in m_feelingSlots)
+                {
+                    var startPos = slot.StageBlock.GetGridPos();
 
-                var setStartMaterial = slot.GetCoreMaterial();
+                    var setStartMaterial = slot.GetCoreMaterial();
 
-                var startAmidaTube = stageGridData.GetAmidaTube(startPos);
+                    var startAmidaTube = stageGridData.GetAmidaTube(startPos);
 
-                var emotionType = slot.GetEmotionType();
+                    var emotionType = slot.GetEmotionType();
 
-                startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.INPUT,emotionType, setStartMaterial); // スロットのマテリアルを設定
-                startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.OUTPUT,emotionType, setStartMaterial); // スロットのマテリアルを設定
+                    startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.INPUT, emotionType, setStartMaterial); // スロットのマテリアルを設定
+                    startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.OUTPUT, emotionType, setStartMaterial); // スロットのマテリアルを設定
 
-                // あみだチューブを辿る処理
-                FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);
+                    // あみだチューブを辿る処理
+                    FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);
+
+                }
 
             }
 
-  
 
-            m_isFollowingAmida = false; // フラグをリセット
+
+                m_isFollowingAmida = false; // フラグをリセット
         }
 
         if (stageGridData.IsAmidaDataChanged())

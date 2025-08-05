@@ -23,8 +23,8 @@ public class PickDownStatePlayer : PlayerState
     public override void OnUpdateState()
     {
         // アニメーションの終了を待つ
-        if (owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-        {
+        //if (owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        //{
             // アニメーションが終了したら綿毛ボールを拾う処理を実行
             PickDown();
             // 待機状態に遷移
@@ -33,7 +33,7 @@ public class PickDownStatePlayer : PlayerState
 
             // 綿毛ボールを持っている場合、アニメーションレイヤーを有効化
             owner.GetAnimator().SetLayerWeight(owner.GetAnimator().GetLayerIndex("TakeFluffBall"), 0);
-        }
+        //}
 
      
     }

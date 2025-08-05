@@ -27,7 +27,6 @@ public class YarnMeshLibrary : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             InitializeLibrary();
         }
         else

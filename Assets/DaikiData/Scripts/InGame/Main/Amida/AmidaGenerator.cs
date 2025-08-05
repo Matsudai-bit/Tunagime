@@ -3,10 +3,34 @@ using static AmidaManager;
 
 
 /// <summary>
-/// あみだくじの生成器
+/// あみだくじの生成器　（シングルトン）
 /// </summary>
 public class AmidaTubeGenerator : MonoBehaviour
 {
+    private static AmidaTubeGenerator s_instance;
+
+    public static AmidaTubeGenerator GetInstance
+    {
+        get
+        {
+            // インスタンスがまだnullの場合
+            if (s_instance == null)
+            {
+                // シーン内に既存のMapDataコンポーネントを探す
+
+                // それでも見つからない場合（シーン内にまだない場合）
+                if (s_instance == null)
+                {
+                    // 新しいGameObjectを作成し、MapDataコンポーネントを追加する
+                    GameObject singletonObject = new GameObject(typeof(MapData).Name);
+                    s_instance = singletonObject.AddComponent<AmidaTubeGenerator>();
+                    Debug.Log($"[MapData] シングルトンを生成しました: {singletonObject.name}");
+                }
+            }
+            return s_instance;
+        }
+    }
+
     /// <summary>
     /// あみだチューブの生成用データ
     /// </summary>
@@ -34,20 +58,29 @@ public class AmidaTubeGenerator : MonoBehaviour
     {
         public bool isMake;                         //　作るかどうか
         public DirectionPassage passage;            //　通過可能な方向
+        public GridPos gridPos;                // グリッド座標
     }
 
     AmidaCellData[,] m_amidaGenerationDataGrid;
 
-    [SerializeField] private GameObject m_amidaKnotPrefab;    // 結び目
-    [SerializeField] private GameObject m_amidaBridgePrefab;    // あみだ橋
+
     [SerializeField] private GameObject m_amidaTubePrefab;    // あみだ
     [SerializeField] private GameObject m_amidaTubeParent;    // あみだの親
 
-    [SerializeField] private Mesh[] m_amidaTubeMeshis;
 
     [Header(" ==== テスト用 ====")]
     [Header("あみだの横の位置のY")]
     [SerializeField] private int[] m_horizonalAmidaPosY ;
+    [Header("追加のあみだの生成位置")]
+    [SerializeField] private GridPos[] m_addAmidaPos;
+
+    /// <summary>
+    /// Awakeメソッド
+    /// </summary>
+    private void Awake()
+    {
+        s_instance = this;
+    }
 
     /// <summary>
     /// あみだの生成
@@ -116,8 +149,6 @@ public class AmidaTubeGenerator : MonoBehaviour
                 m_amidaGenerationDataGrid[posY, cx] = straightLeftRight;
             }
         }
-        //m_amidaGenerationDataGrid[3, 16].isMake = false;
-
 
 
         // あみだパイプの生成
@@ -156,9 +187,7 @@ public class AmidaTubeGenerator : MonoBehaviour
                     continue;
                 }
 
-                if (m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.right) || 
-                    m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.up)    ||
-                    m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.down))
+                if (m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.right))
                 {
                     // 右に通過可能な場合、右、左のあみだパイプを設定
                     AmidaTube left;
@@ -208,9 +237,15 @@ public class AmidaTubeGenerator : MonoBehaviour
 
         }
 
+        foreach (var pos in m_addAmidaPos)
+        {
+            GenerateAmidaBridge(pos);
+        }
 
-                // 生成したグリッドデータを返す
-                return amidaGrid;
+
+
+        // 生成したグリッドデータを返す
+        return amidaGrid;
     }
 
     public GameObject GenerateAmidaBridge(GridPos gridPos)

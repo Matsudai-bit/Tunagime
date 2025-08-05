@@ -19,5 +19,5 @@ MonoBehaviour:
     prefab: {fileID: 9070630108357824776, guid: 805b8b41df5f103448a009cbfe27538b, type: 3}
   - key: AmidaBlock
     prefab: {fileID: 7193193961408311223, guid: 2180d45a3f0bf874eae37df4dcaf4e95, type: 3}
-  - key: Floor
-    prefab: {fileID: 4518201756476195211, guid: 2b1b1d6c10054e94ca3cfdb7e3b94b13, type: 3}
+  - key: Untagged
+    prefab: {fileID: 341948257371204193, guid: efb86802fe41c314891f7d29cbd432b6, type: 3}

@@ -7,6 +7,7 @@ public enum PlayerStateID
     WALK,       // ï‡çs
     PICK_UP,    // èEÇ§
     PICK_DOWN,  // â∫ÇÎÇ∑
+    KNOT,       // ï“Çﬁ
 
 }
 

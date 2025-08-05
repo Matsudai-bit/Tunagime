@@ -33,7 +33,14 @@ public class IdleStatePlayer : PlayerState
         // 綿毛ボールを拾う処理を試みる
         owner.TryPickUp();
         // 綿毛ボールを置く処理を試みる
-        owner.TryPickDown(); 
+        owner.TryPickDown();
+
+        if (owner.GetFluffBall() != null)
+        {
+            // 編む処理を試みる
+            owner.TryKnot();
+        }
+
     }
     public override void OnFinishState()
     {

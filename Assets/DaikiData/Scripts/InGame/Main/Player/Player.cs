@@ -66,23 +66,7 @@ public class Player : MonoBehaviour
         // リロード
         if (Input.GetKeyDown(KeyCode.Q)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        // Xキーを押したときの処理
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            if (m_fluffBall) // 綿毛ボールを持っている場合
-            {
-                // 最も近いグリッド位置の取得
-                var closestPos = map.GetClosestGridPos(transform.position);
-
-                // アミダ橋の生成
-                var generateAmida = m_amidaGenerator.GenerateAmidaBridge(closestPos);
-
-                m_fluffBall = null; // 綿毛ボールを解放
-
-                m_animator.SetLayerWeight(m_animator.GetLayerIndex("TakeFluffBall"), 0); // 綿毛ボールを持つアニメーションレイヤーを無効化
-
-            }
-        }
+       
 
     
         
@@ -179,8 +163,23 @@ public class Player : MonoBehaviour
 
     public void SetFluffBall(StageBlock fluffBall)
     {
+
+
         m_fluffBall = fluffBall; // 綿毛ボールを設定
     }
+
+
+    /// <summary>
+    /// 綿毛ボールを離す
+    /// </summary>
+    public void ReleaseFluffBall()
+    {
+        if (m_fluffBall != null)
+        {
+            m_fluffBall = null; // 綿毛ボールをnullに設定
+        }
+    }
+
 
     public StageBlock GetFluffBall()
     {
@@ -252,6 +251,7 @@ public class Player : MonoBehaviour
         {
             if (m_fluffBall) // 綿毛ボールを持っている場合
             {
+ 
                 // 綿毛ボールを置く状態に切り替える
                 m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN); // 綿毛ボールを置く状態に変更
 
@@ -261,6 +261,57 @@ public class Player : MonoBehaviour
 
         return false; // 綿毛ボールを置く処理が失敗した
 
+    }
+
+
+    /// <summary>
+    /// 編むことができるかどうかの判定
+    /// </summary>
+    /// <returns>  </returns>
+    private bool CanKnit()
+    {
+        var stageGridData = MapData.GetInstance.GetStageGridData(); // マップを取得
+        GridPos myPos = MapData.GetInstance.GetClosestGridPos(transform.position); // チェックするグリッド位置
+        
+
+        // 自分のいるグリッドの上下にノーマル状態のあみだがあるかどうか
+        if (stageGridData.GetAmidaTube(myPos) == null &&
+            StageAmidaUtility.CheckAmidaState(myPos + new GridPos(0, 1), AmidaTube.State.NORMAL) &&
+            StageAmidaUtility.CheckAmidaState(myPos + new GridPos(0, -1), AmidaTube.State.NORMAL))
+        {
+            return true; // 編むことが出来る
+        }
+
+        return false; // 編むことが出来ない
+
+    }
+
+    public void TryKnot()
+    {
+        // Xキーを押したときの処理
+        if (Input.GetKeyDown(KeyCode.X) && CanKnit())
+        {
+            if (m_fluffBall) // 綿毛ボールを持っている場合
+            {
+
+
+                // 編む状態に切り替える
+                m_stateMachine.RequestStateChange(PlayerStateID.KNOT); 
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// ゲームオブジェクトの取得
+    /// </summary>
+    /// <returns></returns>
+    public GameObject gameObject
+    {
+        get
+        {
+            return base.gameObject;
+        }
     }
 
 }

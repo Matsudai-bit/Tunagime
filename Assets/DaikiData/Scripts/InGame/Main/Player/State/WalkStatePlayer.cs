@@ -24,6 +24,13 @@ public class WalkStatePlayer : PlayerState
         owner.TryPickUp();
         // 綿毛ボールを置く処理を試みる
         owner.TryPickDown();
+
+        if (owner.GetFluffBall() != null)
+        {
+            // 編む処理を試みる
+            owner.TryKnot();
+        }
+
     }
     /// <summary>
     /// 歩行状態中のFixedUpdateで物理演算フレームごとに呼ばれる

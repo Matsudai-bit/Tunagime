@@ -41,10 +41,18 @@ public class StageGeneratorNew : MonoBehaviour
         public float posY;              // 生成座標Y
     }
 
+    [SerializeField] private ClearConditionChecker m_clearConditionChecker; // クリア条件チェック用のクラス
 
+    [Header("==== 生成データ ==== ")]
+    [Header("ギミック生成データ")]
     [SerializeField] private GenerationGimmickData[] m_gimmickData ;  // ギミックの生成機
+    [Header("床生成データ")]
     [SerializeField] private GenerationGimmickData[] m_floorData ;  // ギミックの生成機
+    [Header("終点生成データ")]
+    [SerializeField] private GenerationGimmickData[] m_terminusData;  // 終点の生成機
 
+    [Header("==== 生成機 ==== ")]
+    
     [SerializeField] private Generator m_amidaTubeGenerator;  // あみだチューブの生成機
 
     [SerializeField] private Generator m_topFloorBlockGenerator;  // トップ層の床ブロックの生成機
@@ -124,6 +132,21 @@ public class StageGeneratorNew : MonoBehaviour
             }
 
 
+        }
+
+        // 終点の生成
+        foreach (var generation in m_terminusData)
+        {
+            GridPos fixedGridPos = new GridPos(generation.gridPos.x, generation.gridPos.y);
+            GameObject instanceObj = Instantiate(generation.prefab);
+            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
+            StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
+            stageBlock.Initialize(fixedGridPos);
+            TerminusFeelingSlot terminusFeelingSlot = instanceObj.GetComponent<TerminusFeelingSlot>();
+            if (terminusFeelingSlot != null)
+            {
+                m_clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
+            }
         }
 
 

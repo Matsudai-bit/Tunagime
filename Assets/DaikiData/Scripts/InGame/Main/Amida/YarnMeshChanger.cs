@@ -134,11 +134,9 @@ public class YarnMeshChanger : MonoBehaviour
 
             // 想いの種類を設定
              materialGetter.SetEmotionType(type, changeEmotionType) ;
-          
 
 
-
-            Debug.Log($"'{gameObject.name}' のメッシュのマテリアルを '{type}' に変更しました。");
+        //    Debug.Log($"'{gameObject.name}' のメッシュのマテリアルを '{type}' に変更しました。");
         }
         else
         {

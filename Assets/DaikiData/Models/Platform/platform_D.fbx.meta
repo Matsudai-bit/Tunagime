@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 444ed71f69707294c8cd0424b490b81d
+guid: 38ddb0d14b4620c458a62138521bc110
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: T_platform
-    second: {fileID: 2100000, guid: f8bc14434a242a44b929c1a64887308b, type: 2}
+    second: {fileID: 2100000, guid: 9b7789a88b387004aa715409750e65f7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -55,7 +55,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    bakeAxisConversion: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
