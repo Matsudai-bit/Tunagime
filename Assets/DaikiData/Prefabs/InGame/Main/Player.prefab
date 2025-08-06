@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 5
-  ROTATE_SPEED: 3
+  ROTATE_SPEED: 10
   m_animator: {fileID: 2837561129177036271}
   m_gameDirector: {fileID: 0}
   m_amidaGenerator: {fileID: 0}
@@ -98,7 +98,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!1001 &8506067667131369598
 PrefabInstance:
@@ -148,9 +148,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1780274541014659350, guid: 08f8f149b58325644be70d580647863b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 08f8f149b58325644be70d580647863b, type: 3}
       propertyPath: m_Name
       value: chara_player_tunagime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079409624671623783, guid: 08f8f149b58325644be70d580647863b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 08f8f149b58325644be70d580647863b, type: 3}
       propertyPath: m_Controller

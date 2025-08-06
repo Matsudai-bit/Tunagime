@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5343257266347678516}
   - component: {fileID: -577697400781214075}
   - component: {fileID: 199864036986759998}
+  - component: {fileID: 3685075713373216742}
   m_Layer: 0
   m_Name: FluffBall
   m_TagString: Untagged
@@ -69,7 +70,20 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &3685075713373216742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317539346633767421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a010118d828fbd43b6cb2b8cbf71fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_stageBlock: {fileID: -577697400781214075}
 --- !u!1 &6182686739804729612
 GameObject:
   m_ObjectHideFlags: 0

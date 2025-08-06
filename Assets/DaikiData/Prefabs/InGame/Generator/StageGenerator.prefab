@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2685029928300635111
+--- !u!1 &7835925135329439599
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8188168129619092308}
-  - component: {fileID: 5459006087550411353}
+  - component: {fileID: 6309460794319893718}
+  - component: {fileID: 4897627659378206638}
   m_Layer: 0
   m_Name: StageGenerator
   m_TagString: Untagged
@@ -17,37 +17,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8188168129619092308
+--- !u!4 &6309460794319893718
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685029928300635111}
+  m_GameObject: {fileID: 7835925135329439599}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5079051, y: -2.8930397, z: -0.18417321}
+  m_LocalPosition: {x: 3.4404874, y: 0.1055212, z: -1.4844103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5459006087550411353
+--- !u!114 &4897627659378206638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685029928300635111}
+  m_GameObject: {fileID: 7835925135329439599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d194987f9ba03114094f6984645374dd, type: 3}
+  m_Script: {fileID: 11500000, guid: cea09bf9d66209b489d2409aeed878ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_map: {fileID: 0}
-  m_amidaFloorBlockGenerator:
+  m_amidaManager: {fileID: 0}
+  m_player: {fileID: 0}
+  m_clearConditionChecker: {fileID: 0}
+  m_gimmickData:
+  - gridPos:
+      x: 13
+      y: 6
+    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
+  m_floorData:
+  - gridPos:
+      x: 0
+      y: 2
+    prefab: {fileID: 8293287876587456767, guid: 860d38d067f34734ebe2f93bd53cdf12, type: 3}
+  - gridPos:
+      x: 0
+      y: 4
+    prefab: {fileID: 8293287876587456767, guid: b49c56834d9faef4abb06a139211cb32, type: 3}
+  m_terminusData:
+  - gridPos:
+      x: 15
+      y: 2
+    prefab: {fileID: 8293287876587456767, guid: 0953b1dd34a3a0c488be0cb8eca245ff, type: 3}
+  - gridPos:
+      x: 15
+      y: 4
+    prefab: {fileID: 8293287876587456767, guid: be5019532b2139642ba96c22817ad29c, type: 3}
+  m_amidaTubeGenerator:
     generator: {fileID: 0}
     posY: 0
-  m_amidaTubeGenerator:
+  m_topFloorBlockGenerator:
     generator: {fileID: 0}
     posY: 0

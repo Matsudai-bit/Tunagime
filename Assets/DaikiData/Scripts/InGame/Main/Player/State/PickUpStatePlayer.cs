@@ -13,7 +13,7 @@ public class PickUpStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
-        owner.GetAnimator().SetTrigger("PickUp"); // 綿毛ボールを拾うアニメーションをトリガー
+        owner.GetAnimator().SetTrigger("PickUp"); // 持ち上げるオブジェクトを拾うアニメーションをトリガー
 
         m_pickUpAnimationHash = Animator.StringToHash("Normal.PickUp"); // アニメーションのハッシュを取得
 
@@ -31,12 +31,12 @@ public class PickUpStatePlayer : PlayerState
         if (currentHash == m_pickUpAnimationHash &&
             owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
-            // アニメーションが終了したら綿毛ボールを拾う処理を実行
+            // アニメーションが終了したら持ち上げるオブジェクトを拾う処理を実行
             PickUp();
             // 待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
 
-            // 綿毛ボールを持っている場合、アニメーションレイヤーを有効化
+            // 持ち上げるオブジェクトを持っている場合、アニメーションレイヤーを有効化
             owner.GetAnimator().SetLayerWeight(owner.GetAnimator().GetLayerIndex("TakeFluffBall"), 1);
         }
 
@@ -70,13 +70,29 @@ public class PickUpStatePlayer : PlayerState
 
 
         GameObject gameObj = tileObject.gameObject;
-        var fluffBall = gameObj.GetComponent<StageBlock>(); // 綿毛ボールを取得
-        map.GetStageGridData().RemoveGridData(fluffBall.GetGridPos()); // グリッドから綿毛ボールを削除
-        Debug.Log(gameObj.name); // デバッグログに綿毛ボールの名前を出力
+        var carryingObject = gameObj.GetComponent<Carryable>(); // 持ち上げるオブジェクトを取得
+        if (carryingObject == null)
+        {
+            Debug.LogError("Carryable component not found on the object.");
+            return; // 持ち上げるオブジェクトが見つからない場合は処理を中断
+        }
+        // 持ち上げるオブジェクトのグリッド位置を取得
+        var stageBlock = carryingObject.stageBlock;
 
-        fluffBall.SetActive(false); // 綿毛ボールを非アクティブにする
+        // グリッドから持ち上げるオブジェクトを削除
+        map.GetStageGridData().RemoveGridData(stageBlock.GetGridPos()); 
 
-        owner.SetFluffBall(fluffBall); // プレイヤーに綿毛ボールをセット
+        // デバッグログに持ち上げるオブジェクトの名前を出力
+        Debug.Log(gameObj.name); 
+
+        // 持ち上げるオブジェクトを非アクティブにする
+        stageBlock.SetActive(false);
+
+        // 持ち上げる
+        carryingObject.OnPickUp();
+
+        // プレイヤーに持ち上げるオブジェクトをセット
+        owner.SetCarryingObject(carryingObject); 
     }
 
 

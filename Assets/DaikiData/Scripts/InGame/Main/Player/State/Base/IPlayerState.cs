@@ -7,7 +7,8 @@ public enum PlayerStateID
     WALK,       // 歩行
     PICK_UP,    // 拾う
     PICK_DOWN,  // 下ろす
-    KNOT,       // 編む
+    KNIT,       // 編む
+    PUSH_BLOCK, // ブロックを押す
 
 }
 

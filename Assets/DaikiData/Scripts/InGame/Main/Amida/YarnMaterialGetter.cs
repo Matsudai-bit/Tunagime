@@ -124,4 +124,26 @@ public class YarnMaterialGetter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    ///  想いの種類に応じてマテリアルを設定する
+    /// </summary>
+    public void ApplyMaterialForEmotion()
+    {
+        // 辞書のキーをループして、各MeshRendererに対応するEmotionCurrent.Typeを設定
+        foreach (var data in m_yarnMaterialData)
+        {
+            if (data.renderer != null)
+            {
+                // EmotionCurrent.Typeを設定
+                data.renderer.material =  YarnMaterialLibrary.Instance.GetMaterial(data.emotionType);
+                // Debug.Log($"Applied material for {data.key} with emotion type {data.emotionType}.");
+            }
+            else
+            {
+                Debug.LogWarning($"Renderer for material {data.key} is null. Cannot apply material.");
+            }
+        }
+
+    }
+
 }

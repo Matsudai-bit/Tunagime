@@ -6,7 +6,6 @@ using UnityEngine;
 public class FeelingCore : MonoBehaviour
 {
 
-    private YarnMaterialLibrary.MaterialType m_materialType; // マテリアルのタイプ
 
     private EmotionCurrent m_emotionCurrent; // 想いの感情タイプ
 
@@ -22,22 +21,6 @@ public class FeelingCore : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// マテリアルを取得する
-    /// </summary>
-    /// <returns></returns>
-    public Material GetMaterial()
-    {
-        return YarnMaterialLibrary.Instance.GetMaterial(m_materialType); // マテリアルライブラリからマテリアルを取得
-    }
-
-    /// <summary>
-    /// マテリアルを設定する
-    /// </summary>
-    public void SetMaterial(YarnMaterialLibrary.MaterialType materialType)
-    {
-        m_materialType = materialType; // マテリアルを設定
-    }
 
     /// <summary>
     /// ゲームオブジェクトのアクティブ状態を設定する

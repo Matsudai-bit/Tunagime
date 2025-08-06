@@ -14,7 +14,7 @@ public class YarnMeshChanger : MonoBehaviour
     // 初期メッシュとして設定したいAmidaTube.State (インスペクターでドロップダウンから選択)
     [SerializeField] private AmidaTube.State m_initialShapeType = AmidaTube.State.NONE; // デフォルトをNoneにする
 
-    private void Start()
+    private void Awake()
     {
         if (AmidaTube.State.NONE != m_initialShapeType)
             SetMesh(m_initialShapeType);   
@@ -72,7 +72,7 @@ public class YarnMeshChanger : MonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public Material GetMaterial(YarnMaterialGetter.MaterialType type)
+    public Material GetMaterial( YarnMaterialGetter.MaterialType type)
     {
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
         if (materialGetter != null)
@@ -113,7 +113,7 @@ public class YarnMeshChanger : MonoBehaviour
     /// </summary>
     /// <param name="material"></param>
     /// <param name="type"></param>
-    public void ChangeMaterial(Material material, EmotionCurrent.Type changeEmotionType, YarnMaterialGetter.MaterialType type)
+    public void ChangeEmotionType(EmotionCurrent.Type changeEmotionType, YarnMaterialGetter.MaterialType type)
     {
         if (m_currentMeshInstance == null)
         {
@@ -130,7 +130,6 @@ public class YarnMeshChanger : MonoBehaviour
                 Debug.LogWarning($"'{gameObject.name}' のマテリアルタイプ '{type}' のMeshRendererが見つかりません。");
                 return;
             }
-            meshRenderer.material = material;
 
             // 想いの種類を設定
              materialGetter.SetEmotionType(type, changeEmotionType) ;
@@ -141,6 +140,29 @@ public class YarnMeshChanger : MonoBehaviour
         else
         {
             Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。メッシュのマテリアルを変更できません。");
+        }
+    }
+
+    /// <summary>
+    /// 現在のメッシュインスタンスに対して、EmotionCurrent.Typeに基づいてマテリアルを適用します。
+    /// </summary>
+    public void ApplyMaterial()
+    {
+        if (m_currentMeshInstance == null)
+        {
+            Debug.LogWarning("現在のメッシュインスタンスがありません。メッシュを設定してください。");
+            return;
+        }
+        YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
+        if (materialGetter != null)
+        {
+
+            materialGetter.ApplyMaterialForEmotion();
+
+        }
+        else
+        {
+            Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。マテリアルを適用できません。");
         }
     }
 }

@@ -50,8 +50,10 @@ public class TerminusFeelingSlot : MonoBehaviour
 
         //　グリッド位置の取得
         GridPos gridPos = m_stageBlock.GetGridPos();
-        
-       var amidaTube =  gridData.GetAmidaTube(gridPos);
+
+        GridPos checkGridPos = gridPos + new GridPos(-1, 0); // 左隣のグリッドをチェック
+
+        var amidaTube =  gridData.GetAmidaTube(checkGridPos);
 
         if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType())
         {

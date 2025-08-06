@@ -20,15 +20,21 @@ public class WalkStatePlayer : PlayerState
     /// </summary>
     public override void OnUpdateState()
     {
-        // 綿毛ボールを拾う処理を試みる
+        // 持ち運ぶオブジェクトを拾う処理を試みる
         owner.TryPickUp();
-        // 綿毛ボールを置く処理を試みる
+        // 持ち運ぶオブジェクトを置く処理を試みる
         owner.TryPickDown();
 
-        if (owner.GetFluffBall() != null)
+      
+        if (owner.GetCarryingObject() != null)
         {
             // 編む処理を試みる
-            owner.TryKnot();
+            owner.TryKnit();
+        }
+        
+        else
+        {
+            owner.TryPushBlock();
         }
 
     }

@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_materialEntries:
-  - meshType: 2
+  - emotionType: 1
     material: {fileID: 2100000, guid: d4bf796add9221a41ac6758850f0eb42, type: 2}
-  - meshType: 1
+  - emotionType: 3
     material: {fileID: 2100000, guid: bab5617d358c63145abf148df5c96776, type: 2}
-  - meshType: 3
+  - emotionType: 2
     material: {fileID: 2100000, guid: 0d41d2fc7c97dae42b5478ed841e39da, type: 2}
-  - meshType: 4
+  - emotionType: 4
     material: {fileID: 2100000, guid: e4d0cee657f083c4a8efe4fefac2ec03, type: 2}
-  - meshType: 5
+  - emotionType: 5
     material: {fileID: 2100000, guid: 19f6c7a76316eb5488164e2cc0677ab2, type: 2}

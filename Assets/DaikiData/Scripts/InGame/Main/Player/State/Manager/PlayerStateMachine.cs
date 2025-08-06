@@ -117,8 +117,10 @@ public class PlayerStateMachine
                 return new PickUpStatePlayer(m_owner);
             case PlayerStateID.PICK_DOWN:
                 return new PickDownStatePlayer(m_owner);
-            case PlayerStateID.KNOT:
+            case PlayerStateID.KNIT:
                 return new KnotStatePlayer(m_owner);
+            case PlayerStateID.PUSH_BLOCK:
+                return new PushBlockStatePlayer(m_owner);
             default:
                 Debug.LogError("Unknown state ID: " + stateID);
                 return null;

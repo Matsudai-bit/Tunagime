@@ -41,6 +41,19 @@ public class StageGridData : MonoBehaviour
         return tile.amidaTube;
     }
 
+    public TileObject GetTileObject(GridPos gridPos)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"GetTileObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return new TileObject(); // nullではなく、デフォルトのTileObjectを返す
+        }
+        // タイルデータからTileObjectを取得
+        TileData tile = m_tileData[gridPos.y, gridPos.x];
+        return tile.tileObject;
+    }
+
     /// <summary>
     /// 指定したグリッド座標にあみだチューブを設定します。
     /// </summary>

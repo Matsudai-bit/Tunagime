@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     private Rigidbody m_rb;             // Rigidbodyコンポーネント
     private StageBlock m_stageBlock;
 
-    private StageBlock m_fluffBall; // 綿毛ボール (fluff ball) を保持する変数
+    private Carryable m_carryingObj; // 持ち運び可能なオブジェクト
 
     private PlayerStateMachine m_stateMachine; // プレイヤーの状態マシン
 
@@ -161,31 +162,39 @@ public class Player : MonoBehaviour
         return m_stateMachine;
     }
 
-    public void SetFluffBall(StageBlock fluffBall)
+    public void SetCarryingObject(Carryable carryingObj)
     {
 
 
-        m_fluffBall = fluffBall; // 綿毛ボールを設定
+        m_carryingObj = carryingObj; // 運んでいるオブジェクトを設定
     }
 
 
     /// <summary>
-    /// 綿毛ボールを離す
+    /// 運んでいるオブジェクトを下ろす
     /// </summary>
-    public void ReleaseFluffBall()
+    public void DropCarryingObject()
     {
-        if (m_fluffBall != null)
+        if (m_carryingObj != null)
         {
-            m_fluffBall = null; // 綿毛ボールをnullに設定
+            m_carryingObj = null; // 運んでいるオブジェクトをnullに設定
         }
     }
 
 
-    public StageBlock GetFluffBall()
+    /// <summary>
+    /// 現在持っているオブジェクトを取得
+    /// </summary>
+    /// <returns></returns>
+    public Carryable GetCarryingObject()
     {
-        return m_fluffBall; // 綿毛ボールを取得
+        return m_carryingObj; // 運んでいるオブジェクトを取得
     }
 
+    /// <summary>
+    /// プレイヤーの前方のグリッド位置を取得
+    /// </summary>
+    /// <returns></returns>
     public GridPos GetForwardGridPos()
     {
         var map = MapData.GetInstance; // マップを取得
@@ -193,55 +202,64 @@ public class Player : MonoBehaviour
         // 最も近いグリッド位置の取得
         var closestPos = map.GetClosestGridPos(transform.position);
 
-        Vector3 forward = transform.forward;
-
-        // 各軸の方向の大きさを比較して大きい方を正規化し、グリッド方向として選択
-        // 注意 : 小数点が絡むため、厳密ではない場合があるのでRoundを使用しているため不適切と判断
-        GridPos forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
-            ? new GridPos((int)Mathf.Round(forward.x), 0)
-            : new GridPos(0, -(int)Mathf.Round(forward.z));
+        GridPos forward2D = GetForwardDirection(); // プレイヤーの前方のグリッド方向
 
         return closestPos + forward2D; // チェックするグリッド位置
     }
 
     /// <summary>
-    /// 綿毛ボールを拾う処理に挑戦
+    /// プレイヤーの前方のグリッド方向を取得
+    /// </summary>
+    /// <returns></returns>
+    public GridPos GetForwardDirection()
+    {
+        Vector3 forward = transform.forward;
+        // 各軸の方向の大きさを比較して大きい方を正規化し、グリッド方向として選択
+        // 注意 : 小数点が絡むため、厳密ではない場合があるのでRoundを使用しているため不適切と判断
+        GridPos forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
+            ? new GridPos((int)Mathf.Round(forward.x), 0)
+            : new GridPos(0, -(int)Mathf.Round(forward.z));
+        return forward2D; // チェックするグリッド位置
+    }
+
+    /// <summary>
+    /// 運んでいるオブジェクトを拾う処理に挑戦
     /// </summary>
     /// <returns></returns>
     public bool TryPickUp()
     {
         var map = MapData.GetInstance; // マップを取得
 
-        // Zキーを押したときの処理  綿毛ボールを持ってない場合
+        // Zキーを押したときの処理  運んでいるオブジェクトを持ってない場合
         if (Input.GetKeyDown(KeyCode.Z) &&
-            m_fluffBall == false)
+            m_carryingObj == false)
         {
-            GridPos checkPos = GetForwardGridPos(); // チェックするグリッド位置
+            GridPos pickingUpPos = GetForwardGridPos(); // チェックするグリッド位置
 
             // 拾うグリッド位置がグリッド範囲内かチェック
-            if (map.CheckInnerGridPos(checkPos))
+            if (map.CheckInnerGridPos(pickingUpPos))
             {
-                TileObject tileObject = map.GetStageGridData().GetTileData[checkPos.y, checkPos.x].tileObject;
+                TileObject tileObject = map.GetStageGridData().GetTileData[pickingUpPos.y, pickingUpPos.x].tileObject;
 
-                // 拾えるアイテムかどうかの判定 (綿毛ボールの場合)
-                if (tileObject.type == TileType.FLUFF_BALL && tileObject.gameObject)
+                // 拾えるアイテムかどうかの判定 (運んでいるオブジェクトの場合)
+                if (tileObject.gameObject?.GetComponent<Carryable>() != null && tileObject.gameObject)
                 {
 
-                    // 綿毛ボールを拾う状態に切り替える
-                    m_stateMachine.RequestStateChange(PlayerStateID.PICK_UP); // 綿毛ボールを拾う状態に変更
+                    // 運んでいるオブジェクトを拾う状態に切り替える
+                    m_stateMachine.RequestStateChange(PlayerStateID.PICK_UP); // 運んでいるオブジェクトを拾う状態に変更
 
-                    return true; // 綿毛ボールを拾う処理が成功した
+                    return true; // 運んでいるオブジェクトを拾う処理が成功した
                 }
             }
 
         }
 
-        return false; // 綿毛ボールを拾う処理が失敗した
+        return false; // 運んでいるオブジェクトを拾う処理が失敗した
 
     }
 
     /// <summary>
-    /// 綿毛ボールを置く処理に挑戦
+    /// 運んでいるオブジェクトを置く処理に挑戦
     /// </summary>
     /// <returns></returns>
     public bool TryPickDown()
@@ -249,17 +267,26 @@ public class Player : MonoBehaviour
         // Zキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (m_fluffBall) // 綿毛ボールを持っている場合
+            if (m_carryingObj) // 運んでいるオブジェクトを持っている場合
             {
- 
-                // 綿毛ボールを置く状態に切り替える
-                m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN); // 綿毛ボールを置く状態に変更
+                var stageGridData = MapData.GetInstance.GetStageGridData(); // マップを取得
 
-                return true; // 綿毛ボールを置く処理が成功した
+                // 置く位置
+                GridPos placementPos = GetForwardGridPos(); // 前方のグリッド位置
+
+                // 自分のいるグリッドの上下にノーマル状態のあみだがあるかどうか
+                if (stageGridData.GetTileObject(placementPos).gameObject == null && MapData.GetInstance.CheckInnerGridPos(placementPos))
+                {
+                    // 運んでいるオブジェクトを置く状態に切り替える
+                    m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN);
+
+                    return true; // 運んでいるオブジェクトを置く処理が成功した                }
+                    
+                }
             }
         }
 
-        return false; // 綿毛ボールを置く処理が失敗した
+        return false; // 運んでいるオブジェクトを置く処理が失敗した
 
     }
 
@@ -268,16 +295,17 @@ public class Player : MonoBehaviour
     /// 編むことができるかどうかの判定
     /// </summary>
     /// <returns>  </returns>
-    private bool CanKnit()
+    public bool CanKnit()
     {
         var stageGridData = MapData.GetInstance.GetStageGridData(); // マップを取得
-        GridPos myPos = MapData.GetInstance.GetClosestGridPos(transform.position); // チェックするグリッド位置
-        
+
+        // 編む位置
+        GridPos knittingPos = GetForwardGridPos(); // 前方のグリッド位置
 
         // 自分のいるグリッドの上下にノーマル状態のあみだがあるかどうか
-        if (stageGridData.GetAmidaTube(myPos) == null &&
-            StageAmidaUtility.CheckAmidaState(myPos + new GridPos(0, 1), AmidaTube.State.NORMAL) &&
-            StageAmidaUtility.CheckAmidaState(myPos + new GridPos(0, -1), AmidaTube.State.NORMAL))
+        if (stageGridData.GetAmidaTube(knittingPos) == null &&
+            StageAmidaUtility.CheckAmidaState(knittingPos + new GridPos(0, 1), AmidaTube.State.NORMAL) &&
+            StageAmidaUtility.CheckAmidaState(knittingPos + new GridPos(0, -1), AmidaTube.State.NORMAL))
         {
             return true; // 編むことが出来る
         }
@@ -286,27 +314,56 @@ public class Player : MonoBehaviour
 
     }
 
-    public void TryKnot()
+    public void TryKnit()
     {
         // Xキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.X) && CanKnit())
         {
-            if (m_fluffBall) // 綿毛ボールを持っている場合
+            if (m_carryingObj) // 運んでいるオブジェクトを持っている場合
             {
 
 
                 // 編む状態に切り替える
-                m_stateMachine.RequestStateChange(PlayerStateID.KNOT); 
+                m_stateMachine.RequestStateChange(PlayerStateID.KNIT); 
 
             }
         }
     }
 
     /// <summary>
+    /// アミダを押すことができるかどうかの判定
+    /// </summary>
+    public bool TryPushBlock()
+    {
+        // 正面に半ブロック分のレイを飛ばす
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            // マップの取得
+            var map = MapData.GetInstance;
+            // レイの飛ばす距離を設定
+            float rayDistance = (float)(map.GetCommonData().width) / 2.0f;
+
+            // レイキャストを使用して、プレイヤーの前方にあるオブジェクトを検出
+            RaycastHit hit;
+            if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, rayDistance))
+            {
+                // レイが当たったオブジェクトがステージブロックであるかチェック
+                if (hit.collider.gameObject?.GetComponent<FeltBlock>() != null)
+                {
+                    m_stateMachine.RequestStateChange(PlayerStateID.PUSH_BLOCK);
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+    /// <summary>
     /// ゲームオブジェクトの取得
     /// </summary>
     /// <returns></returns>
-    public GameObject gameObject
+    public GameObject GetGameObject
     {
         get
         {

@@ -143,7 +143,7 @@ public class AmidaTubeGenerator : MonoBehaviour
         // 横向きのパイプを配置
         foreach (var posY in m_horizonalAmidaPosY)
         {
-            for (int cx = 0; cx < map.GetCommonData().width; cx++)
+            for (int cx = 1; cx < map.GetCommonData().width - 1; cx++)
             {
 
                 m_amidaGenerationDataGrid[posY, cx] = straightLeftRight;
@@ -194,12 +194,12 @@ public class AmidaTubeGenerator : MonoBehaviour
                     AmidaTube right;
 
                     if (cx - 1 >= 0)
-                        left = amidaGrid[cy, cx - 1].GetComponent<AmidaTube>();
+                        left = amidaGrid[cy, cx - 1]?.GetComponent<AmidaTube>();
                     else
                         left = null;
 
                     if (cx + 1 < map.GetCommonData().width)
-                        right = amidaGrid[cy, cx + 1].GetComponent<AmidaTube>();
+                        right = amidaGrid[cy, cx + 1]?.GetComponent<AmidaTube>();
                     else
                         right = null;
 
@@ -211,7 +211,7 @@ public class AmidaTubeGenerator : MonoBehaviour
                     // 上に通過可能な場合、上のあみだパイプを設定
                     AmidaTube up;
                     if (cy - 1 >= 0)
-                        up = amidaGrid[cy - 1, cx].GetComponent<AmidaTube>();
+                        up = amidaGrid[cy - 1, cx]?.GetComponent<AmidaTube>();
                     else
                         up = null;
        
@@ -223,7 +223,7 @@ public class AmidaTubeGenerator : MonoBehaviour
                     // 下に通過可能な場合、下のあみだパイプを設定
                     AmidaTube down;
                     if (cy + 1 < map.GetCommonData().height)
-                        down = amidaGrid[cy + 1, cx].GetComponent<AmidaTube>();
+                        down = amidaGrid[cy + 1, cx]?.GetComponent<AmidaTube>();
                     else
                         down = null;
                     amidaTube.SetNeighbor(null, down, null, null);
@@ -267,10 +267,16 @@ public class AmidaTubeGenerator : MonoBehaviour
 
 
 
-        
+        // あみだチューブの状態を設定
         stageGridData.GetAmidaTube(gridPos).RequestChangedState(AmidaTube.State.BRIDGE);
         stageGridData.GetAmidaTube(knotDownPos).RequestChangedState(AmidaTube.State.KNOT_DOWN);
         stageGridData.GetAmidaTube(knotUpPos).RequestChangedState(AmidaTube.State.KNOT_UP);
+
+
+        // あみだチューブの状態を変更
+        stageGridData.GetAmidaTube(knotDownPos) .ChangeState();
+        stageGridData.GetAmidaTube(gridPos)     .ChangeState();
+        stageGridData.GetAmidaTube(knotUpPos)   .ChangeState();
 
 
         // 方向のあみだの設定

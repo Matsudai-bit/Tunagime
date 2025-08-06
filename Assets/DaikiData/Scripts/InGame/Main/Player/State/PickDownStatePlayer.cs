@@ -11,7 +11,7 @@ public class PickDownStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
-        //owner.GetAnimator().SetTrigger("PickDown"); // 綿毛ボールを拾うアニメーションをトリガー
+        //owner.GetAnimator().SetTrigger("PickDown"); // 持ち運ぶオブジェクトを拾うアニメーションをトリガー
 
 
         
@@ -25,13 +25,13 @@ public class PickDownStatePlayer : PlayerState
         // アニメーションの終了を待つ
         //if (owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         //{
-            // アニメーションが終了したら綿毛ボールを拾う処理を実行
+            // アニメーションが終了したら持ち運ぶオブジェクトを拾う処理を実行
             PickDown();
             // 待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
 
 
-            // 綿毛ボールを持っている場合、アニメーションレイヤーを有効化
+            // 持ち運ぶオブジェクトを持っている場合、アニメーションレイヤーを有効化
             owner.GetAnimator().SetLayerWeight(owner.GetAnimator().GetLayerIndex("TakeFluffBall"), 0);
         //}
 
@@ -59,15 +59,17 @@ public class PickDownStatePlayer : PlayerState
 
         var map = MapData.GetInstance; // マップを取得
 
-        // 最も近いグリッド位置の取得
-        var closestPos = map.GetClosestGridPos(owner.transform.position);
-        owner.GetFluffBall().UpdatePosition(closestPos); // 綿毛ボールの位置を更新
+        // 置く位置
+        GridPos placementPos = owner.GetForwardGridPos(); // 前方のグリッド位置
 
-        owner.GetFluffBall().SetActive(true); // 綿毛ボールをアクティブにする
+        // 運んでいるオブジェクトを取得
+        var carryingObject = owner.GetCarryingObject(); 
 
-        // グリッドデータに綿毛ボールを配置
-        map.GetStageGridData().TryPlaceTileObject(closestPos, owner.GetFluffBall().GetComponent<GameObject>());
-        owner.SetFluffBall(null); // 綿毛ボールを解放
+        // 持ち運ぶオブジェクトを置く処理を実行
+        carryingObject.OnDrop(placementPos); 
+
+       
+        owner.SetCarryingObject(null); // 持ち運ぶオブジェクトを解放
     }
 
 

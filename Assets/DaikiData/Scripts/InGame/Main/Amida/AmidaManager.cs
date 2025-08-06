@@ -48,7 +48,7 @@ public class AmidaManager : MonoBehaviour
         var map = MapData.GetInstance;
         var stageGridData = map.GetStageGridData();
 
-        int LOOP_COUNT = 2; // あみだチューブを辿る回数
+        int LOOP_COUNT = 1; // あみだチューブを辿る回数
 
         // あみだチューブを辿る処理
         if (m_isFollowingAmida || Input.GetKeyDown(KeyCode.Space))
@@ -58,16 +58,16 @@ public class AmidaManager : MonoBehaviour
             {
                 foreach (var slot in m_feelingSlots)
                 {
-                    var startPos = slot.StageBlock.GetGridPos();
-
-                    var setStartMaterial = slot.GetCoreMaterial();
-
+                    // スタート位置
+                    var startPos = slot.StageBlock.GetGridPos() + new GridPos(1, 0);
+                    // あみだチューブの取得
                     var startAmidaTube = stageGridData.GetAmidaTube(startPos);
-
+                    // 想いの種類の取得
                     var emotionType = slot.GetEmotionType();
 
-                    startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.INPUT, emotionType, setStartMaterial); // スロットのマテリアルを設定
-                    startAmidaTube.SetMaterial(YarnMaterialGetter.MaterialType.OUTPUT, emotionType, setStartMaterial); // スロットのマテリアルを設定
+                    // 先頭のあみだチューブの設定
+                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.INPUT, emotionType); // スロットのマテリアルを設定
+                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.OUTPUT, emotionType); // スロットのマテリアルを設定
 
                     // あみだチューブを辿る処理
                     FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);
@@ -76,9 +76,11 @@ public class AmidaManager : MonoBehaviour
 
             }
 
+            // すべてのあみだチューブのマテリアルを適用
+            ApplyAllAmidaTubeMaterial();
 
 
-                m_isFollowingAmida = false; // フラグをリセット
+            m_isFollowingAmida = false; // フラグをリセット
         }
 
         if (stageGridData.IsAmidaDataChanged())
@@ -104,6 +106,7 @@ public class AmidaManager : MonoBehaviour
             Debug.LogError("FollowTheAmidaTube: followAmida is null");
             return;
         }
+
 
         // 次に進む方向を決定
 
@@ -134,7 +137,7 @@ public class AmidaManager : MonoBehaviour
             }
             else if (neighborAmida.right != null)
             {
-                // 左に進む
+                // 右に進む
                 Debug.Log("Moving RIGHT");
                 FollowTheAmidaTube(neighborAmida.right, followDir);
                 return;
@@ -151,19 +154,11 @@ public class AmidaManager : MonoBehaviour
                 FollowTheAmidaTube(neighborAmida.right, AmidaTube.Direction.RIGHT);
                 return;
             }
-            else if (neighborAmida.down != null)
+            else if (neighborAmida.up != null)
             {
-                // 下に進む
-                Debug.Log("Moving DOWN");
-                FollowTheAmidaTube(neighborAmida.down, AmidaTube.Direction.DOWN);
-                return;
-            }
-
-            else if (neighborAmida.right != null)
-            {
-                // 左に進む
-                Debug.Log("Moving Right");
-                FollowTheAmidaTube(neighborAmida.right, AmidaTube.Direction.RIGHT);
+                // 上に進む
+                Debug.Log("Moving UP");
+                FollowTheAmidaTube(neighborAmida.up, AmidaTube.Direction.UP);
                 return;
             }
         }
@@ -177,18 +172,12 @@ public class AmidaManager : MonoBehaviour
                 FollowTheAmidaTube(neighborAmida.right, AmidaTube.Direction.RIGHT);
                 return;
             }
-            else if (neighborAmida.up != null)
+ 
+            else if (neighborAmida.down != null)
             {
-                // 上に進む
-                Debug.Log("Moving UP");
-                FollowTheAmidaTube(neighborAmida.up, AmidaTube.Direction.UP);
-                return;
-            }
-            else if (neighborAmida.right != null)
-            {
-                // 左に進む
-                Debug.Log("Moving RIGHT");
-                FollowTheAmidaTube(neighborAmida.right, AmidaTube.Direction.RIGHT);
+                // 下に進む
+                Debug.Log("Moving DOWN");
+                FollowTheAmidaTube(neighborAmida.down, AmidaTube.Direction.DOWN);
                 return;
             }
         }
@@ -223,6 +212,23 @@ public class AmidaManager : MonoBehaviour
         }
         m_feelingSlots.Add(slot);
         Debug.Log($"[AmidaManager] Added FeelingSlot: {slot.name}");
+    }
+
+    /// <summary>
+    /// すべてのあみだチューブのマテリアルを適用します。 
+    /// </summary>
+    void ApplyAllAmidaTubeMaterial()
+    {
+        var map = MapData.GetInstance;
+        var stageGridData = map.GetStageGridData();
+        foreach (var tile in map.GetStageGridData().GetTileData)
+        {
+            if (tile.amidaTube != null)
+            {
+                tile.amidaTube.ApplyMaterial();
+            }
+        }
+        Debug.Log("[AmidaManager] All AmidaTube materials applied.");
     }
 
 

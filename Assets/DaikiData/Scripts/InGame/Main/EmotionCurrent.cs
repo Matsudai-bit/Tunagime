@@ -13,12 +13,12 @@ public class EmotionCurrent : MonoBehaviour
     public enum Type
     {
         NONE,         // ‰Šúó‘Ô
-        FAITHFULNESS, // ½ŽÀ
-        LOVE,         // ˆ¤
-        KINDNESS,     // —D‚µ‚³
-        COURAGE,      // —E‹C
-        LONGING,      // “²‚ê
-        REJECTION,    // ‹‘â
+        FAITHFULNESS, // ½ŽÀ     Â
+        LOVE,         // ˆ¤       Ô@
+        KINDNESS,     // —D‚µ‚³   —Î
+        COURAGE,      // —E‹C     ‰©
+        LONGING,      // “²‚ê     Ž‡
+        REJECTION,    // ‹‘â     •
     }
 
     [SerializeField]
