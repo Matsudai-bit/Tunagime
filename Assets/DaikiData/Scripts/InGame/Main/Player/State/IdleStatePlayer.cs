@@ -33,7 +33,7 @@ public class IdleStatePlayer : PlayerState
         // 持ち運ぶオブジェクトを拾う処理を試みる
         owner.TryPickUp();
         // 持ち運ぶオブジェクトを置く処理を試みる
-        owner.TryPickDown();
+        owner.TryPutDown();
 
         if (owner.GetCarryingObject() != null)
         {

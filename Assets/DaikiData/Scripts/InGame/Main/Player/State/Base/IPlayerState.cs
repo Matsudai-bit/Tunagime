@@ -6,7 +6,7 @@ public enum PlayerStateID
     IDLE,       // 待機
     WALK,       // 歩行
     PICK_UP,    // 拾う
-    PICK_DOWN,  // 下ろす
+    PUT_DOWN,  // 下ろす
     KNIT,       // 編む
     PUSH_BLOCK, // ブロックを押す
 

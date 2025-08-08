@@ -299,6 +299,48 @@ MonoBehaviour:
   cropToFit:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-2590558389984029453
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d9cdda399740a4922e7d1b52e166c5, type: 3}
+  m_Name: OutlineVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  _isActive:
+    m_OverrideState: 1
+    m_Value: 0
+  _layerMask:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      m_Bits: 4294967295
+  _passQueue:
+    m_OverrideState: 1
+    m_Value: 0
+  _sampleType:
+    m_OverrideState: 1
+    m_Value: 1
+  _xOffset:
+    m_OverrideState: 1
+    m_Value: 1
+  _yOffset:
+    m_OverrideState: 1
+    m_Value: 1
+  _depthSensitivity:
+    m_OverrideState: 1
+    m_Value: 0.01
+  _normalSensitivity:
+    m_OverrideState: 1
+    m_Value: 0.5
+  _outlineColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &-1410297666881709256
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -465,6 +507,7 @@ MonoBehaviour:
   - {fileID: -6288072647309666549}
   - {fileID: 7518938298396184218}
   - {fileID: -1410297666881709256}
+  - {fileID: -2590558389984029453}
 --- !u!114 &853819529557874667
 MonoBehaviour:
   m_ObjectHideFlags: 3

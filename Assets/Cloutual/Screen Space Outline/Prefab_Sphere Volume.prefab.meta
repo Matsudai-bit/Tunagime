@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0aa2a777782089241a4dca739fa374d6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302342
+  packageName: Simple Render Graph Outline
+  packageVersion: 1.0
+  assetPath: Assets/Cloutual/Screen Space Outline/Prefab_Sphere Volume.prefab
+  uploadId: 710379

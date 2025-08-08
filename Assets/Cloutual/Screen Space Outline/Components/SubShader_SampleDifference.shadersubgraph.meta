@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: eca3f5c938e2ec5469e25c33a9ff8968
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 60072b568d64c40a485e0fc55012dc9f, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302342
+  packageName: Simple Render Graph Outline
+  packageVersion: 1.0
+  assetPath: Assets/Cloutual/Screen Space Outline/Components/SubShader_SampleDifference.shadersubgraph
+  uploadId: 710379

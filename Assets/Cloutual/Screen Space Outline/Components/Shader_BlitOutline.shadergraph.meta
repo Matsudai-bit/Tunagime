@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8d04411dfc3604141bba17cd02c93daa
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302342
+  packageName: Simple Render Graph Outline
+  packageVersion: 1.0
+  assetPath: Assets/Cloutual/Screen Space Outline/Components/Shader_BlitOutline.shadergraph
+  uploadId: 710379

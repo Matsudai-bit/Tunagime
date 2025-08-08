@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class PickUpStatePlayer : PlayerState
 {
-    private int m_pickUpAnimationHash;
+
+    private AnimationEventHandler m_animationEventHandler; // アニメーションイベントハンドラー
+
 
     public PickUpStatePlayer(Player owner) : base(owner)
     {
-
+        // アニメーションイベントハンドラーを初期化
+        m_animationEventHandler = new AnimationEventHandler(owner.GetAnimator());
     }
     /// <summary>
     /// 歩行状態の開始時に一度だけ呼ばれる
     /// </summary>
     public override void OnStartState()
     {
-        owner.GetAnimator().SetTrigger("PickUp"); // 持ち上げるオブジェクトを拾うアニメーションをトリガー
-
-        m_pickUpAnimationHash = Animator.StringToHash("Normal.PickUp"); // アニメーションのハッシュを取得
+        // 持ち上げる処理を開始
+        StartPickUp(); 
 
     }
 
@@ -25,19 +27,17 @@ public class PickUpStatePlayer : PlayerState
     public override void OnUpdateState()
     {
         // 現在のアニメーションのハッシュを取得
-        int currentHash = owner.GetAnimator().GetCurrentAnimatorStateInfo(0).fullPathHash;
+        m_animationEventHandler.OnUpdate(); // アニメーションイベントハンドラーの更新
+
 
         // アニメーションの終了を待つ
-        if (currentHash == m_pickUpAnimationHash &&
-            owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        if (m_animationEventHandler.HasAnimationPlayed() && m_animationEventHandler.IsPlaying() == false)
         {
             // アニメーションが終了したら持ち上げるオブジェクトを拾う処理を実行
             PickUp();
             // 待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
 
-            // 持ち上げるオブジェクトを持っている場合、アニメーションレイヤーを有効化
-            owner.GetAnimator().SetLayerWeight(owner.GetAnimator().GetLayerIndex("TakeFluffBall"), 1);
         }
 
      
@@ -96,4 +96,15 @@ public class PickUpStatePlayer : PlayerState
     }
 
 
+    /// <summary>
+    /// 持ち上げる処理を開始する
+    /// </summary>
+    private void StartPickUp()
+    {
+        // レイヤーの変更中フラグをリセット
+        m_animationEventHandler.PlayAnimationTrigger("PickUp", "Normal", "PickUp"); // 置くアニメーションを再生
+
+        // レイヤーのウェイトを変更するためのコールバックを設定
+        m_animationEventHandler.SetTargetTimeAction(0.5f, () => { owner.RequestTransitionLayerWeight("Carry", 1, 0.4f); }); // Carryレイヤーのウェイトを0に設定
+    }
 }

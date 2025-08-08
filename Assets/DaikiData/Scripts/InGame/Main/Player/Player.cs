@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -262,7 +264,7 @@ public class Player : MonoBehaviour
     /// 運んでいるオブジェクトを置く処理に挑戦
     /// </summary>
     /// <returns></returns>
-    public bool TryPickDown()
+    public bool TryPutDown()
     {
         // Zキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.Z))
@@ -278,7 +280,7 @@ public class Player : MonoBehaviour
                 if (stageGridData.GetTileObject(placementPos).gameObject == null && MapData.GetInstance.CheckInnerGridPos(placementPos))
                 {
                     // 運んでいるオブジェクトを置く状態に切り替える
-                    m_stateMachine.RequestStateChange(PlayerStateID.PICK_DOWN);
+                    m_stateMachine.RequestStateChange(PlayerStateID.PUT_DOWN);
 
                     return true; // 運んでいるオブジェクトを置く処理が成功した                }
                     
@@ -369,6 +371,45 @@ public class Player : MonoBehaviour
         {
             return base.gameObject;
         }
+    }
+
+
+    /// <summary>
+    /// 指定したレイヤーのウェイトを、一定時間かけて目標値まで変更するリクエストを送る。
+    /// </summary>
+    /// <param name="layerIndex"></param>
+    /// <param name="targetWeight"></param>
+    /// <param name="duration"></param>
+    public void RequestTransitionLayerWeight(string layerName, float targetWeight, float duration)
+    {
+        int layerIndex = m_animator.GetLayerIndex(layerName);
+        if (layerIndex < 0)
+        {
+            Debug.LogError($"Animator does not have a layer named '{layerName}'.");
+            return;
+        }
+        // コルーチンを開始
+        StartCoroutine(TransitionLayerWeight(layerIndex, targetWeight, duration));
+    }
+
+    /// <summary>
+    /// 指定したレイヤーのウェイトを、一定時間かけて目標値まで変更するコルーチン。
+    /// </summary>
+    public IEnumerator TransitionLayerWeight(int layerIndex, float targetWeight, float duration)
+    {
+        float startWeight = m_animator.GetLayerWeight(layerIndex);
+        float time = 0;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float newWeight = Mathf.Lerp(startWeight, targetWeight, time / duration);
+            m_animator.SetLayerWeight(layerIndex, newWeight);
+            yield return null;
+        }
+
+        // 最後にウェイトを確実に目標値に設定
+        m_animator.SetLayerWeight(layerIndex, targetWeight);
     }
 
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a29b918eaeddab24d985b784287a7c8f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302342
+  packageName: Simple Render Graph Outline
+  packageVersion: 1.0
+  assetPath: Assets/Cloutual/Screen Space Outline/Sample Scene/Sphere Volume Profile.asset
+  uploadId: 710379

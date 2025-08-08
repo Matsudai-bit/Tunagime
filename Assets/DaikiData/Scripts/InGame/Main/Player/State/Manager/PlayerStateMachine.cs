@@ -115,10 +115,10 @@ public class PlayerStateMachine
                 return new WalkStatePlayer(m_owner);
             case PlayerStateID.PICK_UP:
                 return new PickUpStatePlayer(m_owner);
-            case PlayerStateID.PICK_DOWN:
-                return new PickDownStatePlayer(m_owner);
+            case PlayerStateID.PUT_DOWN:
+                return new PutDownStatePlayer(m_owner);
             case PlayerStateID.KNIT:
-                return new KnotStatePlayer(m_owner);
+                return new KnitStatePlayer(m_owner);
             case PlayerStateID.PUSH_BLOCK:
                 return new PushBlockStatePlayer(m_owner);
             default:
