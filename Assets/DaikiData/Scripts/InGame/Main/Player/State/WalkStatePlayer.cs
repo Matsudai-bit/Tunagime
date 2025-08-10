@@ -28,13 +28,21 @@ public class WalkStatePlayer : PlayerState
       
         if (owner.GetCarryingObject() != null)
         {
+            // test
+            owner.TryForwardFloorSetting();
             // 編む処理を試みる
             owner.TryKnit();
+
         }
         
         else
         {
+            // test
+            owner.TryForwardObjectSetting();
+
             owner.TryPushBlock();
+
+            owner.TryUnknit();
         }
 
     }
@@ -64,6 +72,7 @@ public class WalkStatePlayer : PlayerState
     {
         // 歩行状態の終了時にアニメーションをリセット
         owner.GetAnimator().SetBool("Walk", false);
+
     }
 
 

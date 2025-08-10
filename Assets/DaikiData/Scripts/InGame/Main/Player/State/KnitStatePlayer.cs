@@ -1,20 +1,29 @@
 using UnityEngine;
 
+/// <summary>
+/// 解く状態のプレイヤー
+/// </summary>
 public class KnitStatePlayer : PlayerState
 {
+
+    private AnimationEventHandler m_animationEventHandler; // アニメーションイベントハンドラー
+
     public KnitStatePlayer(Player owner) : base(owner)
     {
-
+        // アニメーションイベントハンドラーを初期化
+        m_animationEventHandler = new AnimationEventHandler(owner.GetAnimator());
     }
     /// <summary>
     /// 歩行状態の開始時に一度だけ呼ばれる
     /// </summary>
     public override void OnStartState()
     {
-        //owner.GetAnimator().SetTrigger("PickDown"); // 持ち運ぶオブジェクトを拾うアニメーションをトリガー
+        // レイヤーの変更中フラグをリセット
+        m_animationEventHandler.PlayAnimationTrigger("Knit", "Carry", "Knit"); // 置くアニメーションを再生
 
-
-        
+        // レイヤーのウェイトを変更するためのコールバックを設定
+        // Carryレイヤーのウェイトを0に設定
+        m_animationEventHandler.SetTargetTimeAction(0.9f, () => { owner.RequestTransitionLayerWeight("Carry", 0, 0.8f); });
     }
 
     /// <summary>
@@ -22,23 +31,19 @@ public class KnitStatePlayer : PlayerState
     /// </summary>
     public override void OnUpdateState()
     {
-        //// アニメーションの終了を待つ
-        //if (owner.GetAnimator().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-        //{
-        //    // アニメーションが終了したら持ち運ぶオブジェクトを拾う処理を実行
-        //    PickDown();
-        //    // 待機状態に遷移
-        //    owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
 
+        // アニメーションイベントハンドラーの更新
+        m_animationEventHandler.OnUpdate();
 
-        //    // 持ち運ぶオブジェクトを持っている場合、アニメーションレイヤーを有効化
-        //    owner.GetAnimator().SetLayerWeight(owner.GetAnimator().GetLayerIndex("TakeFluffBall"), 0);
-        //}
+        if (m_animationEventHandler.HasAnimationPlayed() && m_animationEventHandler.IsPlaying() == false)
+        {
 
-        if (owner.CanKnit())
-            Knot();
-        // 待機状態に遷移
-        owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
+            if (owner.CanKnit())
+                // アニメーションが終了したら編む処理を実行
+                FinishKnit();
+            // 待機状態に遷移
+            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
+        }
 
     }
     /// <summary>
@@ -46,7 +51,7 @@ public class KnitStatePlayer : PlayerState
     /// </summary>
     public override void OnFixedUpdateState()
     {
-     
+
 
     }
 
@@ -61,19 +66,17 @@ public class KnitStatePlayer : PlayerState
     /// <summary>
     /// 編む
     /// </summary>
-    private void Knot()
+    private void FinishKnit()
     {
         // 置く位置
         GridPos knottingPos = owner.GetForwardGridPos(); // 前方のグリッド位置
         // アミダ橋の生成
-        var generateAmida =AmidaTubeGenerator.GetInstance.GenerateAmidaBridge(knottingPos);
+        var generateAmida = AmidaTubeGenerator.GetInstance.GenerateAmidaBridge(knottingPos);
 
 
         owner.DropCarryingObject();
 
-        // 持ち運ぶオブジェクトを持つアニメーションレイヤーを無効化
-        owner.GetAnimator().SetLayerWeight(owner.GetAnimator().GetLayerIndex("Carry"), 0); 
-        
+
     }
 
 

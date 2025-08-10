@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684288692720186059}
   - component: {fileID: 2220121378271466018}
+  - component: {fileID: 4182190242416775235}
   m_Layer: 0
   m_Name: AmidaTube
   m_TagString: AmidaTube
@@ -45,15 +46,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8bafb69f1e21d439f5fe9eecedc68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_startInstance: 0
   m_meshChanger: {fileID: 8177018174369025587}
-  m_amidaTubeBlockPrefab: {fileID: 7193193961408311223, guid: 2180d45a3f0bf874eae37df4dcaf4e95, type: 3}
-  m_directionPassage:
-    up: 0
-    down: 0
-    right: 0
-    left: 0
   m_standardMaterial: {fileID: 2100000, guid: af405d3c0bdb9754aaad7e63f176a509, type: 2}
+--- !u!114 &4182190242416775235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485287712651525407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77dcfd04ab65554a830c6ba0ca68522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gridPos:
+    x: 0
+    y: 0
+  m_blockType: 4
 --- !u!1 &1726273588079415793
 GameObject:
   m_ObjectHideFlags: 0

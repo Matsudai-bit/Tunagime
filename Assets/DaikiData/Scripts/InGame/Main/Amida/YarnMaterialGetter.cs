@@ -146,4 +146,29 @@ public class YarnMaterialGetter : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 全てのマテリアルのEmotionCurrent.TypeをNONEにリセットします。
+    /// </summary>
+    public void ResetEmotionType()
+    {
+        // 全てのマテリアルのEmotionCurrent.TypeをNONEにリセット
+        foreach (var data in m_yarnMaterialData)
+        {
+            data.emotionType = EmotionCurrent.Type.NONE;
+
+        }
+    }
+
+    /// <summary>
+    /// 全てのマテリアルのEmotionCurrent.Typeを指定された値に設定します。
+    /// </summary>
+    /// <param name="emotionType"></param>
+    public void SetAllEmotionType(EmotionCurrent.Type emotionType)
+    {
+        // 全てのマテリアルのEmotionCurrent.Typeを指定された値に設定
+        foreach (var data in m_yarnMaterialData)
+        {
+            data.emotionType = emotionType;
+        }
+    }
 }

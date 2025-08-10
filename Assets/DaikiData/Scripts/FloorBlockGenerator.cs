@@ -7,7 +7,7 @@ public class FloorBlockGenerator : MonoBehaviour
 {
 
     [SerializeField] private GameObject m_floorBlockPrefab;    // ステージブロック
-    [SerializeField] private GameObject m_floorBlockParent;    // ステージブロックの親   
+    [SerializeField] private Transform m_floorBlockParent;    // ステージブロックの親   
 
 
     public GameObject line; // ライン表示用オブジェクト
@@ -62,11 +62,15 @@ public class FloorBlockGenerator : MonoBehaviour
     /// </summary>
     /// <param name="generationPosY"></param>
     /// <returns>生成したグリッドデータ</returns>
-    public GameObject[,] GenerateFloor(  bool grid)
+    public GameObject[,] GenerateFloor(  bool grid, Transform parent)
     {
         GameObject[,] floorBlockGrid;
 
         MapData map = MapData.GetInstance;
+
+
+        // 親オブジェクトの設定
+        m_floorBlockParent = parent;
 
 
         // ステージグリッドの生成

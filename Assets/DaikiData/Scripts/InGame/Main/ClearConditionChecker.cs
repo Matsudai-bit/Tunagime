@@ -5,11 +5,16 @@ using System.Collections.Generic;
 /// <summary>
 /// クリア条件をチェックするクラス
 /// </summary>
-public class ClearConditionChecker : MonoBehaviour
+public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
 {
     [Header("クリア条件の設定")]
     [SerializeField]
     private List<TerminusFeelingSlot> terminusFeelingSlots = new List<TerminusFeelingSlot>(); // 終点にある型のリスト
+
+    private bool m_isConnectionRejectionSlot = false; // 終点の拒絶の核が接続されているかどうか
+
+    
+    private bool m_isDelayClearCheck = false;// クリア判定を遅延させるかどうか
 
     private GameDirector m_gameDirector;
 
@@ -26,7 +31,8 @@ public class ClearConditionChecker : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // オブザーバーとして登録
+        GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
     }
 
 
@@ -35,6 +41,13 @@ public class ClearConditionChecker : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (m_isDelayClearCheck)
+        {
+            // クリア条件のチェックを遅延させる場合は何もしない
+            m_isConnectionRejectionSlot = false;
+            return;
+        }
+
         // クリア条件のチェック
         if (CheckClearCondition())
         {
@@ -51,6 +64,10 @@ public class ClearConditionChecker : MonoBehaviour
 
     private bool CheckClearCondition()
     {
+        // 終点の拒絶の核が接続されている場合はクリア条件を満たさない
+        if (m_isConnectionRejectionSlot)
+            return false;
+
         // クリア条件を満たしているかどうかをチェック
         foreach (var slot in terminusFeelingSlots)
         {
@@ -73,4 +90,25 @@ public class ClearConditionChecker : MonoBehaviour
             terminusFeelingSlots.Add(slot);
         }
     }
+
+    public void OnEvent(InteractionEvent eventID)
+    {
+        // イベントIDに応じて処理を分岐
+        switch (eventID)
+        {
+            case InteractionEvent.CONNECTED_REJECTION_SLOT:
+                m_isConnectionRejectionSlot = true; // 終点の拒絶の核が接続された
+                break;
+            case InteractionEvent.DISCONNECTED_REJECTION_SLOT:
+                m_isConnectionRejectionSlot = false; // 終点の拒絶の核が切断された
+                break;
+            case InteractionEvent.FLOWWING_AMIDAKUJI:
+                m_isDelayClearCheck = true; // あみだを辿るイベントが発生した場合、クリア判定を遅延させる
+                break;
+            default:
+                break;
+        }
+    }
+
 }
+

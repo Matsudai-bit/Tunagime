@@ -13,9 +13,9 @@ public class StageGridData : MonoBehaviour
     /// <summary>
     /// タイルデータを取得します。
     /// </summary>
-    public TileData[,]  GetTileData
+    public TileData[,] GetTileData
     {
-        get{ return m_tileData; } 
+        get { return m_tileData; }
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ public class StageGridData : MonoBehaviour
     /// </summary>
     /// <param name="gridWidth"></param>
     /// <param name="gridHeight"></param>
-    public void  Initialize(int gridWidth, int gridHeight)
+    public void Initialize(int gridWidth, int gridHeight)
     {
         m_tileData = new TileData[gridHeight, gridWidth];
     }
@@ -102,7 +102,7 @@ public class StageGridData : MonoBehaviour
     /// 指定したタイルのタイルオブジェクトを取り除く
     /// </summary>
     /// <param name="gridPos"></param>
-    public GameObject RemoveGridData(GridPos gridPos)
+    public GameObject RemoveGridDataGameObject(GridPos gridPos)
     {
         // 範囲内かどうかを確認
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
@@ -119,6 +119,7 @@ public class StageGridData : MonoBehaviour
 
         // グリッド内の参照をnullにする
         currentTile.tileObject.gameObject = null;
+        currentTile.tileObject.stageBlock = null;
         m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
 
         if (removedObject != null)
@@ -131,6 +132,31 @@ public class StageGridData : MonoBehaviour
         }
 
         return removedObject; // 取り除いたオブジェクトを返す
+    }
+
+    public AmidaTube RemoveAmidaTube(GridPos gridPos)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"RemoveAmidaTube: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return null;
+        }
+        // タイルデータを取得
+        TileData currentTile = m_tileData[gridPos.y, gridPos.x];
+        // あみだチューブを取り除く
+        AmidaTube removedAmidaTube = currentTile.amidaTube;
+        currentTile.amidaTube = null; // あみだチューブをnullに設定
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
+
+        if (removedAmidaTube != null)
+        {
+            removedAmidaTube.SetActive(false); // あみだチューブのGameObjectを非アクティブにする
+        }
+        else
+        {
+        }
+        return removedAmidaTube; // 取り除いたあみだチューブを返す
     }
 
     /// <summary>
@@ -162,6 +188,7 @@ public class StageGridData : MonoBehaviour
 
         // オブジェクトが存在しない場合、新しいオブジェクトを配置
         currentTile.tileObject.gameObject = objectToPlace; // tileObjectを設定
+        currentTile.tileObject.stageBlock = objectToPlace?.GetComponent<StageBlock>(); // グリッド座標を設定
         m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
 
         Debug.Log($"TryPlaceTileObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
@@ -192,6 +219,7 @@ public class StageGridData : MonoBehaviour
     {
         m_isAmidaDataChanged = false;
     }
-
-
 }
+
+
+    

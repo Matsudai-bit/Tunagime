@@ -1,10 +1,9 @@
 using System.Collections;
-using UnityEditor.PackageManager.Requests;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour , IGameInteractionObserver
 {
     [Header("プレイヤーの移動速度")]
     public float SPEED = 5.0f; // 移動速度
@@ -26,7 +25,7 @@ public class Player : MonoBehaviour
 
     private PlayerStateMachine m_stateMachine; // プレイヤーの状態マシン
 
-
+    private GameObject m_targetObject; // ターゲットオブジェクト
     void Awake()
     {
         m_stageBlock = GetComponent<StageBlock>();
@@ -55,6 +54,9 @@ public class Player : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
 
         m_stateMachine.RequestStateChange(PlayerStateID.IDLE); // 初期状態をIDLEに設定
+
+        // ゲームインタラクションイベントのオブザーバーを登録
+        GameInteractionEventMessenger.GetInstance.RegisterObserver(this); 
     }
 
     // Update is called once per frame
@@ -323,12 +325,28 @@ public class Player : MonoBehaviour
         {
             if (m_carryingObj) // 運んでいるオブジェクトを持っている場合
             {
-
-
                 // 編む状態に切り替える
                 m_stateMachine.RequestStateChange(PlayerStateID.KNIT); 
 
             }
+        }
+    }
+
+    public void TryUnknit()
+    {
+        // Xキーを押したときの処理
+        if (Input.GetKeyDown(KeyCode.X))
+        {   // 解く位置
+            GridPos unknittingPos = GetForwardGridPos(); // 前方のグリッド位置
+
+            // 状態が橋なら解く
+            if (StageAmidaUtility.CheckAmidaState(unknittingPos, AmidaTube.State.BRIDGE))
+            {
+                // アミダを解く状態に切り替える
+                m_stateMachine.RequestStateChange(PlayerStateID.UNKNIT);
+            }
+
+
         }
     }
 
@@ -342,20 +360,29 @@ public class Player : MonoBehaviour
         {
             // マップの取得
             var map = MapData.GetInstance;
-            // レイの飛ばす距離を設定
-            float rayDistance = (float)(map.GetCommonData().width) / 2.0f;
+           
 
-            // レイキャストを使用して、プレイヤーの前方にあるオブジェクトを検出
-            RaycastHit hit;
-            if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, rayDistance))
+            if (m_targetObject?.GetComponent<FeltBlock>() != null )
             {
-                // レイが当たったオブジェクトがステージブロックであるかチェック
-                if (hit.collider.gameObject?.GetComponent<FeltBlock>() != null)
+                // 押しだすブロックの一個置く側に空間が空いていれば押し出すことが出来る
+
+                var stageBlock = m_targetObject.GetComponent<FeltBlock>();
+                // StageBlockのグリッド位置を取得
+                GridPos gridPos = stageBlock.GetComponent<StageBlock>().GetGridPos();
+                // 一個奥のグリッドを取得
+                GridPos targetGridPos = gridPos + GetForwardDirection();
+                // 一つ奥のタイルを取得
+                TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
+
+                if (targetTileObject.gameObject == null)
                 {
                     m_stateMachine.RequestStateChange(PlayerStateID.PUSH_BLOCK);
+                    return true; // アミダを押すことができる
                 }
-            }
 
+            }
+            // ターゲットオブジェクトがFeltBlockでない場合は何もしない
+            return false;
         }
 
         return true;
@@ -412,4 +439,169 @@ public class Player : MonoBehaviour
         m_animator.SetLayerWeight(layerIndex, targetWeight);
     }
 
+    public void TryForwardFloorSetting()
+    {
+        // プレイヤーの前方のグリッド位置を取得
+        var forwardPos = GetForwardGridPos();
+        // マップを取得
+        var map = MapData.GetInstance;
+        // 前方のグリッド位置がグリッド範囲内かチェック
+        if (map.CheckInnerGridPos(forwardPos))
+        {
+            // 前方のグリッド位置のタイルオブジェクトを取得
+            var tileData = map.GetStageGridData().GetTileData[forwardPos.y, forwardPos.x];
+            GameObject floor = tileData.floor;
+
+            if (floor != null && tileData.tileObject.gameObject == null)
+            {
+                // ターゲットオブジェクトを設定
+                SetTargetObject(floor);
+             
+            }
+            else
+            {
+                if (m_targetObject != null)
+                {
+                    // ターゲットオブジェクトが存在する場合はリセット
+                    ResetTargetObject();
+                }
+                return;
+            }
+        }
+        else
+        {
+            // グリッド範囲外の場合はターゲットオブジェクトをnullに設定
+            m_targetObject = null;
+        }
+    }
+
+    public void TryForwardObjectSetting()
+    {
+        // プレイヤーの前方のグリッド位置を取得
+        var forwardPos = GetForwardGridPos();
+
+        // マップを取得
+        var map = MapData.GetInstance;
+        // 前方のグリッド位置がグリッド範囲内かチェック
+        if (map.CheckInnerGridPos(forwardPos))
+        {
+            // 前方のグリッド位置のタイルオブジェクトを取得
+            TileObject tileObject = map.GetStageGridData().GetTileData[forwardPos.y, forwardPos.x].tileObject;
+
+            if (tileObject.gameObject != null && tileObject.stageBlock.CanInteract())
+            {
+                // ターゲットオブジェクトを設定
+                SetTargetObject(tileObject.gameObject);
+            }
+            else
+            {
+                if (m_targetObject != null)
+                {
+                    // ターゲットオブジェクトが存在する場合はリセット
+                    ResetTargetObject();
+                }
+                return;
+            }
+        }
+        else
+        {
+            // グリッド範囲外の場合はターゲットオブジェクトをnullに設定
+            m_targetObject = null;
+        }
+    }
+
+    /// <summary>
+    /// ターゲットオブジェクトを設定する。テスト用
+    /// </summary>
+    /// <param name="targetObject"></param>
+    public void SetTargetObject(GameObject targetObject)
+    {
+        if (m_targetObject == targetObject)
+        {
+            return; // 既に同じオブジェクトが設定されている場合は何もしない
+        }
+        ResetTargetObject();
+
+        m_targetObject = targetObject; // ターゲットオブジェクトを設定
+
+
+        // レイヤー名の変更
+        m_targetObject.layer = LayerMask.NameToLayer("Outline");
+        SetLayerRecursively(m_targetObject.transform, LayerMask.NameToLayer("Outline"));
+
+    }
+
+    /// <summary>
+    /// ターゲットオブジェクトをリセットする。
+    /// </summary>
+    public void ResetTargetObject()
+    {
+        if (m_targetObject != null)
+        {
+
+            // レイヤー名の変更
+            m_targetObject.layer = LayerMask.NameToLayer("Default");
+            SetLayerRecursively(m_targetObject.transform, LayerMask.NameToLayer("Default"));
+
+            // 既にターゲットオブジェクトが設定されている場合は、前のオブジェクトのアルファ値を最大に戻す
+            Renderer renderer = m_targetObject?.GetComponentInChildren<Renderer>();
+
+            // 親から子までレイヤー名の変
+            m_targetObject = null; // ターゲットオブジェクトをnullに設定
+        }
+    }
+
+
+    /// <summary>
+    /// 指定したオブジェクトとその子オブジェクトのレイヤーを再帰的に設定する。
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="newLayer"></param>
+    private void SetLayerRecursively(Transform obj, int newLayer)
+    {
+        if (null == obj)
+        {
+            return;
+        }
+
+        obj.gameObject.layer = newLayer;
+
+        foreach (Transform child in obj)
+        {
+            SetLayerRecursively(child, newLayer);
+        }
+    }
+
+
+    /// <summary>
+    /// プレイヤーの現在のグリッド位置を取得する
+    /// </summary>
+    /// <returns></returns>
+    public GridPos GetGridPosition()
+    {
+        // 最も近いグリッド位置の取得
+        return MapData.GetInstance.GetClosestGridPos(transform.position);
+    }
+
+    /// <summary>
+    /// プレイヤーの前方のワールド座標を取得する
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetForwardDirectionForGrid()
+    {
+        // プレイヤーの前方のグリッド方向を取得
+        GridPos forward2D = GetForwardDirection(); // プレイヤーの前方のグリッド方向
+        // グリッド座標からワールド座標に変換
+        return new Vector3 (forward2D.x, 0.0f, -forward2D.y);
+    }
+
+    public GameObject GetTargetObject()
+    {
+        return m_targetObject; // ターゲットオブジェクトを取得
+    }
+
+    public void OnEvent(InteractionEvent eventID)
+    {
+
+    }
 }

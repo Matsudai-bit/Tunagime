@@ -30,6 +30,7 @@ public class IdleStatePlayer : PlayerState
 
     public override void OnUpdateState() 
     {
+
         // 持ち運ぶオブジェクトを拾う処理を試みる
         owner.TryPickUp();
         // 持ち運ぶオブジェクトを置く処理を試みる
@@ -39,12 +40,21 @@ public class IdleStatePlayer : PlayerState
         {
             // 編む処理を試みる
             owner.TryKnit();
+            // test
+            owner.TryForwardFloorSetting();
+        }
+        else
+        {
+            // test
+            owner.TryForwardObjectSetting();
+            owner.TryUnknit();
+
         }
 
     }
     public override void OnFinishState()
     {
-
+        owner.ResetTargetObject();
     }
 
 

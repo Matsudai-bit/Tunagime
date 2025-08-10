@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_feelingCore: {fileID: 7979727551716307642}
-  m_materialType: 4
 --- !u!114 &4947024199510877127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +144,8 @@ MonoBehaviour:
   m_gridPos:
     x: 0
     y: 0
+  m_blockType: 3
+  m_canInteract: 0
 --- !u!1001 &1729702233300659854
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public enum PlayerStateID
     PICK_UP,    // E‚¤
     PUT_DOWN,  // ‰º‚ë‚·
     KNIT,       // •Ò‚Ş
+    UNKNIT,     // ‰ğ‚­
     PUSH_BLOCK, // ƒuƒƒbƒN‚ğ‰Ÿ‚·
 
 }

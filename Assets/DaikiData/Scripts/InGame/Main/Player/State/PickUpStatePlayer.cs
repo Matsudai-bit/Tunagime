@@ -80,7 +80,7 @@ public class PickUpStatePlayer : PlayerState
         var stageBlock = carryingObject.stageBlock;
 
         // グリッドから持ち上げるオブジェクトを削除
-        map.GetStageGridData().RemoveGridData(stageBlock.GetGridPos()); 
+        map.GetStageGridData().RemoveGridDataGameObject(stageBlock.GetGridPos()); 
 
         // デバッグログに持ち上げるオブジェクトの名前を出力
         Debug.Log(gameObj.name); 

@@ -7,6 +7,20 @@ public class StageBlock : MonoBehaviour
 {
     [SerializeField] private GridPos m_gridPos;
 
+    [SerializeField] private BlockType m_blockType = BlockType.NONE; // ブロックの種類
+
+    [SerializeField] private bool m_canInteract = false; // インタラクト可能かどうか
+    public enum BlockType
+    {
+        NONE = 0, // 何もない
+
+        FELT_BLOCK, // フェルトブロック
+        FLUFF_BALL, // 毛糸球
+        FEELING_SLOT, // エモーションスロット
+        AMIDA_TUBE, // あみだチューブ
+    }
+
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -85,6 +99,9 @@ public class StageBlock : MonoBehaviour
         // 現在いる場所をnullにする
         tileData[m_gridPos.y, m_gridPos.x].tileObject.gameObject = null;
 
+        // 移動元を削除
+        MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_gridPos);
+
         //グリッド座標の更新
         m_gridPos = gridPos;
 
@@ -92,7 +109,7 @@ public class StageBlock : MonoBehaviour
         transform.position = newPos + new Vector3(0.0f, transform.position.y, 0.0f);
 
         // 移動先の座標に移動する
-        tileData[m_gridPos.y, m_gridPos.x].tileObject.gameObject = gameObject;
+        MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_gridPos, gameObject);
 
 
     }
@@ -100,5 +117,24 @@ public class StageBlock : MonoBehaviour
     public void SetActive(bool activeSelf)
     {
         gameObject.SetActive(activeSelf);
+    }
+
+    public BlockType GetBlockType()
+    {
+        return m_blockType;
+    }
+
+    public void SetBlockType(BlockType blockType)
+    {
+        m_blockType = blockType;
+    }
+
+    /// <summary>
+    /// インタラクト可能かどうかを取得する
+    /// </summary>
+    /// <returns></returns>
+    public bool CanInteract()
+    {
+        return m_canInteract;
     }
 }

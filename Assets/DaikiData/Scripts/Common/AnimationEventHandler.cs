@@ -20,6 +20,8 @@ public class AnimationEventHandler
 
     bool m_hasAnimationPlayed = false; // 置くアニメーションが再生されたことがあるかどうかのフラグ
 
+    private string m_paramName; // アニメーションのパラメータ名
+
     /// <summary>
     /// アニメーションレイヤーの変更に関するデータ構造
     /// </summary>
@@ -32,16 +34,10 @@ public class AnimationEventHandler
 
     public AnimationEventHandler(Animator animator)
     {
-        m_animationTargetTimeActionData = new TargetTimeData
-        {
-            changedNormalizedTime = 0.0f,
-            action = null
-        };
-
-        m_layerIndex = 0;
-        m_currentAnimationHash = 0;
-
+     
         m_animator = animator;
+
+        ResetAnimation(); // アニメーションの初期化
     }
 
 
@@ -52,17 +48,79 @@ public class AnimationEventHandler
     /// </summary>
     /// <param name="animationName"></param>
     /// <param name="layerIndex"></param>
-    public void PlayAnimationTrigger( string triggerName, string layerName, string animationName)
+    public void PlayAnimationTrigger( string paramName, string layerName, string animationName)
     {
-        m_layerIndex = m_animator.GetLayerIndex(layerName);
+        // アニメーションのパラメータ名を設定
+        m_paramName = paramName; 
+
+        // アニメーションを開始を指示
+        m_animator.SetTrigger(paramName);
+
+        // アニメーションの再生
+        PlayAnimation(animationName, layerName);
+
+    }
+
+    /// <summary>
+    /// アニメーションを再生するメソッド（ブール値を使用）
+    /// </summary>
+    /// <param name="boolName"></param>
+    /// <param name="layerName"></param>
+    /// <param name="animationName"></param>
+    public void PlayAnimationBool(string paramName, string layerName, string animationName)
+    {
+        // アニメーションのパラメータ名を設定
+        m_paramName = paramName;
 
         // アニメーションを開始
-        m_animator.SetTrigger(triggerName);
+        m_animator.SetBool(m_paramName, true);
+
+        // アニメーションの再生
+        PlayAnimation(animationName, layerName);
+    }
+
+    public void ResetAnimation()
+    {
+        m_animationTargetTimeActionData = new TargetTimeData
+        {
+            changedNormalizedTime = 0.0f,
+            action = null
+        };
+
+        m_layerIndex = 0;
+        m_currentAnimationHash = 0;
+
+        m_hasAnimationPlayed = false; // 置くアニメーションが再生されたことがあるかどうかのフラグを初期化
+
+        m_changedLayerWeight = false; // レイヤーのウェイトを変更するかどうかのフラグを初期化
+
+        m_paramName = string.Empty; // アニメーションのパラメータ名を初期化
+    }
+
+    /// <summary>
+    /// 指定したアニメーションを停止するメソッド
+    /// </summary>
+    /// <param name="boolName"></param>
+    public void StopAnimation()
+    {
+        // アニメーションを停止
+        m_animator.SetBool(m_paramName, false);
+
+    }
+
+    /// <summary>
+    /// 指定したアニメーションを再生するメソッド
+    /// </summary>
+    /// <param name="animationName"></param>
+    /// <param name="layerName"></param>
+    private void PlayAnimation(string animationName, string layerName)
+    {
+        m_layerIndex = m_animator.GetLayerIndex(layerName);
+        // アニメーションを開始
+        m_animator.Play(animationName, m_layerIndex);
         // アニメーションのハッシュを取得
         m_currentAnimationHash = Animator.StringToHash(layerName + "." + animationName);
-
         m_hasAnimationPlayed = false; // アニメーションが再生されたことをリセット
-
     }
 
     /// <summary>

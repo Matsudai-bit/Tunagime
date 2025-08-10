@@ -38,7 +38,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
         CENTER      // 中央（あみだの中心）
     }
 
-
+    private StageBlock m_stageBlock; // このあみだチューブが属するステージブロック
 
 
     // === 隣接するAmidaTubeへの参照 (重要！) ===
@@ -71,12 +71,20 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
     private void Awake()
     {
+        m_stageBlock = GetComponentInParent<StageBlock>();
 
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+    }
+
+
+    public void ResetEmotionCurrentType()
+    {
+        // EmotionCurrent.Typeをリセット
+        m_meshChanger.ResetEmotionType();
     }
 
 
@@ -120,7 +128,8 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
         // 通過方向の変更
         UpdateNeighborAmida();
 
-        MapData.GetInstance.GetStageGridData().SetAmidaDataChanged(); // あみだの状態が変更されたことを通知
+        // あみだの状態が変更されたことを通知
+        GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CHANGED_AMIDAKUJI);
 
         m_requestChangeShape = State.NONE; // 状態変更要求をリセット
 
@@ -151,6 +160,13 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     public void ApplyMaterial()
     {
         // YarnMeshChangerを使用してマテリアルを適用
+        m_meshChanger.ApplyMaterial();
+    }
+
+    public void ApplyRejectionMaterial()
+    {
+        m_meshChanger.SetAllEmotionType(EmotionCurrent.Type.REJECTION);
+        // すべてのマテリアルに対してEmotionCurrent.TypeをREJECTIONに設定
         m_meshChanger.ApplyMaterial();
     }
 
@@ -316,173 +332,6 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     }
 
 
-    ///// <summary>
-    ///// 通過方向を取得する
-    ///// </summary>
-    ///// <returns>通過方向</returns>
-    //public DirectionPassage GetDirectionPassage()
-    //{
-    //    return m_directionPassage;
-    //}
-
-    /// <summary>
-    /// あみだブロックの設定
-    /// </summary>
-    /// <param name="dir">設定する方向</param>
-    /// <param name="setAmidaBlock">設定するブロック</param>
-    private void SetAmidaBlock(Direction dir, GameObject setAmidaBlock)
-    {
-        //switch(dir)
-        //{
-
-        //    case Direction.UP:
-        //        m_amidaBlocks[0] = setAmidaBlock;
-        //        break;
-        //    case Direction.DOWN:
-        //        m_amidaBlocks[1] = setAmidaBlock;
-        //        break;
-        //    case Direction.LEFT:
-        //        m_amidaBlocks[2] = setAmidaBlock;
-        //        break;
-        //    case Direction.RIGHT:
-        //        m_amidaBlocks[3] = setAmidaBlock;
-        //        break;
-        //    case Direction.CENTER:
-        //        m_amidaBlocks[4] = setAmidaBlock;
-        //        break;
-        //}
-    }
-
-    ///// <summary>
-    ///// あみだブロックの取得
-    ///// </summary>
-    ///// <param name="dir">設定する方向</param>
-    ///// <param name="setAmidaBlock">設定するブロック</param>
-    //public GameObject GetAmidaBlock(Direction dir)
-    //{
-    //    //switch (dir)
-    //    //{
-
-    //    //    case Direction.UP:
-    //    //        return m_amidaBlocks[0] ;
-    //    //    case Direction.DOWN:
-    //    //        return m_amidaBlocks[1] ;
-    //    //    case Direction.LEFT:
-    //    //        return m_amidaBlocks[2] ;
-    //    //    case Direction.RIGHT:
-    //    //        return m_amidaBlocks[3] ;
-    //    //    case Direction.CENTER:
-    //    //        return m_amidaBlocks[4] ;
-    //    //}
-    //    //return null;
-    //}
-
-    ///// <summary>
-    ///// ブロックの色の変更
-    ///// </summary>
-    ///// <param name="color">変更色</param>
-    ///// <param name="directionA">方向A</param>
-    ///// <param name="directionB">方向B</param>
-    //private void ChangeBlockColor(Color32 color, Direction direction)
-    //{
-
-
-    //    GameObject block = GetAmidaBlock(direction);
-
-    //    GameObject blockCenter = GetAmidaBlock(Direction.CENTER);
-
-    //    if (block)
-    //        block.GetComponent<MeshRenderer>().material.color = color;
-
-    //    if (blockCenter)
-    //        blockCenter.GetComponent<MeshRenderer>().material.color = color;
-    //}
-
-
-    /// <summary>
-    /// 電気を流す
-    /// </summary>
-    /// <param name="color"></param>
-    /// <param name="direction"></param>
-    /// <param name="electricFlowType"></param>
-    public void ConductElectricity(/*Color32 color, Direction direction, Electric.ElectricFlowType electricFlowType,*/ Texture mainTex)
-    {
-        GetComponent<MeshRenderer>().material.mainTexture = mainTex;
-
-        //GetAmidaBlock(Direction.CENTER).GetComponent<Electric>().SetElectricFlowType(electricFlowType);
-        //GetAmidaBlock(direction).GetComponent<Electric>().SetElectricFlowType(electricFlowType);
-        //ChangeBlockColor(color, direction);
-    }
-
-    /// <summary>
-    /// 全てのブロックの色の変更
-    /// </summary>
-    /// <param name="color">変更色</param>
-    public void ChangeAllBlockColor(Texture mainTex)
-    {
-        GetComponent<MeshRenderer>().material.mainTexture = mainTex;
-
-        //foreach (var obj in m_amidaBlocks)
-        //{
-        //    if (obj)
-        //        obj.GetComponent<MeshRenderer>().material.color = color;
-        //}
-    }
-
-    ///// <summary>
-    ///// 回転する
-    ///// </summary>
-    //public void RotateClock()
-    //{
-    //    // 現在の通過方向を取得
-    //    DirectionPassage currentPassage = GetDirectionPassage();
-
-    //    // 90度回転させた新しい通過方向を設定
-    //    DirectionPassage newPassage = new DirectionPassage
-    //    {
-    //        up = currentPassage.left,
-    //        down = currentPassage.right,
-    //        right = currentPassage.up,
-    //        left = currentPassage.down
-    //    };
-
-    //    // 新しい通過方向を設定
-    //    SetDirectionPassage(newPassage);
-
-    //}
-
-    /// <summary>
-    /// リセットする
-    /// </summary>
-    public void Reset()
-    {
-        //foreach (var obj in m_amidaBlocks)
-        //{
-        //    if (obj)
-        //    {
-        //        obj.SetActive(false);
-        //    }
-        //    ResetState();
-        //}
-
-    }
-
-    /// <summary>
-    /// リセットする
-    /// </summary>
-    public void ResetState()
-    {
-        //foreach (var obj in m_amidaBlocks)
-        //{
-        //    if (obj)
-        //    {
-        //        obj.SetActive(false);
-        //    }
-        //    ResetState();
-        //}
-
-    }
-
 
 
     public object CaptureData()
@@ -589,6 +438,11 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
             default:
                 return Direction.CENTER; // その他の場合は中央
         }
+    }
+
+    public GridPos GetGridPos()
+    {
+        return m_stageBlock.GetGridPos();
     }
 
 }

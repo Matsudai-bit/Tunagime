@@ -165,4 +165,40 @@ public class YarnMeshChanger : MonoBehaviour
             Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。マテリアルを適用できません。");
         }
     }
+
+    public void ResetEmotionType()
+    {
+        if (m_currentMeshInstance == null)
+        {
+            Debug.LogWarning("現在のメッシュインスタンスがありません。メッシュを設定してください。");
+            return;
+        }
+        YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
+        if (materialGetter != null)
+        {
+            materialGetter.ResetEmotionType();
+        }
+        else
+        {
+            Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。想いの種類をリセットできません。");
+        }
+    }
+
+    public void SetAllEmotionType(EmotionCurrent.Type emotionType)
+    {
+        if (m_currentMeshInstance == null)
+        {
+            Debug.LogWarning("現在のメッシュインスタンスがありません。メッシュを設定してください。");
+            return;
+        }
+        YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
+        if (materialGetter != null)
+        {
+            materialGetter.SetAllEmotionType(emotionType);
+        }
+        else
+        {
+            Debug.LogWarning($"'{gameObject.name}' にYarnMaterialGetterが見つかりません。すべての想いの種類を設定できません。");
+        }
+    }
 }

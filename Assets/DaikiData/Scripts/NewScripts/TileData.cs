@@ -20,11 +20,12 @@ public struct TileData
 /// </summary>
 public enum TileType
 {
-    FLUFF_BALL, // 毛糸玉
+    PLAYER_INTERACTION, // プレイヤーが操作するタイル
+    PLAYER_NON_INTERACTION, // プレイヤーが操作しないタイル
 }
 
 public struct TileObject
 {
     public GameObject gameObject;
-    public TileType type;
+    public StageBlock stageBlock; // このタイルが属するStageBlock
 }

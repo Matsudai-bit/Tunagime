@@ -37,16 +37,12 @@ public class PlayerStateMachine
         // 状態の変更要求がある場合
         if (m_requestedStateID != PlayerStateID.NONE )
         {
-           // 状態を変更する
-           if (m_currentState != null)
-            m_currentState.OnFinishState();
 
             // 変更要求された状態に遷移
             ChangeState(m_requestedStateID);
             m_requestedStateID = PlayerStateID.NONE; // リセット
 
-            // 新しい状態の開始処理を呼び出す
-            m_currentState.OnStartState(); 
+  
         }
 
         // 現在の状態がnullでない場合、UpdateStateを呼び出す
@@ -119,6 +115,8 @@ public class PlayerStateMachine
                 return new PutDownStatePlayer(m_owner);
             case PlayerStateID.KNIT:
                 return new KnitStatePlayer(m_owner);
+            case PlayerStateID.UNKNIT:
+                return new UnknitStatePlayer(m_owner);
             case PlayerStateID.PUSH_BLOCK:
                 return new PushBlockStatePlayer(m_owner);
             default:

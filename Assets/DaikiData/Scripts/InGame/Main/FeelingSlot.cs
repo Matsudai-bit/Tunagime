@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 想いの型
 /// </summary>
-public class FeelingSlot : MonoBehaviour
+public class FeelingSlot : MonoBehaviour 
 {
     [SerializeField] private FeelingCore m_feelingCore; // 想いの核
 
@@ -39,4 +39,7 @@ public class FeelingSlot : MonoBehaviour
             return GetComponent<StageBlock>(); // StageBlockコンポーネントを取得
         }
     }
+
+
+
 }

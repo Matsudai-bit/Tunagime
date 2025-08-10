@@ -65,7 +65,7 @@ public class AmidaTubeGenerator : MonoBehaviour
 
 
     [SerializeField] private GameObject m_amidaTubePrefab;    // あみだ
-    [SerializeField] private GameObject m_amidaTubeParent;    // あみだの親
+    private Transform m_amidaTubeParent;    // あみだの親
 
 
     [Header(" ==== テスト用 ====")]
@@ -88,10 +88,11 @@ public class AmidaTubeGenerator : MonoBehaviour
     /// <param name="amidaTopPartPosY">あみだの床の上部座標</param>
     /// <param name="map"></param>
     /// <returns>生成したグリッドデータ</returns>
-    public GameObject[,]  GenerateAmida()
+    public GameObject[,]  GenerateAmida(Transform amidaParent)
     {
         var map = MapData.GetInstance;
-        
+
+        m_amidaTubeParent = amidaParent; // あみだの親の設定
 
         // あみだグリッド
         GameObject[,] amidaGrid;
@@ -146,7 +147,7 @@ public class AmidaTubeGenerator : MonoBehaviour
             for (int cx = 1; cx < map.GetCommonData().width - 1; cx++)
             {
 
-                m_amidaGenerationDataGrid[posY, cx] = straightLeftRight;
+                m_amidaGenerationDataGrid[posY - 1, cx] = straightLeftRight;
             }
         }
 
@@ -163,6 +164,9 @@ public class AmidaTubeGenerator : MonoBehaviour
                 amidaGrid[cy, cx]  = CreateAmidaTube(m_amidaGenerationDataGrid[cy, cx], cx, cy, map, map.GetCommonData().BaseTilePosY);
 
                 var amidaTube = amidaGrid[cy, cx].GetComponent<AmidaTube>();
+                var stageBlock = amidaGrid[cy, cx].GetComponent<StageBlock>();
+
+                stageBlock.SetGridPos(new GridPos(cx, cy)); // グリッド座標の設定
 
                 map.GetStageGridData().GetTileData[cy, cx].amidaTube = amidaTube;
 
@@ -254,11 +258,14 @@ public class AmidaTubeGenerator : MonoBehaviour
 
         GameObject bridge = Instantiate(m_amidaTubePrefab ,generatePos, Quaternion.identity, m_amidaTubeParent.transform);
 
+        bridge.GetComponent<StageBlock>().SetGridPos(gridPos); // グリッド座標の設定
+
         var map = MapData.GetInstance;
 
         var stageGridData = map.GetStageGridData();
         // あみだチューブの登録
-        stageGridData.SetAmidaTube(gridPos, bridge.GetComponent<AmidaTube>());
+        map.GetStageGridData().SetAmidaTube(gridPos, bridge.GetComponent<AmidaTube>());
+
         
 
 
@@ -307,6 +314,8 @@ public class AmidaTubeGenerator : MonoBehaviour
         bool canDownThrough = false;
         bool canRightPassThrough = false;
         bool canLeftPassThrough = false;
+
+       // cy--;
 
         if (0 <= cy - 1)
         {

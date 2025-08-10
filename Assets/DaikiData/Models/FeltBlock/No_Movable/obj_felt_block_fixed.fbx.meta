@@ -3,7 +3,12 @@ guid: aa315bfffea3c194a9ebf82af25382bb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_felt_block_fixed
+    second: {fileID: 2100000, guid: fd2566cbaa6a07d42bf32c8310afa168, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -9,12 +9,7 @@ using UnityEditor;
 /// </summary>
 public class StageGenerator : MonoBehaviour
 {
-    
-    public MapData m_map; // ステージデータ
-
-    public AmidaManager m_amidaManager;
-
-    [SerializeField] private GameObject m_player;                   //　プレイヤー
+   
 
 
 
@@ -26,6 +21,7 @@ public class StageGenerator : MonoBehaviour
     {
         public GridPos gridPos;
         public GameObject prefab;
+        public StageBlock.BlockType blockType; // ブロックの種類
     }
 
 
@@ -41,7 +37,6 @@ public class StageGenerator : MonoBehaviour
         public float posY;              // 生成座標Y
     }
 
-    [SerializeField] private ClearConditionChecker m_clearConditionChecker; // クリア条件チェック用のクラス
 
     [Header("==== 生成データ ==== ")]
     [Header("ギミック生成データ")]
@@ -58,8 +53,7 @@ public class StageGenerator : MonoBehaviour
     [SerializeField] private Generator m_topFloorBlockGenerator;  // トップ層の床ブロックの生成機
 
     
-
-
+   
     private void Awake()
     {
        
@@ -68,24 +62,27 @@ public class StageGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
+      
+    }
+
+    public void Generate(AmidaManager amidaManager, Transform amidaParent, Transform floorParent, Transform gimmickParent, ClearConditionChecker clearConditionChecker)
+    {
         // 床上部座標の設定
         float topFloorTopPartPosY = m_topFloorBlockGenerator.posY;
         float amidaPosY = m_amidaTubeGenerator.posY;
 
         var map = MapData.GetInstance;
 
-        
+
         // トップ層の生成
         if (m_topFloorBlockGenerator.generator)
-                m_topFloorBlockGenerator.generator.GetComponent<FloorBlockGenerator>().
-                GenerateFloor(
-                    false
-            );
+            m_topFloorBlockGenerator.generator.GetComponent<FloorBlockGenerator>().
+            GenerateFloor(false, floorParent);
 
         // あみだチューブの生成
         if (m_amidaTubeGenerator.generator)
 
-            m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>().GenerateAmida();
+            m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>().GenerateAmida(amidaParent);
 
 
 
@@ -93,12 +90,14 @@ public class StageGenerator : MonoBehaviour
         // ギミックの生成
         foreach (var generation in m_gimmickData)
         {
-            GridPos fixedGridPos = new GridPos ( generation.gridPos.x - 1, generation.gridPos.y - 1 );
+            GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
-            GameObject instanceObj = Instantiate(generation.prefab);
-            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
+            GameObject instanceObj = Instantiate(generation.prefab, gimmickParent);
+            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
 
             StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
+            stageBlock.SetBlockType(generation.blockType);
+
 
             stageBlock.Initialize(fixedGridPos);
         }
@@ -106,30 +105,33 @@ public class StageGenerator : MonoBehaviour
         // 床の生成　通常床は自動で生成されている
         foreach (var generation in m_floorData)
         {
-            
-            GridPos fixedGridPos = new GridPos(generation.gridPos.x, generation.gridPos.y);
+
+            GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
 
             // 床の生成
-            GameObject instanceObj = Instantiate(generation.prefab);
+            GameObject instanceObj = Instantiate(generation.prefab, gimmickParent);
 
             //Vector3 pos = map.ConvertGridToWorldPos(fixedGridPos.x, fixedGridPos.y);
             //instanceObj.transform.position = new Vector3(pos.x, instanceObj.transform.position.y, pos.z);
 
             // 元々の床オブジェクトを無効化
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor.SetActive(false);
+
             // 新しい床オブジェクトを設定
-            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
+            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
 
             StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
+            stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
             stageBlock.Initialize(fixedGridPos);
+
 
             if (instanceObj.GetComponent<FeelingSlot>() != null)
             {
                 // FeelingSlotの初期化
                 FeelingSlot feelingSlot = instanceObj.GetComponent<FeelingSlot>();
-                m_amidaManager.AddFeelingSlot(feelingSlot);
+                amidaManager.AddFeelingSlot(feelingSlot);
             }
 
 
@@ -138,19 +140,23 @@ public class StageGenerator : MonoBehaviour
         // 終点の生成
         foreach (var generation in m_terminusData)
         {
-            GridPos fixedGridPos = new GridPos(generation.gridPos.x, generation.gridPos.y);
-            GameObject instanceObj = Instantiate(generation.prefab);
+            GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
+            GameObject instanceObj = Instantiate(generation.prefab, gimmickParent);
 
             // 新しい床オブジェクトを設定
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
-            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj; 
-            
+
+            // 新しい床オブジェクトを設定
+            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
+            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
+
             StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
+            stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
             stageBlock.Initialize(fixedGridPos);
             TerminusFeelingSlot terminusFeelingSlot = instanceObj.GetComponent<TerminusFeelingSlot>();
             if (terminusFeelingSlot != null)
             {
-                m_clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
+                clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
             }
         }
 
@@ -160,7 +166,6 @@ public class StageGenerator : MonoBehaviour
 
     }
 
-
-
+  
 
 }

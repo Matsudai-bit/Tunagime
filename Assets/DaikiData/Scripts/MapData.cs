@@ -8,7 +8,10 @@ using UnityEngine;
 [System.Serializable]
 public struct GridPos
 {
-  public  int x;
+    public static readonly GridPos UP = new GridPos(0, 1);
+    public static readonly GridPos DOWN = new GridPos(0, -1);
+
+    public  int x;
   public  int y;
 
    public GridPos(int x, int y)
@@ -18,6 +21,7 @@ public struct GridPos
     }
 
     public static GridPos operator +(GridPos lhs, GridPos rhs) => new GridPos(lhs.x + rhs.x, lhs.y + rhs.y);
+    public static GridPos operator -(GridPos lhs, GridPos rhs) => new GridPos(lhs.x - rhs.x, lhs.y - rhs.y);
 }
 
 [System.Serializable]
@@ -147,6 +151,11 @@ public class MapData : MonoBehaviour
 
         return worldPos;
     }
+    public Vector3 ConvertGridToWorldPos(GridPos gridPos)
+    {
+        return ConvertGridToWorldPos(gridPos.x, gridPos.y);
+    }
+
 
     public float ConvertGridToWorldPosX(int x)
     {
