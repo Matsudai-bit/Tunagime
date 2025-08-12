@@ -110,7 +110,9 @@ public class PushBlockStatePlayer : PlayerState
 
         m_animationEventHandler.StopAnimation(); // アニメーションを停止
 
-        MapData.GetInstance.GetStageGridData().SetAmidaDataChanged(); // あみだデータの変更をリセット
+
+        //フェルトブロックを押したことを通知
+        GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK); 
     }
 
     /// <summary>

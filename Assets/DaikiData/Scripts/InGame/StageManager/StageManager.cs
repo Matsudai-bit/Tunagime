@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [Header( "====== ステージ生成器(何ステージ)の設定 ======")]
+    [Header( "====== ステージ生成器(何ステージ)の設定 特に設定しなくても大丈夫　マップデータから自動で取得される ======")]
     [SerializeField]
     private GameObject m_stageGenerator;
 
@@ -33,6 +33,12 @@ public class StageManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        var map = MapData.GetInstance; // マップデータのインスタンスを取得
+
+        // ステージ生成器の取得
+        m_stageGenerator = map.GetStageGenerator();
+
         // ステージ生成器のインスタンスを生成
         if (m_stageGenerator != null)
         {

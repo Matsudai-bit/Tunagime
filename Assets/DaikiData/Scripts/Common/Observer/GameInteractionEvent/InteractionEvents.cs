@@ -18,5 +18,7 @@ public enum InteractionEvent
     CONNECTED_REJECTION_SLOT, // 拒絶の核が接続された
     DISCONNECTED_REJECTION_SLOT, // 拒絶の核が切断された
 
+    PUSH_FELTBLOCK, // フェルトブロックが押された
+
 
 }

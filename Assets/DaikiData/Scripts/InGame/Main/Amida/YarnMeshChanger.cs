@@ -57,6 +57,9 @@ public class YarnMeshChanger : MonoBehaviour
             m_currentMeshInstance.transform.localRotation = Quaternion.identity;
             m_currentMeshInstance.transform.localScale = Vector3.one;
 
+            // 活動状態にする
+            m_currentMeshInstance.SetActive(true);
+
             m_currentMeshType = type; // 現在のメッシュタイプを更新
 
             Debug.Log($"'{gameObject.name}' のメッシュを '{type}' に切り替えました。");
@@ -123,13 +126,6 @@ public class YarnMeshChanger : MonoBehaviour
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
         if (materialGetter != null)
         {
-            // マテリアルを変更
-            MeshRenderer meshRenderer = materialGetter.GetMeshRenderer(type);
-            if (meshRenderer == null)
-            {
-                Debug.LogWarning($"'{gameObject.name}' のマテリアルタイプ '{type}' のMeshRendererが見つかりません。");
-                return;
-            }
 
             // 想いの種類を設定
              materialGetter.SetEmotionType(type, changeEmotionType) ;

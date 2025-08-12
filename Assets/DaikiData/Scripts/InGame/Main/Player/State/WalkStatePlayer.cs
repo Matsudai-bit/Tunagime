@@ -24,7 +24,6 @@ public class WalkStatePlayer : PlayerState
         owner.TryPickUp();
         // 持ち運ぶオブジェクトを置く処理を試みる
         owner.TryPutDown();
-
       
         if (owner.GetCarryingObject() != null)
         {
@@ -32,9 +31,7 @@ public class WalkStatePlayer : PlayerState
             owner.TryForwardFloorSetting();
             // 編む処理を試みる
             owner.TryKnit();
-
         }
-        
         else
         {
             // test
@@ -62,6 +59,8 @@ public class WalkStatePlayer : PlayerState
         {
             // 歩行状態から待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
+            // 移動を停止
+            owner.StopMove();
         }
     }
 
@@ -73,6 +72,8 @@ public class WalkStatePlayer : PlayerState
         // 歩行状態の終了時にアニメーションをリセット
         owner.GetAnimator().SetBool("Walk", false);
 
+        // 移動を停止
+        owner.StopMove();
     }
 
 

@@ -31,7 +31,6 @@ public class KnitStatePlayer : PlayerState
     /// </summary>
     public override void OnUpdateState()
     {
-
         // アニメーションイベントハンドラーの更新
         m_animationEventHandler.OnUpdate();
 
@@ -44,7 +43,6 @@ public class KnitStatePlayer : PlayerState
             // 待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
         }
-
     }
     /// <summary>
     /// 歩行状態中のFixedUpdateで物理演算フレームごとに呼ばれる

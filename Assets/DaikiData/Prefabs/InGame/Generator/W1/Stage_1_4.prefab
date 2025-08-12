@@ -99,32 +99,32 @@ MonoBehaviour:
       x: 6
       y: 1
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 2
+    blockType: 1
   - gridPos:
       x: 6
       y: 5
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 2
+    blockType: 1
   - gridPos:
       x: 11
       y: 5
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 2
+    blockType: 1
   - gridPos:
       x: 6
       y: 2
     prefab: {fileID: 282849731534080628, guid: 43a1dc60b0824e9498ad46911501168a, type: 3}
-    blockType: 1
+    blockType: 0
   - gridPos:
       x: 4
       y: 6
     prefab: {fileID: 282849731534080628, guid: 43a1dc60b0824e9498ad46911501168a, type: 3}
-    blockType: 1
+    blockType: 0
   - gridPos:
       x: 8
       y: 4
     prefab: {fileID: 504130624815832448, guid: bab951241884feb479282891e7a49be8, type: 3}
-    blockType: 1
+    blockType: 2
   m_floorData:
   - gridPos:
       x: 1

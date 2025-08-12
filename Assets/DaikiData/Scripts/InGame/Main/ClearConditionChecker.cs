@@ -33,6 +33,9 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
     {
         // オブザーバーとして登録
         GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
+
+        m_isConnectionRejectionSlot = false; // 初期状態では接続されていない
+        m_isDelayClearCheck = false;
     }
 
 
@@ -44,7 +47,7 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
         if (m_isDelayClearCheck)
         {
             // クリア条件のチェックを遅延させる場合は何もしない
-            m_isConnectionRejectionSlot = false;
+            m_isDelayClearCheck = false;
             return;
         }
 
@@ -109,6 +112,11 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
                 break;
         }
     }
-
+    // 削除時
+    private void OnDestroy()
+    {
+        // ゲームインタラクションイベントのオブザーバーを解除
+        GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
+    }
 }
 

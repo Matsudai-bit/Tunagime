@@ -43,7 +43,22 @@ public class GameInteractionEventMessenger
     {
         foreach (var observer in m_observers)
         {
+
+
             observer.OnEvent(eventMessage);
+        }
+    }
+
+    /// <summary>
+    /// オブザーバーを登録解除するメソッド
+    /// </summary>
+    /// <param name="observer"></param>
+    public void RemoveObserver(IGameInteractionObserver observer)
+    {
+        // オブザーバーリストから削除
+        if (m_observers.Contains(observer))
+        {
+            m_observers.Remove(observer);
         }
     }
 }

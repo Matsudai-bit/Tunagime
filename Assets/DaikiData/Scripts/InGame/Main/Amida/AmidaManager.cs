@@ -303,7 +303,18 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
                 m_connectedRejectionSlot = false; // 接続状態を更新
                 m_isFollowingAmida = true; // あみだを辿るフラグを立てる
                 break;
+            case InteractionEvent.PUSH_FELTBLOCK:
+                // フェルトブロックが押された場合の処理
+                m_isFollowingAmida = true; // あみだを辿るフラグを立てる
+                break;
         }
+    }
+
+    // 削除時
+    private void OnDestroy()
+    {
+        // ゲームインタラクションイベントのオブザーバーを解除
+        GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
     }
 
 }

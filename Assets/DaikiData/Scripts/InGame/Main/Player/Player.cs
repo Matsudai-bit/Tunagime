@@ -141,14 +141,38 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             m_rb.linearVelocity = movementVec * SPEED;
             // 徐々に回転
             Quaternion targetRotation = Quaternion.LookRotation(movementVec, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, ROTATE_SPEED * Time.fixedDeltaTime);
+
+            //if (  m_rb.rotation.eulerAngles == Vector3.zero)
+            //{
+            m_rb.rotation = Quaternion.Slerp(m_rb.rotation, targetRotation, ROTATE_SPEED * Time.fixedDeltaTime);
+            //}
+            //else
+            //{
+            //    m_rb.rotation = Quaternion.RotateTowards(m_rb.rotation, targetRotation, ROTATE_SPEED * Time.fixedDeltaTime);
+            //}
+
+
         }
         else
         {
-            // 入力がない場合は速度をゼロにする
-            m_rb.linearVelocity = Vector3.zero;
+            // 移動していない場合は速度をゼロにする
+            StopMove();
         }
 
+
+    }
+
+    /// <summary>
+    /// プレイヤーの移動を停止する
+    /// </summary>
+    public void StopMove()
+    {
+        // Rigidbodyの速度をゼロにする
+        if (m_rb != null)
+        {
+            m_rb.linearVelocity = Vector3.zero; // 速度をゼロに設定
+            m_rb.angularVelocity = Vector3.zero; // 回転速度もゼロに設定
+        }
 
     }
 
@@ -488,10 +512,20 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             // 前方のグリッド位置のタイルオブジェクトを取得
             TileObject tileObject = map.GetStageGridData().GetTileData[forwardPos.y, forwardPos.x].tileObject;
 
+            // タイルオブジェクトが存在する場合
             if (tileObject.gameObject != null && tileObject.stageBlock.CanInteract())
             {
                 // ターゲットオブジェクトを設定
                 SetTargetObject(tileObject.gameObject);
+                return;
+            }
+
+            // タイルオブジェクトが存在しない場合、アミダのブリッジ状態のオブジェクトをチェック
+            AmidaTube amidaTube = map.GetStageGridData().GetAmidaTube(forwardPos);
+            if (amidaTube != null && amidaTube.GetState() == AmidaTube.State.BRIDGE)
+            {
+                SetTargetObject(amidaTube.gameObject);
+                return; // アミダのブリッジ状態のオブジェクトがある場合はターゲットオブジェクトを設定して終了
             }
             else
             {
@@ -603,5 +637,12 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public void OnEvent(InteractionEvent eventID)
     {
 
+    }
+
+    // 削除時
+    private void OnDestroy()
+    {
+        // ゲームインタラクションイベントのオブザーバーを解除
+        GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
     }
 }

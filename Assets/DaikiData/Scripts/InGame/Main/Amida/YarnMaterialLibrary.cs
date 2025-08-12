@@ -33,6 +33,8 @@ public class YarnMaterialLibrary : MonoBehaviour
         {
             Instance = this;
             InitializeLibrary();
+            DontDestroyOnLoad(gameObject); // ÉVÅ[ÉìÇÇ‹ÇΩÇ¢Ç≈ë∂ë±Ç≥ÇπÇÈ
+
         }
         else
         {

@@ -243,7 +243,11 @@ public class AmidaTubeGenerator : MonoBehaviour
 
         foreach (var pos in m_addAmidaPos)
         {
-            GenerateAmidaBridge(pos);
+        
+
+            GridPos gridPos = new GridPos(pos.x-1, pos.y-1);
+
+            GenerateAmidaBridge(gridPos);
         }
 
 

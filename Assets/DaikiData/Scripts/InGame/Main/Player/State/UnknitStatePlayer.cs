@@ -15,12 +15,12 @@ public class UnknitStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
-        //// レイヤーの変更中フラグをリセット
-        //m_animationEventHandler.PlayAnimationTrigger("Knit", "Carry",  "Knit"); // 置くアニメーションを再生
+        // レイヤーの変更中フラグをリセット
+        m_animationEventHandler.PlayAnimationTrigger("Unknit", "Normal", "Unknit"); // 解くアニメーションを再生
+                                                                                    // レイヤーのウェイトを変更するためのコールバックを設定
+        m_animationEventHandler.SetTargetTimeAction(0.7f, () => { owner.RequestTransitionLayerWeight("Carry", 1, 0.6f); }); // Carryレイヤーのウェイトを0に設定
 
-        //// レイヤーのウェイトを変更するためのコールバックを設定
-        //// Carryレイヤーのウェイトを0に設定
-        //m_animationEventHandler.SetTargetTimeAction(0.9f, () => { owner.RequestTransitionLayerWeight("Carry", 0, 0.8f); }); 
+
     }
 
     /// <summary>
@@ -32,16 +32,42 @@ public class UnknitStatePlayer : PlayerState
         // アニメーションイベントハンドラーの更新
         m_animationEventHandler.OnUpdate();
 
-        //if (m_animationEventHandler.HasAnimationPlayed() && m_animationEventHandler.IsPlaying() == false)
-        //{
+        if (m_animationEventHandler.HasAnimationPlayed() && m_animationEventHandler.IsPlaying() == false)
+        {
 
-        // アニメーションが終了したら編む処理を実行
-        FinishUnknit();
-        // 待機状態に遷移
-        owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
-        // 変更を通知
-        GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CHANGED_AMIDAKUJI);
-        //}
+            // アニメーションが終了したら編む処理を実行
+            FinishUnknit();
+       
+
+            // 毛糸だまを生成
+            var stageObjectFactory = StageObjectFactory.GetInstance();
+            // 前方のあみだに取得
+            var frontAmidaPos = owner.GetForwardGridPos(); ;
+
+            var fluffBallObj = stageObjectFactory.GenerateFluffBall(null, frontAmidaPos);
+
+
+            var carryingObject = fluffBallObj.GetComponent<Carryable>(); // 持ち上げるオブジェクトを取得
+            if (carryingObject == null)
+            {
+                Debug.LogError("Carryable component not found on the object.");
+                return; // 持ち上げるオブジェクトが見つからない場合は処理を中断
+            }
+
+            // 持ち上げるオブジェクトを非アクティブにする
+            fluffBallObj.SetActive(false);
+
+            // 持ち上げる
+            carryingObject.OnPickUp();
+
+            // プレイヤーに持ち上げるオブジェクトをセット
+            owner.SetCarryingObject(carryingObject);
+
+            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE); // 持ち上げる状態に遷移
+
+            // 変更を通知
+            GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CHANGED_AMIDAKUJI);
+        }
 
     }
     /// <summary>
@@ -80,10 +106,7 @@ public class UnknitStatePlayer : PlayerState
         stageGridData.GetAmidaTube(upAmidaPos).RequestChangedState(AmidaTube.State.NORMAL);
         stageGridData.GetAmidaTube(downAmidaPos).RequestChangedState(AmidaTube.State.NORMAL);
 
-
-
-
-
+        
     }
 
 

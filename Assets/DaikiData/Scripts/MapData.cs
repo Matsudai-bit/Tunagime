@@ -28,24 +28,27 @@ public struct GridPos
 
 public class MapData : MonoBehaviour
 {
+    [Header("====== ステージ生成器(何ステージ)の設定 ======")]
+    [SerializeField] 
+    private GameObject m_stageGenerator; // ステージ生成器の参照
 
     // 1. staticなreadonlyフィールドでインスタンスを保持
     //    アプリケーション起動時にインスタンスが作成されます。
     private static MapData s_instance ;
 
- 
 
-    // 3. publicなstaticプロパティ
-    //    唯一のインスタンスへアクセスするための窓口です。
+    // 唯一のインスタンスにアクセスするためのプロパティ
     public static MapData GetInstance
     {
-        get {
-            // インスタンスがまだnullの場合
+        get
+        {
+            // シーン上にインスタンスが存在しない場合
             if (s_instance == null)
             {
-                // シーン内に既存のMapDataコンポーネントを探す
+                // シーン内からMapDataを検索
+                s_instance = FindObjectOfType<MapData>();
 
-                // それでも見つからない場合（シーン内にまだない場合）
+                // それでも見つからない場合
                 if (s_instance == null)
                 {
                     // 新しいGameObjectを作成し、MapDataコンポーネントを追加する
@@ -58,10 +61,35 @@ public class MapData : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 共通データ
-    /// </summary>
-    [System.Serializable]
+    private void Awake()
+    {
+        // 既にインスタンスが存在する場合
+        if (s_instance != null && s_instance != this)
+        {
+            // このインスタンスを破棄して、重複を避ける
+            Destroy(this.gameObject);
+            return;
+        }
+
+        // シーン上の唯一のインスタンスとして自身を登録
+        s_instance = this;
+
+        // シーンを跨いで存続させる
+        DontDestroyOnLoad(this.gameObject);
+
+        // コンポーネント取得
+        m_stageGridData = GetComponent<StageGridData>();
+        m_stageGridData.Initialize(m_commonData.width, m_commonData.height);
+
+
+
+    }
+
+
+/// <summary>
+/// 共通データ
+/// </summary>
+[System.Serializable]
     public struct CommonData
     {
         public int width;     // 横幅（タイル数
@@ -79,19 +107,6 @@ public class MapData : MonoBehaviour
 
 
     private StageGridData m_stageGridData;
-
-    private void Awake()
-    {
-
-        s_instance = this;
-
-        // コンポーネント取得
-        m_stageGridData = GetComponent<StageGridData>();
-        m_stageGridData.Initialize(m_commonData.width, m_commonData.height);
-
-
-
-    }
 
     /// <summary>
     /// 共通データの取得
@@ -222,5 +237,14 @@ public class MapData : MonoBehaviour
         return gridPos;
     }
 
+    public void SetStageGenerator(GameObject stageGenerator)
+    {
+        m_stageGenerator = stageGenerator;
+    }
+
+    public GameObject GetStageGenerator()
+    {
+        return m_stageGenerator;
+    }
 
 }

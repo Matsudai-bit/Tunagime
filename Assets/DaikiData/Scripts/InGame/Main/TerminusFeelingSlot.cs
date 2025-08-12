@@ -91,4 +91,11 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
                 break;
         }
     }
+
+    // 削除時
+    private void OnDestroy()
+    {
+        // ゲームインタラクションイベントのオブザーバーを解除
+        GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
+    }
 }

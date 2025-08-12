@@ -23,6 +23,14 @@ public class GameDirector : MonoBehaviour
             Application.Quit();
             Debug.Log("ゲームを終了しました。");
         }
+
+        // Tabが押されたらステージ選択にいく
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // タイトルシーンに遷移する処理
+            UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
+            Debug.Log("タイトルシーンに戻ります。");
+        }
     }
 
     // ゲームがクリアした時に呼ばれる

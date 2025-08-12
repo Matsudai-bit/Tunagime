@@ -45,9 +45,12 @@ public class IdleStatePlayer : PlayerState
         }
         else
         {
+
             // test
             owner.TryForwardObjectSetting();
             owner.TryUnknit();
+            owner.TryPushBlock();
+
 
         }
 

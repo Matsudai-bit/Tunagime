@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
+using System.Xml.Schema;
 
 
 
@@ -21,7 +22,16 @@ public class StageGenerator : MonoBehaviour
     {
         public GridPos gridPos;
         public GameObject prefab;
-        public StageBlock.BlockType blockType; // ブロックの種類
+        public GenerationType blockType; // ブロックの種類
+    }
+
+    enum GenerationType
+    {
+        FELT_BLOCK, // フェルトブロック
+        FLUFF_BALL, // 毛糸玉
+        FELT_BLOCK_NO_MOVEMENT, // 動かないフェルトブロック
+        FLOOR,   // 床
+        TERMINUS // 終点
     }
 
 
@@ -86,20 +96,32 @@ public class StageGenerator : MonoBehaviour
 
 
 
-
+        var stageObjectFactory = StageObjectFactory.GetInstance(); 
         // ギミックの生成
         foreach (var generation in m_gimmickData)
         {
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
+            GameObject generationObject = null;           
 
-            GameObject instanceObj = Instantiate(generation.prefab, gimmickParent);
-            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
+            switch (generation.blockType)
+            {
+                case GenerationType.FLUFF_BALL:
+                    // フラフボールの生成
+                    generationObject = stageObjectFactory.GenerateFluffBall(gimmickParent, fixedGridPos);
+                    break;
+                case GenerationType.FELT_BLOCK:
+                    // フェルトブロックの生成
+                    generationObject = stageObjectFactory.GenerateFeltBlock(gimmickParent, fixedGridPos, null);
+                    break;
+                case GenerationType.FELT_BLOCK_NO_MOVEMENT:
+                    // 動かないフェルトブロックの生成
+                    generationObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
+                    break;
 
-            StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
-            stageBlock.SetBlockType(generation.blockType);
+            }
 
-
-            stageBlock.Initialize(fixedGridPos);
+            // 生成されたオブジェクトの位置を設定
+            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
         }
 
         // 床の生成　通常床は自動で生成されている
@@ -154,7 +176,7 @@ public class StageGenerator : MonoBehaviour
             stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
             stageBlock.Initialize(fixedGridPos);
             TerminusFeelingSlot terminusFeelingSlot = instanceObj.GetComponent<TerminusFeelingSlot>();
-            if (terminusFeelingSlot != null)
+            if (terminusFeelingSlot != null && instanceObj?.GetComponent<TerminusFeelingSlotRefection>() == null)
             {
                 clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
             }

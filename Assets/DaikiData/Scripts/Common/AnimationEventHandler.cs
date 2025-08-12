@@ -132,7 +132,6 @@ public class AnimationEventHandler
         // 現在のアニメーションのハッシュを取得
         int currentHash = m_animator.GetCurrentAnimatorStateInfo(m_layerIndex).fullPathHash;
 
-        Debug.Log("Handler:"+currentHash );
 
         // アニメーションが再生されているかどうかを待つ
         return (currentHash == m_currentAnimationHash && m_animator.GetCurrentAnimatorStateInfo(m_layerIndex).normalizedTime < 1.0f);
