@@ -9,15 +9,17 @@ public class StageObjectFactory : MonoBehaviour
     private static StageObjectFactory s_instance;   // シングルトンインスタンス
 
     [Header("====== ステージオブジェクトのプレハブ設定 ======")]
-    [SerializeField] private GameObject m_fluffBallPrefab; // 毛糸玉のプレハブ
-    [SerializeField] private GameObject m_feltBlockPrefab; // フェルトブロックのプレハブ
-    [SerializeField] private GameObject m_noMovementFeltBlockPrefab; // 不動フェルトブロックのプレハブ
+    [SerializeField] private GameObject m_fluffBallPrefab;              // 毛糸玉のプレハブ
+    [SerializeField] private GameObject m_feltBlockPrefab;              // フェルトブロックのプレハブ
+    [SerializeField] private GameObject m_noMovementFeltBlockPrefab;    // 不動フェルトブロックのプレハブ
+    [SerializeField] private GameObject m_curtainPrefab;                // カーテンプレファブ
 
 
     // オブジェクトプール
     List<GameObject> m_fluffballPool            = new List<GameObject>(); // 毛糸玉のオブジェクトプール
     List<GameObject> m_feltBlcokPool            = new List<GameObject>(); // フェルトブロックのオブジェクトプール
     List<GameObject> m_noMovementFeltBlockPool  = new List<GameObject>(); // 不動フェルトブロックのオブジェクトプール
+    List<GameObject> m_curtainPool              = new List<GameObject>(); // カーテンのオブジェクトプール
 
     private void Awake()
     {
@@ -83,7 +85,7 @@ public class StageObjectFactory : MonoBehaviour
     /// <param name="gridPos"></param>
     /// <param name="material"></param>
     /// <returns></returns>
-    public GameObject GenerateFeltBlock(Transform parent, GridPos gridPos, Material material)
+    public GameObject GenerateFeltBlock(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
         // 生成するオブジェクトの取得
         GameObject generationObject = GetFeltBlockFromPool();
@@ -91,10 +93,10 @@ public class StageObjectFactory : MonoBehaviour
         if (parent != null)
             generationObject.transform.SetParent(parent, false);
         // マテリアルの設定
-        MeshRenderer meshRenderer = generationObject.GetComponent<MeshRenderer>();
-        if (meshRenderer != null && material != null)
+        MeshRenderer meshRenderer = generationObject?.GetComponent<FeltBlock>().meshRenderer;
+        if (meshRenderer != null )
         {
-            meshRenderer.material = material;
+            meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FELT_BLOCK, emotionType);
         }
         
         // ステージブロックの設定
@@ -118,14 +120,52 @@ public class StageObjectFactory : MonoBehaviour
         // 親の設定
         if (parent != null)
             generationObject.transform.SetParent(parent, false);
-
+        // マテリアルの設定
+        MeshRenderer meshRenderer = generationObject?.GetComponent<FeltBlock>().meshRenderer;
+        if (meshRenderer != null )
+        {
+            meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FELT_BLOCK, EmotionCurrent.Type.REJECTION);
+        }
         // ステージブロックの設定
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FELT_BLOCK);
+
         // 初期化
         stageBlock.Initialize(gridPos);
         return generationObject;
+    }
 
+
+    public GameObject GenerateCurtain(Transform parent, float localRotateY, GridPos gridPos, EmotionCurrent.Type emotionType)
+    {
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetCurtainFromPool();
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, false);
+
+        // マテリアルの設定
+        var curtain = generationObject?.GetComponent<Curtain>();
+        if (curtain)
+        {
+            curtain.SetMaterial(MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CURTAIN, emotionType));
+        }
+        // 種類の設定
+        var emotionCurrent = generationObject?.GetComponent<EmotionCurrent>();
+        if (emotionCurrent)
+        {
+            emotionCurrent.CurrentType = emotionType;
+        }
+
+        // ローカル回転の設定
+        generationObject.transform.localRotation = Quaternion.Euler(0.0f, localRotateY, 0.0f);
+
+        // ステージブロックの設定
+        StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
+        stageBlock.SetBlockType(StageBlock.BlockType.CURTAIN);
+        // 初期化
+        stageBlock.Initialize(gridPos);
+        return generationObject;
     }
 
     // ========================================================================================
@@ -190,6 +230,26 @@ public class StageObjectFactory : MonoBehaviour
         GameObject newNoMovementFeltBlock = Instantiate(m_noMovementFeltBlockPrefab);
         m_noMovementFeltBlockPool.Add(newNoMovementFeltBlock);
         return newNoMovementFeltBlock;
+    }
+
+    /// <summary>
+    /// カーテンをプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetCurtainFromPool()
+    {
+        // オブジェクトプールから活動していないカーテンの取得
+        for (int i = 0; i < m_curtainPool.Count; i++)
+        {
+            if (m_curtainPool[i] != null && m_curtainPool[i].activeSelf == false)
+            {
+                return m_curtainPool[i];
+            }
+        }
+        // すべてのカーテンが活動中の場合、新しいカーテンを生成してプールに追加
+        GameObject newCurtain = Instantiate(m_curtainPrefab);
+        m_curtainPool.Add(newCurtain);
+        return newCurtain;
     }
 
 

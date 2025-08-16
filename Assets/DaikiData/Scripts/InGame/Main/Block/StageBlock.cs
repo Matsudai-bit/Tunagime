@@ -18,6 +18,7 @@ public class StageBlock : MonoBehaviour
         FLUFF_BALL, // 毛糸球
         FEELING_SLOT, // エモーションスロット
         AMIDA_TUBE, // あみだチューブ
+        CURTAIN, // カーテン
     }
 
    

@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 1617551072}
   - component: {fileID: 1617551071}
   - component: {fileID: 1617551070}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,7 +807,7 @@ Transform:
   m_GameObject: {fileID: 1617551069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.77, y: 0.29, z: -0.01}
+  m_LocalPosition: {x: -2.02, y: 0.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -866,29 +866,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4605379452167631125, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4605379452167631125, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
-      propertyPath: m_IsGlobal
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4605379452167631125, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
-      propertyPath: blendDistance
-      value: 3.11
-      objectReference: {fileID: 0}
     - target: {fileID: 5361160774393927509, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
       propertyPath: m_Name
       value: Sphere Volume
-      objectReference: {fileID: 0}
-    - target: {fileID: 5361160774393927509, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7495615921906011165, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

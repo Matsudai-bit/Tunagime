@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEditor;
-using System.Xml.Schema;
+
 
 
 
@@ -23,6 +21,8 @@ public class StageGenerator : MonoBehaviour
         public GridPos gridPos;
         public GameObject prefab;
         public GenerationType blockType; // ブロックの種類
+        public Vector3 rotate;          // 回転
+        public EmotionCurrent.Type emotionType; // 感情タイプ
     }
 
     enum GenerationType
@@ -31,7 +31,8 @@ public class StageGenerator : MonoBehaviour
         FLUFF_BALL, // 毛糸玉
         FELT_BLOCK_NO_MOVEMENT, // 動かないフェルトブロック
         FLOOR,   // 床
-        TERMINUS // 終点
+        TERMINUS, // 終点
+        CURTAIN, // カーテン
     }
 
 
@@ -77,11 +78,18 @@ public class StageGenerator : MonoBehaviour
 
     public void Generate(AmidaManager amidaManager, Transform amidaParent, Transform floorParent, Transform gimmickParent, ClearConditionChecker clearConditionChecker)
     {
+
+        MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, EmotionCurrent.Type.FAITHFULNESS); // マテリアルライブラリの初期化
+
+        var map = MapData.GetInstance;
+        map.Initialize(); // マップデータの初期化
+        // 背景の生成
+        Instantiate(map.GetStagePrefab());
+
         // 床上部座標の設定
         float topFloorTopPartPosY = m_topFloorBlockGenerator.posY;
         float amidaPosY = m_amidaTubeGenerator.posY;
 
-        var map = MapData.GetInstance;
 
 
         // トップ層の生成
@@ -111,11 +119,15 @@ public class StageGenerator : MonoBehaviour
                     break;
                 case GenerationType.FELT_BLOCK:
                     // フェルトブロックの生成
-                    generationObject = stageObjectFactory.GenerateFeltBlock(gimmickParent, fixedGridPos, null);
+                    generationObject = stageObjectFactory.GenerateFeltBlock(gimmickParent, fixedGridPos, generation.emotionType);
                     break;
                 case GenerationType.FELT_BLOCK_NO_MOVEMENT:
                     // 動かないフェルトブロックの生成
                     generationObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
+                    break;
+                case GenerationType.CURTAIN:
+                    // カーテンの生成
+                    generationObject = stageObjectFactory.GenerateCurtain(gimmickParent, generation.rotate.y, fixedGridPos, generation.emotionType);
                     break;
 
             }

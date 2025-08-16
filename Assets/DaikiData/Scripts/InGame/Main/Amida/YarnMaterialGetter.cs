@@ -135,7 +135,8 @@ public class YarnMaterialGetter : MonoBehaviour
             if (data.renderer != null)
             {
                 // EmotionCurrent.Type‚ğİ’è
-                data.renderer.material =  YarnMaterialLibrary.Instance.GetMaterial(data.emotionType);
+                data.renderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, data.emotionType);
+              //  data.renderer.material =  YarnMaterialLibrary.Instance.GetMaterial(data.emotionType);
                 // Debug.Log($"Applied material for {data.key} with emotion type {data.emotionType}.");
             }
             else

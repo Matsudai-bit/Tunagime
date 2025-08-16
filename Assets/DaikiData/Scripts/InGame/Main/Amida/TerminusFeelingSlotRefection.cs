@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// ‚«‚å‚¼‚¦‚Â‚ÌŠj
+/// </summary>
 
 public class TerminusFeelingSlotRefection : MonoBehaviour
 {

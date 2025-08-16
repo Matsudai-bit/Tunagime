@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 ///  想いの核
 /// </summary>
-public class FeelingCore : MonoBehaviour
+public class FeelingCore : MonoBehaviour 
 {
 
 
@@ -21,6 +21,11 @@ public class FeelingCore : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // 登録
+    }
+
 
     /// <summary>
     /// ゲームオブジェクトのアクティブ状態を設定する
@@ -35,5 +40,10 @@ public class FeelingCore : MonoBehaviour
     {
         return m_emotionCurrent.CurrentType; // 現在の感情タイプを取得
     }
+    public void OnConnectEvent(EmotionCurrent emotionCurrent)
+    {
+    }
+
+
 
 }

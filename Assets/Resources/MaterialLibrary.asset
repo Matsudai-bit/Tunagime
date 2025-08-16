@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385763bfcfa02d44b86568f9fbd7c8ea, type: 3}
+  m_Name: MaterialLibrary
+  m_EditorClassIdentifier: 
+  m_materialGroups:
+  - materialGroup: 0
+    materialEntries:
+    - emotionType: 6
+      material: {fileID: 2100000, guid: 44687ed8d62990f44a32a8259aa89adb, type: 2}
+    - emotionType: 5
+      material: {fileID: 2100000, guid: 19f6c7a76316eb5488164e2cc0677ab2, type: 2}
+    - emotionType: 4
+      material: {fileID: 2100000, guid: e4d0cee657f083c4a8efe4fefac2ec03, type: 2}
+    - emotionType: 3
+      material: {fileID: 2100000, guid: bab5617d358c63145abf148df5c96776, type: 2}
+    - emotionType: 2
+      material: {fileID: 2100000, guid: 0d41d2fc7c97dae42b5478ed841e39da, type: 2}
+    - emotionType: 1
+      material: {fileID: 2100000, guid: d4bf796add9221a41ac6758850f0eb42, type: 2}
+    - emotionType: 0
+      material: {fileID: 2100000, guid: 59d409c1157386645bf9b37050880727, type: 2}
+  - materialGroup: 1
+    materialEntries:
+    - emotionType: 6
+      material: {fileID: 2100000, guid: 0676d41fe7872b14a8011061700c9085, type: 2}
+    - emotionType: 5
+      material: {fileID: 2100000, guid: 421aad0268cbcd34f9fadef99a760da8, type: 2}
+    - emotionType: 4
+      material: {fileID: 2100000, guid: 4751ed11a4c9571418f146c97c5115f6, type: 2}
+    - emotionType: 3
+      material: {fileID: 2100000, guid: bf2f870572506a5489faa4a90ee2ed41, type: 2}
+    - emotionType: 2
+      material: {fileID: 2100000, guid: 283c6ed668b7d8f43aa544bd4baa212b, type: 2}
+    - emotionType: 1
+      material: {fileID: 2100000, guid: 0544abc318a7c494e8657a5e4b980e83, type: 2}
+    - emotionType: 0
+      material: {fileID: 2100000, guid: 503acd2bdbdbe0d4099b8169c84698ff, type: 2}
+  - materialGroup: 2
+    materialEntries:
+    - emotionType: 6
+      material: {fileID: 2100000, guid: 72aa087b9d77a3847ae797efee2f4deb, type: 2}
+    - emotionType: 5
+      material: {fileID: 2100000, guid: fe6a9a8be3a5bc54f96c0e6e6521a69d, type: 2}
+    - emotionType: 4
+      material: {fileID: 2100000, guid: a4427e56a99223d46a29186bf71ef35a, type: 2}
+    - emotionType: 3
+      material: {fileID: 2100000, guid: 68a3a53f2b2abef469e7f3697141daa1, type: 2}
+    - emotionType: 2
+      material: {fileID: 2100000, guid: c3fc6007b299c5748ababefce98ec676, type: 2}
+    - emotionType: 1
+      material: {fileID: 2100000, guid: c69bb58081820f84d948754f7a6dc29d, type: 2}
+    - emotionType: 0
+      material: {fileID: 2100000, guid: 72aa087b9d77a3847ae797efee2f4deb, type: 2}
+  - materialGroup: 3
+    materialEntries:
+    - emotionType: 6
+      material: {fileID: 2100000, guid: caaa42e951858d145b129b5ee7aea788, type: 2}
+    - emotionType: 5
+      material: {fileID: 2100000, guid: 4d911554b4e5ae349ac9c7a076b38c99, type: 2}
+    - emotionType: 4
+      material: {fileID: 2100000, guid: 7ca34d3e071338e459559ea18354ac6a, type: 2}
+    - emotionType: 3
+      material: {fileID: 2100000, guid: 621179b252c51534ea3b4de4a7005ee6, type: 2}
+    - emotionType: 2
+      material: {fileID: 2100000, guid: f679f02170b22a544a9f10481f41fbc7, type: 2}
+    - emotionType: 1
+      material: {fileID: 2100000, guid: 7c11e4b5b0777994b9fae8dd62398979, type: 2}
+    - emotionType: 0
+      material: {fileID: 2100000, guid: c28af7f2e75af1d43b032744f29e9b3a, type: 2}

@@ -51,7 +51,7 @@ MonoBehaviour:
     x: 0
     y: 0
   m_blockType: 2
-  m_canInteract: 0
+  m_canInteract: 1
 --- !u!114 &3685075713373216742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2138338e82c34c46a98baa40f953c52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.056390245
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2138338e82c34c46a98baa40f953c52, type: 3}
       propertyPath: m_LocalPosition.y
@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2138338e82c34c46a98baa40f953c52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.07927572
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2138338e82c34c46a98baa40f953c52, type: 3}
       propertyPath: m_LocalRotation.w

@@ -38,6 +38,9 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
 
         // 初期状態で接続をチェック
         m_isConnection = false;
+
+        // モニターに登録
+        FeelingSlotStateMonitor.GetInstance.RegisterMonitorObject(this);
     }
 
     // Update is called once per frame
@@ -72,6 +75,13 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
         // あみだチューブを取得
         var amidaTube = gridData.GetAmidaTube(checkGridPos);
 
+        if (amidaTube == null)
+        {
+           // Debug.LogWarning($"AmidaTube not found at position ({checkGridPos.x}, {checkGridPos.y}).");
+            m_isConnection = false;
+            return;
+        }
+
         // 接続状態の確認
         if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType())
   
@@ -92,10 +102,20 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
         }
     }
 
+    public EmotionCurrent.Type emotionType
+    {
+        get
+        {
+            return m_feelingSlot.GetEmotionType(); // 想いの型の感情タイプを取得
+        }
+    }
+
     // 削除時
     private void OnDestroy()
     {
         // ゲームインタラクションイベントのオブザーバーを解除
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
+        // モニターから登録解除
+        FeelingSlotStateMonitor.GetInstance.RemoveMonitor(this);
     }
 }

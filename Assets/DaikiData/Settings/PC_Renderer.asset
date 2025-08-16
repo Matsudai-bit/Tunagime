@@ -26,8 +26,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: 4246818744672893254}
-  m_RendererFeatureMap: ad6b866f10d7b46c46b9b2cd25bbef3a
+  - {fileID: 3096895124992556743}
+  m_RendererFeatureMap: ad6b866f10d7b46cc7fed147b561fa2a
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -53,6 +53,22 @@ MonoBehaviour:
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &3096895124992556743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517cf467a7578ef4c9d38f5472c1b7ae, type: 3}
+  m_Name: ScreenSpaceOutline
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _normalMaterial: {fileID: -876546973899608171, guid: ad6ffae78295d014197e4bbe59db97ca, type: 3}
+  _depthMaterial: {fileID: -876546973899608171, guid: 942b4edc554c4db4f80225f69cc83d1c, type: 3}
+  _outlineBlitMaterial: {fileID: -876546973899608171, guid: 8d04411dfc3604141bba17cd02c93daa, type: 3}
 --- !u!114 &4246818744672893254
 MonoBehaviour:
   m_ObjectHideFlags: 0

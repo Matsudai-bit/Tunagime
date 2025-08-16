@@ -46,7 +46,6 @@ public class MapData : MonoBehaviour
             if (s_instance == null)
             {
                 // シーン内からMapDataを検索
-                s_instance = FindObjectOfType<MapData>();
 
                 // それでも見つからない場合
                 if (s_instance == null)
@@ -55,6 +54,8 @@ public class MapData : MonoBehaviour
                     GameObject singletonObject = new GameObject(typeof(MapData).Name);
                     s_instance = singletonObject.AddComponent<MapData>();
                     Debug.Log($"[MapData] シングルトンを生成しました: {singletonObject.name}");
+
+                    
                 }
             }
             return s_instance;
@@ -77,19 +78,44 @@ public class MapData : MonoBehaviour
         // シーンを跨いで存続させる
         DontDestroyOnLoad(this.gameObject);
 
+     
+    }
+
+    /// <summary>
+    /// マップデータの初期化
+    /// </summary>
+    public void Initialize()
+    {
+        InitializeMapData();
+
         // コンポーネント取得
         m_stageGridData = GetComponent<StageGridData>();
         m_stageGridData.Initialize(m_commonData.width, m_commonData.height);
+        
+    }
 
-
-
+    public void InitializeMapData()
+    {
+        // マップ設定を受け取って初期化
+        if (m_mapSetting != null)
+        {
+            m_commonData.width = m_mapSetting.width;
+            m_commonData.height = m_mapSetting.height;
+            m_commonData.center = m_mapSetting.center;
+            m_commonData.tileSize = m_mapSetting.tileSize;
+            m_commonData.BaseTilePosY = m_mapSetting.BaseTilePosY;
+        }
+        else
+        {
+            Debug.LogError("MapData: マップ設定が未設定です。");
+        }
     }
 
 
-/// <summary>
-/// 共通データ
-/// </summary>
-[System.Serializable]
+    /// <summary>
+    /// 共通データ
+    /// </summary>
+    [System.Serializable]
     public struct CommonData
     {
         public int width;     // 横幅（タイル数
@@ -102,8 +128,11 @@ public class MapData : MonoBehaviour
 
     }
 
+    [SerializeField] private MapSetting m_mapSetting; // マップ設定
+
 
     [SerializeField] private CommonData m_commonData;
+
 
 
     private StageGridData m_stageGridData;
@@ -115,6 +144,15 @@ public class MapData : MonoBehaviour
     public CommonData GetCommonData()
     {
         return m_commonData;
+    }
+
+    /// <summary>
+    /// ステージの背景プレハブの取得
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetStagePrefab()
+    {
+        return m_mapSetting.backgroundPrefab;
     }
 
     /// <summary>

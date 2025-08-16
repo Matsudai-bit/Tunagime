@@ -1,11 +1,17 @@
 using UnityEngine;
 
+
 /// <summary>
 /// フェルトブロック
 /// </summary>
 public class FeltBlock : MonoBehaviour
 {
     private StageBlock m_stageBlock; // ステージブロック
+
+    private MeshRenderer m_meshRenderer = null; // メッシュレンダラー
+
+    [SerializeField]
+    private GameObject m_model; // フェルトブロックのモデル
 
     /// <summary>
     /// Awake is called when the script instance is being loaded
@@ -16,6 +22,12 @@ public class FeltBlock : MonoBehaviour
         if (m_stageBlock == null)
         {
             Debug.LogError("FeltBlock requires a StageBlock component.");
+        }
+
+        m_meshRenderer = m_model.GetComponent<MeshRenderer>();
+        if (m_meshRenderer == null)
+        {
+            Debug.LogError("FeltBlock requires a MeshRenderer component.");
         }
     }
 
@@ -37,6 +49,12 @@ public class FeltBlock : MonoBehaviour
 
         // ステージブロックの位置を更新
         m_stageBlock.UpdatePosition(newGridPos);
+    }
+
+    public MeshRenderer meshRenderer
+    {
+        get { return m_meshRenderer; }
+        set { m_meshRenderer = value; }
     }
 
 }
