@@ -4,7 +4,7 @@ public class PushBlockStatePlayer : PlayerState
 {
     private AnimationEventHandler m_animationEventHandler; // アニメーションイベントハンドラー
 
-    private float targetTime = 1.0f; // アニメーションのターゲット時間
+    private readonly float TARGET_TIME = 1.0f; // アニメーションのターゲット時間
     private float currentTime = 0.0f; // 現在の時間
 
     private FeltBlock m_feltBlock;      // 押す対象のブロック
@@ -126,7 +126,7 @@ public class PushBlockStatePlayer : PlayerState
         // 押す処理
         Vector3 newBlockPos = Vector3.Lerp(m_startPosition, m_endPosition, m_lerpValue);
         // 補間値を更新
-        m_lerpValue = currentTime / targetTime;
+        m_lerpValue = currentTime / TARGET_TIME;
 
         currentTime += Time.deltaTime; // 現在の時間を更新
 

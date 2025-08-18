@@ -96,21 +96,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gimmickData:
   - gridPos:
-      x: 7
-      y: 2
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 6
-    rotate: {x: 0, y: 0, z: 0}
-    emotionType: 0
-  - gridPos:
-      x: 8
-      y: 2
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 6
-    rotate: {x: 0, y: 0, z: 0}
-    emotionType: 0
-  - gridPos:
       x: 9
+      y: 2
+    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
+    blockType: 6
+    rotate: {x: 0, y: 0, z: 0}
+    emotionType: 0
+  - gridPos:
+      x: 7
       y: 2
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
     blockType: 6
@@ -119,6 +112,13 @@ MonoBehaviour:
   - gridPos:
       x: 6
       y: 3
+    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
+    blockType: 6
+    rotate: {x: 0, y: 0, z: 0}
+    emotionType: 0
+  - gridPos:
+      x: 8
+      y: 2
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
     blockType: 6
     rotate: {x: 0, y: 0, z: 0}
@@ -182,13 +182,6 @@ MonoBehaviour:
   - gridPos:
       x: 9
       y: 7
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 1
-    rotate: {x: 0, y: 0, z: 0}
-    emotionType: 0
-  - gridPos:
-      x: 7
-      y: 9
     prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
     blockType: 1
     rotate: {x: 0, y: 0, z: 0}

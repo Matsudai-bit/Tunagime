@@ -26,6 +26,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     private PlayerStateMachine m_stateMachine; // プレイヤーの状態マシン
 
     private GameObject m_targetObject; // ターゲットオブジェクト
+
+    private Vector3 m_prevVelocity; // 前回の速度
     void Awake()
     {
         m_stageBlock = GetComponent<StageBlock>();
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // リロード
         if (Input.GetKeyDown(KeyCode.Q)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-       
+ 
 
     
         
@@ -81,22 +83,6 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     {
         // プレイヤーの状態マシンの更新
         m_stateMachine.FixedUpdateState();
-
-        //// 回転処理
-        //Rotate();
-
-        //if (IsMoving()) // 移動している場合
-        //{
-        //    // 歩行アニメーションを有効にする
-        //    m_animator.SetBool("Walk", true);
-        //    // 移動処理
-        //    Move();
-        //}
-        //else // 移動していない場合
-        //{
-        //    // 歩行アニメーションを無効にする
-        //    m_animator.SetBool("Walk", false);
-        //}
     }
 
 
@@ -117,6 +103,32 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
         return true;
     }
+
+
+    /// <summary>
+    /// 前回の移動速度を保存する
+    /// </summary>
+    public void SavePreviousMoveVelocity()
+    {
+        if (m_rb != null)
+        {
+            m_prevVelocity = m_rb.linearVelocity; // 前回の速度を保存
+        }
+    }
+
+    /// <summary>
+    /// 前回の移動速度を取得する
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetPreviousMoveVelocity()
+    {
+        if (m_rb != null)
+        {
+            return m_prevVelocity; // 前回の速度を取得
+        }
+        return Vector3.zero; // Rigidbodyがnullの場合はゼロベクトルを返す
+    }
+
 
     /// <summary>
     /// 移動処理
@@ -389,27 +401,18 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             if (m_targetObject?.GetComponent<FeltBlock>() != null )
             {
                 // 押しだすブロックの一個置く側に空間が空いていれば押し出すことが出来る
-
                 var stageBlock = m_targetObject.GetComponent<FeltBlock>();
-                // StageBlockのグリッド位置を取得
-                GridPos gridPos = stageBlock.GetComponent<StageBlock>().GetGridPos();
-                // 一個奥のグリッドを取得
-                GridPos targetGridPos = gridPos + GetForwardDirection();
-                // 一つ奥のタイルを取得
-                TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
 
-                if (targetTileObject.gameObject == null)
+                if (stageBlock.CanMove(GetGridPosition() + GetForwardDirection()))
                 {
+                    // 押し出す状態に切り替える
                     m_stateMachine.RequestStateChange(PlayerStateID.PUSH_BLOCK);
-                    return true; // アミダを押すことができる
+                    return true; // 押し出す処理が成功した
                 }
-
             }
-            // ターゲットオブジェクトがFeltBlockでない場合は何もしない
-            return false;
         }
 
-        return true;
+        return false;
     }
 
     /// <summary>

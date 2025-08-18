@@ -13,6 +13,8 @@ public class WalkStatePlayer : PlayerState
     {
         // 歩行状態の開始時にアニメーションを設定
         owner.GetAnimator().SetBool("Walk", true);
+
+        OnFixedUpdateState();
     }
 
     /// <summary>
@@ -60,6 +62,7 @@ public class WalkStatePlayer : PlayerState
         {
             // 移動処理
             owner.Move();
+            owner.SavePreviousMoveVelocity(); // 前回の速度を保存
         }
         else
         {
