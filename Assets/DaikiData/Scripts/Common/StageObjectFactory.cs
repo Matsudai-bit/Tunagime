@@ -13,6 +13,7 @@ public class StageObjectFactory : MonoBehaviour
     [SerializeField] private GameObject m_feltBlockPrefab;              // フェルトブロックのプレハブ
     [SerializeField] private GameObject m_noMovementFeltBlockPrefab;    // 不動フェルトブロックのプレハブ
     [SerializeField] private GameObject m_curtainPrefab;                // カーテンプレファブ
+    [SerializeField] private GameObject m_satinFloorPrefab;             // サテン床のプレハブ
 
 
     // オブジェクトプール
@@ -20,6 +21,7 @@ public class StageObjectFactory : MonoBehaviour
     List<GameObject> m_feltBlcokPool            = new List<GameObject>(); // フェルトブロックのオブジェクトプール
     List<GameObject> m_noMovementFeltBlockPool  = new List<GameObject>(); // 不動フェルトブロックのオブジェクトプール
     List<GameObject> m_curtainPool              = new List<GameObject>(); // カーテンのオブジェクトプール
+    List<GameObject> m_satinFloorPool = new List<GameObject>();           // サテン床のオブジェクトプール
 
     private void Awake()
     {
@@ -168,6 +170,21 @@ public class StageObjectFactory : MonoBehaviour
         return generationObject;
     }
 
+    public GameObject GenerateSatinFloor(Transform parent, GridPos gridPos)
+    {
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetSatinFloorFromPool();
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, false);
+        // ステージブロックの設定
+        StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
+        stageBlock.SetBlockType(StageBlock.BlockType.SATIN_FLOOR);
+        // 初期化
+        stageBlock.Initialize(gridPos);
+        return generationObject;
+    }
+
     // ========================================================================================
     // ===== オブジェクトプールからの取得メソッド ==============================================
 
@@ -250,6 +267,22 @@ public class StageObjectFactory : MonoBehaviour
         GameObject newCurtain = Instantiate(m_curtainPrefab);
         m_curtainPool.Add(newCurtain);
         return newCurtain;
+    }
+
+    private GameObject GetSatinFloorFromPool()
+    {
+        // オブジェクトプールから活動していないサテン床の取得
+        for (int i = 0; i < m_satinFloorPool.Count; i++)
+        {
+            if (m_satinFloorPool[i] != null && m_satinFloorPool[i].activeSelf == false)
+            {
+                return m_satinFloorPool[i];
+            }
+        }
+        // すべてのサテン床が活動中の場合、新しいサテン床を生成してプールに追加
+        GameObject newSatinFloor = Instantiate(m_satinFloorPrefab);
+        m_satinFloorPool.Add(newSatinFloor);
+        return newSatinFloor;
     }
 
 

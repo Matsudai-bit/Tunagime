@@ -19,6 +19,7 @@ public class StageBlock : MonoBehaviour
         FEELING_SLOT, // エモーションスロット
         AMIDA_TUBE, // あみだチューブ
         CURTAIN, // カーテン
+        SATIN_FLOOR, // サテン床
     }
 
    

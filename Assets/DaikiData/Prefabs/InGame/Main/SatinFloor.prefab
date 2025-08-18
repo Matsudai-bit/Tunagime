@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1782173055461093409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1847071661311447514}
+  - component: {fileID: 265714405903331191}
+  - component: {fileID: 3374923881821340002}
+  m_Layer: 0
+  m_Name: SatinFloor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1847071661311447514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782173055461093409}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.012359, y: 0.9543536, z: -1.2128139}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265714405903331191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782173055461093409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c18607f31bfa30459f18554046e6f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_satinModels:
+  - {fileID: 919132149155446097, guid: 7f39fd491c2a4774486602bbd31c4715, type: 3}
+  - {fileID: 919132149155446097, guid: c3817c69ff3884c448ad918f2aead91c, type: 3}
+  - {fileID: 919132149155446097, guid: 0f871dd392920a64e9379853d3c59735, type: 3}
+  - {fileID: 919132149155446097, guid: 263e1b8664a0a7343baef70267976572, type: 3}
+  m_currentModel: {fileID: 0}
+--- !u!114 &3374923881821340002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782173055461093409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77dcfd04ab65554a830c6ba0ca68522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gridPos:
+    x: 0
+    y: 0
+  m_blockType: 6
+  m_canInteract: 0

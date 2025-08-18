@@ -742,6 +742,7 @@ MonoBehaviour:
   m_feltBlockPrefab: {fileID: 282849731534080628, guid: 43a1dc60b0824e9498ad46911501168a, type: 3}
   m_noMovementFeltBlockPrefab: {fileID: 504130624815832448, guid: bab951241884feb479282891e7a49be8, type: 3}
   m_curtainPrefab: {fileID: 6325522228932376766, guid: aff67464e78ef21498168a55eae2fcad, type: 3}
+  m_satinFloorPrefab: {fileID: 1782173055461093409, guid: ceec9418a34381240818110ae2911c59, type: 3}
 --- !u!4 &650648820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2704117409311022249, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
@@ -2148,7 +2149,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 
-      objectReference: {fileID: 2393295741540500681, guid: 7aba757fa55f19547b6e94e879a11322, type: 3}
+      objectReference: {fileID: 2393295741540500681, guid: 19e4a4e09863cfc45bf03d76cce7f2cc, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

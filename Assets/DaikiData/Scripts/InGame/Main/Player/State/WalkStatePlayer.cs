@@ -40,6 +40,12 @@ public class WalkStatePlayer : PlayerState
             owner.TryPushBlock();
 
             owner.TryUnknit();
+
+            if (CanSlide())
+            {
+                // サテン床上でスライド可能ならスライド状態に遷移
+                owner.GetStateMachine().RequestStateChange(PlayerStateID.SLIPPER);
+            }
         }
 
     }
@@ -72,9 +78,24 @@ public class WalkStatePlayer : PlayerState
         // 歩行状態の終了時にアニメーションをリセット
         owner.GetAnimator().SetBool("Walk", false);
 
-        // 移動を停止
-        owner.StopMove();
+     
     }
 
+    public bool CanSlide()
+    {
+        var stageGridData = MapData.GetInstance.GetStageGridData(); 
+        var myGridPosFloor = stageGridData.GetFloorObject(owner.GetGridPosition());
 
+        if (myGridPosFloor)
+        {
+            StageBlock stageBlock = myGridPosFloor.GetComponent<StageBlock>();
+            if (stageBlock && stageBlock.GetBlockType() == StageBlock.BlockType.SATIN_FLOOR)
+            {
+                return true; // サテン床ならスライド可能
+            }
+        }
+        return false;
+    }
+
+    
 }

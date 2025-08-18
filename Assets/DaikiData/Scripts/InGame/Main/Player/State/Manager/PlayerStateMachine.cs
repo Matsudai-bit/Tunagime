@@ -119,6 +119,8 @@ public class PlayerStateMachine
                 return new UnknitStatePlayer(m_owner);
             case PlayerStateID.PUSH_BLOCK:
                 return new PushBlockStatePlayer(m_owner);
+            case PlayerStateID.SLIPPER:
+                return new SlipperStatePlayer(m_owner);
             default:
                 Debug.LogError("Unknown state ID: " + stateID);
                 return null;

@@ -15,7 +15,8 @@ public class PutDownStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
-        
+        // ˆÚ“®‚ð’âŽ~
+        owner.StopMove();
         StartPutDown();
 
       

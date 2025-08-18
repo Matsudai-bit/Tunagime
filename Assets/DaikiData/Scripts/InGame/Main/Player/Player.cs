@@ -499,6 +499,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         }
     }
 
+
     public void TryForwardObjectSetting()
     {
         // プレイヤーの前方のグリッド位置を取得
@@ -632,6 +633,11 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public GameObject GetTargetObject()
     {
         return m_targetObject; // ターゲットオブジェクトを取得
+    }
+
+    public Rigidbody GetRigidbody()
+    {
+        return m_rb; // Rigidbodyコンポーネントを取得
     }
 
     public void OnEvent(InteractionEvent eventID)

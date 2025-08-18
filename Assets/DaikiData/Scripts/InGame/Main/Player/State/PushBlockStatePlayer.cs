@@ -22,6 +22,9 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // ˆÚ“®‚ð’âŽ~
+        owner.StopMove();
+
         var map = MapData.GetInstance; // ƒ}ƒbƒv‚ðŽæ“¾
                                        // test
         owner.TryForwardObjectSetting();

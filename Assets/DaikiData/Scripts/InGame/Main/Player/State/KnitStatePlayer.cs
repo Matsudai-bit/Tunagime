@@ -18,6 +18,9 @@ public class KnitStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // 移動を停止
+        owner.StopMove();
+
         // レイヤーの変更中フラグをリセット
         m_animationEventHandler.PlayAnimationTrigger("Knit", "Carry", "Knit"); // 置くアニメーションを再生
 

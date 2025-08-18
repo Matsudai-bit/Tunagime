@@ -15,6 +15,8 @@ public class UnknitStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // 移動を停止
+        owner.StopMove();
         // レイヤーの変更中フラグをリセット
         m_animationEventHandler.PlayAnimationTrigger("Unknit", "Normal", "Unknit"); // 解くアニメーションを再生
                                                                                     // レイヤーのウェイトを変更するためのコールバックを設定

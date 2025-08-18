@@ -16,6 +16,8 @@ public class PickUpStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // ˆÚ“®‚ğ’â~
+        owner.StopMove();
         // ‚¿ã‚°‚éˆ—‚ğŠJn
         StartPickUp(); 
 

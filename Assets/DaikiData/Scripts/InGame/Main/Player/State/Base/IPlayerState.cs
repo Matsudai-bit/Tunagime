@@ -10,6 +10,7 @@ public enum PlayerStateID
     KNIT,       // •Ò‚Ş
     UNKNIT,     // ‰ğ‚­
     PUSH_BLOCK, // ƒuƒƒbƒN‚ğ‰Ÿ‚·
+    SLIPPER, // ŠŠ‚é
 
 }
 
@@ -42,5 +43,6 @@ public abstract class PlayerState
     {
         get { return m_owner; }
     }
+
 
 }

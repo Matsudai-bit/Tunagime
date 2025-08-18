@@ -24,8 +24,9 @@ public class IdleStatePlayer : PlayerState
 
     public override void  OnStartState() 
     {
+        // ˆÚ“®‚ð’âŽ~
+        owner.StopMove();
 
-    
     }
 
     public override void OnUpdateState() 

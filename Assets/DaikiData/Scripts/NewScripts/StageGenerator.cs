@@ -33,6 +33,7 @@ public class StageGenerator : MonoBehaviour
         FLOOR,   // 床
         TERMINUS, // 終点
         CURTAIN, // カーテン
+        SATIN_FLOOR, // サテン床
     }
 
 
@@ -52,9 +53,9 @@ public class StageGenerator : MonoBehaviour
     [Header("==== 生成データ ==== ")]
     [Header("ギミック生成データ")]
     [SerializeField] private GenerationGimmickData[] m_gimmickData ;  // ギミックの生成機
-    [Header("床生成データ")]
+    [Header("始点核生成データ")]
     [SerializeField] private GenerationGimmickData[] m_floorData ;  // ギミックの生成機
-    [Header("終点生成データ")]
+    [Header("終点核生成データ")]
     [SerializeField] private GenerationGimmickData[] m_terminusData;  // 終点の生成機
 
     [Header("==== 生成機 ==== ")]
@@ -116,24 +117,37 @@ public class StageGenerator : MonoBehaviour
                 case GenerationType.FLUFF_BALL:
                     // フラフボールの生成
                     generationObject = stageObjectFactory.GenerateFluffBall(gimmickParent, fixedGridPos);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.FELT_BLOCK:
                     // フェルトブロックの生成
                     generationObject = stageObjectFactory.GenerateFeltBlock(gimmickParent, fixedGridPos, generation.emotionType);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.FELT_BLOCK_NO_MOVEMENT:
                     // 動かないフェルトブロックの生成
                     generationObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.CURTAIN:
                     // カーテンの生成
                     generationObject = stageObjectFactory.GenerateCurtain(gimmickParent, generation.rotate.y, fixedGridPos, generation.emotionType);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
+                    break;
+                case GenerationType.SATIN_FLOOR:
+                    // サテン床の生成
+                    generationObject = stageObjectFactory.GenerateSatinFloor(gimmickParent, fixedGridPos);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, generationObject);
                     break;
 
             }
 
-            // 生成されたオブジェクトの位置を設定
-            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
+        
         }
 
         // 床の生成　通常床は自動で生成されている

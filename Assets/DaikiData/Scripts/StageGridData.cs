@@ -54,6 +54,19 @@ public class StageGridData : MonoBehaviour
         return tile.tileObject;
     }
 
+    public GameObject GetFloorObject(GridPos gridPos)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"GetFloorObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return null; // 範囲外の場合はnullを返す
+        }
+        // タイルデータからfloorオブジェクトを取得
+        TileData tile = m_tileData[gridPos.y, gridPos.x];
+        return tile.floor;
+    }
+
     /// <summary>
     /// 指定したグリッド座標にあみだチューブを設定します。
     /// </summary>
@@ -191,7 +204,37 @@ public class StageGridData : MonoBehaviour
         currentTile.tileObject.stageBlock = objectToPlace?.GetComponent<StageBlock>(); // グリッド座標を設定
         m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
 
-        Debug.Log($"TryPlaceTileObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
+//        Debug.Log($"TryPlaceTileObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
+        return true;
+    }
+
+    /// <summary>
+    ///　指定したグリッド座標にオブジェクトを再配置します。
+    /// </summary>
+    /// <param name="gridPos"></param>
+    /// <param name="objectToPlace"></param>
+    /// <returns></returns>
+    public bool TryRePlaceFloorObject(GridPos gridPos, GameObject objectToPlace)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"TryPlaceFloorObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return false;
+        }
+        
+        TileData currentTile = m_tileData[gridPos.y, gridPos.x];
+
+        // 指定した場所にオブジェクトが既に存在するかチェック
+        if (currentTile.floor != null)
+        {
+            currentTile.floor.gameObject.SetActive(false); // 既存のオブジェクトを非アクティブにする
+        }
+
+        // 新しいオブジェクトを配置
+        currentTile.floor = objectToPlace; // floorObjectを設定
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // 変更を配列に反映
+//        Debug.Log($"TryPlaceFloorObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
         return true;
     }
 
