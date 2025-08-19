@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -5,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class PairBadge : MonoBehaviour
 {
-    private FeltBlock m_feltBlock_A; // 所属するフェルトブロックA
-    private FeltBlock m_feltBlock_B;   // 所属するフェルトブロックB
+
+    private List<FeltBlock> m_feltBlocks = new List<FeltBlock>(); // 所属するフェルトブロックのリスト
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,23 +16,44 @@ public class PairBadge : MonoBehaviour
         
     }
 
-    public void Initialize(FeltBlock feltBlockA, FeltBlock feltBlockB)
+    public void Initialize(List<FeltBlock> feltBlocks)
     {
-        m_feltBlock_A = feltBlockA;
-        m_feltBlock_B = feltBlockB;
+        m_feltBlocks.Clear();
+        m_feltBlocks.AddRange(feltBlocks);
+
+        foreach (var feltBlock in m_feltBlocks)
+        {
+            feltBlock.gameObject.transform.SetParent(this.transform); // フェルトブロックの親をペアワッペンに設定
+            feltBlock.SetPairBadge(this); // ペアワッペンを設定するメソッドを呼び出す
+
+        }
+
         // ここで必要な初期化処理を追加
+        
+    }
+
+    public void Move(GridPos velocity)
+    {
+        foreach (var feltBlock in m_feltBlocks)
+        {
+            feltBlock.Move(velocity); // 各フェルトブロックを移動
+        }
     }
 
     public bool CanMove(GridPos moveDirection)
     {
-        // ペアワッペンが移動可能かどうかを判断するロジックを実装
-        // 例えば、両方のフェルトブロックが同じ方向に移動できるかどうかをチェックする
-        return m_feltBlock_A.CanMove(moveDirection) && m_feltBlock_B.CanMove(moveDirection);
+
+        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.CanMove(moveDirection));
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public List<FeltBlock> GetFeltBlocks()
+    {
+        return m_feltBlocks;
     }
 }

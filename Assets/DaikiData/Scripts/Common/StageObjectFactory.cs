@@ -14,6 +14,8 @@ public class StageObjectFactory : MonoBehaviour
     [SerializeField] private GameObject m_noMovementFeltBlockPrefab;    // 不動フェルトブロックのプレハブ
     [SerializeField] private GameObject m_curtainPrefab;                // カーテンプレファブ
     [SerializeField] private GameObject m_satinFloorPrefab;             // サテン床のプレハブ
+    [SerializeField] private GameObject m_pairBadgePrefab;             // ペアバッジのプレハブ
+    [SerializeField] private GameObject m_feltBlock_PairBadgePrefab;   // ペアバッジのフェルトブロックのプレハブ
 
 
     // オブジェクトプール
@@ -21,7 +23,9 @@ public class StageObjectFactory : MonoBehaviour
     List<GameObject> m_feltBlcokPool            = new List<GameObject>(); // フェルトブロックのオブジェクトプール
     List<GameObject> m_noMovementFeltBlockPool  = new List<GameObject>(); // 不動フェルトブロックのオブジェクトプール
     List<GameObject> m_curtainPool              = new List<GameObject>(); // カーテンのオブジェクトプール
-    List<GameObject> m_satinFloorPool = new List<GameObject>();           // サテン床のオブジェクトプール
+    List<GameObject> m_satinFloorPool           = new List<GameObject>(); // サテン床のオブジェクトプール
+    List<GameObject> m_pairBadgePool            = new List<GameObject>(); // ペアバッジのオブジェクトプール
+    List<GameObject> m_feltBlock_PairBadgePool = new List<GameObject>(); // ペアバッジのフェルトブロックのオブジェクトプール
 
     private void Awake()
     {
@@ -185,6 +189,49 @@ public class StageObjectFactory : MonoBehaviour
         return generationObject;
     }
 
+    public GameObject GeneratePairBadge(Transform parent, List<GridPos> generationBlockPositionList, EmotionCurrent.Type emotionType)
+    {
+        if (generationBlockPositionList == null || generationBlockPositionList.Count <= 0)
+        {
+            Debug.LogError("PairBadge generation requires at least two block positions.");
+            return null;
+        }
+
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetPairBadgeFromPool();
+        var pairBadge = generationObject?.GetComponent<PairBadge>();
+        if (pairBadge == null) return null;
+
+        // ブロックの生成と登録
+        List<FeltBlock> feltBlocks = new List<FeltBlock>();
+        for (int i = 0; i < generationBlockPositionList.Count; i++)
+        {
+            FeltBlock feltBlock = GetFeltBlock_PairBadgeFromPool().GetComponent<FeltBlock>();
+            feltBlock.stageBlock.Initialize(generationBlockPositionList[i]);
+
+            // 追加
+            feltBlocks.Add(feltBlock);
+        }
+
+        // ペアバッジの初期化
+        pairBadge.Initialize(feltBlocks);
+
+
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, false);
+        // マテリアルの設定
+        var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
+        //if (meshRenderer != null)
+        //{
+        //    meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CORE, emotionType);
+        //}
+
+
+        return generationObject;
+    }
+
+
     // ========================================================================================
     // ===== オブジェクトプールからの取得メソッド ==============================================
 
@@ -269,6 +316,10 @@ public class StageObjectFactory : MonoBehaviour
         return newCurtain;
     }
 
+    /// <summary>
+    /// サテン床をプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
     private GameObject GetSatinFloorFromPool()
     {
         // オブジェクトプールから活動していないサテン床の取得
@@ -283,6 +334,48 @@ public class StageObjectFactory : MonoBehaviour
         GameObject newSatinFloor = Instantiate(m_satinFloorPrefab);
         m_satinFloorPool.Add(newSatinFloor);
         return newSatinFloor;
+    }
+
+
+    /// <summary>
+    /// ペアバッジをプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetPairBadgeFromPool()
+    {
+        // オブジェクトプールから活動していないペアバッジの取得
+        for (int i = 0; i < m_pairBadgePool.Count; i++)
+        {
+            if (m_pairBadgePool[i] != null && m_pairBadgePool[i].activeSelf == false)
+            {
+                return m_pairBadgePool[i];
+            }
+        }
+        // すべてのペアバッジが活動中の場合、新しいペアバッジを生成してプールに追加
+        GameObject newPairBadge = Instantiate(m_pairBadgePrefab);
+
+        m_pairBadgePool.Add(newPairBadge);
+        return newPairBadge;
+    }
+
+    /// <summary>
+    /// ペアバッジのフェルトブロックをプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetFeltBlock_PairBadgeFromPool()
+    {
+        // オブジェクトプールから活動していないペアバッジのフェルトブロックの取得
+        for (int i = 0; i < m_feltBlock_PairBadgePool.Count; i++)
+        {
+            if (m_feltBlock_PairBadgePool[i] != null && m_feltBlock_PairBadgePool[i].activeSelf == false)
+            {
+                return m_feltBlock_PairBadgePool[i];
+            }
+        }
+        // すべてのペアバッジのフェルトブロックが活動中の場合、新しいペアバッジのフェルトブロックを生成してプールに追加
+        GameObject newFeltBlockPairBadge = Instantiate(m_feltBlock_PairBadgePrefab);
+        m_feltBlock_PairBadgePool.Add(newFeltBlockPairBadge);
+        return newFeltBlockPairBadge;
     }
 
 

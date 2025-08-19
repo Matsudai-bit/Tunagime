@@ -403,7 +403,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
                 // 押しだすブロックの一個置く側に空間が空いていれば押し出すことが出来る
                 var stageBlock = m_targetObject.GetComponent<FeltBlock>();
 
-                if (stageBlock.CanMove(GetGridPosition() + GetForwardDirection()))
+                if (stageBlock.CheckCanMove(GetGridPosition() + GetForwardDirection()))
                 {
                     // 押し出す状態に切り替える
                     m_stateMachine.RequestStateChange(PlayerStateID.PUSH_BLOCK);

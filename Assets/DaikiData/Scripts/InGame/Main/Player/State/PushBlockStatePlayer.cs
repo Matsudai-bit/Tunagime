@@ -109,7 +109,7 @@ public class PushBlockStatePlayer : PlayerState
         m_feltBlock.transform.position = m_endPosition; // プレイヤーの位置を目標位置に設定
         owner.transform.SetParent(null); // ブロックの親を解除
                                          // ブロックを押す処理
-        m_feltBlock.Move(owner.GetForwardDirection());
+        m_feltBlock.RequestMove(owner.GetForwardDirection());
 
         m_animationEventHandler.StopAnimation(); // アニメーションを停止
 

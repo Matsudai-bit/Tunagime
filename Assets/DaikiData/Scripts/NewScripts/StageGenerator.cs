@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 
@@ -16,7 +17,7 @@ public class StageGenerator : MonoBehaviour
     /// ギミック生成データ
     /// </summary>
     [System.Serializable]
-    struct GenerationGimmickData
+    class GenerationGimmickData
     {
         public GridPos gridPos;
         public GameObject prefab;
@@ -27,13 +28,15 @@ public class StageGenerator : MonoBehaviour
 
     enum GenerationType
     {
-        FELT_BLOCK, // フェルトブロック
-        FLUFF_BALL, // 毛糸玉
+        FELT_BLOCK,             // フェルトブロック
+        FLUFF_BALL,             // 毛糸玉
         FELT_BLOCK_NO_MOVEMENT, // 動かないフェルトブロック
-        FLOOR,   // 床
-        TERMINUS, // 終点
-        CURTAIN, // カーテン
-        SATIN_FLOOR, // サテン床
+        FLOOR,                  // 床
+        TERMINUS,               // 終点
+        CURTAIN,                // カーテン
+        SATIN_FLOOR,            // サテン床
+        PAIR_BADGE,             // ペアバッジ
+        NONE,                 // なし
     }
 
 
@@ -109,6 +112,8 @@ public class StageGenerator : MonoBehaviour
         // ギミックの生成
         foreach (var generation in m_gimmickData)
         {
+            if (generation.blockType == GenerationType.NONE) continue; // ブロックの種類がNONEの場合はスキップ
+
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
             GameObject generationObject = null;           
 
@@ -143,6 +148,30 @@ public class StageGenerator : MonoBehaviour
                     generationObject = stageObjectFactory.GenerateSatinFloor(gimmickParent, fixedGridPos);
                     // 生成されたオブジェクトの位置を設定
                     map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, generationObject);
+                    break;
+                case GenerationType.PAIR_BADGE:
+                    // ペアバッジの生成
+
+                    // 同じ種類の座標を全て取得
+                    var generationBlock = m_gimmickData.Where(data => data.blockType == GenerationType.PAIR_BADGE && data.emotionType == generation.emotionType).ToList();
+                    // 座標
+                    var generationPosList = generationBlock.Select(data => new GridPos(data.gridPos.x - 1, data.gridPos.y - 1)).ToList();
+
+                    // ペアバッジの生成
+                    generationObject = stageObjectFactory.GeneratePairBadge(gimmickParent, generationPosList, generation.emotionType);
+
+                    // 生成されたオブジェクトの位置を設定
+                    
+                    foreach (var feltBlock in generationObject.GetComponent<PairBadge>().GetFeltBlocks())
+                    {
+                        map.GetStageGridData().TryPlaceTileObject(feltBlock.stageBlock.GetGridPos(), feltBlock.gameObject);
+                    }
+
+                    foreach (var data in generationBlock)
+                    {
+                        data.blockType = GenerationType.NONE; // 生成したペアバッジの座標はNONEに設定
+                    }
+
                     break;
 
             }

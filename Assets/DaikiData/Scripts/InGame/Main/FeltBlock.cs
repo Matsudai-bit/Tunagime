@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEngine.UI.GridLayoutGroup;
 
 
@@ -56,13 +57,19 @@ public class FeltBlock : MonoBehaviour
 
     }
 
-    public bool CanMove(GridPos moveDirection)
+    public bool CheckCanMove(GridPos moveDirection)
     {
         // ペアワッペンがある場合はペアワッペンの移動可能かチェック
         if (m_pairBadge != null)
         {
             return m_pairBadge.CanMove(moveDirection);
         }
+    
+        return CanMove(moveDirection); // ペアワッペンがない場合は自分自身の移動可能かチェック
+    }
+
+    public bool CanMove(GridPos moveDirection)
+    {
         // ステージブロックが移動可能かチェック
         GridPos currentGridPos = m_stageBlock.GetGridPos();
 
@@ -73,7 +80,6 @@ public class FeltBlock : MonoBehaviour
         TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
 
         return (targetTileObject.gameObject == null);
-
     }
 
     private void Update()
@@ -103,6 +109,23 @@ public class FeltBlock : MonoBehaviour
     /// フェルトブロックを移動する
     /// </summary>
     /// <param name="velocity"></param>
+    public void RequestMove(GridPos velocity)
+    {
+        if (m_pairBadge != null)
+        {
+            // ペアワッペンがある場合はペアワッペンに移動を依頼
+            m_pairBadge.Move(velocity);
+            return;
+        }
+
+        Move(velocity); // ペアワッペンがない場合は自分自身を移動
+
+    }
+
+    ///// <summary>
+    ///// フェルトブロックを移動する
+    ///// </summary>
+    ///// <param name="velocity"></param>
     public void Move(GridPos velocity)
     {
 
@@ -149,7 +172,7 @@ public class FeltBlock : MonoBehaviour
             {
                 // 念のため再配置
                 // 先に座標を設定してから移動
-                m_stageBlock.UpdatePosition(endGridPos);
+                RequestMove(endGridPos);
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);
 
                 if (CanSlide()) ChangeState(State.SLIDE);
@@ -159,6 +182,8 @@ public class FeltBlock : MonoBehaviour
 
     private bool CanSlide()
     {
+        if (CheckCanMove(m_prevVelocity) == false) return false;
+
         // **** 床の種類でチェック ****
         var gridPos = m_stageBlock.GetGridPos();
 

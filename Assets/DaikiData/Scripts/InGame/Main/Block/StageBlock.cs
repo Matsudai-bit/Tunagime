@@ -20,6 +20,7 @@ public class StageBlock : MonoBehaviour
         AMIDA_TUBE, // あみだチューブ
         CURTAIN, // カーテン
         SATIN_FLOOR, // サテン床
+        PAIR_BADGE, // ペアバッジ
     }
 
    
