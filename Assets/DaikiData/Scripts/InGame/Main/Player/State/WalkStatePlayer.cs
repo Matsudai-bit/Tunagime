@@ -33,6 +33,12 @@ public class WalkStatePlayer : PlayerState
             owner.TryForwardFloorSetting();
             // 編む処理を試みる
             owner.TryKnit();
+
+            if (CanSlide())
+            {
+                // サテン床上でスライド可能ならスライド状態に遷移
+                owner.GetStateMachine().RequestStateChange(PlayerStateID.SLIPPER);
+            }
         }
         else
         {

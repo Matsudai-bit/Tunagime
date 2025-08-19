@@ -73,7 +73,7 @@ public class StageObjectFactory : MonoBehaviour
 
         // 親の設定
         if (parent != null)
-            generationObject.transform.SetParent(parent, false);
+            generationObject.transform.SetParent(parent, true);
 
         // ステージブロックの設定
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
@@ -97,7 +97,7 @@ public class StageObjectFactory : MonoBehaviour
         GameObject generationObject = GetFeltBlockFromPool();
         // 親の設定
         if (parent != null)
-            generationObject.transform.SetParent(parent, false);
+            generationObject.transform.SetParent(parent, true);
         // マテリアルの設定
         MeshRenderer meshRenderer = generationObject?.GetComponent<FeltBlock>().meshRenderer;
         if (meshRenderer != null )
@@ -125,7 +125,7 @@ public class StageObjectFactory : MonoBehaviour
         GameObject generationObject = GetNoMovementFeltBlockFromPool();
         // 親の設定
         if (parent != null)
-            generationObject.transform.SetParent(parent, false);
+            generationObject.transform.SetParent(parent, true);
         // マテリアルの設定
         MeshRenderer meshRenderer = generationObject?.GetComponent<FeltBlock>().meshRenderer;
         if (meshRenderer != null )
@@ -148,7 +148,7 @@ public class StageObjectFactory : MonoBehaviour
         GameObject generationObject = GetCurtainFromPool();
         // 親の設定
         if (parent != null)
-            generationObject.transform.SetParent(parent, false);
+            generationObject.transform.SetParent(parent, true);
 
         // マテリアルの設定
         var curtain = generationObject?.GetComponent<Curtain>();
@@ -180,7 +180,7 @@ public class StageObjectFactory : MonoBehaviour
         GameObject generationObject = GetSatinFloorFromPool();
         // 親の設定
         if (parent != null)
-            generationObject.transform.SetParent(parent, false);
+            generationObject.transform.SetParent(parent, true);
         // ステージブロックの設定
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.SATIN_FLOOR);
@@ -219,7 +219,7 @@ public class StageObjectFactory : MonoBehaviour
 
         // 親の設定
         if (parent != null)
-            generationObject.transform.SetParent(parent, false);
+            generationObject.transform.SetParent(parent, true);
         // マテリアルの設定
         var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
         //if (meshRenderer != null)

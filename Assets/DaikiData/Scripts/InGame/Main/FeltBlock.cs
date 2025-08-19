@@ -93,6 +93,13 @@ public class FeltBlock : MonoBehaviour
     public void SetPairBadge(PairBadge pairBadge)
     {
         m_pairBadge = pairBadge;
+        transform.SetParent(pairBadge.transform); // ペアワッペンの子オブジェクトとして設定
+    }
+
+    public Transform GetParentTransform()
+    {
+        // フェルトブロックのTransformを取得
+        return (m_pairBadge != null) ? m_pairBadge.transform : transform;
     }
 
 
@@ -136,7 +143,7 @@ public class FeltBlock : MonoBehaviour
 
         m_prevVelocity = velocity;
 
-        if (CanSlide()) ChangeState(State.SLIDE);
+        if (CheckCanSlide()) ChangeState(State.SLIDE);
         else ChangeState(State.IDLE);
 
     }
@@ -147,7 +154,20 @@ public class FeltBlock : MonoBehaviour
         set { m_meshRenderer = value; }
     }
 
-    private void StartSlide()
+    private void RequestSlide()
+    {
+        if (m_pairBadge != null)
+        {
+            // ペアワッペンがある場合はペアワッペンにスライドを依頼
+            m_pairBadge.Slide(m_prevVelocity);
+            return;
+        }
+
+        // ペアワッペンがない場合は自分自身をスライド
+        StartSlide(m_prevVelocity);
+    }
+
+    public void StartSlide(GridPos velocity)
     {
         
 
@@ -159,7 +179,7 @@ public class FeltBlock : MonoBehaviour
         // 念のため再配置
         transform.position = map.ConvertGridToWorldPos(blockPos); 
 
-        var endGridPos = blockPos + m_prevVelocity; // ブロックを押した後のグリッド位置を計算
+        var endGridPos = blockPos + velocity; // ブロックを押した後のグリッド位置を計算
 
         // ブロックを押した後の目標位置を設定
         var endPosition = map.ConvertGridToWorldPos(endGridPos);
@@ -172,15 +192,26 @@ public class FeltBlock : MonoBehaviour
             {
                 // 念のため再配置
                 // 先に座標を設定してから移動
-                RequestMove(endGridPos);
+                stageBlock.UpdatePosition(endGridPos);
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);
 
-                if (CanSlide()) ChangeState(State.SLIDE);
+                if (CheckCanSlide()) ChangeState(State.SLIDE);
                 else ChangeState(State.IDLE);
             });
     }
 
-    private bool CanSlide()
+    public bool CheckCanSlide()
+    {
+        if (m_pairBadge != null)
+        {
+            // ペアワッペンがある場合はペアワッペンのスライド可能かチェック
+            return m_pairBadge.CanSlide();
+        }
+
+        return CanSlide(); // ペアワッペンがない場合は自分自身のスライド可能かチェック
+    }
+
+    public bool CanSlide()
     {
         if (CheckCanMove(m_prevVelocity) == false) return false;
 
@@ -212,7 +243,7 @@ public class FeltBlock : MonoBehaviour
                 break;
             case State.SLIDE:
                 // スライド状態の処理
-                StartSlide();
+                RequestSlide();
                 break;
         }
     }

@@ -52,6 +52,11 @@ public class PushBlockStatePlayer : PlayerState
         // ブロックを押した後の目標位置を設定
         m_endPosition = map.ConvertGridToWorldPos(owner.GetForwardDirection() + blockPos);
 
+        var velocity = m_endPosition - m_startPosition; // ブロックを押した後の目標位置から開始位置を引いて、押す方向のベクトルを計算
+
+        m_startPosition = m_feltBlock.GetParentTransform().position;
+        m_endPosition = m_startPosition + velocity; // ブロックの目標位置を設定
+
         // レイヤーの変更中フラグをリセット
         m_animationEventHandler.PlayAnimationBool("Push", "Normal", "Push"); // 置くアニメーションを再生
 
@@ -69,7 +74,7 @@ public class PushBlockStatePlayer : PlayerState
         owner.transform.LookAt(m_feltBlock.transform); // ブロックの目標位置を向くように設定
 
         // 子として設定
-        owner.transform.SetParent(m_feltBlock.transform);
+        owner.transform.SetParent(m_feltBlock.GetParentTransform());
     }
 
     /// <summary>
@@ -131,7 +136,7 @@ public class PushBlockStatePlayer : PlayerState
         currentTime += Time.deltaTime; // 現在の時間を更新
 
         // ブロックの位置を更新
-        m_feltBlock.transform.position = newBlockPos;
+        m_feltBlock.GetParentTransform().position = newBlockPos;
 
 
     }

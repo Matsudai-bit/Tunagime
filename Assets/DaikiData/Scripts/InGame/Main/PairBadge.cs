@@ -16,6 +16,11 @@ public class PairBadge : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     public void Initialize(List<FeltBlock> feltBlocks)
     {
         m_feltBlocks.Clear();
@@ -23,13 +28,9 @@ public class PairBadge : MonoBehaviour
 
         foreach (var feltBlock in m_feltBlocks)
         {
-            feltBlock.gameObject.transform.SetParent(this.transform); // フェルトブロックの親をペアワッペンに設定
             feltBlock.SetPairBadge(this); // ペアワッペンを設定するメソッドを呼び出す
 
-        }
-
-        // ここで必要な初期化処理を追加
-        
+        }        
     }
 
     public void Move(GridPos velocity)
@@ -44,6 +45,20 @@ public class PairBadge : MonoBehaviour
     {
 
         return m_feltBlocks.TrueForAll(feltBlock => feltBlock.CanMove(moveDirection));
+    }
+
+    public bool CanSlide()
+    {
+        // すべてのフェルトブロックがスライド可能かチェック
+        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.CanSlide());
+    }
+
+    public void Slide(GridPos velocity)
+    {
+        foreach (var feltBlock in m_feltBlocks)
+        {
+            feltBlock.StartSlide(velocity); // 各フェルトブロックをスライド
+        }
     }
 
     // Update is called once per frame
