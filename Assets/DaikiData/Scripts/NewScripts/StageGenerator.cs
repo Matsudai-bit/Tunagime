@@ -36,6 +36,7 @@ public class StageGenerator : MonoBehaviour
         CURTAIN,                // カーテン
         SATIN_FLOOR,            // サテン床
         PAIR_BADGE,             // ペアバッジ
+        FRAGMENT,               // 想いの断片
         NONE,                 // なし
     }
 
@@ -172,6 +173,12 @@ public class StageGenerator : MonoBehaviour
                         data.blockType = GenerationType.NONE; // 生成したペアバッジの座標はNONEに設定
                     }
 
+                    break;
+                case GenerationType.FRAGMENT:
+                    // 想いの断片の生成
+                    generationObject = stageObjectFactory.GenerateFragment(gimmickParent, fixedGridPos, generation.emotionType);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
 
             }

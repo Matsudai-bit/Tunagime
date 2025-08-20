@@ -13,6 +13,7 @@ public class MaterialLibrary : ScriptableObject
         FELT_BLOCK,
         CURTAIN,
         CORE,
+        FRAGMENT, // ’Ç‰Á: ‘z‚¢‚Ì’f•Ð
     }
 
     [Serializable]

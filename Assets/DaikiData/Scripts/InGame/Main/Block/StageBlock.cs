@@ -21,6 +21,7 @@ public class StageBlock : MonoBehaviour
         CURTAIN, // カーテン
         SATIN_FLOOR, // サテン床
         PAIR_BADGE, // ペアバッジ
+        FRAGMENT, // 想いの断片
     }
 
    
@@ -83,7 +84,7 @@ public class StageBlock : MonoBehaviour
     /// 座標の更新
     /// </summary>
     /// <param name="gridPos"></param>
-    public void UpdatePosition(GridPos gridPos)
+    public void UpdatePosition(GridPos gridPos, bool fitPosition = true)
     {
         MapData map = MapData.GetInstance;
 
@@ -108,8 +109,11 @@ public class StageBlock : MonoBehaviour
         //グリッド座標の更新
         m_gridPos = gridPos;
 
-        // 座標の更新
-        transform.position = newPos + new Vector3(0.0f, transform.position.y, 0.0f);
+        if (fitPosition)
+        {
+            // 座標の更新
+            transform.position = newPos + new Vector3(0.0f, transform.position.y, 0.0f);
+        }
 
         // 移動先の座標に移動する
         MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_gridPos, gameObject);

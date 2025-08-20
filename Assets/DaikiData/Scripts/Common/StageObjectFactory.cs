@@ -16,6 +16,7 @@ public class StageObjectFactory : MonoBehaviour
     [SerializeField] private GameObject m_satinFloorPrefab;             // サテン床のプレハブ
     [SerializeField] private GameObject m_pairBadgePrefab;             // ペアバッジのプレハブ
     [SerializeField] private GameObject m_feltBlock_PairBadgePrefab;   // ペアバッジのフェルトブロックのプレハブ
+    [SerializeField] private GameObject m_fragmentPrefab;              // 想いの断片のプレハブ
 
 
     // オブジェクトプール
@@ -25,7 +26,8 @@ public class StageObjectFactory : MonoBehaviour
     List<GameObject> m_curtainPool              = new List<GameObject>(); // カーテンのオブジェクトプール
     List<GameObject> m_satinFloorPool           = new List<GameObject>(); // サテン床のオブジェクトプール
     List<GameObject> m_pairBadgePool            = new List<GameObject>(); // ペアバッジのオブジェクトプール
-    List<GameObject> m_feltBlock_PairBadgePool = new List<GameObject>(); // ペアバッジのフェルトブロックのオブジェクトプール
+    List<GameObject> m_feltBlock_PairBadgePool  = new List<GameObject>(); // ペアバッジのフェルトブロックのオブジェクトプール
+    List<GameObject> m_fragmentPool             = new List<GameObject>(); // 想いの断片のオブジェクトプール
 
     private void Awake()
     {
@@ -231,6 +233,27 @@ public class StageObjectFactory : MonoBehaviour
         return generationObject;
     }
 
+    public GameObject GenerateFragment(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
+    {
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetFragmentFromPool();
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, true);
+        // マテリアルの設定
+        var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+        {
+            meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FRAGMENT, emotionType);
+        }
+        // ステージブロックの設定
+        StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
+        stageBlock.SetBlockType(StageBlock.BlockType.FRAGMENT);
+        // 初期化
+        stageBlock.Initialize(gridPos);
+        return generationObject;
+    }
+
 
     // ========================================================================================
     // ===== オブジェクトプールからの取得メソッド ==============================================
@@ -376,6 +399,22 @@ public class StageObjectFactory : MonoBehaviour
         GameObject newFeltBlockPairBadge = Instantiate(m_feltBlock_PairBadgePrefab);
         m_feltBlock_PairBadgePool.Add(newFeltBlockPairBadge);
         return newFeltBlockPairBadge;
+    }
+
+    private GameObject GetFragmentFromPool()
+    {
+        // オブジェクトプールから活動していない想いの断片の取得
+        for (int i = 0; i < m_fragmentPool.Count; i++)
+        {
+            if (m_fragmentPool[i] != null && m_fragmentPool[i].activeSelf == false)
+            {
+                return m_fragmentPool[i];
+            }
+        }
+        // すべての想いの断片が活動中の場合、新しい想いの断片を生成してプールに追加
+        GameObject newFragment = Instantiate(m_fragmentPrefab);
+        m_fragmentPool.Add(newFragment);
+        return newFragment;
     }
 
 
