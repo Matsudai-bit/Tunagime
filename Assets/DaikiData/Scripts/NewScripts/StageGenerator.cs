@@ -192,24 +192,16 @@ public class StageGenerator : MonoBehaviour
 
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
-
             // 床の生成
-            GameObject instanceObj = Instantiate(generation.prefab, gimmickParent);
+            GameObject instanceObj = stageObjectFactory.GenerateFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType);
 
-            //Vector3 pos = map.ConvertGridToWorldPos(fixedGridPos.x, fixedGridPos.y);
-            //instanceObj.transform.position = new Vector3(pos.x, instanceObj.transform.position.y, pos.z);
 
-            // 元々の床オブジェクトを無効化
-            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor.SetActive(false);
+            // 新しい床オブジェクトを設定
+            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
 
             // 新しい床オブジェクトを設定
             map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
-
-            StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
-            stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
-            stageBlock.Initialize(fixedGridPos);
-
 
             if (instanceObj.GetComponent<FeelingSlot>() != null)
             {
@@ -225,7 +217,10 @@ public class StageGenerator : MonoBehaviour
         foreach (var generation in m_terminusData)
         {
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
-            GameObject instanceObj = Instantiate(generation.prefab, gimmickParent);
+
+            // 床の生成
+            GameObject instanceObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType);
+
 
             // 新しい床オブジェクトを設定
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
@@ -234,9 +229,6 @@ public class StageGenerator : MonoBehaviour
             map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
 
-            StageBlock stageBlock = instanceObj.GetComponent<StageBlock>();
-            stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
-            stageBlock.Initialize(fixedGridPos);
             TerminusFeelingSlot terminusFeelingSlot = instanceObj.GetComponent<TerminusFeelingSlot>();
             if (terminusFeelingSlot != null && instanceObj?.GetComponent<TerminusFeelingSlotRefection>() == null)
             {

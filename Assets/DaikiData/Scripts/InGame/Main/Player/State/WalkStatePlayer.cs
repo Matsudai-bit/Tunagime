@@ -39,6 +39,12 @@ public class WalkStatePlayer : PlayerState
                 // サテン床上でスライド可能ならスライド状態に遷移
                 owner.GetStateMachine().RequestStateChange(PlayerStateID.SLIPPER);
             }
+
+            if (owner.GetCarryingObject().stageBlock.GetBlockType() == StageBlock.BlockType.CARRIABLE_CORE)
+            {
+                // ブロックを押す処理を試みる
+                owner.TryForwardSlotSetting();
+            }
         }
         else
         {

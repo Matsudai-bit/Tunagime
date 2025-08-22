@@ -9,6 +9,8 @@ public class StageObjectFactory : MonoBehaviour
     private static StageObjectFactory s_instance;   // シングルトンインスタンス
 
     [Header("====== ステージオブジェクトのプレハブ設定 ======")]
+    [SerializeField] private GameObject m_feelingSlotPrefab;            // 想いの型のプレハブ
+    [SerializeField] private GameObject m_terminusFeelingSlotPrefab;    // 終点想いの型のプレハブ
     [SerializeField] private GameObject m_fluffBallPrefab;              // 毛糸玉のプレハブ
     [SerializeField] private GameObject m_feltBlockPrefab;              // フェルトブロックのプレハブ
     [SerializeField] private GameObject m_noMovementFeltBlockPrefab;    // 不動フェルトブロックのプレハブ
@@ -17,17 +19,22 @@ public class StageObjectFactory : MonoBehaviour
     [SerializeField] private GameObject m_pairBadgePrefab;             // ペアバッジのプレハブ
     [SerializeField] private GameObject m_feltBlock_PairBadgePrefab;   // ペアバッジのフェルトブロックのプレハブ
     [SerializeField] private GameObject m_fragmentPrefab;              // 想いの断片のプレハブ
+    [SerializeField] private GameObject m_carriableCorePrefab;         // 持ち運び可能なコアのプレハブ
+
 
 
     // オブジェクトプール
+    List<GameObject> m_feelingSlotPool = new List<GameObject>(); // 想いの型のオブジェクトプール
+    List<GameObject> m_terminusFeelingSlotPool = new List<GameObject>(); // 終点想いの型のオブジェクトプール
     List<GameObject> m_fluffballPool            = new List<GameObject>(); // 毛糸玉のオブジェクトプール
-    List<GameObject> m_feltBlcokPool            = new List<GameObject>(); // フェルトブロックのオブジェクトプール
+    List<GameObject> m_feltBlockPool            = new List<GameObject>(); // フェルトブロックのオブジェクトプール
     List<GameObject> m_noMovementFeltBlockPool  = new List<GameObject>(); // 不動フェルトブロックのオブジェクトプール
     List<GameObject> m_curtainPool              = new List<GameObject>(); // カーテンのオブジェクトプール
     List<GameObject> m_satinFloorPool           = new List<GameObject>(); // サテン床のオブジェクトプール
     List<GameObject> m_pairBadgePool            = new List<GameObject>(); // ペアバッジのオブジェクトプール
     List<GameObject> m_feltBlock_PairBadgePool  = new List<GameObject>(); // ペアバッジのフェルトブロックのオブジェクトプール
     List<GameObject> m_fragmentPool             = new List<GameObject>(); // 想いの断片のオブジェクトプール
+    List<GameObject> m_carriableCorePool        = new List<GameObject>(); // 持ち運び可能なコアのオブジェクトプール
 
     private void Awake()
     {
@@ -61,6 +68,65 @@ public class StageObjectFactory : MonoBehaviour
     // ========================================================================================
     // ===== ステージオブジェクト生成メソッド ==================================================
 
+    /// <summary>
+    /// 想いの型を生成するメソッド
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="gridPos"></param>
+    /// <param name="emotionType"></param>
+    /// <returns></returns>
+    public GameObject GenerateFeelingSlot(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
+    {
+
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetFeelingSlotFromPool();
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, true);
+
+        // 種類の設定
+        var feelingCore = generationObject?.GetComponent<FeelingSlot>().GetFeelingCore();
+        if (feelingCore)
+        {
+            feelingCore.SetEmotionType(emotionType);
+        }
+
+        // ステージブロックの設定
+        StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
+        stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
+        // 初期化
+        stageBlock.Initialize(gridPos);
+
+        return generationObject;
+    }
+
+    /// <summary>
+    /// 終点想いの型を生成するメソッド
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="gridPos"></param>
+    /// <param name="emotionType"></param>
+    /// <returns></returns>
+    public GameObject GenerateTerminusFeelingSlot(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
+    {
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetTerminusFeelingSlotFromPool();
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, true);
+        // 種類の設定
+        var feelingCore = generationObject?.GetComponent<FeelingSlot>().GetFeelingCore();
+        if (feelingCore)
+        {
+            feelingCore.SetEmotionType(emotionType);
+        }
+        // ステージブロックの設定
+        StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
+        stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
+        // 初期化
+        stageBlock.Initialize(gridPos);
+        return generationObject;
+    }
 
     /// <summary>
     /// 毛糸玉を生成するメソッド
@@ -224,11 +290,6 @@ public class StageObjectFactory : MonoBehaviour
             generationObject.transform.SetParent(parent, true);
         // マテリアルの設定
         var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
-        //if (meshRenderer != null)
-        //{
-        //    meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CORE, emotionType);
-        //}
-
 
         return generationObject;
     }
@@ -241,11 +302,19 @@ public class StageObjectFactory : MonoBehaviour
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
         // マテリアルの設定
-        var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
+        var meshRenderer = generationObject?.GetComponent<Fragment>().MeshRenderer;
         if (meshRenderer != null)
         {
             meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FRAGMENT, emotionType);
         }
+
+        // 種類の設定
+        var emotionCurrent = generationObject?.GetComponent<EmotionCurrent>();
+        if (emotionCurrent)
+        {
+            emotionCurrent.CurrentType = emotionType;
+        }
+
         // ステージブロックの設定
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FRAGMENT);
@@ -254,9 +323,78 @@ public class StageObjectFactory : MonoBehaviour
         return generationObject;
     }
 
+    public GameObject GenerateCarriableCore(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
+    {
+        // 生成するオブジェクトの取得
+        GameObject generationObject = GetCarriableCoreFromPool();
+        // 親の設定
+        if (parent != null)
+            generationObject.transform.SetParent(parent, true);
+        // マテリアルの設定
+        var meshRenderer = generationObject?.GetComponent<FeelingCore>().MeshRenderer;
+        if (meshRenderer != null)
+        {
+            meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CORE, emotionType);
+        }
+
+        // 種類の設定
+        var emotionCurrent = generationObject?.GetComponent<EmotionCurrent>();
+        if (emotionCurrent)
+        {
+            emotionCurrent.CurrentType = emotionType;
+        }
+
+        // ステージブロックの設定
+        StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
+        stageBlock.SetBlockType(StageBlock.BlockType.CARRIABLE_CORE);
+        // 初期化
+        stageBlock.Initialize(gridPos);
+        return generationObject;
+    }
+
 
     // ========================================================================================
     // ===== オブジェクトプールからの取得メソッド ==============================================
+
+    /// <summary>
+    /// 想いの型をオブジェクトプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetFeelingSlotFromPool()
+    {
+        // オブジェクトプールから活動していない想いの型の取得
+        for (int i = 0; i < m_feelingSlotPool.Count; i++)
+        {
+            if (m_feelingSlotPool[i] != null && m_feelingSlotPool[i].activeSelf == false)
+            {
+                return m_feelingSlotPool[i];
+            }
+        }
+        // すべての想いの型が活動中の場合、新しい想いの型を生成してプールに追加
+        GameObject newFeelingSlot = Instantiate(m_feelingSlotPrefab);
+        m_feelingSlotPool.Add(newFeelingSlot);
+        return newFeelingSlot;
+    }
+
+    /// <summary>
+    /// 終点想いの型をオブジェクトプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetTerminusFeelingSlotFromPool()
+    {
+        // オブジェクトプールから活動していない終点想いの型の取得
+        for (int i = 0; i < m_terminusFeelingSlotPool.Count; i++)
+        {
+            if (m_terminusFeelingSlotPool[i] != null && m_terminusFeelingSlotPool[i].activeSelf == false)
+            {
+                return m_terminusFeelingSlotPool[i];
+            }
+        }
+        // すべての終点想いの型が活動中の場合、新しい終点想いの型を生成してプールに追加
+        GameObject newTerminusFeelingSlot = Instantiate(m_terminusFeelingSlotPrefab);
+        m_terminusFeelingSlotPool.Add(newTerminusFeelingSlot);
+        return newTerminusFeelingSlot;
+    }
 
 
     /// <summary>
@@ -286,16 +424,16 @@ public class StageObjectFactory : MonoBehaviour
     private GameObject GetFeltBlockFromPool()
     {
         // オブジェクトプールから活動していない毛糸玉の取得
-        for (int i = 0; i < m_feltBlcokPool.Count; i++)
+        for (int i = 0; i < m_feltBlockPool.Count; i++)
         {
-            if (m_feltBlcokPool[i] != null && m_feltBlcokPool[i].activeSelf == false)
+            if (m_feltBlockPool[i] != null && m_feltBlockPool[i].activeSelf == false)
             {
-                return m_feltBlcokPool[i];
+                return m_feltBlockPool[i];
             }
         }
         // すべてのフェルトブロックが活動中の場合、新しいフェルトブロックを生成してプールに追加
         GameObject newFeltBlock = Instantiate(m_feltBlockPrefab);
-        m_feltBlcokPool.Add(newFeltBlock);
+        m_feltBlockPool.Add(newFeltBlock);
         return newFeltBlock;
     }
 
@@ -417,16 +555,25 @@ public class StageObjectFactory : MonoBehaviour
         return newFragment;
     }
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    /// <summary>
+    /// 持ち運び可能なコアをプールから取得するメソッド
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetCarriableCoreFromPool()
     {
-        
+        // オブジェクトプールから活動していない持ち運び可能なコアの取得
+        for (int i = 0; i < m_carriableCorePool.Count; i++)
+        {
+            if (m_carriableCorePool[i] != null && m_carriableCorePool[i].activeSelf == false)
+            {
+                return m_carriableCorePool[i];
+            }
+        }
+        // すべての持ち運び可能なコアが活動中の場合、新しい持ち運び可能なコアを生成してプールに追加
+        GameObject newCarriableCore = Instantiate(m_carriableCorePrefab);
+        m_carriableCorePool.Add(newCarriableCore);
+        return newCarriableCore;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

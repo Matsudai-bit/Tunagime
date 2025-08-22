@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
@@ -8,6 +9,8 @@ public class Carryable : MonoBehaviour
 {
     
     private StageBlock m_stageBlock; // このCarryableが属するStageBlock
+
+    private Action<GridPos> m_onDropAction; // 置くときの処理を設定するためのアクション
 
     private void Awake()
     {
@@ -37,10 +40,15 @@ public class Carryable : MonoBehaviour
     /// </summary>
     public void OnDrop( GridPos  placementPos)
     {
-        gameObject.SetActive(true); // オブジェクトを表示する
-        stageBlock.UpdatePosition(placementPos); // StageBlockの位置を更新
+        m_onDropAction(placementPos);
+    }
 
-        // グリッドデータに綿毛ボールを配置
-        MapData.GetInstance.GetStageGridData().TryPlaceTileObject(placementPos, gameObject);
+    /// <summary>
+    /// 置くときの処理に行う処理を設定する
+    /// </summary>
+    /// <param name="onDropAction"></param>
+    public void SetOnDropAction(Action<GridPos> onDropAction)
+    {
+        m_onDropAction = onDropAction;
     }
 }

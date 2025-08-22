@@ -314,8 +314,9 @@ public class Player : MonoBehaviour , IGameInteractionObserver
                 // 置く位置
                 GridPos placementPos = GetForwardGridPos(); // 前方のグリッド位置
 
-                // 自分のいるグリッドの上下にノーマル状態のあみだがあるかどうか
-                if (stageGridData.GetTileObject(placementPos).gameObject == null && MapData.GetInstance.CheckInnerGridPos(placementPos))
+                // 自分の正面のグリッドがnullかどうか
+               // if (stageGridData.GetTileObject(placementPos).gameObject == null && MapData.GetInstance.CheckInnerGridPos(placementPos))
+                if (m_targetObject != null && MapData.GetInstance.CheckInnerGridPos(placementPos))
                 {
                     // 運んでいるオブジェクトを置く状態に切り替える
                     m_stateMachine.RequestStateChange(PlayerStateID.PUT_DOWN);
@@ -499,6 +500,32 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         {
             // グリッド範囲外の場合はターゲットオブジェクトをnullに設定
             m_targetObject = null;
+        }
+    }
+
+    public void TryForwardSlotSetting()
+    {
+        // プレイヤーの前方のグリッド位置を取得
+        var forwardPos = GetForwardGridPos();
+
+        // マップを取得
+        var map = MapData.GetInstance;
+        // 前方のグリッド位置がグリッド範囲内かチェック
+        if (map.CheckInnerGridPos(forwardPos))
+        {
+            // 前方のグリッド位置のタイルオブジェクトを取得
+            TileObject tileObject = map.GetStageGridData().GetTileData[forwardPos.y, forwardPos.x].tileObject;
+
+            if (tileObject.stageBlock != null && tileObject.stageBlock.GetBlockType() == StageBlock.BlockType.FEELING_SLOT)
+            {
+                var feelingSlot = tileObject.stageBlock?.GetComponent<FeelingSlot>();
+                if (feelingSlot != null && feelingSlot.GetEmotionType() == EmotionCurrent.Type.NONE)
+                {
+                    // ターゲットオブジェクトを設定
+                    SetTargetObject(tileObject.gameObject);
+                }
+               
+            }
         }
     }
 

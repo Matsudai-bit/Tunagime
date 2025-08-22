@@ -404,7 +404,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7677247, z: -0.6407799, w: 0}
-  m_LocalPosition: {x: 0, y: 9.38, z: 1.98}
+  m_LocalPosition: {x: 0, y: 14.01, z: 1.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -738,6 +738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a6017c53986ae4085a26a959bbde63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_feelingSlotPrefab: {fileID: 8293287876587456767, guid: 860d38d067f34734ebe2f93bd53cdf12, type: 3}
+  m_terminusFeelingSlotPrefab: {fileID: 8293287876587456767, guid: be5019532b2139642ba96c22817ad29c, type: 3}
   m_fluffBallPrefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
   m_feltBlockPrefab: {fileID: 282849731534080628, guid: 43a1dc60b0824e9498ad46911501168a, type: 3}
   m_noMovementFeltBlockPrefab: {fileID: 504130624815832448, guid: bab951241884feb479282891e7a49be8, type: 3}
@@ -746,6 +748,7 @@ MonoBehaviour:
   m_pairBadgePrefab: {fileID: 1411343477047837377, guid: 0bb9bc61860d6ef469a3d6a548717fbc, type: 3}
   m_feltBlock_PairBadgePrefab: {fileID: 282849731534080628, guid: e70d0816425f9fa4bb358872f3f25e20, type: 3}
   m_fragmentPrefab: {fileID: 7667329405627677275, guid: e7013f6858fcd38419901af35779b866, type: 3}
+  m_carriableCorePrefab: {fileID: 5217488917470430506, guid: 1a0619ce0eac1e241bd7002e7b241426, type: 3}
 --- !u!4 &650648820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2704117409311022249, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
@@ -1310,6 +1313,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8164183478915395387, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164183478915395387, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []

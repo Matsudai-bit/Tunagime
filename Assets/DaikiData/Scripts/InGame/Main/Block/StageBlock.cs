@@ -22,6 +22,7 @@ public class StageBlock : MonoBehaviour
         SATIN_FLOOR, // サテン床
         PAIR_BADGE, // ペアバッジ
         FRAGMENT, // 想いの断片
+        CARRIABLE_CORE // 持ち運び可能なコア
     }
 
    

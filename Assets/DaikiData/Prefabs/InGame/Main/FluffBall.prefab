@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -577697400781214075}
   - component: {fileID: 3685075713373216742}
   - component: {fileID: 1857755438641704877}
+  - component: {fileID: 8018605212792640160}
   m_Layer: 0
   m_Name: FluffBall
   m_TagString: Untagged
@@ -85,6 +86,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.4
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &8018605212792640160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317539346633767421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f948de2cd3f2846a610382e7300d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6182686739804729612
 GameObject:
   m_ObjectHideFlags: 0

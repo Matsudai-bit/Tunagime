@@ -11,10 +11,10 @@ public struct GridPos
     public static readonly GridPos UP = new GridPos(0, 1);
     public static readonly GridPos DOWN = new GridPos(0, -1);
 
-    public  int x;
-  public  int y;
+    public int x;
+    public int y;
 
-   public GridPos(int x, int y)
+    public GridPos(int x, int y)
     {
         this.x = x;
         this.y = y;
@@ -22,6 +22,41 @@ public struct GridPos
 
     public static GridPos operator +(GridPos lhs, GridPos rhs) => new GridPos(lhs.x + rhs.x, lhs.y + rhs.y);
     public static GridPos operator -(GridPos lhs, GridPos rhs) => new GridPos(lhs.x - rhs.x, lhs.y - rhs.y);
+
+    // == 演算子のオーバーロード
+    public static bool operator ==(GridPos lhs, GridPos rhs)
+    {
+        return lhs.x == rhs.x && lhs.y == rhs.y;
+    }
+
+    // != 演算子のオーバーロード
+    public static bool operator !=(GridPos lhs, GridPos rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    // Equals メソッドのオーバーライド (object版)
+    public override bool Equals(object obj)
+    {
+        if (obj is GridPos other)
+        {
+            return Equals(other); // IEquatable版を呼び出す
+        }
+        return false;
+    }
+
+    // IEquatable<T> インターフェースの実装
+    public bool Equals(GridPos other)
+    {
+        return x == other.x && y == other.y;
+    }
+
+    // GetHashCode メソッドのオーバーライド
+    public override int GetHashCode()
+    {
+        // Tuple.GetHashCode() を使うと簡単に複数の値を組み合わせたハッシュを生成できる
+        return (x, y).GetHashCode();
+    }
 }
 
 [System.Serializable]

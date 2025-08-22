@@ -43,6 +43,12 @@ public class IdleStatePlayer : PlayerState
             owner.TryKnit();
             // test
             owner.TryForwardFloorSetting();
+
+            if (owner.GetCarryingObject().stageBlock.GetBlockType() == StageBlock.BlockType.CARRIABLE_CORE)
+            {
+                // ƒuƒƒbƒN‚ğ‰Ÿ‚·ˆ—‚ğ‚İ‚é
+                owner.TryForwardSlotSetting();
+            }
         }
         else
         {

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b176cd5fa446b040885677f5f7ad285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_meshRenderer: {fileID: 766193688101204231}
 --- !u!114 &3838700449173900890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,10 +72,8 @@ GameObject:
   - component: {fileID: 8706480369918969109}
   - component: {fileID: 7254520666059769937}
   - component: {fileID: 4947024199510877127}
-  - component: {fileID: 72713043317118883}
-  - component: {fileID: 1982262304238189382}
   m_Layer: 0
-  m_Name: Terminus_FeelingSlot
+  m_Name: FeelingSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,33 +145,8 @@ MonoBehaviour:
   m_gridPos:
     x: 0
     y: 0
-  m_blockType: 3
+  m_blockType: 0
   m_canInteract: 0
---- !u!114 &72713043317118883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293287876587456767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73e4fe8ed0461fe4fbf715fa4d5d2002, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1982262304238189382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293287876587456767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7739178aa8aa740ac8061b97b849b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Type: 0
 --- !u!1001 &1729702233300659854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32a25b97942cc4e45b53656ccfb1fa44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.639
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32a25b97942cc4e45b53656ccfb1fa44, type: 3}
       propertyPath: m_LocalPosition.z
@@ -308,6 +282,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 311a7d5b7fc0517469aab320dbbaa13d, type: 3}
+--- !u!23 &766193688101204231 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 311a7d5b7fc0517469aab320dbbaa13d, type: 3}
+  m_PrefabInstance: {fileID: 2117682176723627395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1939149031891847784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 311a7d5b7fc0517469aab320dbbaa13d, type: 3}
