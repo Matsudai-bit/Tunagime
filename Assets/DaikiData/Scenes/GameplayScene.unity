@@ -211,6 +211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGameCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4624004776673342967, guid: 8b0a05b0eac8c61438b37fb053865803, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8692230568260034588, guid: 8b0a05b0eac8c61438b37fb053865803, type: 3}
       propertyPath: m_text
       value: 'MOVE          : ArrowKey
@@ -1935,11 +1939,11 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_mapSetting
       value: 
-      objectReference: {fileID: 11400000, guid: 5be03884d89fb43419b0ed78e4975b93, type: 2}
+      objectReference: {fileID: 11400000, guid: ee756106f26d24146a71c2134a3e55bd, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 
-      objectReference: {fileID: 2393295741540500681, guid: 3f8c07e0e6bb6544db734f4a7e8ba741, type: 3}
+      objectReference: {fileID: 2393295741540500681, guid: 19e4a4e09863cfc45bf03d76cce7f2cc, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

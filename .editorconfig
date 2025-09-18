@@ -1,0 +1,8 @@
+# 上位ディレクトリから .editorconfig 設定を継承する場合は、以下の行を削除します
+root = true
+
+# 設定の対象はC#ファイル
+[*.cs]
+
+# 文字コードをUTF-8(BOM付)に設定
+charset = utf-8-bom

@@ -23,7 +23,16 @@ public class StageGenerator : MonoBehaviour
         public GameObject prefab;
         public GenerationType blockType; // ブロックの種類
         public Vector3 rotate;          // 回転
-        public EmotionCurrent.Type emotionType; // 感情タイプ
+        public EmotionCurrent.Type emotionType ; // 感情タイプ
+
+        GenerationGimmickData()
+        { 
+            gridPos = new GridPos();
+            prefab = null;
+            blockType = GenerationType.NONE;
+            rotate = Vector3.zero;
+            emotionType = EmotionCurrent.Type.NONE;
+        }
     }
 
     enum GenerationType
@@ -51,6 +60,8 @@ public class StageGenerator : MonoBehaviour
     {
         public GameObject generator;    // 生成機
         public float posY;              // 生成座標Y
+
+
     }
 
 
