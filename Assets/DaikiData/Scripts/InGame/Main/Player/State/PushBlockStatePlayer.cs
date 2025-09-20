@@ -1,39 +1,41 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class PushBlockStatePlayer : PlayerState
 {
-    private AnimationEventHandler m_animationEventHandler; // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[
+    private AnimationEventHandler m_animationEventHandler; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼
 
-    private readonly float TARGET_TIME = 1.0f; // ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ^[ƒQƒbƒgŠÔ
-    private float currentTime = 0.0f; // Œ»İ‚ÌŠÔ
+    private readonly float TARGET_TIME = 1.0f; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ™‚é–“
+    private float currentTime = 0.0f; // ç¾åœ¨ã®æ™‚é–“
 
-    private FeltBlock m_feltBlock;      // ‰Ÿ‚·‘ÎÛ‚ÌƒuƒƒbƒN
-    private Vector3 m_endPosition;   // ƒuƒƒbƒN‚ğ‰Ÿ‚µ‚½Œã‚Ì–Ú•WˆÊ’u
-    private Vector3 m_startPosition;    // ƒuƒƒbƒN‚ğ‰Ÿ‚·‘O‚ÌŠJnˆÊ’u
-    private float m_lerpValue = 0.0f; // •âŠÔ’l
+    private FeltBlock m_feltBlock;      // æŠ¼ã™å¯¾è±¡ã®ãƒ–ãƒ­ãƒƒã‚¯
+    private IMoveTile m_tileMovement;   // ã‚¿ã‚¤ãƒ«ç§»å‹•ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+    private Vector3 m_endPosition;   // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã—ãŸå¾Œã®ç›®æ¨™ä½ç½®
+    private Vector3 m_startPosition;    // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‰ã®é–‹å§‹ä½ç½®
+    private float m_lerpValue = 0.0f; // è£œé–“å€¤
 
     public PushBlockStatePlayer(Player owner) : base(owner)
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚ğ‰Šú‰»
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã‚’åˆæœŸåŒ–
         m_animationEventHandler = new AnimationEventHandler(owner.GetAnimator());
     }
     /// <summary>
-    /// •àsó‘Ô‚ÌŠJn‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnStartState()
     {
-        // ˆÚ“®‚ğ’â~
+        // ç§»å‹•ã‚’åœæ­¢
         owner.StopMove();
 
-        var map = MapData.GetInstance; // ƒ}ƒbƒv‚ğæ“¾
+        var map = MapData.GetInstance; // ãƒãƒƒãƒ—ã‚’å–å¾—
                                        // test
         owner.TryForwardObjectSetting();
 
-        // ‰Ÿ‚·‘ÎÛ‚ÌƒuƒƒbƒN‚ğæ“¾
+        // æŠ¼ã™å¯¾è±¡ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’å–å¾—
         m_feltBlock = GetPushBlock();
+        m_tileMovement = GetPushBlock();
         if (m_feltBlock == null)
         {
-            // ‰Ÿ‚·‘ÎÛ‚ÌƒuƒƒbƒN‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚Í‘Ò‹@ó‘Ô‚É‘JˆÚ
+            // æŠ¼ã™å¯¾è±¡ã®ãƒ–ãƒ­ãƒƒã‚¯ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
             return;
         }
@@ -41,62 +43,62 @@ public class PushBlockStatePlayer : PlayerState
 
 
         
-        // ƒuƒƒbƒN‚ğ‰Ÿ‚·‘O‚ÌŠJnˆÊ’u‚ğİ’è
-        var blockPos = m_feltBlock.GetComponent<StageBlock>().GetGridPos(); // ƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğæ“¾
+        // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‰ã®é–‹å§‹ä½ç½®ã‚’è¨­å®š
+        var blockPos = m_feltBlock.GetComponent<StageBlock>().GetGridPos(); // ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—
 
 
       
 
         m_startPosition = map.ConvertGridToWorldPos(blockPos );
 
-        // ƒuƒƒbƒN‚ğ‰Ÿ‚µ‚½Œã‚Ì–Ú•WˆÊ’u‚ğİ’è
+        // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã—ãŸå¾Œã®ç›®æ¨™ä½ç½®ã‚’è¨­å®š
         m_endPosition = map.ConvertGridToWorldPos(owner.GetForwardDirection() + blockPos);
 
-        var velocity = m_endPosition - m_startPosition; // ƒuƒƒbƒN‚ğ‰Ÿ‚µ‚½Œã‚Ì–Ú•WˆÊ’u‚©‚çŠJnˆÊ’u‚ğˆø‚¢‚ÄA‰Ÿ‚·•ûŒü‚ÌƒxƒNƒgƒ‹‚ğŒvZ
+        var velocity = m_endPosition - m_startPosition; // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã—ãŸå¾Œã®ç›®æ¨™ä½ç½®ã‹ã‚‰é–‹å§‹ä½ç½®ã‚’å¼•ã„ã¦ã€æŠ¼ã™æ–¹å‘ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨ˆç®—
 
         m_startPosition = m_feltBlock.GetParentTransform().position;
-        m_endPosition = m_startPosition + velocity; // ƒuƒƒbƒN‚Ì–Ú•WˆÊ’u‚ğİ’è
+        m_endPosition = m_startPosition + velocity; // ãƒ–ãƒ­ãƒƒã‚¯ã®ç›®æ¨™ä½ç½®ã‚’è¨­å®š
 
-        // ƒŒƒCƒ„[‚Ì•ÏX’†ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
-        m_animationEventHandler.PlayAnimationBool("Push", "Normal", "Push"); // ’u‚­ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
+        // ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¤‰æ›´ä¸­ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
+        m_animationEventHandler.PlayAnimationBool("Push", "Normal", "Push"); // ç½®ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿ
 
 
-        // ƒvƒŒƒCƒ„[‚Ì‘O•û‚É­‚µ—£‚ê‚½ˆÊ’u‚ğŒvZ 
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰æ–¹ã«å°‘ã—é›¢ã‚ŒãŸä½ç½®ã‚’è¨ˆç®— 
         Vector3 dephPos = map.GetCommonData().tileSize / 2.0f * -owner.GetForwardDirectionForGrid();
-        // ƒvƒŒƒCƒ„[‚ÌƒOƒŠƒbƒhˆÊ’u‚ğŒvZ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’è¨ˆç®—
         GridPos playerGridPos = blockPos - owner.GetForwardDirection();
 
-        // ©•ª‚ÌÀ•W‚ğİ’è // ƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·‚µ‚ÄAƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğİ’è
+        // è‡ªåˆ†ã®åº§æ¨™ã‚’è¨­å®š // ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›ã—ã¦ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’è¨­å®š
         owner.transform.position = map.ConvertGridToWorldPos(playerGridPos) + dephPos;
-        owner.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // ƒvƒŒƒCƒ„[‚Ì‘¬“x‚ğƒŠƒZƒbƒg
+        owner.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€Ÿåº¦ã‚’ãƒªã‚»ãƒƒãƒˆ
 
-        // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ì•ûŒü‚ğŒü‚­
-        owner.transform.LookAt(m_feltBlock.transform); // ƒuƒƒbƒN‚Ì–Ú•WˆÊ’u‚ğŒü‚­‚æ‚¤‚Éİ’è
+        // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®æ–¹å‘ã‚’å‘ã
+        owner.transform.LookAt(m_feltBlock.transform); // ãƒ–ãƒ­ãƒƒã‚¯ã®ç›®æ¨™ä½ç½®ã‚’å‘ãã‚ˆã†ã«è¨­å®š
 
-        // q‚Æ‚µ‚Äİ’è
+        // å­ã¨ã—ã¦è¨­å®š
         owner.transform.SetParent(m_feltBlock.GetParentTransform());
     }
 
     /// <summary>
-    /// •àsó‘Ô’†‚ÌUpdate‚Å–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®Updateã§æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnUpdateState()
     {
-        // ‰Ÿ‚·ˆ—
+        // æŠ¼ã™å‡¦ç†
         Push();
 
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚ÌXV
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã®æ›´æ–°
         m_animationEventHandler.OnUpdate();
 
         if (m_lerpValue >= 1.0f)
         {
-            // ‘Ò‹@ó‘Ô‚É‘JˆÚ
+            // å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
         }
 
     }
     /// <summary>
-    /// •àsó‘Ô’†‚ÌFixedUpdate‚Å•¨—‰‰ZƒtƒŒ[ƒ€‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®FixedUpdateã§ç‰©ç†æ¼”ç®—ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFixedUpdateState()
     {
@@ -106,36 +108,36 @@ public class PushBlockStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// •àsó‘Ô‚ÌI—¹‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFinishState()
     {
-        // ”O‚Ì‚½‚ß
-        m_feltBlock.transform.position = m_endPosition; // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğ–Ú•WˆÊ’u‚Éİ’è
-        owner.transform.SetParent(null); // ƒuƒƒbƒN‚Ìe‚ğ‰ğœ
-                                         // ƒuƒƒbƒN‚ğ‰Ÿ‚·ˆ—
-        m_feltBlock.RequestMove(owner.GetForwardDirection());
+        // å¿µã®ãŸã‚
+        m_feltBlock.transform.position = m_endPosition; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’ç›®æ¨™ä½ç½®ã«è¨­å®š
+        owner.transform.SetParent(null); // ãƒ–ãƒ­ãƒƒã‚¯ã®è¦ªã‚’è§£é™¤
+                                         // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‡¦ç†
+        m_tileMovement.RequestMove(owner.GetForwardDirection());
 
-        m_animationEventHandler.StopAnimation(); // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ’â~
+        m_animationEventHandler.StopAnimation(); // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åœæ­¢
 
 
-        //ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğ‰Ÿ‚µ‚½‚±‚Æ‚ğ’Ê’m
+        //ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã—ãŸã“ã¨ã‚’é€šçŸ¥
         GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK); 
     }
 
     /// <summary>
-    /// ƒuƒƒbƒN‚ğ‰Ÿ‚·ˆ—
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‡¦ç†
     /// </summary>
     private void Push()
     {
-        // ‰Ÿ‚·ˆ—
+        // æŠ¼ã™å‡¦ç†
         Vector3 newBlockPos = Vector3.Lerp(m_startPosition, m_endPosition, m_lerpValue);
-        // •âŠÔ’l‚ğXV
+        // è£œé–“å€¤ã‚’æ›´æ–°
         m_lerpValue = currentTime / TARGET_TIME;
 
-        currentTime += Time.deltaTime; // Œ»İ‚ÌŠÔ‚ğXV
+        currentTime += Time.deltaTime; // ç¾åœ¨ã®æ™‚é–“ã‚’æ›´æ–°
 
-        // ƒuƒƒbƒN‚ÌˆÊ’u‚ğXV
+        // ãƒ–ãƒ­ãƒƒã‚¯ã®ä½ç½®ã‚’æ›´æ–°
         m_feltBlock.GetParentTransform().position = newBlockPos;
 
 

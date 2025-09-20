@@ -1,32 +1,32 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.UI.GridLayoutGroup;
 
 
 /// <summary>
-/// ƒtƒFƒ‹ƒgƒuƒƒbƒN
+/// ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯
 /// </summary>
-public class FeltBlock : MonoBehaviour
+public class FeltBlock : MonoBehaviour , IMoveTile
 {
-    private StageBlock m_stageBlock; // ƒXƒe[ƒWƒuƒƒbƒN
+    private StageBlock m_stageBlock; // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯
 
-    private MeshRenderer m_meshRenderer = null; // ƒƒbƒVƒ…ƒŒƒ“ƒ_ƒ‰[
+    private MeshRenderer m_meshRenderer = null; // ãƒ¡ãƒƒã‚·ãƒ¥ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼
 
-    private readonly float TARGET_TIME = 0.3f; // “®‚©‚·ƒ^[ƒQƒbƒgŠÔ
+    private readonly float TARGET_TIME = 0.3f; // å‹•ã‹ã™ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ™‚é–“
  
     private GridPos m_prevVelocity;
 
-   private PairBadge m_pairBadge; // ƒyƒAƒƒbƒyƒ“
+   private PairBadge m_pairBadge; // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³
 
     [SerializeField]
-    private GameObject m_model; // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ìƒ‚ƒfƒ‹
+    private GameObject m_model; // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ¢ãƒ‡ãƒ«
 
     enum State
     {
-        IDLE, // ‰½‚à‚µ‚È‚¢ó‘Ô
-        MOVE, // ˆÚ“®ó‘Ô <- ƒvƒŒƒCƒ„‚ÉˆË‘¶
-        SLIDE, // ƒXƒ‰ƒCƒhó‘Ô
+        IDLE, // ä½•ã‚‚ã—ãªã„çŠ¶æ…‹
+        MOVE, // ç§»å‹•çŠ¶æ…‹ <- ãƒ—ãƒ¬ã‚¤ãƒ¤ã«ä¾å­˜
+        SLIDE, // ã‚¹ãƒ©ã‚¤ãƒ‰çŠ¶æ…‹
     }
 
     private State m_state;
@@ -53,30 +53,30 @@ public class FeltBlock : MonoBehaviour
     {
      
 
-        m_state = State.IDLE; // ‰Šúó‘Ô‚Í‰½‚à‚µ‚È‚¢ó‘Ô
+        m_state = State.IDLE; // åˆæœŸçŠ¶æ…‹ã¯ä½•ã‚‚ã—ãªã„çŠ¶æ…‹
 
     }
 
     public bool CheckCanMove(GridPos moveDirection)
     {
-        // ƒyƒAƒƒbƒyƒ“‚ª‚ ‚éê‡‚ÍƒyƒAƒƒbƒyƒ“‚ÌˆÚ“®‰Â”\‚©ƒ`ƒFƒbƒN
+        // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒã‚ã‚‹å ´åˆã¯ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã®ç§»å‹•å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯
         if (m_pairBadge != null)
         {
             return m_pairBadge.CanMove(moveDirection);
         }
     
-        return CanMove(moveDirection); // ƒyƒAƒƒbƒyƒ“‚ª‚È‚¢ê‡‚Í©•ª©g‚ÌˆÚ“®‰Â”\‚©ƒ`ƒFƒbƒN
+        return CanMove(moveDirection); // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒãªã„å ´åˆã¯è‡ªåˆ†è‡ªèº«ã®ç§»å‹•å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯
     }
 
     public bool CanMove(GridPos moveDirection)
     {
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ªˆÚ“®‰Â”\‚©ƒ`ƒFƒbƒN
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ãŒç§»å‹•å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯
         GridPos currentGridPos = m_stageBlock.GetGridPos();
 
         GridPos targetGridPos = currentGridPos + moveDirection;
 
-        // StageBlock‚ÌƒOƒŠƒbƒhˆÊ’u‚ğæ“¾
-        MapData map = MapData.GetInstance; // ƒ}ƒbƒvƒf[ƒ^‚ğæ“¾
+        // StageBlockã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—
+        MapData map = MapData.GetInstance; // ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
         TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
 
         return (targetTileObject.gameObject == null);
@@ -88,23 +88,23 @@ public class FeltBlock : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒyƒAƒƒbƒyƒ“ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğİ’è‚µ‚Ü‚·B
+    /// ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
     /// </summary>
     public void SetPairBadge(PairBadge pairBadge)
     {
         m_pairBadge = pairBadge;
-        transform.SetParent(pairBadge.transform); // ƒyƒAƒƒbƒyƒ“‚ÌqƒIƒuƒWƒFƒNƒg‚Æ‚µ‚Äİ’è
+        transform.SetParent(pairBadge.transform); // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã®å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦è¨­å®š
     }
 
     public Transform GetParentTransform()
     {
-        // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌTransform‚ğæ“¾
+        // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®Transformã‚’å–å¾—
         return (m_pairBadge != null) ? m_pairBadge.transform : transform;
     }
 
 
     /// <summary>
-    /// ƒXƒe[ƒWƒuƒƒbƒN‚ğæ“¾‚µ‚Ü‚·B
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
     public StageBlock stageBlock
     {
@@ -113,24 +113,24 @@ public class FeltBlock : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğˆÚ“®‚·‚é
+    /// ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç§»å‹•ã™ã‚‹
     /// </summary>
     /// <param name="velocity"></param>
     public void RequestMove(GridPos velocity)
     {
         if (m_pairBadge != null)
         {
-            // ƒyƒAƒƒbƒyƒ“‚ª‚ ‚éê‡‚ÍƒyƒAƒƒbƒyƒ“‚ÉˆÚ“®‚ğˆË—Š
+            // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒã‚ã‚‹å ´åˆã¯ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã«ç§»å‹•ã‚’ä¾é ¼
             m_pairBadge.Move(velocity);
             return;
         }
 
-        Move(velocity); // ƒyƒAƒƒbƒyƒ“‚ª‚È‚¢ê‡‚Í©•ª©g‚ğˆÚ“®
+        Move(velocity); // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒãªã„å ´åˆã¯è‡ªåˆ†è‡ªèº«ã‚’ç§»å‹•
 
     }
 
     ///// <summary>
-    ///// ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğˆÚ“®‚·‚é
+    ///// ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç§»å‹•ã™ã‚‹
     ///// </summary>
     ///// <param name="velocity"></param>
     public void Move(GridPos velocity)
@@ -138,7 +138,7 @@ public class FeltBlock : MonoBehaviour
 
         GridPos newGridPos = m_stageBlock.GetGridPos() + velocity;
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ÌˆÊ’u‚ğXV
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®ä½ç½®ã‚’æ›´æ–°
         m_stageBlock.UpdatePosition(newGridPos);
 
         m_prevVelocity = velocity;
@@ -158,12 +158,12 @@ public class FeltBlock : MonoBehaviour
     {
         if (m_pairBadge != null)
         {
-            // ƒyƒAƒƒbƒyƒ“‚ª‚ ‚éê‡‚ÍƒyƒAƒƒbƒyƒ“‚ÉƒXƒ‰ƒCƒh‚ğˆË—Š
+            // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒã‚ã‚‹å ´åˆã¯ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã«ã‚¹ãƒ©ã‚¤ãƒ‰ã‚’ä¾é ¼
             m_pairBadge.Slide(m_prevVelocity);
             return;
         }
 
-        // ƒyƒAƒƒbƒyƒ“‚ª‚È‚¢ê‡‚Í©•ª©g‚ğƒXƒ‰ƒCƒh
+        // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒãªã„å ´åˆã¯è‡ªåˆ†è‡ªèº«ã‚’ã‚¹ãƒ©ã‚¤ãƒ‰
         StartSlide(m_prevVelocity);
     }
 
@@ -171,17 +171,17 @@ public class FeltBlock : MonoBehaviour
     {
         
 
-        var map = MapData.GetInstance; // ƒ}ƒbƒvƒf[ƒ^‚ğæ“¾
+        var map = MapData.GetInstance; // ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 
-        // ƒuƒƒbƒN‚ğ‰Ÿ‚·‘O‚ÌŠJnˆÊ’u‚ğİ’è
-        var blockPos = m_stageBlock.GetGridPos(); // ƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğæ“¾
+        // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‰ã®é–‹å§‹ä½ç½®ã‚’è¨­å®š
+        var blockPos = m_stageBlock.GetGridPos(); // ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—
 
-        // ”O‚Ì‚½‚ßÄ”z’u
+        // å¿µã®ãŸã‚å†é…ç½®
         transform.position = map.ConvertGridToWorldPos(blockPos); 
 
-        var endGridPos = blockPos + velocity; // ƒuƒƒbƒN‚ğ‰Ÿ‚µ‚½Œã‚ÌƒOƒŠƒbƒhˆÊ’u‚ğŒvZ
+        var endGridPos = blockPos + velocity; // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã—ãŸå¾Œã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’è¨ˆç®—
 
-        // ƒuƒƒbƒN‚ğ‰Ÿ‚µ‚½Œã‚Ì–Ú•WˆÊ’u‚ğİ’è
+        // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã—ãŸå¾Œã®ç›®æ¨™ä½ç½®ã‚’è¨­å®š
         var endPosition = map.ConvertGridToWorldPos(endGridPos);
 
      
@@ -190,8 +190,8 @@ public class FeltBlock : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                // ”O‚Ì‚½‚ßÄ”z’u
-                // æ‚ÉÀ•W‚ğİ’è‚µ‚Ä‚©‚çˆÚ“®
+                // å¿µã®ãŸã‚å†é…ç½®
+                // å…ˆã«åº§æ¨™ã‚’è¨­å®šã—ã¦ã‹ã‚‰ç§»å‹•
                 stageBlock.UpdatePosition(endGridPos);
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);
 
@@ -200,22 +200,22 @@ public class FeltBlock : MonoBehaviour
             });
     }
 
-    public bool CheckCanSlide()
+    private bool CheckCanSlide()
     {
         if (m_pairBadge != null)
         {
-            // ƒyƒAƒƒbƒyƒ“‚ª‚ ‚éê‡‚ÍƒyƒAƒƒbƒyƒ“‚ÌƒXƒ‰ƒCƒh‰Â”\‚©ƒ`ƒFƒbƒN
+            // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒã‚ã‚‹å ´åˆã¯ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã®ã‚¹ãƒ©ã‚¤ãƒ‰å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯
             return m_pairBadge.CanSlide();
         }
 
-        return CanSlide(); // ƒyƒAƒƒbƒyƒ“‚ª‚È‚¢ê‡‚Í©•ª©g‚ÌƒXƒ‰ƒCƒh‰Â”\‚©ƒ`ƒFƒbƒN
+        return CanSlide(); // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ãŒãªã„å ´åˆã¯è‡ªåˆ†è‡ªèº«ã®ã‚¹ãƒ©ã‚¤ãƒ‰å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯
     }
 
     public bool CanSlide()
     {
         if (CheckCanMove(m_prevVelocity) == false) return false;
 
-        // **** °‚Ìí—Ş‚Åƒ`ƒFƒbƒN ****
+        // **** åºŠã®ç¨®é¡ã§ãƒã‚§ãƒƒã‚¯ ****
         var gridPos = m_stageBlock.GetGridPos();
 
         var stageGrid = MapData.GetInstance.GetStageGridData();
@@ -236,13 +236,13 @@ public class FeltBlock : MonoBehaviour
         switch (m_state)
         {
             case State.IDLE:
-                // ‰½‚à‚µ‚È‚¢ó‘Ô
+                // ä½•ã‚‚ã—ãªã„çŠ¶æ…‹
                 break;
             case State.MOVE:
             
                 break;
             case State.SLIDE:
-                // ƒXƒ‰ƒCƒhó‘Ô‚Ìˆ—
+                // ã‚¹ãƒ©ã‚¤ãƒ‰çŠ¶æ…‹ã®å‡¦ç†
                 RequestSlide();
                 break;
         }
