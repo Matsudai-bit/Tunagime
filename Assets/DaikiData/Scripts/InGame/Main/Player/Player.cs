@@ -402,14 +402,16 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         {
             // マップの取得
             var map = MapData.GetInstance;
-           
+
+            if (map.CheckInnerGridPos(GetForwardGridPos()) == false) return false;
+
 
             if (m_targetObject?.GetComponent<IMoveTile>() != null )
             {
                 // 押しだすブロックの一個置く側に空間が空いていれば押し出すことが出来る
                 var stageBlock = m_targetObject.GetComponent<IMoveTile>();
 
-                if (stageBlock.CanMove(GetForwardDirection()))
+                if ( stageBlock.CanMove(GetForwardDirection()))
                 {
                     // 押し出す状態に切り替える
                     m_stateMachine.RequestStateChange(PlayerStateID.PUSH_BLOCK);

@@ -20,15 +20,13 @@ public class StageGenerator : MonoBehaviour
     class GenerationGimmickData
     {
         public GridPos gridPos;
-        public GameObject prefab;
         public GenerationType blockType; // ブロックの種類
-        public Vector3 rotate;          // 回転
         public EmotionCurrent.Type emotionType ; // 感情タイプ
+        public Vector3 rotate;          // 回転
 
         GenerationGimmickData()
         { 
             gridPos = new GridPos();
-            prefab = null;
             blockType = GenerationType.NONE;
             rotate = Vector3.zero;
             emotionType = EmotionCurrent.Type.NONE;

@@ -51,8 +51,11 @@ public class CoreMove : MoveTile
 
         GridPos targetGridPos = currentGridPos + moveDirection;
 
-        // StageBlockのグリッド位置を取得
         MapData map = MapData.GetInstance; // マップデータを取得
+        if (map.CheckInnerGridPos(targetGridPos) == false) return false;
+
+
+        // StageBlockのグリッド位置を取得
         TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
 
         if ((targetTileObject.stageBlock != null))

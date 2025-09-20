@@ -89,7 +89,7 @@ public class MapData : MonoBehaviour
                     GameObject singletonObject = new GameObject(typeof(MapData).Name);
                     s_instance = singletonObject.AddComponent<MapData>();
                     Debug.Log($"[MapData] シングルトンを生成しました: {singletonObject.name}");
-
+                    
                     
                 }
             }
@@ -112,7 +112,7 @@ public class MapData : MonoBehaviour
 
         // シーンを跨いで存続させる
         DontDestroyOnLoad(this.gameObject);
-
+        Initialize();
      
     }
 
@@ -131,6 +131,11 @@ public class MapData : MonoBehaviour
 
     public void InitializeMapData()
     {
+        // ステージ設定を取得
+        m_mapSetting = m_stageSetting.mapSetting;
+
+        m_stageGenerator = m_stageSetting.stageGenerator;
+
         // マップ設定を受け取って初期化
         if (m_mapSetting != null)
         {
@@ -163,12 +168,13 @@ public class MapData : MonoBehaviour
 
     }
 
-    [SerializeField] private MapSetting m_mapSetting; // マップ設定
+     private MapSetting m_mapSetting; // マップ設定
 
 
     [SerializeField] private CommonData m_commonData;
 
-
+    [Header("====== ステージ設定 ======")]
+    [SerializeField] private StageSetting m_stageSetting; // ステージ設定
 
     private StageGridData m_stageGridData;
 
@@ -187,7 +193,7 @@ public class MapData : MonoBehaviour
     /// <returns></returns>
     public GameObject GetStagePrefab()
     {
-        return m_mapSetting.backgroundPrefab;
+        return m_stageSetting.backgroundPrefab;
     }
 
     /// <summary>
@@ -315,6 +321,12 @@ public class MapData : MonoBehaviour
     public void SetStageGenerator(GameObject stageGenerator)
     {
         m_stageGenerator = stageGenerator;
+    }
+
+    public void SetStageSetting(StageSetting stageSetting)
+    {
+        m_stageSetting = stageSetting;
+        InitializeMapData();
     }
 
     public GameObject GetStageGenerator()

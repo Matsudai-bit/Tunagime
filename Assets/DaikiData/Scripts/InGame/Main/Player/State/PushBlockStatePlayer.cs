@@ -113,11 +113,7 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnFinishState()
     {
-        //if (owner.GetStateMachine().GetStateID() == PlayerStateID.PUSH_BLOCK)
-        //{
             m_animationEventHandler.StopAnimation(); // アニメーションを停止
-        //}
-
     }
 
     private void FinishPush()

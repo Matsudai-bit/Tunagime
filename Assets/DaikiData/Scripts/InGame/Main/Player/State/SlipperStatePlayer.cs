@@ -1,51 +1,51 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ŠŠ‚éó‘Ô
+/// æ»‘ã‚‹çŠ¶æ…‹
 /// </summary>
 public class SlipperStatePlayer : PlayerState
 {
-    public GridPos m_directionBaseGrid; // ƒOƒŠƒbƒhŠî€‚ÌƒXƒ‰ƒCƒh‚·‚é•ûŒü‚Ì
+    public GridPos m_directionBaseGrid; // ã‚°ãƒªãƒƒãƒ‰åŸºæº–ã®ã‚¹ãƒ©ã‚¤ãƒ‰ã™ã‚‹æ–¹å‘ã®
 
-    private readonly float SLIDE_SPEED = 2.0f; // ƒXƒ‰ƒCƒh‘¬“x 1•b‚É“®‚­—Ê
+    private readonly float SLIDE_SPEED = 2.0f; // ã‚¹ãƒ©ã‚¤ãƒ‰é€Ÿåº¦ 1ç§’ã«å‹•ãé‡
 
     public SlipperStatePlayer(Player owner) : base(owner)
     {
 
     }
     /// <summary>
-    /// ŠŠ‚éó‘Ô‚ÌŠJn‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ»‘ã‚‹çŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnStartState()
     {
-        // ŠŠ‚éó‘Ô‚ÌŠJn‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğİ’è
+        // æ»‘ã‚‹çŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
         owner.GetAnimator().SetBool("Slide", true);
 
-        // ƒvƒŒƒCƒ„[‚ÌˆÚ“®•ûŒü‚Ìæ“¾
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•æ–¹å‘ã®å–å¾—
         Vector3 velocityNormal = owner.GetPreviousMoveVelocity();
         velocityNormal.Normalize();
         m_directionBaseGrid = (Mathf.Abs(velocityNormal.x) > Mathf.Abs(velocityNormal.z))
           ? new GridPos((int)Mathf.Round(velocityNormal.x), 0)
           : new GridPos(0, -(int)Mathf.Round(velocityNormal.z));
 
-        owner.StopMove(); // •¨—ˆÚ“®‚ğ’â~
+        owner.StopMove(); // ç‰©ç†ç§»å‹•ã‚’åœæ­¢
 
         Debug.Log(m_directionBaseGrid.x + "," + m_directionBaseGrid.y);
     }
 
     /// <summary>
-    /// ŠŠ‚éó‘Ô’†‚ÌUpdate‚Å–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
+    /// æ»‘ã‚‹çŠ¶æ…‹ä¸­ã®Updateã§æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnUpdateState()
     {
         if (CanFinish())
         {
-            // ŠŠ‚éó‘Ô‚©‚ç‘Ò‹@ó‘Ô‚É‘JˆÚ
+            // æ»‘ã‚‹çŠ¶æ…‹ã‹ã‚‰å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
          
         }
     }
-    /// ŠŠ‚éó‘Ô’†‚ÌFixedUpdate‚Å•¨—‰‰ZƒtƒŒ[ƒ€‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+    /// æ»‘ã‚‹çŠ¶æ…‹ä¸­ã®FixedUpdateã§ç‰©ç†æ¼”ç®—ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFixedUpdateState()
     {
@@ -53,37 +53,38 @@ public class SlipperStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// ŠŠ‚éó‘Ô‚ÌI—¹‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ»‘ã‚‹çŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFinishState()
     {
-        // ŠŠ‚éó‘Ô‚ÌI—¹‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒŠƒZƒbƒg
+        // æ»‘ã‚‹çŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒªã‚»ãƒƒãƒˆ
         owner.GetAnimator().SetBool("Slide", false);
 
-        // ˆÚ“®‚ğ’â~
+        // ç§»å‹•ã‚’åœæ­¢
         owner.StopMove();
     }
 
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ğw’è‚µ‚½•ûŒü‚ÉƒXƒ‰ƒCƒh‚³‚¹‚éB
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æŒ‡å®šã—ãŸæ–¹å‘ã«ã‚¹ãƒ©ã‚¤ãƒ‰ã•ã›ã‚‹ã€‚
     /// </summary>
     /// <param name="direction">  </param>
     public void Slide()
     {
         Vector3 direction = new Vector3(m_directionBaseGrid.x, 0, -m_directionBaseGrid.y);
 
-        // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğXV
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’æ›´æ–°
         owner.transform.position += direction * SLIDE_SPEED * Time.deltaTime;
     }
 
     /// <summary>
-    /// ŠŠ‚éó‘Ô‚ğI—¹‚Å‚«‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚·‚éB
+    /// æ»‘ã‚‹çŠ¶æ…‹ã‚’çµ‚äº†ã§ãã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚
     /// </summary>
     /// <returns></returns>
     public bool CanFinish()
     {
-        // **** °‚Ìí—Ş‚Åƒ`ƒFƒbƒN ****
+
+        // **** åºŠã®ç¨®é¡ã§ãƒã‚§ãƒƒã‚¯ ****
         var gridPos = owner.GetGridPosition();
 
         var stageGrid = MapData.GetInstance.GetStageGridData();
@@ -96,28 +97,28 @@ public class SlipperStatePlayer : PlayerState
             return true;
         }
 
-        // **** ‘O•û3•ûŒü‚ÌƒŒƒC‚É“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Åƒ`ƒFƒbƒN ****
+        // **** å‰æ–¹3æ–¹å‘ã®ãƒ¬ã‚¤ã«å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ãƒã‚§ãƒƒã‚¯ ****
         RaycastHit[] hits = new RaycastHit[3];
-        // ‘O•û3•ûŒü‚ÉƒŒƒC‚ğ”ò‚Î‚µ‚ÄA“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ğæ“¾
+        // å‰æ–¹3æ–¹å‘ã«ãƒ¬ã‚¤ã‚’é£›ã°ã—ã¦ã€å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
         for (int i = 0; i < 3; i++)
 
         {
-            int offset = i - 1; // -1, 0, 1 ‚ÌƒIƒtƒZƒbƒg‚ğg—p
+            int offset = i - 1; // -1, 0, 1 ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’ä½¿ç”¨
 
 
             Vector3 direction = new Vector3(m_directionBaseGrid.x, 0, -m_directionBaseGrid.y);
             direction.Normalize();
 
-            direction = Quaternion.Euler(0, offset * 45, 0) * direction; // 90“x‚¸‚Â‰ñ“]
+            direction = Quaternion.Euler(0, offset * 45, 0) * direction; // 90åº¦ãšã¤å›è»¢
 
-            Debug.DrawRay(owner.transform.position, direction, Color.red, 0.5f); // ƒfƒoƒbƒO—p‚ÌƒŒƒC•\¦
+            Debug.DrawRay(owner.transform.position, direction, Color.red, 0.5f); // ãƒ‡ãƒãƒƒã‚°ç”¨ã®ãƒ¬ã‚¤è¡¨ç¤º
 
             if (Physics.Raycast(owner.transform.position, direction, out hits[i], 0.5f))
             {
-                // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ğƒ`ƒFƒbƒN
+                // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã‚’ãƒã‚§ãƒƒã‚¯
                 if (hits[i].collider?.gameObject.GetComponent<StageBlock>())
                 {
-                    return true; // ŠŠ‚éó‘Ô‚ğI—¹‚Å‚«‚é
+                    return true; // æ»‘ã‚‹çŠ¶æ…‹ã‚’çµ‚äº†ã§ãã‚‹
                 }
             }
         }

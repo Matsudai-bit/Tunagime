@@ -150,6 +150,9 @@ public class MoveTile : MonoBehaviour , IMoveTile
 
         // StageBlockのグリッド位置を取得
         MapData map = MapData.GetInstance; // マップデータを取得
+
+        if (map.CheckInnerGridPos(targetGridPos) == false) return false;
+
         TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
 
         return (targetTileObject.gameObject == null);

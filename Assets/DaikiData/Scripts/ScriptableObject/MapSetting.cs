@@ -1,18 +1,15 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(fileName = "MapSetting", menuName = "MapSetting")]
 public class MapSetting : ScriptableObject
 {
-    public int width;     // ‰¡•iƒ^ƒCƒ‹”
-    public int height;    // c• (ƒ^ƒCƒ‹”)
-    public Vector2 center;// ’†SÀ•W
+    public int width;     // æ¨ªå¹…ï¼ˆã‚¿ã‚¤ãƒ«æ•°
+    public int height;    // ç¸¦å¹… (ã‚¿ã‚¤ãƒ«æ•°)
+    public Vector2 center;// ä¸­å¿ƒåº§æ¨™
 
-    public float tileSize; // ƒ^ƒCƒ‹‚ÌƒTƒCƒY
+    public float tileSize; // ã‚¿ã‚¤ãƒ«ã®ã‚µã‚¤ã‚º
 
     public float BaseTilePosY;
-
-    public GameObject backgroundPrefab; // ”wŒiƒvƒŒƒnƒu
-
 
 
 
