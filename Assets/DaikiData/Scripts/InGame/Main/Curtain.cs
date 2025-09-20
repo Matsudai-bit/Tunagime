@@ -1,108 +1,133 @@
-using UnityEngine;
-using DG.Tweening;	//DOTween‚ğg‚¤‚Æ‚«‚Í‚±‚Ìusing‚ğ“ü‚ê‚é
+ï»¿using UnityEngine;
+using DG.Tweening;	//DOTweenã‚’ä½¿ã†ã¨ãã¯ã“ã®usingã‚’å…¥ã‚Œã‚‹
 
 
 /// <summary>
-/// ƒJ[ƒeƒ“
+/// ã‚«ãƒ¼ãƒ†ãƒ³
 /// </summary>
 public class Curtain : MonoBehaviour
 {
     /// <summary>
-    /// ƒJ[ƒeƒ“‚Ìó‘Ô‚ğ•\‚·—ñ‹“Œ^
+    /// ã‚«ãƒ¼ãƒ†ãƒ³ã®çŠ¶æ…‹ã‚’è¡¨ã™åˆ—æŒ™å‹
     /// </summary>
     enum State
     {
-        NONE = 0, // ‰½‚à‚µ‚È‚¢ó‘Ô
+        NONE = 0, // ä½•ã‚‚ã—ãªã„çŠ¶æ…‹
        
-        OPENING, // ŠJ‚¢‚Ä‚¢‚éó‘Ô
-        CLOSING, // •Â‚¶‚Ä‚¢‚éó‘Ô
+        OPENING, // é–‹ã„ã¦ã„ã‚‹çŠ¶æ…‹
+        CLOSING, // é–‰ã˜ã¦ã„ã‚‹çŠ¶æ…‹
 
-        OPENING_FINISHED, // ŠJ‚¢‚½ó‘Ô
-        CLOSING_FINISHED, // •Â‚¶‚½ó‘Ô
+        OPENING_FINISHED, // é–‹ã„ãŸçŠ¶æ…‹
+        CLOSING_FINISHED, // é–‰ã˜ãŸçŠ¶æ…‹
     }
 
-    [SerializeField] private GameObject m_curtainModel_L = null; // ƒJ[ƒeƒ“ƒ‚ƒfƒ‹i¶j
-    [SerializeField] private GameObject m_curtainModel_R = null; // ƒJ[ƒeƒ“ƒ‚ƒfƒ‹i‰Ej
+    [SerializeField] private GameObject m_curtainModel_L = null; // ã‚«ãƒ¼ãƒ†ãƒ³ãƒ¢ãƒ‡ãƒ«ï¼ˆå·¦ï¼‰
+    [SerializeField] private GameObject m_curtainModel_R = null; // ã‚«ãƒ¼ãƒ†ãƒ³ãƒ¢ãƒ‡ãƒ«ï¼ˆå³ï¼‰
 
-    [SerializeField] private FeltBlock m_feltBlock_L = null; // ƒtƒFƒ‹ƒgƒuƒƒbƒNiƒJ[ƒeƒ“‚Ì¶‚É‚ ‚éƒuƒƒbƒNj
-    [SerializeField] private FeltBlock m_feltBlock_R = null; // ƒtƒFƒ‹ƒgƒuƒƒbƒNiƒJ[ƒeƒ“‚Ì‰E‚É‚ ‚éƒuƒƒbƒNj
+    [SerializeField] private FeltBlock m_feltBlock_L = null; // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ï¼ˆã‚«ãƒ¼ãƒ†ãƒ³ã®å·¦ã«ã‚ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ï¼‰
+    [SerializeField] private FeltBlock m_feltBlock_R = null; // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ï¼ˆã‚«ãƒ¼ãƒ†ãƒ³ã®å³ã«ã‚ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ï¼‰
 
 
-    private StageBlock m_stageBlock = null; // ƒXƒe[ƒWƒuƒƒbƒN
+    private StageBlock m_stageBlock = null; // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯
 
-    private State m_state = State.OPENING; // ƒJ[ƒeƒ“‚Ìó‘Ô
+    private State m_state = State.OPENING; // ã‚«ãƒ¼ãƒ†ãƒ³ã®çŠ¶æ…‹
 
-    private Vector3 m_startPos_R ; // ƒJ[ƒeƒ“‚ÌŠJnˆÊ’uiX²•ûŒüj
-    private Vector3 m_endPos_R;    // ƒJ[ƒeƒ“‚ÌŠJnˆÊ’uiX²•ûŒüj
+    private Vector3 m_startPos_R ; // ã‚«ãƒ¼ãƒ†ãƒ³ã®é–‹å§‹ä½ç½®ï¼ˆXè»¸æ–¹å‘ï¼‰
+    private Vector3 m_endPos_R;    // ã‚«ãƒ¼ãƒ†ãƒ³ã®é–‹å§‹ä½ç½®ï¼ˆXè»¸æ–¹å‘ï¼‰
 
-    private float m_targetScaleX = 0.5f; // ƒJ[ƒeƒ“‚Ì–Ú•WƒXƒP[ƒ‹iX²•ûŒüj
+    private float m_targetScaleX = 0.5f; // ã‚«ãƒ¼ãƒ†ãƒ³ã®ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«ï¼ˆXè»¸æ–¹å‘ï¼‰
 
-    private Vector3 m_movementVector = new Vector3(0.22f, 0.0f, 0.0f); // ƒJ[ƒeƒ“‚ğŠJ‚­/•Â‚¶‚éÛ‚ÌˆÚ“®—ÊiX²•ûŒüj
+    private Vector3 m_movementVector = new Vector3(0.22f, 0.0f, 0.0f); // ã‚«ãƒ¼ãƒ†ãƒ³ã‚’é–‹ã/é–‰ã˜ã‚‹éš›ã®ç§»å‹•é‡ï¼ˆXè»¸æ–¹å‘ï¼‰
 
     [SerializeField]
-    private float m_openingTime = 2.5f; // ƒJ[ƒeƒ“‚ğŠJ‚­ŠÔ
+    private float m_openingTime = 2.5f; // ã‚«ãƒ¼ãƒ†ãƒ³ã‚’é–‹ãæ™‚é–“
     [SerializeField]
-    private float m_closingTime = 1.5f; // ƒJ[ƒeƒ“‚ğ•Â‚¶‚éŠÔ
+    private float m_closingTime = 1.5f; // ã‚«ãƒ¼ãƒ†ãƒ³ã‚’é–‰ã˜ã‚‹æ™‚é–“
 
-    private Collider m_collider; // ƒJ[ƒeƒ“‚ÌƒRƒ‰ƒCƒ_[
+    private Collider m_collider; // ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
 
-    private EmotionCurrent m_emotionCurrent;  // ‘z‚¢‚Ìí—Ş
+    private EmotionCurrent m_emotionCurrent;  // æƒ³ã„ã®ç¨®é¡
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ğæ“¾
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã‚’å–å¾—
         m_stageBlock = GetComponentInParent<StageBlock>();
         if (m_stageBlock == null)
         {
             Debug.LogError("Curtain: StageBlock not found in parent.");
         }
-        // ƒJ[ƒeƒ“ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+        // ã‚«ãƒ¼ãƒ†ãƒ³ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
         if (m_curtainModel_L == null || m_curtainModel_R == null)
         {
             Debug.LogError("Curtain: Curtain models are not assigned.");
         }
 
-        // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ì‰Šú‰»
+        // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®åˆæœŸåŒ–
         if (m_feltBlock_L == null || m_feltBlock_R == null)
         {
             Debug.LogError("Curtain: FeltBlocks are not assigned.");
         }
 
-        // ƒJ[ƒeƒ“‚ÌƒRƒ‰ƒCƒ_[‚ğæ“¾
+        // ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—
         m_collider = GetComponent<Collider>();
 
-        // ‘z‚¢‚Ìí—Ş‚Ìæ“¾
+        // æƒ³ã„ã®ç¨®é¡ã®å–å¾—
         m_emotionCurrent = GetComponentInParent<EmotionCurrent>();
     }
 
     void Start()
     {
 
-        // Œ»İ‚ÌƒJ[ƒeƒ“‚ÌˆÊ’uX‚ğæ“¾
+        // ç¾åœ¨ã®ã‚«ãƒ¼ãƒ†ãƒ³ã®ä½ç½®Xã‚’å–å¾—
         m_startPos_R = m_curtainModel_R.transform.localPosition;
-        // ƒJ[ƒeƒ“‚ÌI—¹ˆÊ’uX‚ğİ’è
+        // ã‚«ãƒ¼ãƒ†ãƒ³ã®çµ‚äº†ä½ç½®Xã‚’è¨­å®š
         m_endPos_R = m_startPos_R + m_movementVector;
 
-        // ƒ}ƒbƒv‚Ìİ’è
+        // ãƒãƒƒãƒ—ã®è¨­å®š
         var stageGridData = MapData.GetInstance.GetStageGridData();
+        var map = MapData.GetInstance;
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğæ“¾
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—
         GridPos gridPos = m_stageBlock.GetGridPos();
 
-        // ¶‰E‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğİ’è
+        // å·¦å³ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’è¨­å®š
         GridPos forwardDirection = GetForwardDirection();
 
+        // ã™ã§ã«ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯è‡ªåˆ†ã‚’ãã“ã«æ‰€å±ã•ã›ã‚‹
+
+        GridPos feltBlockPos_R = map.GetClosestGridPos(m_feltBlock_R.transform.position);
+        GridPos feltBlockPos_L = map.GetClosestGridPos(m_feltBlock_L.transform.position);
+
+        // å³å´ã«ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯ãã“ã«æ‰€å±ã•ã›ã‚‹
+        if (stageGridData.GetTileObject(feltBlockPos_R).stageBlock != null &&
+            stageGridData.GetTileObject(feltBlockPos_R).stageBlock.GetBlockType() == StageBlock.BlockType.FELT_BLOCK)
+        {
+            m_feltBlock_R.gameObject.SetActive(false); // è‡ªåˆ†ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+            // å³å´ã«ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯ãã“ã«æ‰€å±ã•ã›ã‚‹
+            m_feltBlock_R = stageGridData.GetTileObject(feltBlockPos_R).gameObject.GetComponent<FeltBlock>();
+        }
+
+        // å·¦å´ã«ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯ãã“ã«æ‰€å±ã•ã›ã‚‹
+        if (stageGridData.GetTileObject(feltBlockPos_L).stageBlock != null &&
+            stageGridData.GetTileObject(feltBlockPos_L).stageBlock.GetBlockType() == StageBlock.BlockType.FELT_BLOCK)
+        {
+            m_feltBlock_L.gameObject.SetActive(false); // è‡ªåˆ†ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+            // å³å´ã«ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯ãã“ã«æ‰€å±ã•ã›ã‚‹
+            m_feltBlock_L = stageGridData.GetTileObject(feltBlockPos_L).gameObject.GetComponent<FeltBlock>();
+        }
+
+        // å·¦å³ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’è¨­å®š
         m_feltBlock_R.stageBlock.SetGridPos(gridPos + new GridPos(forwardDirection.y, forwardDirection.x));
         m_feltBlock_L.stageBlock.SetGridPos(gridPos + new GridPos(-forwardDirection.y, -forwardDirection.x));
 
-        // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ìƒ}ƒbƒv‚Ö’Ç‰Á
+        // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ãƒãƒƒãƒ—ã¸è¿½åŠ 
         stageGridData.TryPlaceTileObject(m_feltBlock_R.stageBlock.GetGridPos(), m_feltBlock_R.gameObject);
         stageGridData.TryPlaceTileObject(m_feltBlock_L.stageBlock.GetGridPos(), m_feltBlock_L.gameObject);
 
-        m_state = State.CLOSING_FINISHED; // ‰Šúó‘Ô‚ğ•Â‚¶‚½ó‘Ô‚Éİ’è
+        m_state = State.CLOSING_FINISHED; // åˆæœŸçŠ¶æ…‹ã‚’é–‰ã˜ãŸçŠ¶æ…‹ã«è¨­å®š
 
         TryChangeState();
         
@@ -122,55 +147,55 @@ public class Curtain : MonoBehaviour
             case State.OPENING:
                 break;
             case State.CLOSING:
-                // ƒJ[ƒeƒ“‚ğ•Â‚¶‚éˆ—
+                // ã‚«ãƒ¼ãƒ†ãƒ³ã‚’é–‰ã˜ã‚‹å‡¦ç†
                 
                 break;
             case State.OPENING_FINISHED:
-                // ŠJ‚¢‚½ó‘Ô‚Ìˆ—
+                // é–‹ã„ãŸçŠ¶æ…‹ã®å‡¦ç†
                 break;
             case State.CLOSING_FINISHED:
-                // •Â‚¶‚½ó‘Ô‚Ìˆ—
+                // é–‰ã˜ãŸçŠ¶æ…‹ã®å‡¦ç†
                 break;
         }
     }
 
     /// <summary>
-    /// ‘O•û‚ÌƒOƒŠƒbƒh•ûŒü‚ğæ“¾
+    /// å‰æ–¹ã®ã‚°ãƒªãƒƒãƒ‰æ–¹å‘ã‚’å–å¾—
     /// </summary>
     /// <returns></returns>
     public GridPos GetForwardDirection()
     {
         Vector3 forward = transform.forward;
-        // Še²‚Ì•ûŒü‚Ì‘å‚«‚³‚ğ”äŠr‚µ‚Ä‘å‚«‚¢•û‚ğ³‹K‰»‚µAƒOƒŠƒbƒh•ûŒü‚Æ‚µ‚Ä‘I‘ğ
-        // ’ˆÓ : ¬”“_‚ª—‚Ş‚½‚ßAŒµ–§‚Å‚Í‚È‚¢ê‡‚ª‚ ‚é‚Ì‚ÅRound‚ğg—p‚µ‚Ä‚¢‚é‚½‚ß•s“KØ‚Æ”»’f
+        // å„è»¸ã®æ–¹å‘ã®å¤§ãã•ã‚’æ¯”è¼ƒã—ã¦å¤§ãã„æ–¹ã‚’æ­£è¦åŒ–ã—ã€ã‚°ãƒªãƒƒãƒ‰æ–¹å‘ã¨ã—ã¦é¸æŠ
+        // æ³¨æ„ : å°æ•°ç‚¹ãŒçµ¡ã‚€ãŸã‚ã€å³å¯†ã§ã¯ãªã„å ´åˆãŒã‚ã‚‹ã®ã§Roundã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ãŸã‚ä¸é©åˆ‡ã¨åˆ¤æ–­
         GridPos forward2D = (Mathf.Abs(forward.x) > Mathf.Abs(forward.z))
             ? new GridPos((int)Mathf.Round(forward.x), 0)
             : new GridPos(0, -(int)Mathf.Round(forward.z));
-        return forward2D; // ƒ`ƒFƒbƒN‚·‚éƒOƒŠƒbƒhˆÊ’u
+        return forward2D; // ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‚°ãƒªãƒƒãƒ‰ä½ç½®
     }
 
 
     private void StartOpenCurtain()
     {
 
-        m_collider.enabled = false; // ƒJ[ƒeƒ“‚ÌƒRƒ‰ƒCƒ_[‚ğ–³Œø‰»
+        m_collider.enabled = false; // ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç„¡åŠ¹åŒ–
         var stageGridData = MapData.GetInstance.GetStageGridData();
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğæ“¾‚µ‚ÄAƒJ[ƒeƒ“‚ÌƒOƒŠƒbƒhƒf[ƒ^‚©‚çíœ
-        stageGridData.RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ƒXƒe[ƒWƒuƒƒbƒN‚ÌƒOƒŠƒbƒhƒf[ƒ^‚©‚çíœ
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—ã—ã¦ã€ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å‰Šé™¤
+        stageGridData.RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å‰Šé™¤
 
 
-        // ƒJ[ƒeƒ“‚ğŠJ‚­ˆ—
+        // ã‚«ãƒ¼ãƒ†ãƒ³ã‚’é–‹ãå‡¦ç†
 
         float backPower = 2.5f;
 
         m_curtainModel_R.transform.DOLocalMove(m_endPos_R, m_openingTime).SetEase(Ease.OutBack,  backPower);
         m_curtainModel_L.transform.DOLocalMove(new Vector3 (-m_endPos_R.x, m_endPos_R.y, m_endPos_R.z), m_openingTime).SetEase(Ease.OutBack, backPower);
 
-        // ƒXƒP[ƒ‹‚ğ’²®
+        // ã‚¹ã‚±ãƒ¼ãƒ«ã‚’èª¿æ•´
         m_curtainModel_R.transform.DOScaleX(m_targetScaleX, m_openingTime).SetEase(Ease.OutBack,  backPower);
         m_curtainModel_L.transform.DOScaleX(m_targetScaleX, m_openingTime).SetEase(Ease.OutBack,  backPower).OnComplete(() =>
         {
-            // ŠJ‚¢‚½ó‘Ô‚ÉˆÚs
+            // é–‹ã„ãŸçŠ¶æ…‹ã«ç§»è¡Œ
             ChangeState(State.OPENING_FINISHED);
         });
 
@@ -178,24 +203,24 @@ public class Curtain : MonoBehaviour
 
     private void StartCloseCurtain()
     {
-        m_collider.enabled = true; // ƒJ[ƒeƒ“‚ÌƒRƒ‰ƒCƒ_[‚ğ–³Œø‰»
+        m_collider.enabled = true; // ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç„¡åŠ¹åŒ–
 
         var stageGridData = MapData.GetInstance.GetStageGridData();
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ÌƒOƒŠƒbƒhˆÊ’u‚ğæ“¾‚µ‚ÄAƒJ[ƒeƒ“‚ÌƒOƒŠƒbƒhƒf[ƒ^‚É’Ç‰Á
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—ã—ã¦ã€ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã«è¿½åŠ 
         stageGridData.TryPlaceTileObject(m_stageBlock.GetGridPos(), gameObject);
 
 
-        // ƒJ[ƒeƒ“‚ğ•Â‚¶‚éˆ—
+        // ã‚«ãƒ¼ãƒ†ãƒ³ã‚’é–‰ã˜ã‚‹å‡¦ç†
         float backPower = 1.0f;
 
         m_curtainModel_R.transform.DOLocalMove(m_startPos_R, m_closingTime).SetEase(Ease.OutBack, backPower);
         m_curtainModel_L.transform.DOLocalMove(new Vector3(-m_startPos_R.x, m_startPos_R.y, m_startPos_R.z), m_closingTime).SetEase(Ease.OutBack, backPower);
 
-        // ƒXƒP[ƒ‹‚ğ’²®
+        // ã‚¹ã‚±ãƒ¼ãƒ«ã‚’èª¿æ•´
         m_curtainModel_R.transform.DOScaleX(1.0f, m_closingTime).SetEase(Ease.OutBack, backPower);
         m_curtainModel_L.transform.DOScaleX(1.0f, m_closingTime).SetEase(Ease.OutBack, backPower).OnComplete(() =>
         {
-            // •Â‚¶‚½ó‘Ô‚ÉˆÚs
+            // é–‰ã˜ãŸçŠ¶æ…‹ã«ç§»è¡Œ
             ChangeState(State.CLOSING_FINISHED);
         });
     }
@@ -203,11 +228,11 @@ public class Curtain : MonoBehaviour
     private void TryChangeState()
     {
 
-        // Œ^‚ÌŒq‚ª‚èƒ‚ƒjƒ^[
+        // å‹ã®ç¹‹ãŒã‚Šãƒ¢ãƒ‹ã‚¿ãƒ¼
         var slotStateMonitor = FeelingSlotStateMonitor.GetInstance;
         if (slotStateMonitor.IsConnected(m_emotionCurrent.CurrentType))
         {
-            // ƒJ[ƒeƒ“‚Ìó‘Ô‚ğŠJ‚­ó‘Ô‚Éİ’è
+            // ã‚«ãƒ¼ãƒ†ãƒ³ã®çŠ¶æ…‹ã‚’é–‹ãçŠ¶æ…‹ã«è¨­å®š
             if (m_state == State.CLOSING_FINISHED)
             {
                 ChangeState(State.OPENING);
@@ -215,7 +240,7 @@ public class Curtain : MonoBehaviour
         }
         else
         {
-            // ƒJ[ƒeƒ“‚Ìó‘Ô‚ğ•Â‚¶‚éó‘Ô‚Éİ’è
+            // ã‚«ãƒ¼ãƒ†ãƒ³ã®çŠ¶æ…‹ã‚’é–‰ã˜ã‚‹çŠ¶æ…‹ã«è¨­å®š
             if (m_state == State.OPENING_FINISHED)
             {
                 if (CanClose())
@@ -226,7 +251,7 @@ public class Curtain : MonoBehaviour
 
     private void ChangeState(State newState)
     {
-        // ƒJ[ƒeƒ“‚Ìó‘Ô‚ğ•ÏX
+        // ã‚«ãƒ¼ãƒ†ãƒ³ã®çŠ¶æ…‹ã‚’å¤‰æ›´
         m_state = newState;
         switch (m_state)
         {
@@ -237,10 +262,10 @@ public class Curtain : MonoBehaviour
                 StartCloseCurtain();
                 break;
             case State.OPENING_FINISHED:
-                // ŠJ‚¢‚½ó‘Ô‚Ìˆ—
+                // é–‹ã„ãŸçŠ¶æ…‹ã®å‡¦ç†
                 break;
             case State.CLOSING_FINISHED:
-                // •Â‚¶‚½ó‘Ô‚Ìˆ—
+                // é–‰ã˜ãŸçŠ¶æ…‹ã®å‡¦ç†
 
                 break;
         }
@@ -249,14 +274,14 @@ public class Curtain : MonoBehaviour
 
     private bool CanClose()
     {
-        // ¶‘¤‚ÉƒŒƒC‚ğ”ò‚Î‚µ‚Ä©•ªˆÈŠO‚ÌƒIƒuƒWƒFƒNƒg‚ª‚ ‚ê‚Î‚Å‚«‚È‚¢
+        // å·¦å´ã«ãƒ¬ã‚¤ã‚’é£›ã°ã—ã¦è‡ªåˆ†ä»¥å¤–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚Œã°ã§ããªã„
         RaycastHit hit;
         if (Physics.Raycast(m_curtainModel_L.transform.position, -m_curtainModel_L.transform.right, out hit, 0.5f))
         {
             
             if (hit.collider.gameObject != null && hit.collider.gameObject != gameObject)
             {
-                return false; // ‘¼‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ª‚ ‚éê‡‚Í•Â‚¶‚ç‚ê‚È‚¢
+                return false; // ä»–ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯é–‰ã˜ã‚‰ã‚Œãªã„
             }
         }
         return true;

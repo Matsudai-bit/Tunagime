@@ -66,8 +66,10 @@ public class StageGenerator : MonoBehaviour
     [Header("==== 生成データ ==== ")]
     [Header("ギミック生成データ")]
     [SerializeField] private GenerationGimmickData[] m_gimmickData ;  // ギミックの生成機
-    [Header("始点核生成データ")]
+    [Header("床系生成データ")]
     [SerializeField] private GenerationGimmickData[] m_floorData ;  // ギミックの生成機
+    [Header("始点核生成データ")]
+    [SerializeField] private GenerationGimmickData[] m_startSlotData ;  // ギミックの生成機
     [Header("終点核生成データ")]
     [SerializeField] private GenerationGimmickData[] m_terminusData;  // 終点の生成機
 
@@ -153,12 +155,7 @@ public class StageGenerator : MonoBehaviour
                     // 生成されたオブジェクトの位置を設定
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
-                case GenerationType.SATIN_FLOOR:
-                    // サテン床の生成
-                    generationObject = stageObjectFactory.GenerateSatinFloor(gimmickParent, fixedGridPos);
-                    // 生成されたオブジェクトの位置を設定
-                    map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, generationObject);
-                    break;
+               
                 case GenerationType.PAIR_BADGE:
                     // ペアバッジの生成
 
@@ -195,8 +192,27 @@ public class StageGenerator : MonoBehaviour
         
         }
 
-        // 床の生成　通常床は自動で生成されている
+        // 床の生成 通常床は自動で生成されている
         foreach (var generation in m_floorData)
+        {
+            if (generation.blockType == GenerationType.NONE) continue; // ブロックの種類がNONEの場合はスキップ
+
+            GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
+            GameObject generationObject = null;
+
+            switch (generation.blockType)
+            {
+                case GenerationType.SATIN_FLOOR:
+                    // サテン床の生成
+                    generationObject = stageObjectFactory.GenerateSatinFloor(gimmickParent, fixedGridPos);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, generationObject);
+                    break;
+            }
+        }
+
+            // 開始スロットの生成　
+            foreach (var generation in m_startSlotData)
         {
 
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
