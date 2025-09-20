@@ -14,6 +14,8 @@ public class MoveTile : MonoBehaviour , IMoveTile
         SLIDE, // スライド状態
     }
 
+    [Header("監視用")]
+    [SerializeField]
     private StageBlock m_stageBlock; // ステージブロック
 
     private readonly float TARGET_TIME = 0.3f; // 動かすターゲット時間
@@ -27,7 +29,17 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// <summary>
     /// Awake is called when the script instance is being loaded
     /// </summary>
-    void Awake()
+    public virtual void Awake()
+    {
+        OnAwake();
+    }
+
+    public virtual void Start()
+    {
+        OnStart();
+    }
+
+    protected void OnAwake()
     {
         m_stageBlock = GetComponent<StageBlock>();
         if (m_stageBlock == null)
@@ -35,6 +47,15 @@ public class MoveTile : MonoBehaviour , IMoveTile
             Debug.LogError("FeltBlock requires a StageBlock component.");
         }
     }
+        
+
+    protected void OnStart()
+    {
+        m_prevVelocity = new GridPos(0, 0);
+        m_state = State.IDLE; // 初期状態は何もしない状態
+    }
+
+
     /// <summary>
     /// 移動要求
     /// </summary>
@@ -142,7 +163,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// <returns></returns>
     public bool IsSlippery()
     {
-        if (CanMove(m_prevVelocity) == false) return false;
+        if (IsObstacleInPath(m_prevVelocity) == false) return false;
 
         // **** 床の種類でチェック ****
         var gridPos = m_stageBlock.GetGridPos();

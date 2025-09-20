@@ -15,8 +15,7 @@ public class FeltBlockMove
 
     private PairBadge m_pairBadge; // ペアワッペン
 
-    [SerializeField]
-    private GameObject m_model; // フェルトブロックのモデル
+
 
     enum State
     {
@@ -27,27 +26,6 @@ public class FeltBlockMove
 
     private State m_state;
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded
-    /// </summary>
-    void Awake()
-    {
-        m_stageBlock = GetComponent<StageBlock>();
-        if (m_stageBlock == null)
-        {
-            Debug.LogError("FeltBlock requires a StageBlock component.");
-        }
-
-
-    }
-
-    private void Start()
-    {
-
-
-        m_state = State.IDLE; // 初期状態は何もしない状態
-
-    }
 
 
     public override bool CanMove(GridPos moveDirection)
@@ -58,7 +36,7 @@ public class FeltBlockMove
             return m_pairBadge.CanMove(moveDirection);
         }
 
-        return CanMove(moveDirection); // ペアワッペンがない場合は自分自身の移動可能かチェック
+        return IsObstacleInPath(moveDirection); // ペアワッペンがない場合は自分自身の移動可能かチェック
     }
 
 
@@ -89,7 +67,12 @@ public class FeltBlockMove
             return m_pairBadge.CanSlide();
         }
 
-        return CanSlide(); // ペアワッペンがない場合は自分自身のスライド可能かチェック
+        return IsSlippery(); // ペアワッペンがない場合は自分自身のスライド可能かチェック
     }
-  
+
+    public void SetPairBadge(PairBadge pairBadge)
+    {
+        m_pairBadge = pairBadge;
+    }
+
 }

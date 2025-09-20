@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3685075713373216742}
   - component: {fileID: 1857755438641704877}
   - component: {fileID: 8018605212792640160}
+  - component: {fileID: 7143635476080315257}
   m_Layer: 0
   m_Name: FluffBall
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317539346633767421}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a010118d828fbd43b6cb2b8cbf71fd4, type: 3}
   m_Name: 
@@ -98,6 +99,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f948de2cd3f2846a610382e7300d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7143635476080315257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317539346633767421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c356b57cf43594d9ed8795517fa24f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_stageBlock: {fileID: 0}
 --- !u!1 &6182686739804729612
 GameObject:
   m_ObjectHideFlags: 0

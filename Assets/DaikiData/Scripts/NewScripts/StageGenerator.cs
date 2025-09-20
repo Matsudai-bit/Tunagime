@@ -1,11 +1,11 @@
-using System.Linq;
+ï»¿using System.Linq;
 using UnityEngine;
 
 
 
 
 /// <summary>
-/// ƒXƒe[ƒW¶¬Ší
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨
 /// </summary>
 public class StageGenerator : MonoBehaviour
 {
@@ -14,16 +14,16 @@ public class StageGenerator : MonoBehaviour
 
 
     /// <summary>
-    /// ƒMƒ~ƒbƒN¶¬ƒf[ƒ^
+    /// ã‚®ãƒŸãƒƒã‚¯ç”Ÿæˆãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [System.Serializable]
     class GenerationGimmickData
     {
         public GridPos gridPos;
         public GameObject prefab;
-        public GenerationType blockType; // ƒuƒƒbƒN‚Ìí—Ş
-        public Vector3 rotate;          // ‰ñ“]
-        public EmotionCurrent.Type emotionType ; // Š´îƒ^ƒCƒv
+        public GenerationType blockType; // ãƒ–ãƒ­ãƒƒã‚¯ã®ç¨®é¡
+        public Vector3 rotate;          // å›è»¢
+        public EmotionCurrent.Type emotionType ; // æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—
 
         GenerationGimmickData()
         { 
@@ -37,47 +37,47 @@ public class StageGenerator : MonoBehaviour
 
     enum GenerationType
     {
-        FELT_BLOCK,             // ƒtƒFƒ‹ƒgƒuƒƒbƒN
-        FLUFF_BALL,             // –Ñ…‹Ê
-        FELT_BLOCK_NO_MOVEMENT, // “®‚©‚È‚¢ƒtƒFƒ‹ƒgƒuƒƒbƒN
-        FLOOR,                  // °
-        TERMINUS,               // I“_
-        CURTAIN,                // ƒJ[ƒeƒ“
-        SATIN_FLOOR,            // ƒTƒeƒ“°
-        PAIR_BADGE,             // ƒyƒAƒoƒbƒW
-        FRAGMENT,               // ‘z‚¢‚Ì’f•Ğ
-        NONE,                 // ‚È‚µ
+        FELT_BLOCK,             // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯
+        FLUFF_BALL,             // æ¯›ç³¸ç‰
+        FELT_BLOCK_NO_MOVEMENT, // å‹•ã‹ãªã„ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯
+        FLOOR,                  // åºŠ
+        TERMINUS,               // çµ‚ç‚¹
+        CURTAIN,                // ã‚«ãƒ¼ãƒ†ãƒ³
+        SATIN_FLOOR,            // ã‚µãƒ†ãƒ³åºŠ
+        PAIR_BADGE,             // ãƒšã‚¢ãƒãƒƒã‚¸
+        FRAGMENT,               // æƒ³ã„ã®æ–­ç‰‡
+        NONE,                 // ãªã—
     }
 
 
 
 
     /// <summary>
-    /// ¶¬ƒf[ƒ^
+    /// ç”Ÿæˆãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [System.Serializable]
     struct Generator
     {
-        public GameObject generator;    // ¶¬‹@
-        public float posY;              // ¶¬À•WY
+        public GameObject generator;    // ç”Ÿæˆæ©Ÿ
+        public float posY;              // ç”Ÿæˆåº§æ¨™Y
 
 
     }
 
 
-    [Header("==== ¶¬ƒf[ƒ^ ==== ")]
-    [Header("ƒMƒ~ƒbƒN¶¬ƒf[ƒ^")]
-    [SerializeField] private GenerationGimmickData[] m_gimmickData ;  // ƒMƒ~ƒbƒN‚Ì¶¬‹@
-    [Header("n“_Šj¶¬ƒf[ƒ^")]
-    [SerializeField] private GenerationGimmickData[] m_floorData ;  // ƒMƒ~ƒbƒN‚Ì¶¬‹@
-    [Header("I“_Šj¶¬ƒf[ƒ^")]
-    [SerializeField] private GenerationGimmickData[] m_terminusData;  // I“_‚Ì¶¬‹@
+    [Header("==== ç”Ÿæˆãƒ‡ãƒ¼ã‚¿ ==== ")]
+    [Header("ã‚®ãƒŸãƒƒã‚¯ç”Ÿæˆãƒ‡ãƒ¼ã‚¿")]
+    [SerializeField] private GenerationGimmickData[] m_gimmickData ;  // ã‚®ãƒŸãƒƒã‚¯ã®ç”Ÿæˆæ©Ÿ
+    [Header("å§‹ç‚¹æ ¸ç”Ÿæˆãƒ‡ãƒ¼ã‚¿")]
+    [SerializeField] private GenerationGimmickData[] m_floorData ;  // ã‚®ãƒŸãƒƒã‚¯ã®ç”Ÿæˆæ©Ÿ
+    [Header("çµ‚ç‚¹æ ¸ç”Ÿæˆãƒ‡ãƒ¼ã‚¿")]
+    [SerializeField] private GenerationGimmickData[] m_terminusData;  // çµ‚ç‚¹ã®ç”Ÿæˆæ©Ÿ
 
-    [Header("==== ¶¬‹@ ==== ")]
+    [Header("==== ç”Ÿæˆæ©Ÿ ==== ")]
     
-    [SerializeField] private Generator m_amidaTubeGenerator;  // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ì¶¬‹@
+    [SerializeField] private Generator m_amidaTubeGenerator;  // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ç”Ÿæˆæ©Ÿ
 
-    [SerializeField] private Generator m_topFloorBlockGenerator;  // ƒgƒbƒv‘w‚Ì°ƒuƒƒbƒN‚Ì¶¬‹@
+    [SerializeField] private Generator m_topFloorBlockGenerator;  // ãƒˆãƒƒãƒ—å±¤ã®åºŠãƒ–ãƒ­ãƒƒã‚¯ã®ç”Ÿæˆæ©Ÿ
 
     
    
@@ -95,25 +95,25 @@ public class StageGenerator : MonoBehaviour
     public void Generate(AmidaManager amidaManager, Transform amidaParent, Transform floorParent, Transform gimmickParent, ClearConditionChecker clearConditionChecker)
     {
 
-        MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, EmotionCurrent.Type.FAITHFULNESS); // ƒ}ƒeƒŠƒAƒ‹ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
+        MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, EmotionCurrent.Type.FAITHFULNESS); // ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–
 
         var map = MapData.GetInstance;
-        map.Initialize(); // ƒ}ƒbƒvƒf[ƒ^‚Ì‰Šú‰»
-        // ”wŒi‚Ì¶¬
+        map.Initialize(); // ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
+        // èƒŒæ™¯ã®ç”Ÿæˆ
         Instantiate(map.GetStagePrefab());
 
-        // °ã•”À•W‚Ìİ’è
+        // åºŠä¸Šéƒ¨åº§æ¨™ã®è¨­å®š
         float topFloorTopPartPosY = m_topFloorBlockGenerator.posY;
         float amidaPosY = m_amidaTubeGenerator.posY;
 
 
 
-        // ƒgƒbƒv‘w‚Ì¶¬
+        // ãƒˆãƒƒãƒ—å±¤ã®ç”Ÿæˆ
         if (m_topFloorBlockGenerator.generator)
             m_topFloorBlockGenerator.generator.GetComponent<FloorBlockGenerator>().
             GenerateFloor(false, floorParent);
 
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ì¶¬
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ç”Ÿæˆ
         if (m_amidaTubeGenerator.generator)
 
             m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>().GenerateAmida(amidaParent);
@@ -121,10 +121,10 @@ public class StageGenerator : MonoBehaviour
 
 
         var stageObjectFactory = StageObjectFactory.GetInstance(); 
-        // ƒMƒ~ƒbƒN‚Ì¶¬
+        // ã‚®ãƒŸãƒƒã‚¯ã®ç”Ÿæˆ
         foreach (var generation in m_gimmickData)
         {
-            if (generation.blockType == GenerationType.NONE) continue; // ƒuƒƒbƒN‚Ìí—Ş‚ªNONE‚Ìê‡‚ÍƒXƒLƒbƒv
+            if (generation.blockType == GenerationType.NONE) continue; // ãƒ–ãƒ­ãƒƒã‚¯ã®ç¨®é¡ãŒNONEã®å ´åˆã¯ã‚¹ã‚­ãƒƒãƒ—
 
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
             GameObject generationObject = null;           
@@ -132,47 +132,47 @@ public class StageGenerator : MonoBehaviour
             switch (generation.blockType)
             {
                 case GenerationType.FLUFF_BALL:
-                    // ƒtƒ‰ƒtƒ{[ƒ‹‚Ì¶¬
+                    // ãƒ•ãƒ©ãƒ•ãƒœãƒ¼ãƒ«ã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GenerateFluffBall(gimmickParent, fixedGridPos);
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.FELT_BLOCK:
-                    // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ì¶¬
+                    // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GenerateFeltBlock(gimmickParent, fixedGridPos, generation.emotionType);
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.FELT_BLOCK_NO_MOVEMENT:
-                    // “®‚©‚È‚¢ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ì¶¬
+                    // å‹•ã‹ãªã„ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.CURTAIN:
-                    // ƒJ[ƒeƒ“‚Ì¶¬
+                    // ã‚«ãƒ¼ãƒ†ãƒ³ã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GenerateCurtain(gimmickParent, generation.rotate.y, fixedGridPos, generation.emotionType);
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.SATIN_FLOOR:
-                    // ƒTƒeƒ“°‚Ì¶¬
+                    // ã‚µãƒ†ãƒ³åºŠã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GenerateSatinFloor(gimmickParent, fixedGridPos);
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, generationObject);
                     break;
                 case GenerationType.PAIR_BADGE:
-                    // ƒyƒAƒoƒbƒW‚Ì¶¬
+                    // ãƒšã‚¢ãƒãƒƒã‚¸ã®ç”Ÿæˆ
 
-                    // “¯‚¶í—Ş‚ÌÀ•W‚ğ‘S‚Äæ“¾
+                    // åŒã˜ç¨®é¡ã®åº§æ¨™ã‚’å…¨ã¦å–å¾—
                     var generationBlock = m_gimmickData.Where(data => data.blockType == GenerationType.PAIR_BADGE && data.emotionType == generation.emotionType).ToList();
-                    // À•W
+                    // åº§æ¨™
                     var generationPosList = generationBlock.Select(data => new GridPos(data.gridPos.x - 1, data.gridPos.y - 1)).ToList();
 
-                    // ƒyƒAƒoƒbƒW‚Ì¶¬
+                    // ãƒšã‚¢ãƒãƒƒã‚¸ã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GeneratePairBadge(gimmickParent, generationPosList, generation.emotionType);
 
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     
                     foreach (var feltBlock in generationObject.GetComponent<PairBadge>().GetFeltBlocks())
                     {
@@ -181,14 +181,14 @@ public class StageGenerator : MonoBehaviour
 
                     foreach (var data in generationBlock)
                     {
-                        data.blockType = GenerationType.NONE; // ¶¬‚µ‚½ƒyƒAƒoƒbƒW‚ÌÀ•W‚ÍNONE‚Éİ’è
+                        data.blockType = GenerationType.NONE; // ç”Ÿæˆã—ãŸãƒšã‚¢ãƒãƒƒã‚¸ã®åº§æ¨™ã¯NONEã«è¨­å®š
                     }
 
                     break;
                 case GenerationType.FRAGMENT:
-                    // ‘z‚¢‚Ì’f•Ğ‚Ì¶¬
+                    // æƒ³ã„ã®æ–­ç‰‡ã®ç”Ÿæˆ
                     generationObject = stageObjectFactory.GenerateFragment(gimmickParent, fixedGridPos, generation.emotionType);
-                    // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğİ’è
+                    // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨­å®š
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
 
@@ -197,26 +197,26 @@ public class StageGenerator : MonoBehaviour
         
         }
 
-        // °‚Ì¶¬@’Êí°‚Í©“®‚Å¶¬‚³‚ê‚Ä‚¢‚é
+        // åºŠã®ç”Ÿæˆã€€é€šå¸¸åºŠã¯è‡ªå‹•ã§ç”Ÿæˆã•ã‚Œã¦ã„ã‚‹
         foreach (var generation in m_floorData)
         {
 
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
-            // °‚Ì¶¬
+            // åºŠã®ç”Ÿæˆ
             GameObject instanceObj = stageObjectFactory.GenerateFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType);
 
 
-            // V‚µ‚¢°ƒIƒuƒWƒFƒNƒg‚ğİ’è
+            // æ–°ã—ã„åºŠã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
 
-            // V‚µ‚¢°ƒIƒuƒWƒFƒNƒg‚ğİ’è
+            // æ–°ã—ã„åºŠã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š
             map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
 
             if (instanceObj.GetComponent<FeelingSlot>() != null)
             {
-                // FeelingSlot‚Ì‰Šú‰»
+                // FeelingSlotã®åˆæœŸåŒ–
                 FeelingSlot feelingSlot = instanceObj.GetComponent<FeelingSlot>();
                 amidaManager.AddFeelingSlot(feelingSlot);
             }
@@ -224,19 +224,19 @@ public class StageGenerator : MonoBehaviour
 
         }
 
-        // I“_‚Ì¶¬
+        // çµ‚ç‚¹ã®ç”Ÿæˆ
         foreach (var generation in m_terminusData)
         {
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
-            // °‚Ì¶¬
+            // åºŠã®ç”Ÿæˆ
             GameObject instanceObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType);
 
 
-            // V‚µ‚¢°ƒIƒuƒWƒFƒNƒg‚ğİ’è
+            // æ–°ã—ã„åºŠã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
 
-            // V‚µ‚¢°ƒIƒuƒWƒFƒNƒg‚ğİ’è
+            // æ–°ã—ã„åºŠã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š
             map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
             map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
 

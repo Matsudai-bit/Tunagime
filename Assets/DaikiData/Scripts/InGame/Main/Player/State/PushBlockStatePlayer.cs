@@ -7,8 +7,8 @@ public class PushBlockStatePlayer : PlayerState
     private readonly float TARGET_TIME = 1.0f; // アニメーションのターゲット時間
     private float currentTime = 0.0f; // 現在の時間
 
-    private FeltBlock m_feltBlock;      // 押す対象のブロック
-    private IMoveTile m_tileMovement;   // タイル移動インターフェース
+    //private FeltBlock m_tileMovement;      // 押す対象のブロック
+    private MoveTile m_tileMovement;   // タイル移動インターフェース
     private Vector3 m_endPosition;   // ブロックを押した後の目標位置
     private Vector3 m_startPosition;    // ブロックを押す前の開始位置
     private float m_lerpValue = 0.0f; // 補間値
@@ -31,9 +31,8 @@ public class PushBlockStatePlayer : PlayerState
         owner.TryForwardObjectSetting();
 
         // 押す対象のブロックを取得
-        m_feltBlock = GetPushBlock();
-        m_tileMovement = GetPushBlock();
-        if (m_feltBlock == null)
+        m_tileMovement = GetPushComponent();
+        if (m_tileMovement == null)
         {
             // 押す対象のブロックが見つからない場合は待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
@@ -44,7 +43,7 @@ public class PushBlockStatePlayer : PlayerState
 
         
         // ブロックを押す前の開始位置を設定
-        var blockPos = m_feltBlock.GetComponent<StageBlock>().GetGridPos(); // ブロックのグリッド位置を取得
+        var blockPos = m_tileMovement.GetComponent<StageBlock>().GetGridPos(); // ブロックのグリッド位置を取得
 
 
       
@@ -56,7 +55,7 @@ public class PushBlockStatePlayer : PlayerState
 
         var velocity = m_endPosition - m_startPosition; // ブロックを押した後の目標位置から開始位置を引いて、押す方向のベクトルを計算
 
-        m_startPosition = m_feltBlock.GetParentTransform().position;
+        m_startPosition = m_tileMovement.transform.position;
         m_endPosition = m_startPosition + velocity; // ブロックの目標位置を設定
 
         // レイヤーの変更中フラグをリセット
@@ -73,10 +72,10 @@ public class PushBlockStatePlayer : PlayerState
         owner.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // プレイヤーの速度をリセット
 
         // フェルトブロックの方向を向く
-        owner.transform.LookAt(m_feltBlock.transform); // ブロックの目標位置を向くように設定
+        owner.transform.LookAt(m_tileMovement.transform); // ブロックの目標位置を向くように設定
 
         // 子として設定
-        owner.transform.SetParent(m_feltBlock.GetParentTransform());
+        owner.transform.SetParent(m_tileMovement.transform);
     }
 
     /// <summary>
@@ -113,7 +112,7 @@ public class PushBlockStatePlayer : PlayerState
     public override void OnFinishState()
     {
         // 念のため
-        m_feltBlock.transform.position = m_endPosition; // プレイヤーの位置を目標位置に設定
+        m_tileMovement.transform.position = m_endPosition; // プレイヤーの位置を目標位置に設定
         owner.transform.SetParent(null); // ブロックの親を解除
                                          // ブロックを押す処理
         m_tileMovement.RequestMove(owner.GetForwardDirection());
@@ -138,14 +137,14 @@ public class PushBlockStatePlayer : PlayerState
         currentTime += Time.deltaTime; // 現在の時間を更新
 
         // ブロックの位置を更新
-        m_feltBlock.GetParentTransform().position = newBlockPos;
+        m_tileMovement.transform.position = newBlockPos;
 
 
     }
 
-    private FeltBlock GetPushBlock()
+    private MoveTile GetPushComponent()
     {
-       return owner.GetTargetObject()?.GetComponent<FeltBlock>();
+       return owner.GetTargetObject()?.GetComponent<MoveTile>();
     }
 
 }

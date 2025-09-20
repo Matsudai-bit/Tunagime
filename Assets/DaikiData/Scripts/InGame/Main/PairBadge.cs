@@ -1,14 +1,14 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒyƒAƒƒbƒyƒ“
+/// ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³
 /// </summary>
 public class PairBadge : MonoBehaviour
 {
 
-    private List<FeltBlock> m_feltBlocks = new List<FeltBlock>(); // Š‘®‚·‚éƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒŠƒXƒg
+    private List<FeltBlock> m_feltBlocks = new List<FeltBlock>(); // æ‰€å±ã™ã‚‹ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ãƒªã‚¹ãƒˆ
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +28,7 @@ public class PairBadge : MonoBehaviour
 
         foreach (var feltBlock in m_feltBlocks)
         {
-            feltBlock.SetPairBadge(this); // ƒyƒAƒƒbƒyƒ“‚ğİ’è‚·‚éƒƒ\ƒbƒh‚ğŒÄ‚Ño‚·
+            feltBlock.GetComponent<FeltBlockMove>().SetPairBadge(this); // ãƒšã‚¢ãƒ¯ãƒƒãƒšãƒ³ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™
 
         }        
     }
@@ -37,27 +37,27 @@ public class PairBadge : MonoBehaviour
     {
         foreach (var feltBlock in m_feltBlocks)
         {
-            feltBlock.Move(velocity); // ŠeƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğˆÚ“®
+            feltBlock.GetComponent<FeltBlockMove>().Move(velocity); // å„ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç§»å‹•
         }
     }
 
     public bool CanMove(GridPos moveDirection)
     {
 
-        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.CanMove(moveDirection));
+        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsObstacleInPath(moveDirection));
     }
 
     public bool CanSlide()
     {
-        // ‚·‚×‚Ä‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ªƒXƒ‰ƒCƒh‰Â”\‚©ƒ`ƒFƒbƒN
-        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.CanSlide());
+        // ã™ã¹ã¦ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚¹ãƒ©ã‚¤ãƒ‰å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯
+        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsSlippery());
     }
 
     public void Slide(GridPos velocity)
     {
         foreach (var feltBlock in m_feltBlocks)
         {
-            feltBlock.StartSlide(velocity); // ŠeƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğƒXƒ‰ƒCƒh
+            feltBlock.GetComponent<FeltBlockMove>().StartSlide(velocity); // å„ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ã‚¹ãƒ©ã‚¤ãƒ‰
         }
     }
 
