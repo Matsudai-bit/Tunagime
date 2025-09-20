@@ -398,7 +398,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public bool TryPushBlock()
     {
         // 正面に半ブロック分のレイを飛ばす
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
         {
             // マップの取得
             var map = MapData.GetInstance;

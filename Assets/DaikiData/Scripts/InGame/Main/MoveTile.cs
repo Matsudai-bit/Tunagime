@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class MoveTile : MonoBehaviour , IMoveTile
 {
-    enum State
+   public enum State
     {
         IDLE, // 何もしない状態
         MOVE, // 移動状態 <- プレイヤに依存
@@ -24,7 +24,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
 
     private State m_state;
 
-
+   protected StageBlock stageBlock { get { return m_stageBlock; } }
 
     /// <summary>
     /// Awake is called when the script instance is being loaded
@@ -69,7 +69,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     ///// フェルトブロックを移動する
     ///// </summary>
     ///// <param name="velocity"></param>
-    public void Move(GridPos velocity)
+    public virtual void Move(GridPos velocity)
     {
 
         GridPos newGridPos = m_stageBlock.GetGridPos() + velocity;
@@ -141,7 +141,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// </summary>
     /// <param name="moveDirection"></param>
     /// <returns></returns>
-    public bool IsObstacleInPath(GridPos moveDirection)
+    public virtual bool IsObstacleInPath(GridPos moveDirection)
     {
         // ステージブロックが移動可能かチェック
         GridPos currentGridPos = m_stageBlock.GetGridPos();
@@ -193,7 +193,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// 状態変更
     /// </summary>
     /// <param name="newState"></param>
-    private void ChangeState(State newState)
+    public void ChangeState(State newState)
     {
         m_state = newState;
         switch (m_state)

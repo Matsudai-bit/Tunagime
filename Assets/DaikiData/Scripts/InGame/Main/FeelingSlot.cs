@@ -1,26 +1,26 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ‘z‚¢‚ÌŒ^
+/// æƒ³ã„ã®å‹
 /// </summary>
 public class FeelingSlot : MonoBehaviour 
 {
-    [SerializeField] private FeelingCore m_feelingCore; // ‘z‚¢‚ÌŠj
+    [SerializeField] private FeelingCore m_feelingCore; // æƒ³ã„ã®æ ¸
 
     /// <summary>
-    /// ƒXƒ^[ƒgƒƒ\ƒbƒh
+    /// ã‚¹ã‚¿ãƒ¼ãƒˆãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
 
     private void Start()
     {
         if (m_feelingCore.GetEmotionType() != EmotionCurrent.Type.NONE)
         {
-            var coreMaterial = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CORE, m_feelingCore.GetEmotionType()); // ƒ}ƒeƒŠƒAƒ‹ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
-            m_feelingCore.MeshRenderer.material = coreMaterial; // ‘z‚¢‚ÌŠj‚Ìƒ}ƒeƒŠƒAƒ‹‚ğİ’è
+            var coreMaterial = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CORE, m_feelingCore.GetEmotionType()); // ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–
+            m_feelingCore.MeshRenderer.material = coreMaterial; // æƒ³ã„ã®æ ¸ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨­å®š
         }
         else
         {
-            m_feelingCore.SetActive(false); // ‘z‚¢‚ÌŠj‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Í”ñƒAƒNƒeƒBƒu‚É‚·‚é
+            m_feelingCore.SetActive(false); // æƒ³ã„ã®æ ¸ãŒè¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆã¯éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
         }
         
     }
@@ -28,46 +28,55 @@ public class FeelingSlot : MonoBehaviour
 
 
     /// <summary>
-    /// Œ»İ‚ÌŠ´îƒ^ƒCƒv‚ğæ“¾‚·‚é
+    /// ç¾åœ¨ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns>‘z‚¢‚Ìí—Ş</returns>
+    /// <returns>æƒ³ã„ã®ç¨®é¡</returns>
     public EmotionCurrent.Type GetEmotionType()
     {
-        return m_feelingCore.GetEmotionType(); // ‘z‚¢‚Ì—¬‚ê‚Ìí—Ş‚ğæ“¾
+        return m_feelingCore.GetEmotionType(); // æƒ³ã„ã®æµã‚Œã®ç¨®é¡ã‚’å–å¾—
     }
 
 
     /// <summary>
-    /// ƒXƒe[ƒWƒuƒƒbƒN‚Ìæ“¾
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®å–å¾—
     /// </summary>
     public StageBlock StageBlock
     {
         get
         {
-            return GetComponent<StageBlock>(); // StageBlockƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
+            return GetComponent<StageBlock>(); // StageBlockã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
         }
     }
 
     /// <summary>
-    /// ‘z‚¢‚ÌŠj‚ğ‘}“ü‚·‚é
+    /// æƒ³ã„ã®æ ¸ã‚’æŒ¿å…¥ã™ã‚‹
     /// </summary>
     /// <param name="feelingCore"></param>
     public void InsertCore(FeelingCore feelingCore)
     {
-        if (m_feelingCore.GetEmotionType() != EmotionCurrent.Type.NONE)
+        if (IsInsertCore())
         {
-            Debug.LogError("Šù‚É‘z‚¢‚ÌŠj‚ª‘}“ü‚³‚ê‚Ä‚¢‚Ü‚·B");
-            return; // Šù‚É‘z‚¢‚ÌŠj‚ª‘}“ü‚³‚ê‚Ä‚¢‚éê‡‚Íˆ—‚ğ’†’f
+            Debug.LogError("æ—¢ã«æƒ³ã„ã®æ ¸ãŒæŒ¿å…¥ã•ã‚Œã¦ã„ã¾ã™ã€‚");
+            return; // æ—¢ã«æƒ³ã„ã®æ ¸ãŒæŒ¿å…¥ã•ã‚Œã¦ã„ã‚‹å ´åˆã¯å‡¦ç†ã‚’ä¸­æ–­
         }
 
-        m_feelingCore.MeshRenderer.material = feelingCore.MeshRenderer.material;    // ‘z‚¢‚ÌŠj‚Ìƒ}ƒeƒŠƒAƒ‹‚ğİ’è
-        m_feelingCore.SetEmotionType(feelingCore.GetEmotionType());                 // ‘z‚¢‚ÌŠj‚ÌŠ´îƒ^ƒCƒv‚ğİ’è
-        m_feelingCore.SetActive(true);                                               // ‘z‚¢‚ÌŠj‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+        m_feelingCore.MeshRenderer.material = feelingCore.MeshRenderer.material;    // æƒ³ã„ã®æ ¸ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨­å®š
+        m_feelingCore.SetEmotionType(feelingCore.GetEmotionType());                 // æƒ³ã„ã®æ ¸ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã‚’è¨­å®š
+        m_feelingCore.SetActive(true);                                               // æƒ³ã„ã®æ ¸ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
     }
 
     public FeelingCore GetFeelingCore()
     {
-        return m_feelingCore; // ‘z‚¢‚ÌŠj‚ğæ“¾
+        return m_feelingCore; // æƒ³ã„ã®æ ¸ã‚’å–å¾—
+    }
+
+    /// <summary>
+    /// æƒ³ã„ã®æ ¸ãŒæŒ¿å…¥ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
+    /// </summary>
+    /// <returns></returns>
+    public bool IsInsertCore()
+    {
+        return m_feelingCore.GetEmotionType() != EmotionCurrent.Type.NONE; // æƒ³ã„ã®æ ¸ãŒæŒ¿å…¥ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®š
     }
 
 }

@@ -1,17 +1,17 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-///  ‘z‚¢‚ÌŠj
+///  æƒ³ã„ã®æ ¸
 /// </summary>
 public class FeelingCore : MonoBehaviour 
 {
 
 
-    private EmotionCurrent m_emotionCurrent; // ‘z‚¢‚ÌŠ´îƒ^ƒCƒv
+    private EmotionCurrent m_emotionCurrent; // æƒ³ã„ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—
 
     [SerializeField] MeshRenderer m_meshRenderer;
 
-    Carryable m_carriable; // CarriableƒRƒ“ƒ|[ƒlƒ“ƒg‚ğQÆ‚·‚é‚½‚ß‚Ì•Ï”
+    Carryable m_carriable; // Carriableã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å‚ç…§ã™ã‚‹ãŸã‚ã®å¤‰æ•°
 
 
     public MeshRenderer MeshRenderer
@@ -20,14 +20,14 @@ public class FeelingCore : MonoBehaviour
     }
 
     /// <summary>
-    /// Awakeƒƒ\ƒbƒh
+    /// Awakeãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     private void Awake()
     {
-        m_emotionCurrent = GetComponent<EmotionCurrent>(); // EmotionCurrentƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
+        m_emotionCurrent = GetComponent<EmotionCurrent>(); // EmotionCurrentã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
         if (m_emotionCurrent == null)
         {
-            Debug.LogError("EmotionCurrent ‚ª null ‚Å‚·");
+            Debug.LogError("EmotionCurrent ãŒ null ã§ã™");
         }
 
         if (m_meshRenderer == null)
@@ -35,10 +35,10 @@ public class FeelingCore : MonoBehaviour
             m_meshRenderer = GetComponent<MeshRenderer>();
         }
 
-        m_carriable = GetComponent<Carryable>(); // CarryableƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-                                                 // “o˜^
+        m_carriable = GetComponent<Carryable>(); // Carryableã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
+                                                 // ç™»éŒ²
         if (m_carriable)
-            m_carriable.SetOnDropAction(OnDrop); // ’u‚­‚Æ‚«‚Ìˆ—‚ğİ’è  
+            m_carriable.SetOnDropAction(OnDrop); // ç½®ãã¨ãã®å‡¦ç†ã‚’è¨­å®š  
     }
 
     private void Start()
@@ -49,22 +49,22 @@ public class FeelingCore : MonoBehaviour
 
 
     /// <summary>
-    /// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒAƒNƒeƒBƒuó‘Ô‚ğİ’è‚·‚é
+    /// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’è¨­å®šã™ã‚‹
     /// </summary>
     /// <param name="isActive"></param>
     public void SetActive(bool isActive)
     {
-        gameObject.SetActive(isActive); // ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒAƒNƒeƒBƒuó‘Ô‚ğİ’è
+        gameObject.SetActive(isActive); // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’è¨­å®š
     }
 
     public EmotionCurrent.Type GetEmotionType()
     {
-        return m_emotionCurrent.CurrentType; // Œ»İ‚ÌŠ´îƒ^ƒCƒv‚ğæ“¾
+        return m_emotionCurrent.CurrentType; // ç¾åœ¨ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã‚’å–å¾—
     }
 
     public void SetEmotionType(EmotionCurrent.Type type)
     {
-        m_emotionCurrent.CurrentType = type; // Š´îƒ^ƒCƒv‚ğİ’è
+        m_emotionCurrent.CurrentType = type; // æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã‚’è¨­å®š
     }
 
 
@@ -73,15 +73,15 @@ public class FeelingCore : MonoBehaviour
     }
 
     /// <summary>
-    /// ‘z‚¢‚ÌŠj‚ğ”z’u‚·‚éˆ—
+    /// æƒ³ã„ã®æ ¸ã‚’é…ç½®ã™ã‚‹å‡¦ç†
     /// </summary>
     /// <param name="placementPos"></param>
     public void OnDrop(GridPos placementPos)
     {
-        var map = MapData.GetInstance; // MapData‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
-        var stageGridData = map.GetStageGridData(); // ƒXƒe[ƒWƒOƒŠƒbƒhƒf[ƒ^‚ğæ“¾
+        var map = MapData.GetInstance; // MapDataã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
+        var stageGridData = map.GetStageGridData(); // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 
-        // ”z’u—\’è‰ÓŠ‚Ìƒ^ƒCƒ‹‚ğæ“¾
+        // é…ç½®äºˆå®šç®‡æ‰€ã®ã‚¿ã‚¤ãƒ«ã‚’å–å¾—
         var tile = stageGridData.GetTileObject(placementPos);
 
         if (tile.stageBlock != null && tile.stageBlock.GetBlockType() == StageBlock.BlockType.FEELING_SLOT)
@@ -89,25 +89,25 @@ public class FeelingCore : MonoBehaviour
             var feelingSlot = tile.gameObject.GetComponent<FeelingSlot>();
             if (feelingSlot != null)
             {
-                // ‘z‚¢‚ÌŠj‚ğ”z’u‚·‚éƒXƒƒbƒg‚ÉŠ´îƒ^ƒCƒv‚ğİ’è
+                // æƒ³ã„ã®æ ¸ã‚’é…ç½®ã™ã‚‹ã‚¹ãƒ­ãƒƒãƒˆã«æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã‚’è¨­å®š
                 feelingSlot.InsertCore(this);
             }
             else
             {
-                Debug.LogError("FeelingSlot ƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+                Debug.LogError("FeelingSlot ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
             }
             return;
         }
 
-        gameObject.SetActive(true); // ƒIƒuƒWƒFƒNƒg‚ğ•\¦‚·‚é
+        gameObject.SetActive(true); // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
         var stageBlock = GetComponent<StageBlock>();
         if (stageBlock == null)
         {
-            Debug.LogError("StageBlock ƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            Debug.LogError("StageBlock ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
             return;
         }
-        stageBlock.UpdatePosition(placementPos); // StageBlock‚ÌˆÊ’u‚ğXV
-        // ƒOƒŠƒbƒhƒf[ƒ^‚É–È–Ñƒ{[ƒ‹‚ğ”z’u
+        stageBlock.UpdatePosition(placementPos); // StageBlockã®ä½ç½®ã‚’æ›´æ–°
+        // ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã«ç¶¿æ¯›ãƒœãƒ¼ãƒ«ã‚’é…ç½®
         MapData.GetInstance.GetStageGridData().TryPlaceTileObject(placementPos, gameObject);
     }
 

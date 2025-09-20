@@ -1,17 +1,17 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ƒXƒe[ƒW‚ÌƒOƒŠƒbƒhŠÇ—
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚°ãƒªãƒƒãƒ‰ç®¡ç†
 /// </summary>
 public class StageGridData : MonoBehaviour
 {
-    private TileData[,] m_tileData = new TileData[,] { }; //@ƒ^ƒCƒ‹ƒf[ƒ^
+    private TileData[,] m_tileData = new TileData[,] { }; //ã€€ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿
 
-    // ‚ ‚İ‚¾ƒf[ƒ^‚É•ÏX‚ª‚ ‚Á‚½‚©‚Ç‚¤‚©
+    // ã‚ã¿ã ãƒ‡ãƒ¼ã‚¿ã«å¤‰æ›´ãŒã‚ã£ãŸã‹ã©ã†ã‹
     private bool m_isAmidaDataChanged = false;
 
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒf[ƒ^‚ğæ“¾‚µ‚Ü‚·B
+    /// ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
     public TileData[,] GetTileData
     {
@@ -19,7 +19,7 @@ public class StageGridData : MonoBehaviour
     }
 
     /// <summary>
-    /// w’è‚µ‚½ƒOƒŠƒbƒhÀ•W‚É‘Î‰‚·‚éƒ^ƒCƒ‹ƒf[ƒ^‚ğæ“¾‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã«å¯¾å¿œã™ã‚‹ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="gridPos"></param>
     /// <returns></returns>
@@ -30,69 +30,69 @@ public class StageGridData : MonoBehaviour
 
     public AmidaTube GetAmidaTube(int x, int y)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(new GridPos(x, y)))
         {
             Debug.LogWarning($"GetAmida: Grid position ({x},{y}) is out of bounds.");
             return null;
         }
-        // ƒ^ƒCƒ‹ƒf[ƒ^‚©‚ç‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğæ“¾
+        // ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’å–å¾—
         TileData tile = m_tileData[y, x];
         return tile.amidaTube;
     }
 
     public TileObject GetTileObject(GridPos gridPos)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"GetTileObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
-            return new TileObject(); // null‚Å‚Í‚È‚­AƒfƒtƒHƒ‹ƒg‚ÌTileObject‚ğ•Ô‚·
+            return new TileObject(); // nullã§ã¯ãªãã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®TileObjectã‚’è¿”ã™
         }
-        // ƒ^ƒCƒ‹ƒf[ƒ^‚©‚çTileObject‚ğæ“¾
+        // ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰TileObjectã‚’å–å¾—
         TileData tile = m_tileData[gridPos.y, gridPos.x];
         return tile.tileObject;
     }
 
     public GameObject GetFloorObject(GridPos gridPos)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"GetFloorObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
-            return null; // ”ÍˆÍŠO‚Ìê‡‚Ínull‚ğ•Ô‚·
+            return null; // ç¯„å›²å¤–ã®å ´åˆã¯nullã‚’è¿”ã™
         }
-        // ƒ^ƒCƒ‹ƒf[ƒ^‚©‚çfloorƒIƒuƒWƒFƒNƒg‚ğæ“¾
+        // ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰floorã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
         TileData tile = m_tileData[gridPos.y, gridPos.x];
         return tile.floor;
     }
 
     /// <summary>
-    /// w’è‚µ‚½ƒOƒŠƒbƒhÀ•W‚É‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğİ’è‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã«ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¨­å®šã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="gridPos"></param>
     /// <param name="amidaTube"></param>
     public void SetAmidaTube(GridPos gridPos, AmidaTube amidaTube)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"SetAmidaTube: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
             return;
         }
-        // ƒ^ƒCƒ‹ƒf[ƒ^‚ğæ“¾
+        // ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
         TileData currentTile = m_tileData[gridPos.y, gridPos.x];
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğİ’è
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¨­å®š
         currentTile.amidaTube = amidaTube;
-        // •ÏX‚ğ”z—ñ‚É”½‰f
+        // å¤‰æ›´ã‚’é…åˆ—ã«åæ˜ 
         m_tileData[gridPos.y, gridPos.x] = currentTile;
 
-        // ‚ ‚İ‚¾ƒf[ƒ^‚ª•ÏX‚³‚ê‚½‚±‚Æ‚ğ‹L˜^
+        // ã‚ã¿ã ãƒ‡ãƒ¼ã‚¿ãŒå¤‰æ›´ã•ã‚ŒãŸã“ã¨ã‚’è¨˜éŒ²
         m_isAmidaDataChanged = true;
     }
 
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒf[ƒ^‚ğİ’è‚µ‚Ü‚·B
+    /// ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®šã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="tileData"></param>
     public void SetData(TileData[,] tileData)
@@ -101,7 +101,7 @@ public class StageGridData : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒOƒŠƒbƒhƒf[ƒ^‚ğ‰Šú‰»‚µ‚Ü‚·B
+    /// ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’åˆæœŸåŒ–ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="gridWidth"></param>
     /// <param name="gridHeight"></param>
@@ -112,111 +112,111 @@ public class StageGridData : MonoBehaviour
 
 
     /// <summary>
-    /// w’è‚µ‚½ƒ^ƒCƒ‹‚Ìƒ^ƒCƒ‹ƒIƒuƒWƒFƒNƒg‚ğæ‚èœ‚­
+    /// æŒ‡å®šã—ãŸã‚¿ã‚¤ãƒ«ã®ã‚¿ã‚¤ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–ã‚Šé™¤ã
     /// </summary>
     /// <param name="gridPos"></param>
     public GameObject RemoveGridDataGameObject(GridPos gridPos)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"RemoveTileObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
             return null;
         }
 
-        // Šù‘¶‚Ìƒ^ƒCƒ‹ƒf[ƒ^‚ğæ“¾ (\‘¢‘Ì‚È‚Ì‚ÅƒRƒs[‚³‚ê‚é)
+        // æ—¢å­˜ã®ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾— (æ§‹é€ ä½“ãªã®ã§ã‚³ãƒ”ãƒ¼ã•ã‚Œã‚‹)
         TileData currentTile = m_tileData[gridPos.y, gridPos.x];
 
-        // ƒOƒŠƒbƒh‚©‚çæ‚èœ‚­GameObject‚ÌQÆ‚ğ•Û
+        // ã‚°ãƒªãƒƒãƒ‰ã‹ã‚‰å–ã‚Šé™¤ãGameObjectã®å‚ç…§ã‚’ä¿æŒ
         GameObject removedObject = currentTile.tileObject.gameObject;
 
-        // ƒOƒŠƒbƒh“à‚ÌQÆ‚ğnull‚É‚·‚é
+        // ã‚°ãƒªãƒƒãƒ‰å†…ã®å‚ç…§ã‚’nullã«ã™ã‚‹
         currentTile.tileObject.gameObject = null;
         currentTile.tileObject.stageBlock = null;
-        m_tileData[gridPos.y, gridPos.x] = currentTile; // •ÏX‚ğ”z—ñ‚É”½‰f
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // å¤‰æ›´ã‚’é…åˆ—ã«åæ˜ 
 
-        if (removedObject != null)
-        {
-            Debug.Log($"RemoveTileObject: Removed {removedObject.name} from grid at ({gridPos.x},{gridPos.y}).");
-        }
-        else
-        {
-            Debug.Log($"RemoveTileObject: No object found at ({gridPos.x},{gridPos.y}) to remove.");
-        }
+        //if (removedObject != null)
+        //{
+        //    Debug.Log($"RemoveTileObject: Removed {removedObject.name} from grid at ({gridPos.x},{gridPos.y}).");
+        //}
+        //else
+        //{
+        //    Debug.Log($"RemoveTileObject: No object found at ({gridPos.x},{gridPos.y}) to remove.");
+        //}
 
-        return removedObject; // æ‚èœ‚¢‚½ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
+        return removedObject; // å–ã‚Šé™¤ã„ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
     }
 
     public AmidaTube RemoveAmidaTube(GridPos gridPos)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"RemoveAmidaTube: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
             return null;
         }
-        // ƒ^ƒCƒ‹ƒf[ƒ^‚ğæ“¾
+        // ã‚¿ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
         TileData currentTile = m_tileData[gridPos.y, gridPos.x];
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğæ‚èœ‚­
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’å–ã‚Šé™¤ã
         AmidaTube removedAmidaTube = currentTile.amidaTube;
-        currentTile.amidaTube = null; // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğnull‚Éİ’è
-        m_tileData[gridPos.y, gridPos.x] = currentTile; // •ÏX‚ğ”z—ñ‚É”½‰f
+        currentTile.amidaTube = null; // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’nullã«è¨­å®š
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // å¤‰æ›´ã‚’é…åˆ—ã«åæ˜ 
 
         if (removedAmidaTube != null)
         {
-            removedAmidaTube.SetActive(false); // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ÌGameObject‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚é
+            removedAmidaTube.SetActive(false); // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®GameObjectã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
         }
         else
         {
         }
-        return removedAmidaTube; // æ‚èœ‚¢‚½‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğ•Ô‚·
+        return removedAmidaTube; // å–ã‚Šé™¤ã„ãŸã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¿”ã™
     }
 
     /// <summary>
-    /// w’è‚µ‚½ƒOƒŠƒbƒhÀ•W‚ÉƒIƒuƒWƒFƒNƒg‚ğ”z’u‚µ‚Ü‚·B
-    /// ‚»‚ÌêŠ‚ÉŠù‚É‘¼‚ÌƒIƒuƒWƒFƒNƒg‚ª‘¶İ‚µ‚È‚¢ê‡‚É‚Ì‚İİ’u‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®ã—ã¾ã™ã€‚
+    /// ãã®å ´æ‰€ã«æ—¢ã«ä»–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå­˜åœ¨ã—ãªã„å ´åˆã«ã®ã¿è¨­ç½®ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="gridPos">”z’u‚·‚éƒOƒŠƒbƒhÀ•W</param>
-    /// <param name="objectToPlace">”z’u‚·‚éGameObject</param>
-    /// <returns>ƒIƒuƒWƒFƒNƒg‚ª³í‚É”z’u‚³‚ê‚½ê‡‚ÍtrueAŠù‚ÉƒIƒuƒWƒFƒNƒg‚ª‘¶İ‚µ‚½ê‡‚ÍfalseB</returns>
+    /// <param name="gridPos">é…ç½®ã™ã‚‹ã‚°ãƒªãƒƒãƒ‰åº§æ¨™</param>
+    /// <param name="objectToPlace">é…ç½®ã™ã‚‹GameObject</param>
+    /// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ­£å¸¸ã«é…ç½®ã•ã‚ŒãŸå ´åˆã¯trueã€æ—¢ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå­˜åœ¨ã—ãŸå ´åˆã¯falseã€‚</returns>
     public bool TryPlaceTileObject(GridPos gridPos, GameObject objectToPlace)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"TryPlaceTileObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
             return false;
         }
 
-        // w’è‚µ‚½êŠ‚ÉƒIƒuƒWƒFƒNƒg‚ªŠù‚É‘¶İ‚·‚é‚©ƒ`ƒFƒbƒN
-        // TileData‚Í\‘¢‘Ì‚È‚Ì‚ÅAƒRƒs[‚ğæ“¾‚µ‚Äƒ`ƒFƒbƒN
+        // æŒ‡å®šã—ãŸå ´æ‰€ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ—¢ã«å­˜åœ¨ã™ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
+        // TileDataã¯æ§‹é€ ä½“ãªã®ã§ã€ã‚³ãƒ”ãƒ¼ã‚’å–å¾—ã—ã¦ãƒã‚§ãƒƒã‚¯
         TileData currentTile = m_tileData[gridPos.y, gridPos.x];
 
         if (currentTile.tileObject.gameObject != null)
         {
-            // Šù‚ÉƒIƒuƒWƒFƒNƒg‚ª‘¶İ‚·‚éê‡Aİ’u‚µ‚È‚¢
+            // æ—¢ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå­˜åœ¨ã™ã‚‹å ´åˆã€è¨­ç½®ã—ãªã„
             Debug.Log($"TryPlaceTileObject: Position ({gridPos.x},{gridPos.y}) already has an object: {currentTile.tileObject.gameObject.name}. Placement failed.");
             return false;
         }
 
-        // ƒIƒuƒWƒFƒNƒg‚ª‘¶İ‚µ‚È‚¢ê‡AV‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ğ”z’u
-        currentTile.tileObject.gameObject = objectToPlace; // tileObject‚ğİ’è
-        currentTile.tileObject.stageBlock = objectToPlace?.GetComponent<StageBlock>(); // ƒOƒŠƒbƒhÀ•W‚ğİ’è
-        m_tileData[gridPos.y, gridPos.x] = currentTile; // •ÏX‚ğ”z—ñ‚É”½‰f
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå­˜åœ¨ã—ãªã„å ´åˆã€æ–°ã—ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®
+        currentTile.tileObject.gameObject = objectToPlace; // tileObjectã‚’è¨­å®š
+        currentTile.tileObject.stageBlock = objectToPlace?.GetComponent<StageBlock>(); // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã‚’è¨­å®š
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // å¤‰æ›´ã‚’é…åˆ—ã«åæ˜ 
 
 //        Debug.Log($"TryPlaceTileObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
         return true;
     }
 
     /// <summary>
-    ///@w’è‚µ‚½ƒOƒŠƒbƒhÀ•W‚ÉƒIƒuƒWƒFƒNƒg‚ğÄ”z’u‚µ‚Ü‚·B
+    ///ã€€æŒ‡å®šã—ãŸã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å†é…ç½®ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="gridPos"></param>
     /// <param name="objectToPlace"></param>
     /// <returns></returns>
     public bool TryRePlaceFloorObject(GridPos gridPos, GameObject objectToPlace)
     {
-        // ”ÍˆÍ“à‚©‚Ç‚¤‚©‚ğŠm”F
+        // ç¯„å›²å†…ã‹ã©ã†ã‹ã‚’ç¢ºèª
         if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
         {
             Debug.LogWarning($"TryPlaceFloorObject: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
@@ -225,21 +225,21 @@ public class StageGridData : MonoBehaviour
         
         TileData currentTile = m_tileData[gridPos.y, gridPos.x];
 
-        // w’è‚µ‚½êŠ‚ÉƒIƒuƒWƒFƒNƒg‚ªŠù‚É‘¶İ‚·‚é‚©ƒ`ƒFƒbƒN
+        // æŒ‡å®šã—ãŸå ´æ‰€ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ—¢ã«å­˜åœ¨ã™ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
         if (currentTile.floor != null)
         {
-            currentTile.floor.gameObject.SetActive(false); // Šù‘¶‚ÌƒIƒuƒWƒFƒNƒg‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚é
+            currentTile.floor.gameObject.SetActive(false); // æ—¢å­˜ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
         }
 
-        // V‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ğ”z’u
-        currentTile.floor = objectToPlace; // floorObject‚ğİ’è
-        m_tileData[gridPos.y, gridPos.x] = currentTile; // •ÏX‚ğ”z—ñ‚É”½‰f
+        // æ–°ã—ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®
+        currentTile.floor = objectToPlace; // floorObjectã‚’è¨­å®š
+        m_tileData[gridPos.y, gridPos.x] = currentTile; // å¤‰æ›´ã‚’é…åˆ—ã«åæ˜ 
 //        Debug.Log($"TryPlaceFloorObject: Successfully placed {objectToPlace.name} at ({gridPos.x},{gridPos.y}).");
         return true;
     }
 
     /// <summary>
-    /// ‚ ‚İ‚¾ƒf[ƒ^‚ª•ÏX‚³‚ê‚½‚©‚Ç‚¤‚©‚ğŠm”F‚µ‚Ü‚·B
+    /// ã‚ã¿ã ãƒ‡ãƒ¼ã‚¿ãŒå¤‰æ›´ã•ã‚ŒãŸã‹ã©ã†ã‹ã‚’ç¢ºèªã—ã¾ã™ã€‚
     /// </summary>
     /// <returns></returns>
     public bool IsAmidaDataChanged()
@@ -248,7 +248,7 @@ public class StageGridData : MonoBehaviour
     }
 
     /// <summary>
-    /// ‚ ‚İ‚¾ƒf[ƒ^‚Ì•ÏXƒtƒ‰ƒO‚ğİ’è
+    /// ã‚ã¿ã ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
     /// </summary>
     public void SetAmidaDataChanged()
     {
@@ -256,7 +256,7 @@ public class StageGridData : MonoBehaviour
     }
 
     /// <summary>
-    /// ‚ ‚İ‚¾ƒf[ƒ^‚Ì•ÏXƒtƒ‰ƒO‚ğƒŠƒZƒbƒg‚µ‚Ü‚·B
+    /// ã‚ã¿ã ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
     /// </summary>
     public void ResetAmidaDataChanged()
     {

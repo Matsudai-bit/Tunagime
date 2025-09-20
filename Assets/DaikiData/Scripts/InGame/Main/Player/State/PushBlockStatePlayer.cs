@@ -4,7 +4,7 @@ public class PushBlockStatePlayer : PlayerState
 {
     private AnimationEventHandler m_animationEventHandler; // アニメーションイベントハンドラー
 
-    private readonly float TARGET_TIME = 1.0f; // アニメーションのターゲット時間
+    private readonly float TARGET_TIME = 0.6f; // アニメーションのターゲット時間
     private float currentTime = 0.0f; // 現在の時間
 
     //private FeltBlock m_tileMovement;      // 押す対象のブロック
@@ -28,8 +28,6 @@ public class PushBlockStatePlayer : PlayerState
 
         var map = MapData.GetInstance; // マップを取得
                                        // test
-        owner.TryForwardObjectSetting();
-
         // 押す対象のブロックを取得
         m_tileMovement = GetPushComponent();
         if (m_tileMovement == null)
@@ -91,8 +89,12 @@ public class PushBlockStatePlayer : PlayerState
 
         if (m_lerpValue >= 1.0f)
         {
+            owner.TryForwardObjectSetting();
             // 待機状態に遷移
-            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
+            if (owner.TryPushBlock() == false)
+            {
+              owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
+            }
         }
 
     }

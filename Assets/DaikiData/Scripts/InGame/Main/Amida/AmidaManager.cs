@@ -1,9 +1,9 @@
-
+ï»¿
 using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// •ûŒü
+/// æ–¹å‘
 /// </summary>
 public enum Direction
 {
@@ -13,17 +13,17 @@ public enum Direction
 }
 
 /// <summary>
-/// ‚ ‚İ‚¾‚­‚¶‚ÌŠÇ—ƒNƒ‰ƒXB‚ ‚İ‚¾‚­‚¶‚ÌƒpƒCƒv¶¬‚âˆÚ“®ˆ—AF‚Ì•ÏX‚È‚Ç‚ğŠÇ—‚µ‚Ü‚·B
+/// ã‚ã¿ã ãã˜ã®ç®¡ç†ã‚¯ãƒ©ã‚¹ã€‚ã‚ã¿ã ãã˜ã®ãƒ‘ã‚¤ãƒ—ç”Ÿæˆã‚„ç§»å‹•å‡¦ç†ã€è‰²ã®å¤‰æ›´ãªã©ã‚’ç®¡ç†ã—ã¾ã™ã€‚
 /// </summary>
 public class AmidaManager : MonoBehaviour , IGameInteractionObserver
 {
 
-    private List<FeelingSlot> m_feelingSlots = new List<FeelingSlot>(); // ‘z‚¢‚ÌŒ^‚ÌƒŠƒXƒg
+    private List<FeelingSlot> m_feelingSlots = new List<FeelingSlot>(); // æƒ³ã„ã®å‹ã®ãƒªã‚¹ãƒˆ
 
-    // ’x‰„‚Å’H‚é‚½‚ß‚Ìƒtƒ‰ƒO
+    // é…å»¶ã§è¾¿ã‚‹ãŸã‚ã®ãƒ•ãƒ©ã‚°
     private bool m_isFollowingAmida = false;
 
-    private bool m_connectedRejectionSlot = false; // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    private bool m_connectedRejectionSlot = false; // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
 
 
     private void Awake()
@@ -32,73 +32,73 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
     }
 
     /// <summary>
-    /// ƒQ[ƒ€ŠJn‚Ì‰Šú‰»ˆ—B‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìì¬‚ğs‚¢‚Ü‚·B
+    /// ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã®åˆæœŸåŒ–å‡¦ç†ã€‚ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ä½œæˆã‚’è¡Œã„ã¾ã™ã€‚
     /// </summary>
     void Start()
     {
-        GameInteractionEventMessenger.GetInstance.RegisterObserver(this); // ƒCƒxƒ“ƒg‚ğó‚¯æ‚é‚½‚ß‚ÉƒIƒuƒU[ƒo[‚ğ“o˜^
-        // ‚ ‚İ‚¾‚ğ’H‚é
+        GameInteractionEventMessenger.GetInstance.RegisterObserver(this); // ã‚¤ãƒ™ãƒ³ãƒˆã‚’å—ã‘å–ã‚‹ãŸã‚ã«ã‚ªãƒ–ã‚¶ãƒ¼ãƒãƒ¼ã‚’ç™»éŒ²
+        // ã‚ã¿ã ã‚’è¾¿ã‚‹
         m_isFollowingAmida = true;
 
-        m_connectedRejectionSlot = false; // ‰Šúó‘Ô‚Å‚ÍÚ‘±‚³‚ê‚Ä‚¢‚È‚¢
+        m_connectedRejectionSlot = false; // åˆæœŸçŠ¶æ…‹ã§ã¯æ¥ç¶šã•ã‚Œã¦ã„ãªã„
     }
 
     /// <summary>
-    /// XVˆ—B
+    /// æ›´æ–°å‡¦ç†ã€‚
     /// </summary>
     void Update()
     {
         var map = MapData.GetInstance;
         var stageGridData = map.GetStageGridData();
 
-        int LOOP_COUNT = 1; // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğ’H‚é‰ñ”
+        int LOOP_COUNT = 1; // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¾¿ã‚‹å›æ•°
 
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğ’H‚éˆ—
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¾¿ã‚‹å‡¦ç†
         if (m_isFollowingAmida || Input.GetKeyDown(KeyCode.Space))
         {
-            // ‚·‚×‚Ä‚Ì‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìƒ^ƒCƒv‚ğƒŠƒZƒbƒg
+            // ã™ã¹ã¦ã®ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ã‚¿ã‚¤ãƒ—ã‚’ãƒªã‚»ãƒƒãƒˆ
             ResetAllAmidaTubeType();
 
-            // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğ’H‚é‰ñ”ˆ—‚ğÀs
+            // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¾¿ã‚‹å›æ•°å‡¦ç†ã‚’å®Ÿè¡Œ
             for (int i = 0; i < LOOP_COUNT; i++) 
             {
                 foreach (var slot in m_feelingSlots)
                 {
-                    // ƒXƒ^[ƒgˆÊ’u
+                    // ã‚¹ã‚¿ãƒ¼ãƒˆä½ç½®
                     var startPos = slot.StageBlock.GetGridPos() + new GridPos(1, 0);
-                    // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìæ“¾
+                    // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®å–å¾—
                     var startAmidaTube = stageGridData.GetAmidaTube(startPos);
-                    // ‘z‚¢‚Ìí—Ş‚Ìæ“¾
+                    // æƒ³ã„ã®ç¨®é¡ã®å–å¾—
                     var emotionType = slot.GetEmotionType();
 
-                    // æ“ª‚Ì‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìİ’è
-                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.INPUT, emotionType); // ƒXƒƒbƒg‚Ìƒ}ƒeƒŠƒAƒ‹‚ğİ’è
-                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.OUTPUT, emotionType); // ƒXƒƒbƒg‚Ìƒ}ƒeƒŠƒAƒ‹‚ğİ’è
+                    // å…ˆé ­ã®ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®è¨­å®š
+                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.INPUT, emotionType); // ã‚¹ãƒ­ãƒƒãƒˆã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨­å®š
+                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.OUTPUT, emotionType); // ã‚¹ãƒ­ãƒƒãƒˆã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨­å®š
 
-                    // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğ’H‚éˆ—
+                    // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¾¿ã‚‹å‡¦ç†
                     FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);
 
                 }
 
             }
 
-            // ’H‚é‚±‚Æ‚ªI—¹‚µ‚½‚±‚Æ‚ğ’Ê’m‚·‚é (ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‘å–)
-            GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.FLOWWING_AMIDAKUJI); // ‚ ‚İ‚¾‚­‚¶‚ª•ÏX‚³‚ê‚½‚±‚Æ‚ğ’Ê’m
+            // è¾¿ã‚‹ã“ã¨ãŒçµ‚äº†ã—ãŸã“ã¨ã‚’é€šçŸ¥ã™ã‚‹ (å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°å¤§äº‹)
+            GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.FLOWWING_AMIDAKUJI); // ã‚ã¿ã ãã˜ãŒå¤‰æ›´ã•ã‚ŒãŸã“ã¨ã‚’é€šçŸ¥
 
             if (m_connectedRejectionSlot)
             {
-                // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚Ä‚¢‚éê‡‚ÍA‹‘â‚ÌŠj‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ“K—p
+                // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ã€æ‹’çµ¶ã®æ ¸ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨
                 ApplyAllAmidaTubeRejectionMaterial();
             }
             else
             {
-                // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢ê‡‚ÍA’Êí‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ“K—p
+                // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚Œã¦ã„ãªã„å ´åˆã¯ã€é€šå¸¸ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨
                 ApplyAllAmidaTubeMaterial();
             }
 
 
 
-            m_isFollowingAmida = false; // ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+            m_isFollowingAmida = false; // ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
 
 
         }
@@ -110,7 +110,7 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
     }
 
     /// <summary>
-    /// w’è‚µ‚½‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğ’H‚é
+    /// æŒ‡å®šã—ãŸã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’è¾¿ã‚‹
     /// </summary>
     /// <param name="followAmida"></param>
     /// <param name="prevFollowDir"></param>
@@ -128,7 +128,7 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
         TileObject tileObject = stageGridData.GetTileData[followAmida.GetGridPos().y, followAmida.GetGridPos().x].tileObject;
 
 
-        // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ª‚ ‚éê‡‚Íˆ—‚ğI—¹
+        // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹å ´åˆã¯å‡¦ç†ã‚’çµ‚äº†
         if (tileObject.stageBlock != null )
         {
             if ( tileObject.stageBlock.GetBlockType() == StageBlock.BlockType.FELT_BLOCK)
@@ -136,8 +136,8 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
         }
 
 
-        // Ÿ‚Éi‚Ş•ûŒü‚ğŒˆ’è
-        // —¬‚ê : Œ»İ‚Ì‚ ‚İ‚¾‚ªi‚Ş‚±‚Æ‚Ì‚Å‚«‚é•ûŒü‚ğæ“¾@->@‹È‚ª‚é•ûŒü‚ª‚ ‚ê‚Î‚»‚Á‚¿‚ğ—Dæ“I‚É‘I‘ğ -> ‚»‚Ì•ûŒü‚É‚ ‚İ‚¾‚ª‚ ‚é‚©‚ÌŠm”F
+        // æ¬¡ã«é€²ã‚€æ–¹å‘ã‚’æ±ºå®š
+        // æµã‚Œ : ç¾åœ¨ã®ã‚ã¿ã ãŒé€²ã‚€ã“ã¨ã®ã§ãã‚‹æ–¹å‘ã‚’å–å¾—ã€€->ã€€æ›²ãŒã‚‹æ–¹å‘ãŒã‚ã‚Œã°ãã£ã¡ã‚’å„ªå…ˆçš„ã«é¸æŠ -> ãã®æ–¹å‘ã«ã‚ã¿ã ãŒã‚ã‚‹ã‹ã®ç¢ºèª
 
         followAmida.UpdateMeshMaterialsBasedOnAmidaState(prevFollowDir);
 
@@ -148,27 +148,27 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
 
 
 
-        // —Dæ‚·‚é•ûŒü‚ğæ‚ÉŠm”F
+        // å„ªå…ˆã™ã‚‹æ–¹å‘ã‚’å…ˆã«ç¢ºèª
         if (prevFollowDir == AmidaTube.Direction.RIGHT)
         {
             if (neighborAmida.up != null)
             {
-                // ã‚Éi‚Ş
-                Debug.Log("Moving UP");
+                // ä¸Šã«é€²ã‚€
+                //Debug.Log("Moving UP");
                 FollowTheAmidaTube(neighborAmida.up, followDir);
                 return;
             }
             else if (neighborAmida.down != null)
             {
-                // ‰º‚Éi‚Ş
-                Debug.Log("Moving DOWN");
+                // ä¸‹ã«é€²ã‚€
+               // Debug.Log("Moving DOWN");
                 FollowTheAmidaTube(neighborAmida.down, followDir);
                 return;
             }
             else if (neighborAmida.right != null)
             {
-                // ‰E‚Éi‚Ş
-                Debug.Log("Moving RIGHT");
+                // å³ã«é€²ã‚€
+                //Debug.Log("Moving RIGHT");
                 FollowTheAmidaTube(neighborAmida.right, followDir);
                 return;
             }
@@ -179,15 +179,15 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
         {
             if (neighborAmida.right != null)
             {
-                // ‰E‚Éi‚Ş
-                Debug.Log("Moving RIGHT");
+                // å³ã«é€²ã‚€
+                //Debug.Log("Moving RIGHT");
                 FollowTheAmidaTube(neighborAmida.right, AmidaTube.Direction.RIGHT);
                 return;
             }
             else if (neighborAmida.up != null)
             {
-                // ã‚Éi‚Ş
-                Debug.Log("Moving UP");
+                // ä¸Šã«é€²ã‚€
+                //Debug.Log("Moving UP");
                 FollowTheAmidaTube(neighborAmida.up, AmidaTube.Direction.UP);
                 return;
             }
@@ -197,16 +197,16 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
         {
             if (neighborAmida.right != null)
             {
-                // ‰E‚Éi‚Ş
-                Debug.Log("Moving RIGHT");
+                // å³ã«é€²ã‚€
+                //Debug.Log("Moving RIGHT");
                 FollowTheAmidaTube(neighborAmida.right, AmidaTube.Direction.RIGHT);
                 return;
             }
  
             else if (neighborAmida.down != null)
             {
-                // ‰º‚Éi‚Ş
-                Debug.Log("Moving DOWN");
+                // ä¸‹ã«é€²ã‚€
+                //Debug.Log("Moving DOWN");
                 FollowTheAmidaTube(neighborAmida.down, AmidaTube.Direction.DOWN);
                 return;
             }
@@ -215,7 +215,7 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
     }
 
     /// <summary>
-    /// ‘z‚¢‚ÌŒ^‚ğ’Ç‰Á‚µ‚Ü‚·B
+    /// æƒ³ã„ã®å‹ã‚’è¿½åŠ ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="slot"></param>
     public void AddFeelingSlot(FeelingSlot slot)
@@ -227,11 +227,11 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
             return;
         }
         m_feelingSlots.Add(slot);
-        Debug.Log($"[AmidaManager] Added FeelingSlot: {slot.name}");
+        //Debug.Log($"[AmidaManager] Added FeelingSlot: {slot.name}");
     }
 
     /// <summary>
-    /// ‚·‚×‚Ä‚Ì‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ“K—p‚µ‚Ü‚·B 
+    /// ã™ã¹ã¦ã®ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨ã—ã¾ã™ã€‚ 
     /// </summary>
     void ApplyAllAmidaTubeMaterial()
     {
@@ -244,11 +244,11 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
                 tile.amidaTube.ApplyMaterial();
             }
         }
-        Debug.Log("[AmidaManager] All AmidaTube materials applied.");
+        //Debug.Log("[AmidaManager] All AmidaTube materials applied.");
     }
 
     /// <summary>
-    /// ‚·‚×‚Ä‚Ì‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ì‹‘âƒ}ƒeƒŠƒAƒ‹‚ğ“K—p
+    /// ã™ã¹ã¦ã®ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®æ‹’çµ¶ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨
     /// </summary>
     private void ApplyAllAmidaTubeRejectionMaterial()
     {
@@ -261,11 +261,11 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
                 tile.amidaTube.ApplyRejectionMaterial();
             }
         }
-        Debug.Log("[AmidaManager] All AmidaTube materials set to rejection.");
+        //Debug.Log("[AmidaManager] All AmidaTube materials set to rejection.");
     }
 
     /// <summary>
-    /// ‚·‚×‚Ä‚Ì‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìƒ^ƒCƒv‚ğƒŠƒZƒbƒg‚µ‚Ü‚·B
+    /// ã™ã¹ã¦ã®ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ã‚¿ã‚¤ãƒ—ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
     /// </summary>
     void ResetAllAmidaTubeType()
     {
@@ -278,11 +278,11 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
                 tile.amidaTube.ResetEmotionCurrentType();
             }
         }
-        Debug.Log("[AmidaManager] All AmidaTube types reset.");
+        //Debug.Log("[AmidaManager] All AmidaTube types reset.");
     }
 
     /// <summary>
-    /// ƒQ[ƒ€“à‚ÌƒCƒxƒ“ƒg‚ğó‚¯æ‚é‚½‚ß‚ÌƒCƒ“ƒ^[ƒtƒF[ƒXƒƒ\ƒbƒh
+    /// ã‚²ãƒ¼ãƒ å†…ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’å—ã‘å–ã‚‹ãŸã‚ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="eventID"></param>
     public void  OnEvent(InteractionEvent eventID)
@@ -290,30 +290,30 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
         switch (eventID)
         {
             case InteractionEvent.CHANGED_AMIDAKUJI:
-                // ‚ ‚İ‚¾ƒf[ƒ^‚ª•ÏX‚³‚ê‚½ê‡‚Ìˆ—
-                m_isFollowingAmida = true; // ‚ ‚İ‚¾‚ğ’H‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+                // ã‚ã¿ã ãƒ‡ãƒ¼ã‚¿ãŒå¤‰æ›´ã•ã‚ŒãŸå ´åˆã®å‡¦ç†
+                m_isFollowingAmida = true; // ã‚ã¿ã ã‚’è¾¿ã‚‹ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
                 break;
             case InteractionEvent.CONNECTED_REJECTION_SLOT:
-                // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚½ê‡‚Ìˆ—
-                m_connectedRejectionSlot = true; // Ú‘±ó‘Ô‚ğXV
-                ApplyAllAmidaTubeRejectionMaterial(); // ‹‘â‚ÌŠj‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ“K—p
+                // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚ŒãŸå ´åˆã®å‡¦ç†
+                m_connectedRejectionSlot = true; // æ¥ç¶šçŠ¶æ…‹ã‚’æ›´æ–°
+                ApplyAllAmidaTubeRejectionMaterial(); // æ‹’çµ¶ã®æ ¸ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨
                 break;
             case InteractionEvent.DISCONNECTED_REJECTION_SLOT:
-                // I“_‚Ì‹‘â‚ÌŠj‚ªØ’f‚³‚ê‚½ê‡‚Ìˆ—
-                m_connectedRejectionSlot = false; // Ú‘±ó‘Ô‚ğXV
-                m_isFollowingAmida = true; // ‚ ‚İ‚¾‚ğ’H‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+                // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒåˆ‡æ–­ã•ã‚ŒãŸå ´åˆã®å‡¦ç†
+                m_connectedRejectionSlot = false; // æ¥ç¶šçŠ¶æ…‹ã‚’æ›´æ–°
+                m_isFollowingAmida = true; // ã‚ã¿ã ã‚’è¾¿ã‚‹ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
                 break;
             case InteractionEvent.PUSH_FELTBLOCK:
-                // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ª‰Ÿ‚³‚ê‚½ê‡‚Ìˆ—
-                m_isFollowingAmida = true; // ‚ ‚İ‚¾‚ğ’H‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+                // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒæŠ¼ã•ã‚ŒãŸå ´åˆã®å‡¦ç†
+                m_isFollowingAmida = true; // ã‚ã¿ã ã‚’è¾¿ã‚‹ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
                 break;
         }
     }
 
-    // íœ
+    // å‰Šé™¤æ™‚
     private void OnDestroy()
     {
-        // ƒQ[ƒ€ƒCƒ“ƒ^ƒ‰ƒNƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚ÌƒIƒuƒU[ƒo[‚ğ‰ğœ
+        // ã‚²ãƒ¼ãƒ ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚ªãƒ–ã‚¶ãƒ¼ãƒãƒ¼ã‚’è§£é™¤
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
     }
 
