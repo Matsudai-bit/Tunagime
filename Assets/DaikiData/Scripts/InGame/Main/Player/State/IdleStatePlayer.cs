@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class IdleStatePlayer : PlayerState
 {
@@ -14,17 +14,17 @@ public class IdleStatePlayer : PlayerState
     public override void OnFixedUpdateState()
     {
 
-        // ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†
         if (owner.IsMoving())
         {
-            // •àsó‘Ô‚É‘JˆÚ
+            // æ­©è¡ŒçŠ¶æ…‹ã«é·ç§»
             owner.GetStateMachine().RequestStateChange(PlayerStateID.WALK);
         }
     }
 
     public override void  OnStartState() 
     {
-        // ˆÚ“®‚ğ’â~
+        // ç§»å‹•ã‚’åœæ­¢
         owner.StopMove();
 
     }
@@ -32,27 +32,27 @@ public class IdleStatePlayer : PlayerState
     public override void OnUpdateState() 
     {
 
-        // ‚¿‰^‚ÔƒIƒuƒWƒFƒNƒg‚ğE‚¤ˆ—‚ğ‚İ‚é
+        // æŒã¡é‹ã¶ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ‹¾ã†å‡¦ç†ã‚’è©¦ã¿ã‚‹
         owner.TryPickUp();
-        // ‚¿‰^‚ÔƒIƒuƒWƒFƒNƒg‚ğ’u‚­ˆ—‚ğ‚İ‚é
+        // æŒã¡é‹ã¶ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç½®ãå‡¦ç†ã‚’è©¦ã¿ã‚‹
         owner.TryPutDown();
 
         if (owner.GetCarryingObject() != null)
         {
-            // •Ò‚Şˆ—‚ğ‚İ‚é
-            owner.TryKnit();
+  
             // test
             owner.TryForwardFloorSetting();
 
             if (owner.GetCarryingObject().stageBlock.GetBlockType() == StageBlock.BlockType.CARRIABLE_CORE)
             {
-                // ƒuƒƒbƒN‚ğ‰Ÿ‚·ˆ—‚ğ‚İ‚é
+                // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‡¦ç†ã‚’è©¦ã¿ã‚‹
                 owner.TryForwardSlotSetting();
             }
         }
         else
         {
-
+            // ç·¨ã‚€å‡¦ç†ã‚’è©¦ã¿ã‚‹
+            owner.TryKnit();
             // test
             owner.TryForwardObjectSetting();
             owner.TryUnknit();

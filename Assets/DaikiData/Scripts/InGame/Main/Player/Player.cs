@@ -343,6 +343,12 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // 編む位置
         GridPos knittingPos = GetForwardGridPos(); // 前方のグリッド位置
 
+        // 正面に毛糸玉があるかどうか
+        if (stageGridData.GetTileObject(knittingPos).gameObject?.GetComponent<FluffBall>() == null)
+        {
+            return false; // 編むことが出来ない
+        }
+
         // 自分のいるグリッドの上下にノーマル状態のあみだがあるかどうか
         if (stageGridData.GetAmidaTube(knittingPos) == null &&
             StageAmidaUtility.CheckAmidaState(knittingPos + new GridPos(0, 1), AmidaTube.State.NORMAL) &&
@@ -360,12 +366,11 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // Xキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.X) && CanKnit())
         {
-            if (m_carryingObj) // 運んでいるオブジェクトを持っている場合
-            {
-                // 編む状態に切り替える
-                m_stateMachine.RequestStateChange(PlayerStateID.KNIT); 
+   
+            // 編む状態に切り替える
+            m_stateMachine.RequestStateChange(PlayerStateID.KNIT); 
 
-            }
+            
         }
     }
 

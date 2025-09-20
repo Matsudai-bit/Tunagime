@@ -1,79 +1,83 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class UnknitStatePlayer : PlayerState
 {
 
-    private AnimationEventHandler m_animationEventHandler; // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[
+    private AnimationEventHandler m_animationEventHandler; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼
 
     public UnknitStatePlayer(Player owner) : base(owner)
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚ğ‰Šú‰»
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã‚’åˆæœŸåŒ–
         m_animationEventHandler = new AnimationEventHandler(owner.GetAnimator());
     }
     /// <summary>
-    /// •àsó‘Ô‚ÌŠJn‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnStartState()
     {
-        // ˆÚ“®‚ğ’â~
+        // ç§»å‹•ã‚’åœæ­¢
         owner.StopMove();
-        // ƒŒƒCƒ„[‚Ì•ÏX’†ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
-        m_animationEventHandler.PlayAnimationTrigger("Unknit", "Normal", "Unknit"); // ‰ğ‚­ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
-                                                                                    // ƒŒƒCƒ„[‚ÌƒEƒFƒCƒg‚ğ•ÏX‚·‚é‚½‚ß‚ÌƒR[ƒ‹ƒoƒbƒN‚ğİ’è
-        m_animationEventHandler.SetTargetTimeAction(0.7f, () => { owner.RequestTransitionLayerWeight("Carry", 1, 0.6f); }); // CarryƒŒƒCƒ„[‚ÌƒEƒFƒCƒg‚ğ0‚Éİ’è
+        // ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¤‰æ›´ä¸­ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
+        m_animationEventHandler.PlayAnimationTrigger("Unknit", "Normal", "Unknit"); // è§£ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿ
+                                                                                    // ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¦ã‚§ã‚¤ãƒˆã‚’å¤‰æ›´ã™ã‚‹ãŸã‚ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚’è¨­å®š
+      //  m_animationEventHandler.SetTargetTimeAction(0.7f, () => { owner.RequestTransitionLayerWeight("Carry", 1, 0.6f); }); // Carryãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¦ã‚§ã‚¤ãƒˆã‚’0ã«è¨­å®š
 
 
     }
 
     /// <summary>
-    /// •àsó‘Ô’†‚ÌUpdate‚Å–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®Updateã§æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnUpdateState()
     {
 
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚ÌXV
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã®æ›´æ–°
         m_animationEventHandler.OnUpdate();
 
         if (m_animationEventHandler.HasAnimationPlayed() && m_animationEventHandler.IsPlaying() == false)
         {
 
-            // ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚ç•Ò‚Şˆ—‚ğÀs
+            // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‚‰ç·¨ã‚€å‡¦ç†ã‚’å®Ÿè¡Œ
             FinishUnknit();
        
 
-            // –Ñ…‚¾‚Ü‚ğ¶¬
+            // æ¯›ç³¸ã ã¾ã‚’ç”Ÿæˆ
             var stageObjectFactory = StageObjectFactory.GetInstance();
-            // ‘O•û‚Ì‚ ‚İ‚¾‚Éæ“¾
+            // å‰æ–¹ã®ã‚ã¿ã ã«å–å¾—
             var frontAmidaPos = owner.GetForwardGridPos(); ;
 
             var fluffBallObj = stageObjectFactory.GenerateFluffBall(null, frontAmidaPos);
+            
+            fluffBallObj.GetComponent<FluffBall>().OnDrop(frontAmidaPos); // æ¯›ç³¸ç‰ã‚’é…ç½®
 
+            //var carryingObject = fluffBallObj.GetComponent<Carryable>(); // æŒã¡ä¸Šã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
+            //if (carryingObject == null)
+            //{
+            //    Debug.LogError("Carryable component not found on the object.");
+            //    return; // æŒã¡ä¸Šã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯å‡¦ç†ã‚’ä¸­æ–­
+            //}
 
-            var carryingObject = fluffBallObj.GetComponent<Carryable>(); // ‚¿ã‚°‚éƒIƒuƒWƒFƒNƒg‚ğæ“¾
-            if (carryingObject == null)
-            {
-                Debug.LogError("Carryable component not found on the object.");
-                return; // ‚¿ã‚°‚éƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚Íˆ—‚ğ’†’f
-            }
+            //// æŒã¡ä¸Šã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+            //fluffBallObj.SetActive(false);
 
-            // ‚¿ã‚°‚éƒIƒuƒWƒFƒNƒg‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚é
-            fluffBallObj.SetActive(false);
+            //// æŒã¡ä¸Šã’ã‚‹
+            //carryingObject.OnPickUp();
 
-            // ‚¿ã‚°‚é
-            carryingObject.OnPickUp();
+            //// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«æŒã¡ä¸Šã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚»ãƒƒãƒˆ
+            //owner.SetCarryingObject(carryingObject);
 
-            // ƒvƒŒƒCƒ„[‚É‚¿ã‚°‚éƒIƒuƒWƒFƒNƒg‚ğƒZƒbƒg
-            owner.SetCarryingObject(carryingObject);
+            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE); 
 
-            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE); // ‚¿ã‚°‚éó‘Ô‚É‘JˆÚ
-
-            // •ÏX‚ğ’Ê’m
+            // å¤‰æ›´ã‚’é€šçŸ¥
             GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CHANGED_AMIDAKUJI);
         }
 
     }
     /// <summary>
-    /// •àsó‘Ô’†‚ÌFixedUpdate‚Å•¨—‰‰ZƒtƒŒ[ƒ€‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®FixedUpdateã§ç‰©ç†æ¼”ç®—ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFixedUpdateState()
     {
@@ -82,7 +86,7 @@ public class UnknitStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// •àsó‘Ô‚ÌI—¹‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFinishState()
     {
@@ -90,18 +94,18 @@ public class UnknitStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// •Ò‚Ş
+    /// ç·¨ã‚€
     /// </summary>
     private void FinishUnknit()
     {
         var stageGridData = MapData.GetInstance.GetStageGridData();
 
-        // ‘O•û‚Ì‚ ‚İ‚¾‚Éæ“¾
+        // å‰æ–¹ã®ã‚ã¿ã ã«å–å¾—
         var frontAmidaPos = owner.GetForwardGridPos(); ;
 
-        stageGridData.RemoveAmidaTube(frontAmidaPos); // ‘O•û‚Ì‚ ‚İ‚¾‚ğíœ
+        stageGridData.RemoveAmidaTube(frontAmidaPos); // å‰æ–¹ã®ã‚ã¿ã ã‚’å‰Šé™¤
 
-        // ã‰º‚Ì‚ ‚İ‚¾‚Ìó‘Ô‚ğÄİ’è
+        // ä¸Šä¸‹ã®ã‚ã¿ã ã®çŠ¶æ…‹ã‚’å†è¨­å®š
         var upAmidaPos = frontAmidaPos + GridPos.UP;
         var downAmidaPos = frontAmidaPos + GridPos.DOWN;
 

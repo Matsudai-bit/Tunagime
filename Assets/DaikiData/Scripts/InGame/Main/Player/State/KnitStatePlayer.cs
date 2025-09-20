@@ -1,54 +1,68 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ‰ğ‚­ó‘Ô‚ÌƒvƒŒƒCƒ„[
+/// è§£ãçŠ¶æ…‹ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 /// </summary>
 public class KnitStatePlayer : PlayerState
 {
 
-    private AnimationEventHandler m_animationEventHandler; // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[
+    private AnimationEventHandler m_animationEventHandler; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼
+
+    private GameObject m_fluffBallObject; // ç·¨ã‚€å¯¾è±¡ã®ãƒ•ãƒ©ãƒƒãƒ•ãƒœãƒ¼ãƒ«
 
     public KnitStatePlayer(Player owner) : base(owner)
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚ğ‰Šú‰»
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã‚’åˆæœŸåŒ–
         m_animationEventHandler = new AnimationEventHandler(owner.GetAnimator());
     }
     /// <summary>
-    /// •àsó‘Ô‚ÌŠJn‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnStartState()
     {
-        // ˆÚ“®‚ğ’â~
+        // ç§»å‹•ã‚’åœæ­¢
         owner.StopMove();
 
-        // ƒŒƒCƒ„[‚Ì•ÏX’†ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
-        m_animationEventHandler.PlayAnimationTrigger("Knit", "Carry", "Knit"); // ’u‚­ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
+        // ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¤‰æ›´ä¸­ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
+        m_animationEventHandler.PlayAnimationTrigger("Knit", "Normal", "Knit");
 
-        // ƒŒƒCƒ„[‚ÌƒEƒFƒCƒg‚ğ•ÏX‚·‚é‚½‚ß‚ÌƒR[ƒ‹ƒoƒbƒN‚ğİ’è
-        // CarryƒŒƒCƒ„[‚ÌƒEƒFƒCƒg‚ğ0‚Éİ’è
-        m_animationEventHandler.SetTargetTimeAction(0.9f, () => { owner.RequestTransitionLayerWeight("Carry", 0, 0.8f); });
+        GridPos knittingPos = owner.GetForwardGridPos(); // å‰æ–¹ã®ã‚°ãƒªãƒƒãƒ‰ä½ç½®
+
+        // æ­£é¢ã«æ¯›ç³¸ç‰ãŒã‚ã‚‹ã‹ã©ã†ã‹
+        m_fluffBallObject = MapData.GetInstance.GetStageGridData().GetTileObject(knittingPos).gameObject;
+
+        if (m_fluffBallObject == null || m_fluffBallObject.GetComponent<FluffBall>() == null)
+        {
+            // æ­£é¢ã«æ¯›ç³¸ç‰ãŒãªã„å ´åˆã¯å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
+            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
+            return;
+        }
+
+        //// ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¦ã‚§ã‚¤ãƒˆã‚’å¤‰æ›´ã™ã‚‹ãŸã‚ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚’è¨­å®š
+        //// Carryãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¦ã‚§ã‚¤ãƒˆã‚’0ã«è¨­å®š
+        //m_animationEventHandler.SetTargetTimeAction(0.9f, () => { owner.RequestTransitionLayerWeight("Carry", 0, 0.8f); });
     }
 
     /// <summary>
-    /// •àsó‘Ô’†‚ÌUpdate‚Å–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®Updateã§æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnUpdateState()
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚ÌXV
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã®æ›´æ–°
         m_animationEventHandler.OnUpdate();
 
         if (m_animationEventHandler.HasAnimationPlayed() && m_animationEventHandler.IsPlaying() == false)
         {
 
             if (owner.CanKnit())
-                // ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚ç•Ò‚Şˆ—‚ğÀs
+                // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‚‰ç·¨ã‚€å‡¦ç†ã‚’å®Ÿè¡Œ
                 FinishKnit();
-            // ‘Ò‹@ó‘Ô‚É‘JˆÚ
+            // å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
         }
     }
     /// <summary>
-    /// •àsó‘Ô’†‚ÌFixedUpdate‚Å•¨—‰‰ZƒtƒŒ[ƒ€‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®FixedUpdateã§ç‰©ç†æ¼”ç®—ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFixedUpdateState()
     {
@@ -57,7 +71,7 @@ public class KnitStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// •àsó‘Ô‚ÌI—¹‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFinishState()
     {
@@ -65,18 +79,26 @@ public class KnitStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// •Ò‚Ş
+    /// ç·¨ã‚€
     /// </summary>
     private void FinishKnit()
     {
-        // ’u‚­ˆÊ’u
-        GridPos knottingPos = owner.GetForwardGridPos(); // ‘O•û‚ÌƒOƒŠƒbƒhˆÊ’u
-        // ƒAƒ~ƒ_‹´‚Ì¶¬
-        var generateAmida = AmidaTubeGenerator.GetInstance.GenerateAmidaBridge(knottingPos);
+        var stageBlock = m_fluffBallObject.GetComponent<StageBlock>();
 
+        if (stageBlock == null)
+        {
+            Debug.LogError("FluffBall must be attached to a GameObject with a StageBlock component.");
+            return;
+        }
 
-        owner.DropCarryingObject();
+        // ç·¨ã‚€ä½ç½®
+        GridPos knittingPos = stageBlock.GetGridPos();
+        // ã‚¢ãƒŸãƒ€æ©‹ã®ç”Ÿæˆ
+        var generateAmida = AmidaTubeGenerator.GetInstance.GenerateAmidaBridge(knittingPos);
 
+        m_fluffBallObject.SetActive(false); // æ¯›ç³¸ç‰ã‚’éè¡¨ç¤ºã«ã™ã‚‹
+
+        MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(knittingPos); // ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰æ¯›ç³¸ç‰ã‚’å‰Šé™¤
 
     }
 

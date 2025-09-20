@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class WalkStatePlayer : PlayerState
 {
@@ -7,47 +7,50 @@ public class WalkStatePlayer : PlayerState
 
     }
     /// <summary>
-    /// •àsó‘Ô‚ÌŠJn‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnStartState()
     {
-        // •àsó‘Ô‚ÌŠJn‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğİ’è
+        // æ­©è¡ŒçŠ¶æ…‹ã®é–‹å§‹æ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
         owner.GetAnimator().SetBool("Walk", true);
 
         OnFixedUpdateState();
     }
 
     /// <summary>
-    /// •àsó‘Ô’†‚ÌUpdate‚Å–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®Updateã§æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnUpdateState()
     {
-        // ‚¿‰^‚ÔƒIƒuƒWƒFƒNƒg‚ğE‚¤ˆ—‚ğ‚İ‚é
+        // æŒã¡é‹ã¶ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ‹¾ã†å‡¦ç†ã‚’è©¦ã¿ã‚‹
         owner.TryPickUp();
-        // ‚¿‰^‚ÔƒIƒuƒWƒFƒNƒg‚ğ’u‚­ˆ—‚ğ‚İ‚é
+        // æŒã¡é‹ã¶ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç½®ãå‡¦ç†ã‚’è©¦ã¿ã‚‹
         owner.TryPutDown();
       
         if (owner.GetCarryingObject() != null)
         {
             // test
             owner.TryForwardFloorSetting();
-            // •Ò‚Şˆ—‚ğ‚İ‚é
+            // ç·¨ã‚€å‡¦ç†ã‚’è©¦ã¿ã‚‹
             owner.TryKnit();
 
             if (CanSlide())
             {
-                // ƒTƒeƒ“°ã‚ÅƒXƒ‰ƒCƒh‰Â”\‚È‚çƒXƒ‰ƒCƒhó‘Ô‚É‘JˆÚ
+                // ã‚µãƒ†ãƒ³åºŠä¸Šã§ã‚¹ãƒ©ã‚¤ãƒ‰å¯èƒ½ãªã‚‰ã‚¹ãƒ©ã‚¤ãƒ‰çŠ¶æ…‹ã«é·ç§»
                 owner.GetStateMachine().RequestStateChange(PlayerStateID.SLIPPER);
             }
 
             if (owner.GetCarryingObject().stageBlock.GetBlockType() == StageBlock.BlockType.CARRIABLE_CORE)
             {
-                // ƒuƒƒbƒN‚ğ‰Ÿ‚·ˆ—‚ğ‚İ‚é
+                // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æŠ¼ã™å‡¦ç†ã‚’è©¦ã¿ã‚‹
                 owner.TryForwardSlotSetting();
             }
         }
         else
         {
+
+            // ç·¨ã‚€å‡¦ç†ã‚’è©¦ã¿ã‚‹
+            owner.TryKnit();
             // test
             owner.TryForwardObjectSetting();
 
@@ -57,40 +60,40 @@ public class WalkStatePlayer : PlayerState
 
             if (CanSlide())
             {
-                // ƒTƒeƒ“°ã‚ÅƒXƒ‰ƒCƒh‰Â”\‚È‚çƒXƒ‰ƒCƒhó‘Ô‚É‘JˆÚ
+                // ã‚µãƒ†ãƒ³åºŠä¸Šã§ã‚¹ãƒ©ã‚¤ãƒ‰å¯èƒ½ãªã‚‰ã‚¹ãƒ©ã‚¤ãƒ‰çŠ¶æ…‹ã«é·ç§»
                 owner.GetStateMachine().RequestStateChange(PlayerStateID.SLIPPER);
             }
         }
 
     }
     /// <summary>
-    /// •àsó‘Ô’†‚ÌFixedUpdate‚Å•¨—‰‰ZƒtƒŒ[ƒ€‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ä¸­ã®FixedUpdateã§ç‰©ç†æ¼”ç®—ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFixedUpdateState()
     {
      
-        // ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†
         if (owner.IsMoving())
         {
-            // ˆÚ“®ˆ—
+            // ç§»å‹•å‡¦ç†
             owner.Move();
-            owner.SavePreviousMoveVelocity(); // ‘O‰ñ‚Ì‘¬“x‚ğ•Û‘¶
+            owner.SavePreviousMoveVelocity(); // å‰å›ã®é€Ÿåº¦ã‚’ä¿å­˜
         }
         else
         {
-            // •àsó‘Ô‚©‚ç‘Ò‹@ó‘Ô‚É‘JˆÚ
+            // æ­©è¡ŒçŠ¶æ…‹ã‹ã‚‰å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
-            // ˆÚ“®‚ğ’â~
+            // ç§»å‹•ã‚’åœæ­¢
             owner.StopMove();
         }
     }
 
     /// <summary>
-    /// •àsó‘Ô‚ÌI—¹‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
+    /// æ­©è¡ŒçŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ä¸€åº¦ã ã‘å‘¼ã°ã‚Œã‚‹
     /// </summary>
     public override void OnFinishState()
     {
-        // •àsó‘Ô‚ÌI—¹‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒŠƒZƒbƒg
+        // æ­©è¡ŒçŠ¶æ…‹ã®çµ‚äº†æ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒªã‚»ãƒƒãƒˆ
         owner.GetAnimator().SetBool("Walk", false);
 
      
@@ -106,7 +109,7 @@ public class WalkStatePlayer : PlayerState
             StageBlock stageBlock = myGridPosFloor.GetComponent<StageBlock>();
             if (stageBlock && stageBlock.GetBlockType() == StageBlock.BlockType.SATIN_FLOOR)
             {
-                return true; // ƒTƒeƒ“°‚È‚çƒXƒ‰ƒCƒh‰Â”\
+                return true; // ã‚µãƒ†ãƒ³åºŠãªã‚‰ã‚¹ãƒ©ã‚¤ãƒ‰å¯èƒ½
             }
         }
         return false;

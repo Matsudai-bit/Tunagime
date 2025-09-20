@@ -1,56 +1,56 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg‚ğ¶¬‚·‚é‚½‚ß‚Ìƒtƒ@ƒNƒgƒŠ[ƒNƒ‰ƒX@ƒVƒ“ƒOƒ‹ƒgƒ“
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ãŸã‚ã®ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã‚¯ãƒ©ã‚¹ã€€ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
 /// </summary>
 public class StageObjectFactory : MonoBehaviour
 {
-    private static StageObjectFactory s_instance;   // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX
+    private static StageObjectFactory s_instance;   // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
-    [Header("====== ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg‚ÌƒvƒŒƒnƒuİ’è ======")]
-    [SerializeField] private GameObject m_feelingSlotPrefab;            // ‘z‚¢‚ÌŒ^‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_terminusFeelingSlotPrefab;    // I“_‘z‚¢‚ÌŒ^‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_fluffBallPrefab;              // –Ñ…‹Ê‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_feltBlockPrefab;              // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_noMovementFeltBlockPrefab;    // •s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_curtainPrefab;                // ƒJ[ƒeƒ“ƒvƒŒƒtƒ@ƒu
-    [SerializeField] private GameObject m_satinFloorPrefab;             // ƒTƒeƒ“°‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_pairBadgePrefab;             // ƒyƒAƒoƒbƒW‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_feltBlock_PairBadgePrefab;   // ƒyƒAƒoƒbƒW‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_fragmentPrefab;              // ‘z‚¢‚Ì’f•Ğ‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_carriableCorePrefab;         // ‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA‚ÌƒvƒŒƒnƒu
+    [Header("====== ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ—ãƒ¬ãƒãƒ–è¨­å®š ======")]
+    [SerializeField] private GameObject m_feelingSlotPrefab;            // æƒ³ã„ã®å‹ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_terminusFeelingSlotPrefab;    // çµ‚ç‚¹æƒ³ã„ã®å‹ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_fluffBallPrefab;              // æ¯›ç³¸ç‰ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_feltBlockPrefab;              // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_noMovementFeltBlockPrefab;    // ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_curtainPrefab;                // ã‚«ãƒ¼ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ•ã‚¡ãƒ–
+    [SerializeField] private GameObject m_satinFloorPrefab;             // ã‚µãƒ†ãƒ³åºŠã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_pairBadgePrefab;             // ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_feltBlock_PairBadgePrefab;   // ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_fragmentPrefab;              // æƒ³ã„ã®æ–­ç‰‡ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_carriableCorePrefab;         // æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢ã®ãƒ—ãƒ¬ãƒãƒ–
 
 
 
-    // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_feelingSlotPool = new List<GameObject>(); // ‘z‚¢‚ÌŒ^‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_terminusFeelingSlotPool = new List<GameObject>(); // I“_‘z‚¢‚ÌŒ^‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_fluffballPool            = new List<GameObject>(); // –Ñ…‹Ê‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_feltBlockPool            = new List<GameObject>(); // ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_noMovementFeltBlockPool  = new List<GameObject>(); // •s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_curtainPool              = new List<GameObject>(); // ƒJ[ƒeƒ“‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_satinFloorPool           = new List<GameObject>(); // ƒTƒeƒ“°‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_pairBadgePool            = new List<GameObject>(); // ƒyƒAƒoƒbƒW‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_feltBlock_PairBadgePool  = new List<GameObject>(); // ƒyƒAƒoƒbƒW‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_fragmentPool             = new List<GameObject>(); // ‘z‚¢‚Ì’f•Ğ‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
-    List<GameObject> m_carriableCorePool        = new List<GameObject>(); // ‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_feelingSlotPool = new List<GameObject>(); // æƒ³ã„ã®å‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_terminusFeelingSlotPool = new List<GameObject>(); // çµ‚ç‚¹æƒ³ã„ã®å‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_fluffballPool            = new List<GameObject>(); // æ¯›ç³¸ç‰ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_feltBlockPool            = new List<GameObject>(); // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_noMovementFeltBlockPool  = new List<GameObject>(); // ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_curtainPool              = new List<GameObject>(); // ã‚«ãƒ¼ãƒ†ãƒ³ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_satinFloorPool           = new List<GameObject>(); // ã‚µãƒ†ãƒ³åºŠã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_pairBadgePool            = new List<GameObject>(); // ãƒšã‚¢ãƒãƒƒã‚¸ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_feltBlock_PairBadgePool  = new List<GameObject>(); // ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_fragmentPool             = new List<GameObject>(); // æƒ³ã„ã®æ–­ç‰‡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
+    List<GameObject> m_carriableCorePool        = new List<GameObject>(); // æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚µ‚È‚¢ê‡AŒ»İ‚ÌƒIƒuƒWƒFƒNƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚µ‚Äİ’è
+        // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã—ãªã„å ´åˆã€ç¾åœ¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦è¨­å®š
         if (s_instance == null)
         {
             s_instance = this;
         }
         else if (s_instance != this)
         {
-            Destroy(gameObject); // Šù‚É‘¶İ‚·‚éê‡‚ÍV‚µ‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü
+            Destroy(gameObject); // æ—¢ã«å­˜åœ¨ã™ã‚‹å ´åˆã¯æ–°ã—ã„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„
         }
     }
 
     /// <summary>
-    /// ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     static public StageObjectFactory GetInstance()
@@ -66,10 +66,10 @@ public class StageObjectFactory : MonoBehaviour
     }
 
     // ========================================================================================
-    // ===== ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg¶¬ƒƒ\ƒbƒh ==================================================
+    // ===== ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆãƒ¡ã‚½ãƒƒãƒ‰ ==================================================
 
     /// <summary>
-    /// ‘z‚¢‚ÌŒ^‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// æƒ³ã„ã®å‹ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="gridPos"></param>
@@ -78,30 +78,30 @@ public class StageObjectFactory : MonoBehaviour
     public GameObject GenerateFeelingSlot(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
 
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetFeelingSlotFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
 
-        // í—Ş‚Ìİ’è
+        // ç¨®é¡ã®è¨­å®š
         var feelingCore = generationObject?.GetComponent<FeelingSlot>().GetFeelingCore();
         if (feelingCore)
         {
             feelingCore.SetEmotionType(emotionType);
         }
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
 
         return generationObject;
     }
 
     /// <summary>
-    /// I“_‘z‚¢‚ÌŒ^‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// çµ‚ç‚¹æƒ³ã„ã®å‹ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="gridPos"></param>
@@ -109,51 +109,53 @@ public class StageObjectFactory : MonoBehaviour
     /// <returns></returns>
     public GameObject GenerateTerminusFeelingSlot(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetTerminusFeelingSlotFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // í—Ş‚Ìİ’è
+        // ç¨®é¡ã®è¨­å®š
         var feelingCore = generationObject?.GetComponent<FeelingSlot>().GetFeelingCore();
         if (feelingCore)
         {
             feelingCore.SetEmotionType(emotionType);
         }
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
 
     /// <summary>
-    /// –Ñ…‹Ê‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// æ¯›ç³¸ç‰ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="gridPos"></param>
     /// <returns></returns>
     public GameObject GenerateFluffBall(Transform parent, GridPos gridPos)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetFluffBallFromPool(); 
 
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FLUFF_BALL);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
+
+        generationObject.SetActive(true);
 
         return generationObject;
     }
 
     /// <summary>
-    /// ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="gridPos"></param>
@@ -161,50 +163,50 @@ public class StageObjectFactory : MonoBehaviour
     /// <returns></returns>
     public GameObject GenerateFeltBlock(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetFeltBlockFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
         MeshRenderer meshRenderer = generationObject?.GetComponent<FeltBlock>().meshRenderer;
         if (meshRenderer != null )
         {
             meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FELT_BLOCK, emotionType);
         }
         
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FELT_BLOCK);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
 
     /// <summary>
-    /// •s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="gridPos"></param>
     /// <returns></returns>
     public GameObject GenerateNoMovementFeltBlock(Transform parent, GridPos gridPos)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetNoMovementFeltBlockFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
         MeshRenderer meshRenderer = generationObject?.GetComponent<FeltBlock>().meshRenderer;
         if (meshRenderer != null )
         {
             meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FELT_BLOCK, EmotionCurrent.Type.REJECTION);
         }
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FELT_BLOCK);
 
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
@@ -212,47 +214,47 @@ public class StageObjectFactory : MonoBehaviour
 
     public GameObject GenerateCurtain(Transform parent, float localRotateY, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetCurtainFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
 
-        // ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
         var curtain = generationObject?.GetComponent<Curtain>();
         if (curtain)
         {
             curtain.SetMaterial(MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CURTAIN, emotionType));
         }
-        // í—Ş‚Ìİ’è
+        // ç¨®é¡ã®è¨­å®š
         var emotionCurrent = generationObject?.GetComponent<EmotionCurrent>();
         if (emotionCurrent)
         {
             emotionCurrent.CurrentType = emotionType;
         }
 
-        // ƒ[ƒJƒ‹‰ñ“]‚Ìİ’è
+        // ãƒ­ãƒ¼ã‚«ãƒ«å›è»¢ã®è¨­å®š
         generationObject.transform.localRotation = Quaternion.Euler(0.0f, localRotateY, 0.0f);
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.CURTAIN);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
 
     public GameObject GenerateSatinFloor(Transform parent, GridPos gridPos)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetSatinFloorFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.SATIN_FLOOR);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
@@ -265,30 +267,30 @@ public class StageObjectFactory : MonoBehaviour
             return null;
         }
 
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetPairBadgeFromPool();
         var pairBadge = generationObject?.GetComponent<PairBadge>();
         if (pairBadge == null) return null;
 
-        // ƒuƒƒbƒN‚Ì¶¬‚Æ“o˜^
+        // ãƒ–ãƒ­ãƒƒã‚¯ã®ç”Ÿæˆã¨ç™»éŒ²
         List<FeltBlock> feltBlocks = new List<FeltBlock>();
         for (int i = 0; i < generationBlockPositionList.Count; i++)
         {
             FeltBlock feltBlock = GetFeltBlock_PairBadgeFromPool().GetComponent<FeltBlock>();
             feltBlock.stageBlock.Initialize(generationBlockPositionList[i]);
 
-            // ’Ç‰Á
+            // è¿½åŠ 
             feltBlocks.Add(feltBlock);
         }
 
-        // ƒyƒAƒoƒbƒW‚Ì‰Šú‰»
+        // ãƒšã‚¢ãƒãƒƒã‚¸ã®åˆæœŸåŒ–
         pairBadge.Initialize(feltBlocks);
 
 
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
         var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
 
         return generationObject;
@@ -296,73 +298,73 @@ public class StageObjectFactory : MonoBehaviour
 
     public GameObject GenerateFragment(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetFragmentFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
         var meshRenderer = generationObject?.GetComponent<Fragment>().MeshRenderer;
         if (meshRenderer != null)
         {
             meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FRAGMENT, emotionType);
         }
 
-        // í—Ş‚Ìİ’è
+        // ç¨®é¡ã®è¨­å®š
         var emotionCurrent = generationObject?.GetComponent<EmotionCurrent>();
         if (emotionCurrent)
         {
             emotionCurrent.CurrentType = emotionType;
         }
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FRAGMENT);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
 
     public GameObject GenerateCarriableCore(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
-        // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
         GameObject generationObject = GetCarriableCoreFromPool();
-        // e‚Ìİ’è
+        // è¦ªã®è¨­å®š
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
         var meshRenderer = generationObject?.GetComponent<FeelingCore>().MeshRenderer;
         if (meshRenderer != null)
         {
             meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CORE, emotionType);
         }
 
-        // í—Ş‚Ìİ’è
+        // ç¨®é¡ã®è¨­å®š
         var emotionCurrent = generationObject?.GetComponent<EmotionCurrent>();
         if (emotionCurrent)
         {
             emotionCurrent.CurrentType = emotionType;
         }
 
-        // ƒXƒe[ƒWƒuƒƒbƒN‚Ìİ’è
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­å®š
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.CARRIABLE_CORE);
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         stageBlock.Initialize(gridPos);
         return generationObject;
     }
 
 
     // ========================================================================================
-    // ===== ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚ç‚Ìæ“¾ƒƒ\ƒbƒh ==============================================
+    // ===== ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰ã®å–å¾—ãƒ¡ã‚½ãƒƒãƒ‰ ==============================================
 
     /// <summary>
-    /// ‘z‚¢‚ÌŒ^‚ğƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// æƒ³ã„ã®å‹ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetFeelingSlotFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢‘z‚¢‚ÌŒ^‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„æƒ³ã„ã®å‹ã®å–å¾—
         for (int i = 0; i < m_feelingSlotPool.Count; i++)
         {
             if (m_feelingSlotPool[i] != null && m_feelingSlotPool[i].activeSelf == false)
@@ -370,19 +372,19 @@ public class StageObjectFactory : MonoBehaviour
                 return m_feelingSlotPool[i];
             }
         }
-        // ‚·‚×‚Ä‚Ì‘z‚¢‚ÌŒ^‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢‘z‚¢‚ÌŒ^‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®æƒ³ã„ã®å‹ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„æƒ³ã„ã®å‹ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newFeelingSlot = Instantiate(m_feelingSlotPrefab);
         m_feelingSlotPool.Add(newFeelingSlot);
         return newFeelingSlot;
     }
 
     /// <summary>
-    /// I“_‘z‚¢‚ÌŒ^‚ğƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// çµ‚ç‚¹æƒ³ã„ã®å‹ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetTerminusFeelingSlotFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢I“_‘z‚¢‚ÌŒ^‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„çµ‚ç‚¹æƒ³ã„ã®å‹ã®å–å¾—
         for (int i = 0; i < m_terminusFeelingSlotPool.Count; i++)
         {
             if (m_terminusFeelingSlotPool[i] != null && m_terminusFeelingSlotPool[i].activeSelf == false)
@@ -390,7 +392,7 @@ public class StageObjectFactory : MonoBehaviour
                 return m_terminusFeelingSlotPool[i];
             }
         }
-        // ‚·‚×‚Ä‚ÌI“_‘z‚¢‚ÌŒ^‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢I“_‘z‚¢‚ÌŒ^‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®çµ‚ç‚¹æƒ³ã„ã®å‹ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„çµ‚ç‚¹æƒ³ã„ã®å‹ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newTerminusFeelingSlot = Instantiate(m_terminusFeelingSlotPrefab);
         m_terminusFeelingSlotPool.Add(newTerminusFeelingSlot);
         return newTerminusFeelingSlot;
@@ -398,12 +400,12 @@ public class StageObjectFactory : MonoBehaviour
 
 
     /// <summary>
-    /// –Ñ…‹Ê‚ğƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// æ¯›ç³¸ç‰ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetFluffBallFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢–Ñ…‹Ê‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„æ¯›ç³¸ç‰ã®å–å¾—
         for (int i = 0; i < m_fluffballPool.Count; i++)
         {
             if (m_fluffballPool[i] != null && m_fluffballPool[i].activeSelf == false)
@@ -411,19 +413,19 @@ public class StageObjectFactory : MonoBehaviour
                 return m_fluffballPool[i];
             }
         }
-        // ‚·‚×‚Ä‚Ì–Ñ…‹Ê‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢–Ñ…‹Ê‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®æ¯›ç³¸ç‰ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„æ¯›ç³¸ç‰ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newFluffBall = Instantiate(m_fluffBallPrefab);
         m_fluffballPool.Add(newFluffBall);
         return newFluffBall;
     }
 
     /// <summary>
-    /// ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetFeltBlockFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢–Ñ…‹Ê‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„æ¯›ç³¸ç‰ã®å–å¾—
         for (int i = 0; i < m_feltBlockPool.Count; i++)
         {
             if (m_feltBlockPool[i] != null && m_feltBlockPool[i].activeSelf == false)
@@ -431,19 +433,19 @@ public class StageObjectFactory : MonoBehaviour
                 return m_feltBlockPool[i];
             }
         }
-        // ‚·‚×‚Ä‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newFeltBlock = Instantiate(m_feltBlockPrefab);
         m_feltBlockPool.Add(newFeltBlock);
         return newFeltBlock;
     }
 
     /// <summary>
-    /// •s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetNoMovementFeltBlockFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢•s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®å–å¾—
         for (int i = 0; i < m_noMovementFeltBlockPool.Count; i++)
         {
             if (m_noMovementFeltBlockPool[i] != null && m_noMovementFeltBlockPool[i].activeSelf == false)
@@ -451,19 +453,19 @@ public class StageObjectFactory : MonoBehaviour
                 return m_noMovementFeltBlockPool[i];
             }
         }
-        // ‚·‚×‚Ä‚Ì•s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢•s“®ƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„ä¸å‹•ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newNoMovementFeltBlock = Instantiate(m_noMovementFeltBlockPrefab);
         m_noMovementFeltBlockPool.Add(newNoMovementFeltBlock);
         return newNoMovementFeltBlock;
     }
 
     /// <summary>
-    /// ƒJ[ƒeƒ“‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ã‚«ãƒ¼ãƒ†ãƒ³ã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetCurtainFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢ƒJ[ƒeƒ“‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„ã‚«ãƒ¼ãƒ†ãƒ³ã®å–å¾—
         for (int i = 0; i < m_curtainPool.Count; i++)
         {
             if (m_curtainPool[i] != null && m_curtainPool[i].activeSelf == false)
@@ -471,19 +473,19 @@ public class StageObjectFactory : MonoBehaviour
                 return m_curtainPool[i];
             }
         }
-        // ‚·‚×‚Ä‚ÌƒJ[ƒeƒ“‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢ƒJ[ƒeƒ“‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®ã‚«ãƒ¼ãƒ†ãƒ³ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„ã‚«ãƒ¼ãƒ†ãƒ³ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newCurtain = Instantiate(m_curtainPrefab);
         m_curtainPool.Add(newCurtain);
         return newCurtain;
     }
 
     /// <summary>
-    /// ƒTƒeƒ“°‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ã‚µãƒ†ãƒ³åºŠã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetSatinFloorFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢ƒTƒeƒ“°‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„ã‚µãƒ†ãƒ³åºŠã®å–å¾—
         for (int i = 0; i < m_satinFloorPool.Count; i++)
         {
             if (m_satinFloorPool[i] != null && m_satinFloorPool[i].activeSelf == false)
@@ -491,7 +493,7 @@ public class StageObjectFactory : MonoBehaviour
                 return m_satinFloorPool[i];
             }
         }
-        // ‚·‚×‚Ä‚ÌƒTƒeƒ“°‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢ƒTƒeƒ“°‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®ã‚µãƒ†ãƒ³åºŠãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„ã‚µãƒ†ãƒ³åºŠã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newSatinFloor = Instantiate(m_satinFloorPrefab);
         m_satinFloorPool.Add(newSatinFloor);
         return newSatinFloor;
@@ -499,12 +501,12 @@ public class StageObjectFactory : MonoBehaviour
 
 
     /// <summary>
-    /// ƒyƒAƒoƒbƒW‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ãƒšã‚¢ãƒãƒƒã‚¸ã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetPairBadgeFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢ƒyƒAƒoƒbƒW‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„ãƒšã‚¢ãƒãƒƒã‚¸ã®å–å¾—
         for (int i = 0; i < m_pairBadgePool.Count; i++)
         {
             if (m_pairBadgePool[i] != null && m_pairBadgePool[i].activeSelf == false)
@@ -512,7 +514,7 @@ public class StageObjectFactory : MonoBehaviour
                 return m_pairBadgePool[i];
             }
         }
-        // ‚·‚×‚Ä‚ÌƒyƒAƒoƒbƒW‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢ƒyƒAƒoƒbƒW‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®ãƒšã‚¢ãƒãƒƒã‚¸ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„ãƒšã‚¢ãƒãƒƒã‚¸ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newPairBadge = Instantiate(m_pairBadgePrefab);
 
         m_pairBadgePool.Add(newPairBadge);
@@ -520,12 +522,12 @@ public class StageObjectFactory : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒyƒAƒoƒbƒW‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetFeltBlock_PairBadgeFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢ƒyƒAƒoƒbƒW‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã®å–å¾—
         for (int i = 0; i < m_feltBlock_PairBadgePool.Count; i++)
         {
             if (m_feltBlock_PairBadgePool[i] != null && m_feltBlock_PairBadgePool[i].activeSelf == false)
@@ -533,7 +535,7 @@ public class StageObjectFactory : MonoBehaviour
                 return m_feltBlock_PairBadgePool[i];
             }
         }
-        // ‚·‚×‚Ä‚ÌƒyƒAƒoƒbƒW‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢ƒyƒAƒoƒbƒW‚ÌƒtƒFƒ‹ƒgƒuƒƒbƒN‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„ãƒšã‚¢ãƒãƒƒã‚¸ã®ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newFeltBlockPairBadge = Instantiate(m_feltBlock_PairBadgePrefab);
         m_feltBlock_PairBadgePool.Add(newFeltBlockPairBadge);
         return newFeltBlockPairBadge;
@@ -541,7 +543,7 @@ public class StageObjectFactory : MonoBehaviour
 
     private GameObject GetFragmentFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢‘z‚¢‚Ì’f•Ğ‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„æƒ³ã„ã®æ–­ç‰‡ã®å–å¾—
         for (int i = 0; i < m_fragmentPool.Count; i++)
         {
             if (m_fragmentPool[i] != null && m_fragmentPool[i].activeSelf == false)
@@ -549,19 +551,19 @@ public class StageObjectFactory : MonoBehaviour
                 return m_fragmentPool[i];
             }
         }
-        // ‚·‚×‚Ä‚Ì‘z‚¢‚Ì’f•Ğ‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢‘z‚¢‚Ì’f•Ğ‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®æƒ³ã„ã®æ–­ç‰‡ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„æƒ³ã„ã®æ–­ç‰‡ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newFragment = Instantiate(m_fragmentPrefab);
         m_fragmentPool.Add(newFragment);
         return newFragment;
     }
 
     /// <summary>
-    /// ‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA‚ğƒv[ƒ‹‚©‚çæ“¾‚·‚éƒƒ\ƒbƒh
+    /// æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢ã‚’ãƒ—ãƒ¼ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <returns></returns>
     private GameObject GetCarriableCoreFromPool()
     {
-        // ƒIƒuƒWƒFƒNƒgƒv[ƒ‹‚©‚çŠˆ“®‚µ‚Ä‚¢‚È‚¢‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA‚Ìæ“¾
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰æ´»å‹•ã—ã¦ã„ãªã„æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢ã®å–å¾—
         for (int i = 0; i < m_carriableCorePool.Count; i++)
         {
             if (m_carriableCorePool[i] != null && m_carriableCorePool[i].activeSelf == false)
@@ -569,7 +571,7 @@ public class StageObjectFactory : MonoBehaviour
                 return m_carriableCorePool[i];
             }
         }
-        // ‚·‚×‚Ä‚Ì‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA‚ªŠˆ“®’†‚Ìê‡AV‚µ‚¢‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA‚ğ¶¬‚µ‚Äƒv[ƒ‹‚É’Ç‰Á
+        // ã™ã¹ã¦ã®æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢ãŒæ´»å‹•ä¸­ã®å ´åˆã€æ–°ã—ã„æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢ã‚’ç”Ÿæˆã—ã¦ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ 
         GameObject newCarriableCore = Instantiate(m_carriableCorePrefab);
         m_carriableCorePool.Add(newCarriableCore);
         return newCarriableCore;

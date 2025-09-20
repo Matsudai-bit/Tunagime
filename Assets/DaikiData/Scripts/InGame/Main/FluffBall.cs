@@ -1,35 +1,27 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class FluffBall : MonoBehaviour
 {
-    Carryable m_carriable; // CarriableƒRƒ“ƒ|[ƒlƒ“ƒg‚ğQÆ‚·‚é‚½‚ß‚Ì•Ï”
     StageBlock m_stageBlock;
 
     private void Awake()
     {
-        // CarryableƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-        m_carriable = GetComponent<Carryable>();
-        if (m_carriable == null)
-        {
-            Debug.LogError("FluffBall must be attached to a GameObject with a Carryable component.");
-        }
 
-        // StageBlockƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
+        // StageBlockã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
         m_stageBlock = GetComponent<StageBlock>();
         if (m_stageBlock == null)
         {
             Debug.LogError("FluffBall must be attached to a GameObject with a StageBlock component.");
         }
 
-        m_carriable.SetOnDropAction(OnDrop); // ’u‚­‚Æ‚«‚Ìˆ—‚ğİ’è
     }
 
-    private void OnDrop(GridPos placementPos)
+    public void OnDrop(GridPos placementPos)
     {
-        gameObject.SetActive(true); // ƒIƒuƒWƒFƒNƒg‚ğ•\¦‚·‚é
-        m_stageBlock.UpdatePosition(placementPos); // StageBlock‚ÌˆÊ’u‚ğXV
+        gameObject.SetActive(true); // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
+        m_stageBlock.UpdatePosition(placementPos); // StageBlockã®ä½ç½®ã‚’æ›´æ–°
 
-        // ƒOƒŠƒbƒhƒf[ƒ^‚É–È–Ñƒ{[ƒ‹‚ğ”z’u
+        // ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã«ç¶¿æ¯›ãƒœãƒ¼ãƒ«ã‚’é…ç½®
         MapData.GetInstance.GetStageGridData().TryPlaceTileObject(placementPos, gameObject);
 
     }
