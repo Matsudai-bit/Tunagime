@@ -51,10 +51,11 @@ public class IdleStatePlayer : PlayerState
         }
         else
         {
-            // 編む処理を試みる
-            owner.TryKnit();
+  
             // test
             owner.TryForwardObjectSetting();
+            // 編む処理を試みる
+            owner.TryKnit();
             owner.TryUnknit();
             owner.TryPushBlock();
 
@@ -64,7 +65,7 @@ public class IdleStatePlayer : PlayerState
     }
     public override void OnFinishState()
     {
-        owner.ResetTargetObject();
+        //owner.ResetTargetObject();
     }
 
 

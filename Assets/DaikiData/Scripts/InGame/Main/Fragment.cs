@@ -1,67 +1,67 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[i‘z‚¢‚Ì’f•Ğj‚Ì‹““®‚ğ§Œä‚·‚éƒNƒ‰ƒXB
-/// ƒ}ƒbƒvã‚ğ©“®‚ÅˆÚ“®‚µA‘¼‚Ì’f•Ğ‚Æƒ}[ƒW‚·‚é‹@”\‚ğ‚ÂB
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼ˆæƒ³ã„ã®æ–­ç‰‡ï¼‰ã®æŒ™å‹•ã‚’åˆ¶å¾¡ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚
+/// ãƒãƒƒãƒ—ä¸Šã‚’è‡ªå‹•ã§ç§»å‹•ã—ã€ä»–ã®æ–­ç‰‡ã¨ãƒãƒ¼ã‚¸ã™ã‚‹æ©Ÿèƒ½ã‚’æŒã¤ã€‚
 /// </summary>
 [RequireComponent(typeof(StageBlock))]
 public class Fragment : MonoBehaviour
 {
-    // === ƒtƒB[ƒ‹ƒh‚ÆƒvƒƒpƒeƒB ===
+    // === ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ ===
 
-    // ‘¼‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚Ö‚ÌQÆ
+    // ä»–ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¸ã®å‚ç…§
     private StageBlock m_stageBlock;
     [SerializeField] private MeshRenderer m_meshRenderer;
 
 
-    // Œ»İ‚Ìó‘Ô‚ğŠÇ—‚·‚é•Ï”
-    [Header("=== ó‘ÔŠÇ— ===")]
+    // ç¾åœ¨ã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°
+    [Header("=== çŠ¶æ…‹ç®¡ç† ===")]
     [SerializeField]
     private State m_currentState = State.MOVING;
     [SerializeField]
     private MovementDirectionID m_currentMovementDirection = MovementDirectionID.RIGHT;
 
-    // ‰¡•ûŒü‚ÌˆÚ“®‚ğ‹L‰¯‚·‚é‚½‚ß‚Ì•Ï”
+    // æ¨ªæ–¹å‘ã®ç§»å‹•ã‚’è¨˜æ†¶ã™ã‚‹ãŸã‚ã®å¤‰æ•°
     private MovementDirectionID m_currentSideDirection = MovementDirectionID.RIGHT;
-    // 1ƒtƒŒ[ƒ€‘O‚ÌƒOƒŠƒbƒhÀ•W‚ğ•Û
+    // 1ãƒ•ãƒ¬ãƒ¼ãƒ å‰ã®ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã‚’ä¿æŒ
     private GridPos m_prevGridPos = new GridPos();
 
-    // ƒvƒŒƒCƒ„[‚ÌƒŒƒxƒ‹
-    [Header("=== ƒŒƒxƒ‹ ===")]
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ¬ãƒ™ãƒ«
+    [Header("=== ãƒ¬ãƒ™ãƒ« ===")]
     [SerializeField]
     private Level m_level = Level.LEVEL_1;
 
-    // === İ’èƒpƒ‰ƒ[ƒ^ ===
+    // === è¨­å®šãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ ===
 
-    [Header("=== ˆÚ“®İ’è ===")]
-    [Tooltip("’f•Ğ‚ªˆÚ“®‚·‚é‘¬‚³")]
+    [Header("=== ç§»å‹•è¨­å®š ===")]
+    [Tooltip("æ–­ç‰‡ãŒç§»å‹•ã™ã‚‹é€Ÿã•")]
     [SerializeField] private float m_speed = 0.1f;
-    [Tooltip("‚ ‚İ‚¾‚ÌŒ‹‚Ñ–Ú”»’è‚Ég—p‚·‚éƒŒƒCƒLƒƒƒXƒg‚Ì‹——£")]
+    [Tooltip("ã‚ã¿ã ã®çµã³ç›®åˆ¤å®šã«ä½¿ç”¨ã™ã‚‹ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆã®è·é›¢")]
     [SerializeField] private float m_raycastDistance = 0.1f;
 
-    [Header("=== ‘z‚¢‚Ì’f•Ğ‚Ì‘å‚«‚³ ===")]
-    [SerializeField] private float LEVEL_1_SIZE = 0.75f; // ƒŒƒxƒ‹1‚Ì’f•Ğ‚ÌƒTƒCƒY
-    [SerializeField] private float LEVEL_2_SIZE = 1.0f; // ƒŒƒxƒ‹2‚Ì’f•Ğ‚ÌƒTƒCƒY
-    [SerializeField] private float LEVEL_3_SIZE = 1.75f; // ƒŒƒxƒ‹3‚Ì’f•Ğ‚ÌƒTƒCƒY
+    [Header("=== æƒ³ã„ã®æ–­ç‰‡ã®å¤§ãã• ===")]
+    [SerializeField] private float LEVEL_1_SIZE = 0.75f; // ãƒ¬ãƒ™ãƒ«1ã®æ–­ç‰‡ã®ã‚µã‚¤ã‚º
+    [SerializeField] private float LEVEL_2_SIZE = 1.0f; // ãƒ¬ãƒ™ãƒ«2ã®æ–­ç‰‡ã®ã‚µã‚¤ã‚º
+    [SerializeField] private float LEVEL_3_SIZE = 1.75f; // ãƒ¬ãƒ™ãƒ«3ã®æ–­ç‰‡ã®ã‚µã‚¤ã‚º
 
-    [Header("=== ‘å‚«‚³‚Ì•Ï‚í‚é‘¬“x ===")]
-    [SerializeField] private float SIZE_CHANGE_DURATION = 2.0f; // ƒTƒCƒY•ÏX‚É‚©‚©‚éŠÔ
+    [Header("=== å¤§ãã•ã®å¤‰ã‚ã‚‹é€Ÿåº¦ ===")]
+    [SerializeField] private float SIZE_CHANGE_DURATION = 2.0f; // ã‚µã‚¤ã‚ºå¤‰æ›´ã«ã‹ã‹ã‚‹æ™‚é–“
 
-    // === ŒöŠJƒvƒƒpƒeƒB ===
+    // === å…¬é–‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ ===
 
     public MovementDirectionID MovementDirection => m_currentMovementDirection;
     public MovementDirectionID CurrentSideDirection => m_currentSideDirection;
     public Level level => m_level;
     public MeshRenderer MeshRenderer => m_meshRenderer != null ? m_meshRenderer : null;
 
-    // === —ñ‹“Œ^ ===
+    // === åˆ—æŒ™å‹ ===
 
     /// <summary>
-    /// ˆÚ“®•ûŒü‚Ì—ñ‹“Œ^
+    /// ç§»å‹•æ–¹å‘ã®åˆ—æŒ™å‹
     /// </summary>
     public enum MovementDirectionID
     {
@@ -72,7 +72,7 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ’f•Ğ‚ÌƒŒƒxƒ‹
+    /// æ–­ç‰‡ã®ãƒ¬ãƒ™ãƒ«
     /// </summary>
     public enum Level
     {
@@ -83,15 +83,15 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ’f•Ğ‚ÌŒ»İ‚Ìó‘Ô
+    /// æ–­ç‰‡ã®ç¾åœ¨ã®çŠ¶æ…‹
     /// </summary>
     public enum State
     {
-        MOVING, // ˆÚ“®’†
-        MERGING, // ƒ}[ƒW’†
+        MOVING, // ç§»å‹•ä¸­
+        MERGING, // ãƒãƒ¼ã‚¸ä¸­
     }
 
-    // === MonoBehaviourƒ‰ƒCƒtƒTƒCƒNƒ‹ƒƒ\ƒbƒh ===
+    // === MonoBehaviourãƒ©ã‚¤ãƒ•ã‚µã‚¤ã‚¯ãƒ«ãƒ¡ã‚½ãƒƒãƒ‰ ===
 
     private void Awake()
     {
@@ -100,13 +100,13 @@ public class Fragment : MonoBehaviour
 
     private void Start()
     {
-        // ‰Šúó‘Ô‚Ìİ’è
-        SetUpSizeForLevel(); // ƒŒƒxƒ‹‚É‰‚¶‚ÄƒTƒCƒY‚ğİ’è
+        // åˆæœŸçŠ¶æ…‹ã®è¨­å®š
+        SetUpSizeForLevel(); // ãƒ¬ãƒ™ãƒ«ã«å¿œã˜ã¦ã‚µã‚¤ã‚ºã‚’è¨­å®š
     }
 
     private void FixedUpdate()
     {
-        // Œ»İ‚Ìó‘Ô‚ªMOVING‚Ìê‡‚Ì‚İAˆÚ“®ˆ—‚ğÀs
+        // ç¾åœ¨ã®çŠ¶æ…‹ãŒMOVINGã®å ´åˆã®ã¿ã€ç§»å‹•å‡¦ç†ã‚’å®Ÿè¡Œ
         if (m_currentState == State.MOVING)
         {
             MoveOnGrid();
@@ -118,9 +118,9 @@ public class Fragment : MonoBehaviour
         if (m_level == Level.LEVEL_4)
         {
             var core =  StageObjectFactory.GetInstance().GenerateCarriableCore(null,m_stageBlock.GetGridPos(), GetComponent<EmotionCurrent>().CurrentType);
-            MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ƒOƒŠƒbƒhƒf[ƒ^‚©‚çíœ
-            MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_stageBlock.GetGridPos(), core); // ƒOƒŠƒbƒhƒf[ƒ^‚É“o˜^
-            gameObject.SetActive(false); // ƒŒƒxƒ‹4‚Ì’f•Ğ‚Í”ñƒAƒNƒeƒBƒu‚É‚·‚é
+            MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å‰Šé™¤
+            MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_stageBlock.GetGridPos(), core); // ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã«ç™»éŒ²
+            gameObject.SetActive(false); // ãƒ¬ãƒ™ãƒ«4ã®æ–­ç‰‡ã¯éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
             return;
         }
 
@@ -128,7 +128,7 @@ public class Fragment : MonoBehaviour
         {
             if (TryFindFragmentToMovementDirection(out Fragment findingFragment))
             {
-                // ’f•Ğ‚ªŒ©‚Â‚©‚Á‚½ê‡Aƒ}[ƒWƒŠƒNƒGƒXƒg‚ğ‘—‚é
+                // æ–­ç‰‡ãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã€ãƒãƒ¼ã‚¸ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ã‚‹
                 if (findingFragment != null)
                 {
                     RequestMerge(findingFragment);
@@ -139,35 +139,35 @@ public class Fragment : MonoBehaviour
         }
     }
 
-    // === ƒƒCƒ“‚Ìˆ—ƒƒ\ƒbƒh ===
+    // === ãƒ¡ã‚¤ãƒ³ã®å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ ===
 
     /// <summary>
-    /// ƒXƒe[ƒW‚ÌƒOƒŠƒbƒh‚É‰ˆ‚Á‚Ä’f•Ğ‚ğˆÚ“®‚³‚¹‚éå—v‚Èˆ—
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚°ãƒªãƒƒãƒ‰ã«æ²¿ã£ã¦æ–­ç‰‡ã‚’ç§»å‹•ã•ã›ã‚‹ä¸»è¦ãªå‡¦ç†
     /// </summary>
     private void MoveOnGrid()
     {
         var map = MapData.GetInstance;
         var stageGridData = map.GetStageGridData();
         GridPos currentGridPos = m_stageBlock.GetGridPos();
-
-        // ƒOƒŠƒbƒhÀ•W‚ª•Ï‰»‚µ‚½ê‡A‚ ‚İ‚¾‚ÌŒ‹‚Ñ–Ú”»’è‚ğs‚¤
+        // ç§»å‹•å…ˆã«éšœå®³ç‰©ãŒãªã„ã‹ç¢ºèªã—ã€ã‚ã‚Œã°æ–¹å‘è»¢æ›ã™ã‚‹
+        CheckAndReverseDirection();
+        // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ãŒå¤‰åŒ–ã—ãŸå ´åˆã€ã‚ã¿ã ã®çµã³ç›®åˆ¤å®šã‚’è¡Œã†
         if (m_prevGridPos != currentGridPos)
         {
             HandleAmidaTubeLogic(currentGridPos, stageGridData, map);
         }
 
-        // ˆÚ“®æ‚ÉáŠQ•¨‚ª‚È‚¢‚©Šm”F‚µA‚ ‚ê‚Î•ûŒü“]Š·‚·‚é
-        CheckAndReverseDirection();
 
-        // ÀÛ‚ÌˆÚ“®ˆ—
+
+        // å®Ÿéš›ã®ç§»å‹•å‡¦ç†
         ApplyMovement(map);
 
-        // Œ»İ‚ÌƒOƒŠƒbƒhÀ•W‚ğXV
+        // ç¾åœ¨ã®ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã‚’æ›´æ–°
         m_stageBlock.UpdatePosition(map.GetClosestGridPos(transform.position), false);
     }
 
     /// <summary>
-    /// ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ì‰Šú‰»‚ğs‚¤
+    /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®åˆæœŸåŒ–ã‚’è¡Œã†
     /// </summary>
     private void InitializeComponents()
     {
@@ -179,29 +179,29 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ‚ ‚İ‚¾‚ÌŒ‹‚Ñ–Ú‚É“’B‚µ‚½ê‡AˆÚ“®•ûŒü‚ğØ‚è‘Ö‚¦‚é
+    /// ã‚ã¿ã ã®çµã³ç›®ã«åˆ°é”ã—ãŸå ´åˆã€ç§»å‹•æ–¹å‘ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
     /// </summary>
-    /// <param name="currentGridPos">Œ»İ‚ÌƒOƒŠƒbƒhÀ•W</param>
-    /// <param name="stageGridData">ƒXƒe[ƒW‚ÌƒOƒŠƒbƒhƒf[ƒ^</param>
-    /// <param name="map">ƒ}ƒbƒvƒf[ƒ^</param>
+    /// <param name="currentGridPos">ç¾åœ¨ã®ã‚°ãƒªãƒƒãƒ‰åº§æ¨™</param>
+    /// <param name="stageGridData">ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿</param>
+    /// <param name="map">ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿</param>
     private void HandleAmidaTubeLogic(GridPos currentGridPos, StageGridData stageGridData, MapData map)
     {
-        // ƒ^ƒCƒ‹‚Ì’†SÀ•W‚ğæ“¾‚µAƒvƒŒƒCƒ„[‚ª’†S‚É“’B‚µ‚½‚©‚ğ”»’è‚·‚é
+        // ã‚¿ã‚¤ãƒ«ã®ä¸­å¿ƒåº§æ¨™ã‚’å–å¾—ã—ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¸­å¿ƒã«åˆ°é”ã—ãŸã‹ã‚’åˆ¤å®šã™ã‚‹
         if (IsNearTileCenter(currentGridPos, map))
         {
             var amidaTube = stageGridData.GetAmidaTube(currentGridPos);
 
             if (amidaTube != null)
             {
-                // ‚ ‚İ‚¾‚ÌŒ‹‚Ñ–Ú‚Ìó‘Ô‚É‰‚¶‚Ä•ûŒü‚ğØ‚è‘Ö‚¦‚é
+                // ã‚ã¿ã ã®çµã³ç›®ã®çŠ¶æ…‹ã«å¿œã˜ã¦æ–¹å‘ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
                 switch (amidaTube.GetState())
                 {
                     case AmidaTube.State.KNOT_DOWN:
-                        // ã•ûŒü‚©‚ç—ˆ‚½ê‡A‰¡•ûŒü‚ÖB‚»‚êˆÈŠO‚Í‰º•ûŒü‚Ö
+                        // ä¸Šæ–¹å‘ã‹ã‚‰æ¥ãŸå ´åˆã€æ¨ªæ–¹å‘ã¸ã€‚ãã‚Œä»¥å¤–ã¯ä¸‹æ–¹å‘ã¸
                         m_currentMovementDirection = (m_currentMovementDirection == MovementDirectionID.UP) ? m_currentSideDirection : MovementDirectionID.DOWN;
                         break;
                     case AmidaTube.State.KNOT_UP:
-                        // ‰º•ûŒü‚©‚ç—ˆ‚½ê‡A‰¡•ûŒü‚ÖB‚»‚êˆÈŠO‚Íã•ûŒü‚Ö
+                        // ä¸‹æ–¹å‘ã‹ã‚‰æ¥ãŸå ´åˆã€æ¨ªæ–¹å‘ã¸ã€‚ãã‚Œä»¥å¤–ã¯ä¸Šæ–¹å‘ã¸
                         m_currentMovementDirection = (m_currentMovementDirection == MovementDirectionID.DOWN) ? m_currentSideDirection : MovementDirectionID.UP;
                         break;
                 }
@@ -212,11 +212,11 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ªƒ^ƒCƒ‹‚Ì’†S‚É‹ß‚Ã‚¢‚½‚©‚ğ”»’è‚·‚é
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¿ã‚¤ãƒ«ã®ä¸­å¿ƒã«è¿‘ã¥ã„ãŸã‹ã‚’åˆ¤å®šã™ã‚‹
     /// </summary>
-    /// <param name="currentGridPos">Œ»İ‚ÌƒOƒŠƒbƒhÀ•W</param>
-    /// <param name="map">ƒ}ƒbƒvƒf[ƒ^</param>
-    /// <returns>’†S‚É“’B‚µ‚½‚©‚Ç‚¤‚©‚Ì^‹U’l</returns>
+    /// <param name="currentGridPos">ç¾åœ¨ã®ã‚°ãƒªãƒƒãƒ‰åº§æ¨™</param>
+    /// <param name="map">ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿</param>
+    /// <returns>ä¸­å¿ƒã«åˆ°é”ã—ãŸã‹ã©ã†ã‹ã®çœŸå½å€¤</returns>
     private bool IsNearTileCenter(GridPos currentGridPos, MapData map)
     {
         Vector3 centerTileWorldPos = map.ConvertGridToWorldPos(currentGridPos.x, currentGridPos.y);
@@ -248,11 +248,11 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ‘O•û‚ÉáŠQ•¨‚ª‚È‚¢‚©Šm”F‚µA‚ ‚ê‚Î•ûŒü“]Š·‚·‚é
+    /// å‰æ–¹ã«éšœå®³ç‰©ãŒãªã„ã‹ç¢ºèªã—ã€ã‚ã‚Œã°æ–¹å‘è»¢æ›ã™ã‚‹
     /// </summary>
     private void CheckAndReverseDirection()
     {
-        // Œ»İ‚ÌˆÚ“®•ûŒü‚É‰‚¶‚½ƒxƒNƒgƒ‹‚ğæ“¾
+        // ç¾åœ¨ã®ç§»å‹•æ–¹å‘ã«å¿œã˜ãŸãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—
         Vector3 movedDirection = GetMovementDirectionVector(m_currentMovementDirection);
         Ray ray = new Ray(m_stageBlock.transform.position, movedDirection);
 
@@ -260,28 +260,29 @@ public class Fragment : MonoBehaviour
         {
             if (!hit.collider.gameObject.CompareTag("Player"))
             {
-                // ƒvƒŒƒCƒ„[ˆÈŠO‚ÉÕ“Ë‚µ‚½ê‡A•ûŒü‚ğ”½“]
+                // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ä»¥å¤–ã«è¡çªã—ãŸå ´åˆã€æ–¹å‘ã‚’åè»¢
                 m_currentMovementDirection = ReverseDirection(m_currentMovementDirection);
+                m_prevGridPos = m_prevGridPos + m_stageBlock.GetGridPos();
             }
         }
     }
 
     /// <summary>
-    /// ÀÛ‚ÌˆÚ“®‚ğ“K—p‚·‚é
+    /// å®Ÿéš›ã®ç§»å‹•ã‚’é©ç”¨ã™ã‚‹
     /// </summary>
-    /// <param name="map">ƒ}ƒbƒvƒf[ƒ^</param>
+    /// <param name="map">ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿</param>
     private void ApplyMovement(MapData map)
     {
-        // ‘¬“x‚ğ“K—p‚µ‚ÄˆÊ’u‚ğXV
+        // é€Ÿåº¦ã‚’é©ç”¨ã—ã¦ä½ç½®ã‚’æ›´æ–°
         transform.position += GetMovementDirectionVector(m_currentMovementDirection) * m_speed;
 
-        // ‰¡•ûŒü‚ÌˆÚ“®‚ğ‹L‰¯
+        // æ¨ªæ–¹å‘ã®ç§»å‹•ã‚’è¨˜æ†¶
         if (m_currentMovementDirection == MovementDirectionID.LEFT || m_currentMovementDirection == MovementDirectionID.RIGHT)
         {
             m_currentSideDirection = m_currentMovementDirection;
         }
 
-        // ˆÚ“®•ûŒü‚É‰‚¶‚ÄZ‚Ü‚½‚ÍXÀ•W‚ğƒOƒŠƒbƒh‚É‡‚í‚¹‚é
+        // ç§»å‹•æ–¹å‘ã«å¿œã˜ã¦Zã¾ãŸã¯Xåº§æ¨™ã‚’ã‚°ãƒªãƒƒãƒ‰ã«åˆã‚ã›ã‚‹
         var closestGridPos = map.GetClosestGridPos(transform.position);
         var snappedPosition = map.ConvertGridToWorldPos(closestGridPos);
 
@@ -295,13 +296,13 @@ public class Fragment : MonoBehaviour
         }
     }
 
-    // === ƒ†[ƒeƒBƒŠƒeƒBƒƒ\ƒbƒh ===
+    // === ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ãƒ¡ã‚½ãƒƒãƒ‰ ===
 
     /// <summary>
-    /// ˆÚ“®•ûŒüID‚ğ‘Î‰‚·‚éVector3‚É•ÏŠ·‚·‚é
+    /// ç§»å‹•æ–¹å‘IDã‚’å¯¾å¿œã™ã‚‹Vector3ã«å¤‰æ›ã™ã‚‹
     /// </summary>
-    /// <param name="movementDirection">ˆÚ“®•ûŒüID</param>
-    /// <returns>‘Î‰‚·‚éVector3ƒxƒNƒgƒ‹</returns>
+    /// <param name="movementDirection">ç§»å‹•æ–¹å‘ID</param>
+    /// <returns>å¯¾å¿œã™ã‚‹Vector3ãƒ™ã‚¯ãƒˆãƒ«</returns>
     private static Vector3 GetMovementDirectionVector(MovementDirectionID movementDirection)
     {
         return movementDirection switch
@@ -315,10 +316,10 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ˆÚ“®•ûŒü‚ğ”½“]‚³‚¹‚é
+    /// ç§»å‹•æ–¹å‘ã‚’åè»¢ã•ã›ã‚‹
     /// </summary>
-    /// <param name="direction">Œ»İ‚Ì•ûŒüID</param>
-    /// <returns>”½“]Œã‚Ì•ûŒüID</returns>
+    /// <param name="direction">ç¾åœ¨ã®æ–¹å‘ID</param>
+    /// <returns>åè»¢å¾Œã®æ–¹å‘ID</returns>
     private static MovementDirectionID ReverseDirection(MovementDirectionID direction)
     {
         return direction switch
@@ -334,7 +335,7 @@ public class Fragment : MonoBehaviour
 
 
     /// <summary>
-    /// ˆÚ“®•ûŒü‚É‚É‘z‚¢‚Ì’f•Ğ‚ª‚ ‚é‚©‚ğŠm”F‚·‚é
+    /// ç§»å‹•æ–¹å‘ã«ã«æƒ³ã„ã®æ–­ç‰‡ãŒã‚ã‚‹ã‹ã‚’ç¢ºèªã™ã‚‹
     /// </summary>
     /// <returns></returns>
     private bool TryFindFragmentToMovementDirection(out Fragment findingFragment)
@@ -345,7 +346,7 @@ public class Fragment : MonoBehaviour
         if (Physics.Raycast(ray, out hit, m_raycastDistance + 1.0f))
         {
     
-            // ’f•Ğ‚ªŒ©‚Â‚©‚Á‚½ê‡Aƒ}[ƒWƒŠƒNƒGƒXƒg‚ğ‘—‚é
+            // æ–­ç‰‡ãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã€ãƒãƒ¼ã‚¸ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ã‚‹
             Fragment fragment = hit.collider.GetComponent<Fragment>();
             if (fragment != null && hit.collider.GetComponent<EmotionCurrent>().CurrentType == GetComponent<EmotionCurrent>().CurrentType)
             {
@@ -359,9 +360,9 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// ‘z‚¢‚Ì’f•Ğ‚ğƒ}[ƒW‚·‚éƒŠƒNƒGƒXƒg‚ğ‘—‚é
+    /// æƒ³ã„ã®æ–­ç‰‡ã‚’ãƒãƒ¼ã‚¸ã™ã‚‹ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ã‚‹
     /// </summary>
-    /// <param name="fragment">ƒ}[ƒW‚·‚é‘Šè‚Ì’f•Ğ</param>
+    /// <param name="fragment">ãƒãƒ¼ã‚¸ã™ã‚‹ç›¸æ‰‹ã®æ–­ç‰‡</param>
     public void RequestMerge(Fragment fragment)
     {
         if ((int)(fragment.level) < (int)(m_level))
@@ -380,17 +381,17 @@ public class Fragment : MonoBehaviour
             }
         }
 
-        gameObject.SetActive(false); // ©•ª©g‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚é
-        MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ƒOƒŠƒbƒhƒf[ƒ^‚©‚çíœ
+        gameObject.SetActive(false); // è‡ªåˆ†è‡ªèº«ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+        MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å‰Šé™¤
 
 
     }
 
     private void MergeFragment(Fragment fragment)
     {
-        // ’f•Ğ‚ÌƒŒƒxƒ‹‚ğXV
+        // æ–­ç‰‡ã®ãƒ¬ãƒ™ãƒ«ã‚’æ›´æ–°
         IncrementLevel(fragment.level);
-        // ƒŒƒxƒ‹‚É‰‚¶‚ÄƒTƒCƒY‚ğİ’è
+        // ãƒ¬ãƒ™ãƒ«ã«å¿œã˜ã¦ã‚µã‚¤ã‚ºã‚’è¨­å®š
         SetUpSizeForLevel(); 
 
         
@@ -398,16 +399,16 @@ public class Fragment : MonoBehaviour
 
     void IncrementLevel(Level level)
     {
-        m_level = (Level)(Math.Min((int)(m_level) + (int)(level), (int)(Level.LEVEL_4))); // ƒŒƒxƒ‹‚ğXV
+        m_level = (Level)(Math.Min((int)(m_level) + (int)(level), (int)(Level.LEVEL_4))); // ãƒ¬ãƒ™ãƒ«ã‚’æ›´æ–°
 
     }
 
     /// <summary>
-    /// ƒŒƒxƒ‹‚É‰‚¶‚Ä’f•Ğ‚ÌƒTƒCƒY‚ğİ’è‚·‚é
+    /// ãƒ¬ãƒ™ãƒ«ã«å¿œã˜ã¦æ–­ç‰‡ã®ã‚µã‚¤ã‚ºã‚’è¨­å®šã™ã‚‹
     /// </summary>
     void SetUpSizeForLevel()
     {
-        float targetSize = LEVEL_1_SIZE; // ƒfƒtƒHƒ‹ƒg‚ÍƒŒƒxƒ‹1‚ÌƒTƒCƒY
+        float targetSize = LEVEL_1_SIZE; // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ãƒ¬ãƒ™ãƒ«1ã®ã‚µã‚¤ã‚º
 
         switch (m_level)
         {
@@ -418,14 +419,14 @@ public class Fragment : MonoBehaviour
                 targetSize = LEVEL_3_SIZE;
                 break;
             case Level.LEVEL_4:
-                // ƒŒƒxƒ‹4‚ÍÅ‘åƒTƒCƒY‚È‚Ì‚Å“Á‚Éİ’è‚µ‚È‚¢
+                // ãƒ¬ãƒ™ãƒ«4ã¯æœ€å¤§ã‚µã‚¤ã‚ºãªã®ã§ç‰¹ã«è¨­å®šã—ãªã„
                 break;
         }
 
         
 
         transform.DOScale(targetSize, 1.0f).SetEase(Ease.OutBounce, SIZE_CHANGE_DURATION);
-        m_raycastDistance = 0.5f * targetSize; // ƒŒƒxƒ‹‚É‰‚¶‚ÄƒŒƒCƒLƒƒƒXƒg‚Ì‹——£‚ğ’²®
+        m_raycastDistance = 0.5f * targetSize; // ãƒ¬ãƒ™ãƒ«ã«å¿œã˜ã¦ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆã®è·é›¢ã‚’èª¿æ•´
     }
 
 }

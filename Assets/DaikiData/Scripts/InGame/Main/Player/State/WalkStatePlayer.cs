@@ -49,10 +49,12 @@ public class WalkStatePlayer : PlayerState
         else
         {
 
-            // 編む処理を試みる
-            owner.TryKnit();
+        
             // test
             owner.TryForwardObjectSetting();
+
+            // 編む処理を試みる
+            owner.TryKnit();
 
             owner.TryPushBlock();
 

@@ -88,7 +88,12 @@ public class FeltBlockMove
     /// <returns></returns>
     public override Transform GetMoveTransform()
     {
-        return m_pairBadge.transform;
+        if (m_pairBadge != null)
+        {
+            // ペアワッペンがある場合はペアワッペンのTransformを返す
+            return m_pairBadge.transform;
+        }
+        return transform;
     }
 
 }

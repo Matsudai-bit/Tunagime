@@ -89,7 +89,7 @@ public class PushBlockStatePlayer : PlayerState
 
         if (m_lerpValue >= 1.0f)
         {
-            owner.TryForwardObjectSetting();
+            FinishPush();
             // 待機状態に遷移
             if (owner.TryPushBlock() == false)
             {
@@ -113,17 +113,25 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnFinishState()
     {
+        //if (owner.GetStateMachine().GetStateID() == PlayerStateID.PUSH_BLOCK)
+        //{
+            m_animationEventHandler.StopAnimation(); // アニメーションを停止
+        //}
+
+    }
+
+    private void FinishPush()
+    {
         // 念のため
         m_tileMovement.GetMoveTransform().position = m_endPosition; // プレイヤーの位置を目標位置に設定
         owner.transform.SetParent(null); // ブロックの親を解除
                                          // ブロックを押す処理
         m_tileMovement.RequestMove(owner.GetForwardDirection());
 
-        m_animationEventHandler.StopAnimation(); // アニメーションを停止
 
 
         //フェルトブロックを押したことを通知
-        GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK); 
+        GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);
     }
 
     /// <summary>

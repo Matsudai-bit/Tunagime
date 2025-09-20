@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 
@@ -7,21 +7,21 @@ using UnityEngine;
 public class PlayerStateMachine 
 {
 
-    // Œ»İ‚ÌƒvƒŒƒCƒ„[‚Ìó‘Ô
+    // ç¾åœ¨ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹
     private PlayerState m_currentState;
-    // Ÿ‚ÌƒvƒŒƒCƒ„[‚Ìó‘Ô‚Ì—v‹
+    // æ¬¡ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã®è¦æ±‚
     private PlayerStateID m_requestedStateID;
 
-    // Š—LÒ
+    // æ‰€æœ‰è€…
     private Player m_owner;
 
 
-    // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     public PlayerStateMachine(Player owner)
     {
         m_owner = owner;
-        m_requestedStateID = PlayerStateID.NONE; // ‰Šúó‘Ô‚Í‚È‚µ
-        m_currentState = null; // ‰Šúó‘Ô‚Ínull
+        m_requestedStateID = PlayerStateID.NONE; // åˆæœŸçŠ¶æ…‹ã¯ãªã—
+        m_currentState = null; // åˆæœŸçŠ¶æ…‹ã¯null
     }
 
 
@@ -34,21 +34,21 @@ public class PlayerStateMachine
     // Update is called once per frame
     public void UpdateState()
     {
-        // ó‘Ô‚Ì•ÏX—v‹‚ª‚ ‚éê‡
+        // çŠ¶æ…‹ã®å¤‰æ›´è¦æ±‚ãŒã‚ã‚‹å ´åˆ
         if (m_requestedStateID != PlayerStateID.NONE )
         {
 
-            // •ÏX—v‹‚³‚ê‚½ó‘Ô‚É‘JˆÚ
+            // å¤‰æ›´è¦æ±‚ã•ã‚ŒãŸçŠ¶æ…‹ã«é·ç§»
             ChangeState(m_requestedStateID);
-            m_requestedStateID = PlayerStateID.NONE; // ƒŠƒZƒbƒg
+            m_requestedStateID = PlayerStateID.NONE; // ãƒªã‚»ãƒƒãƒˆ
 
   
         }
 
-        // Œ»İ‚Ìó‘Ô‚ªnull‚Å‚È‚¢ê‡AUpdateState‚ğŒÄ‚Ño‚·
+        // ç¾åœ¨ã®çŠ¶æ…‹ãŒnullã§ãªã„å ´åˆã€UpdateStateã‚’å‘¼ã³å‡ºã™
         if (m_currentState != null)
         {
-            // Œ»İ‚Ìó‘Ô‚ÌUpdateState‚ğŒÄ‚Ño‚·
+            // ç¾åœ¨ã®çŠ¶æ…‹ã®UpdateStateã‚’å‘¼ã³å‡ºã™
             m_currentState.OnUpdateState();
         }
 
@@ -56,39 +56,39 @@ public class PlayerStateMachine
 
     public void FixedUpdateState()
     {
-        // Œ»İ‚Ìó‘Ô‚ªnull‚Å‚È‚¢ê‡AFixedUpdateState‚ğŒÄ‚Ño‚·
+        // ç¾åœ¨ã®çŠ¶æ…‹ãŒnullã§ãªã„å ´åˆã€FixedUpdateStateã‚’å‘¼ã³å‡ºã™
         if (m_currentState != null)
         {
-            // Œ»İ‚Ìó‘Ô‚ÌFixedUpdateState‚ğŒÄ‚Ño‚·
+            // ç¾åœ¨ã®çŠ¶æ…‹ã®FixedUpdateStateã‚’å‘¼ã³å‡ºã™
             m_currentState.OnFixedUpdateState();
         }
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğ•ÏX‚·‚é—v‹‚ğİ’è
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’å¤‰æ›´ã™ã‚‹è¦æ±‚ã‚’è¨­å®š
     /// </summary>
     /// <param name="newStateID"></param>
     public void RequestStateChange(PlayerStateID newStateID)
     {
-        // V‚µ‚¢ó‘Ô‚Ì—v‹‚ğİ’è
+        // æ–°ã—ã„çŠ¶æ…‹ã®è¦æ±‚ã‚’è¨­å®š
         m_requestedStateID = newStateID;
     }
 
     /// <summary>
-    /// ó‘Ô‚Ì•ÏX
+    /// çŠ¶æ…‹ã®å¤‰æ›´
     /// </summary>
     /// <param name="newStateID"></param>
     private void ChangeState(PlayerStateID newStateID)
     {
-        // Œ»İ‚Ìó‘Ô‚ª‘¶İ‚·‚éê‡AI—¹ˆ—‚ğŒÄ‚Ño‚·
+        // ç¾åœ¨ã®çŠ¶æ…‹ãŒå­˜åœ¨ã™ã‚‹å ´åˆã€çµ‚äº†å‡¦ç†ã‚’å‘¼ã³å‡ºã™
         if (m_currentState != null)
         {
             m_currentState.OnFinishState();
         }
-        // V‚µ‚¢ó‘Ô‚ğæ“¾
+        // æ–°ã—ã„çŠ¶æ…‹ã‚’å–å¾—
         m_currentState = GetState(newStateID);
 
-        // V‚µ‚¢ó‘Ô‚ª‘¶İ‚·‚éê‡AŠJnˆ—‚ğŒÄ‚Ño‚·
+        // æ–°ã—ã„çŠ¶æ…‹ãŒå­˜åœ¨ã™ã‚‹å ´åˆã€é–‹å§‹å‡¦ç†ã‚’å‘¼ã³å‡ºã™
         if (m_currentState != null)
         {
             m_currentState.OnStartState();
@@ -97,7 +97,7 @@ public class PlayerStateMachine
 
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğæ“¾‚·‚é
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹
     /// </summary>
     /// <param name="stateID"></param>
     /// <returns></returns>
@@ -125,5 +125,18 @@ public class PlayerStateMachine
                 Debug.LogError("Unknown state ID: " + stateID);
                 return null;
         }
+    }
+
+    public PlayerStateID GetStateID()
+    {
+        if (m_currentState is IdleStatePlayer) return PlayerStateID.IDLE;
+        if (m_currentState is WalkStatePlayer) return PlayerStateID.WALK;
+        if (m_currentState is PickUpStatePlayer) return PlayerStateID.PICK_UP;
+        if (m_currentState is PutDownStatePlayer) return PlayerStateID.PUT_DOWN;
+        if (m_currentState is KnitStatePlayer) return PlayerStateID.KNIT;
+        if (m_currentState is UnknitStatePlayer) return PlayerStateID.UNKNIT;
+        if (m_currentState is PushBlockStatePlayer) return PlayerStateID.PUSH_BLOCK;
+        if (m_currentState is SlipperStatePlayer) return PlayerStateID.SLIPPER;
+        return PlayerStateID.NONE;
     }
 }

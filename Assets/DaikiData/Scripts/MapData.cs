@@ -1,9 +1,9 @@
-using System.Xml.Schema;
+ï»¿using System.Xml.Schema;
 using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// ƒOƒŠƒbƒhÀ•W
+/// ã‚°ãƒªãƒƒãƒ‰åº§æ¨™
 /// </summary>
 [System.Serializable]
 public struct GridPos
@@ -23,38 +23,38 @@ public struct GridPos
     public static GridPos operator +(GridPos lhs, GridPos rhs) => new GridPos(lhs.x + rhs.x, lhs.y + rhs.y);
     public static GridPos operator -(GridPos lhs, GridPos rhs) => new GridPos(lhs.x - rhs.x, lhs.y - rhs.y);
 
-    // == ‰‰Zq‚ÌƒI[ƒo[ƒ[ƒh
+    // == æ¼”ç®—å­ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
     public static bool operator ==(GridPos lhs, GridPos rhs)
     {
         return lhs.x == rhs.x && lhs.y == rhs.y;
     }
 
-    // != ‰‰Zq‚ÌƒI[ƒo[ƒ[ƒh
+    // != æ¼”ç®—å­ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
     public static bool operator !=(GridPos lhs, GridPos rhs)
     {
         return !(lhs == rhs);
     }
 
-    // Equals ƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh (object”Å)
+    // Equals ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ (objectç‰ˆ)
     public override bool Equals(object obj)
     {
         if (obj is GridPos other)
         {
-            return Equals(other); // IEquatable”Å‚ğŒÄ‚Ño‚·
+            return Equals(other); // IEquatableç‰ˆã‚’å‘¼ã³å‡ºã™
         }
         return false;
     }
 
-    // IEquatable<T> ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌÀ‘•
+    // IEquatable<T> ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®å®Ÿè£…
     public bool Equals(GridPos other)
     {
         return x == other.x && y == other.y;
     }
 
-    // GetHashCode ƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+    // GetHashCode ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
     public override int GetHashCode()
     {
-        // Tuple.GetHashCode() ‚ğg‚¤‚ÆŠÈ’P‚É•¡”‚Ì’l‚ğ‘g‚İ‡‚í‚¹‚½ƒnƒbƒVƒ…‚ğ¶¬‚Å‚«‚é
+        // Tuple.GetHashCode() ã‚’ä½¿ã†ã¨ç°¡å˜ã«è¤‡æ•°ã®å€¤ã‚’çµ„ã¿åˆã‚ã›ãŸãƒãƒƒã‚·ãƒ¥ã‚’ç”Ÿæˆã§ãã‚‹
         return (x, y).GetHashCode();
     }
 }
@@ -63,32 +63,32 @@ public struct GridPos
 
 public class MapData : MonoBehaviour
 {
-    [Header("====== ƒXƒe[ƒW¶¬Ší(‰½ƒXƒe[ƒW)‚Ìİ’è ======")]
+    [Header("====== ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨(ä½•ã‚¹ãƒ†ãƒ¼ã‚¸)ã®è¨­å®š ======")]
     [SerializeField] 
-    private GameObject m_stageGenerator; // ƒXƒe[ƒW¶¬Ší‚ÌQÆ
+    private GameObject m_stageGenerator; // ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨ã®å‚ç…§
 
-    // 1. static‚ÈreadonlyƒtƒB[ƒ‹ƒh‚ÅƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Û
-    //    ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‹N“®‚ÉƒCƒ“ƒXƒ^ƒ“ƒX‚ªì¬‚³‚ê‚Ü‚·B
+    // 1. staticãªreadonlyãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä¿æŒ
+    //    ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³èµ·å‹•æ™‚ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒä½œæˆã•ã‚Œã¾ã™ã€‚
     private static MapData s_instance ;
 
 
-    // —Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ÉƒAƒNƒZƒX‚·‚é‚½‚ß‚ÌƒvƒƒpƒeƒB
+    // å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãŸã‚ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     public static MapData GetInstance
     {
         get
         {
-            // ƒV[ƒ“ã‚ÉƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚µ‚È‚¢ê‡
+            // ã‚·ãƒ¼ãƒ³ä¸Šã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã—ãªã„å ´åˆ
             if (s_instance == null)
             {
-                // ƒV[ƒ““à‚©‚çMapData‚ğŒŸõ
+                // ã‚·ãƒ¼ãƒ³å†…ã‹ã‚‰MapDataã‚’æ¤œç´¢
 
-                // ‚»‚ê‚Å‚àŒ©‚Â‚©‚ç‚È‚¢ê‡
+                // ãã‚Œã§ã‚‚è¦‹ã¤ã‹ã‚‰ãªã„å ´åˆ
                 if (s_instance == null)
                 {
-                    // V‚µ‚¢GameObject‚ğì¬‚µAMapDataƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ’Ç‰Á‚·‚é
+                    // æ–°ã—ã„GameObjectã‚’ä½œæˆã—ã€MapDataã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’è¿½åŠ ã™ã‚‹
                     GameObject singletonObject = new GameObject(typeof(MapData).Name);
                     s_instance = singletonObject.AddComponent<MapData>();
-                    Debug.Log($"[MapData] ƒVƒ“ƒOƒ‹ƒgƒ“‚ğ¶¬‚µ‚Ü‚µ‚½: {singletonObject.name}");
+                    Debug.Log($"[MapData] ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚’ç”Ÿæˆã—ã¾ã—ãŸ: {singletonObject.name}");
 
                     
                 }
@@ -99,31 +99,31 @@ public class MapData : MonoBehaviour
 
     private void Awake()
     {
-        // Šù‚ÉƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚·‚éê‡
+        // æ—¢ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã™ã‚‹å ´åˆ
         if (s_instance != null && s_instance != this)
         {
-            // ‚±‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü‚µ‚ÄAd•¡‚ğ”ğ‚¯‚é
+            // ã“ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„ã—ã¦ã€é‡è¤‡ã‚’é¿ã‘ã‚‹
             Destroy(this.gameObject);
             return;
         }
 
-        // ƒV[ƒ“ã‚Ì—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚µ‚Ä©g‚ğ“o˜^
+        // ã‚·ãƒ¼ãƒ³ä¸Šã®å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦è‡ªèº«ã‚’ç™»éŒ²
         s_instance = this;
 
-        // ƒV[ƒ“‚ğŒ×‚¢‚Å‘¶‘±‚³‚¹‚é
+        // ã‚·ãƒ¼ãƒ³ã‚’è·¨ã„ã§å­˜ç¶šã•ã›ã‚‹
         DontDestroyOnLoad(this.gameObject);
 
      
     }
 
     /// <summary>
-    /// ƒ}ƒbƒvƒf[ƒ^‚Ì‰Šú‰»
+    /// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
     /// </summary>
     public void Initialize()
     {
         InitializeMapData();
 
-        // ƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾
+        // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå–å¾—
         m_stageGridData = GetComponent<StageGridData>();
         m_stageGridData.Initialize(m_commonData.width, m_commonData.height);
         
@@ -131,7 +131,7 @@ public class MapData : MonoBehaviour
 
     public void InitializeMapData()
     {
-        // ƒ}ƒbƒvİ’è‚ğó‚¯æ‚Á‚Ä‰Šú‰»
+        // ãƒãƒƒãƒ—è¨­å®šã‚’å—ã‘å–ã£ã¦åˆæœŸåŒ–
         if (m_mapSetting != null)
         {
             m_commonData.width = m_mapSetting.width;
@@ -142,28 +142,28 @@ public class MapData : MonoBehaviour
         }
         else
         {
-            Debug.LogError("MapData: ƒ}ƒbƒvİ’è‚ª–¢İ’è‚Å‚·B");
+            Debug.LogError("MapData: ãƒãƒƒãƒ—è¨­å®šãŒæœªè¨­å®šã§ã™ã€‚");
         }
     }
 
 
     /// <summary>
-    /// ‹¤’Êƒf[ƒ^
+    /// å…±é€šãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [System.Serializable]
     public struct CommonData
     {
-        public int width;     // ‰¡•iƒ^ƒCƒ‹”
-        public int height;    // c• (ƒ^ƒCƒ‹”)
-        public Vector2 center;// ’†SÀ•W
+        public int width;     // æ¨ªå¹…ï¼ˆã‚¿ã‚¤ãƒ«æ•°
+        public int height;    // ç¸¦å¹… (ã‚¿ã‚¤ãƒ«æ•°)
+        public Vector2 center;// ä¸­å¿ƒåº§æ¨™
          
-        public float tileSize; // ƒ^ƒCƒ‹‚ÌƒTƒCƒY
+        public float tileSize; // ã‚¿ã‚¤ãƒ«ã®ã‚µã‚¤ã‚º
 
         public float BaseTilePosY;
 
     }
 
-    [SerializeField] private MapSetting m_mapSetting; // ƒ}ƒbƒvİ’è
+    [SerializeField] private MapSetting m_mapSetting; // ãƒãƒƒãƒ—è¨­å®š
 
 
     [SerializeField] private CommonData m_commonData;
@@ -173,16 +173,16 @@ public class MapData : MonoBehaviour
     private StageGridData m_stageGridData;
 
     /// <summary>
-    /// ‹¤’Êƒf[ƒ^‚Ìæ“¾
+    /// å…±é€šãƒ‡ãƒ¼ã‚¿ã®å–å¾—
     /// </summary>
-    /// <returns>‹¤’Êƒf[ƒ^</returns>
+    /// <returns>å…±é€šãƒ‡ãƒ¼ã‚¿</returns>
     public CommonData GetCommonData()
     {
         return m_commonData;
     }
 
     /// <summary>
-    /// ƒXƒe[ƒW‚Ì”wŒiƒvƒŒƒnƒu‚Ìæ“¾
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ã®èƒŒæ™¯ãƒ—ãƒ¬ãƒãƒ–ã®å–å¾—
     /// </summary>
     /// <returns></returns>
     public GameObject GetStagePrefab()
@@ -191,24 +191,24 @@ public class MapData : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒe[ƒWƒOƒŠƒbƒhƒf[ƒ^‚Ìæ“¾
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
     /// </summary>
-    /// <returns>ƒXƒe[ƒWƒOƒŠƒbƒhƒf[ƒ^</returns>
+    /// <returns>ã‚¹ãƒ†ãƒ¼ã‚¸ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿</returns>
     public StageGridData GetStageGridData()
     {
         return m_stageGridData;
     }
 
     /// <summary>
-    /// ƒOƒŠƒbƒhiƒXƒe[ƒWj‚Ì¶ãÀ•W‚Ìæ“¾
+    /// ã‚°ãƒªãƒƒãƒ‰ï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸ï¼‰ã®å·¦ä¸Šåº§æ¨™ã®å–å¾—
     /// </summary>
     /// <returns></returns>
     public Vector2 GetStageLeftTopPos()
     {
         //Transform gridTileTopLefTrans = m_stageGridData.GetTileData[0, 0].floor.transform;
-        //// ƒOƒŠƒbƒh‚Ìƒ^ƒCƒ‹‚Ìˆê”Ô’[i¶ãj‚ÌÀ•W‚Ì‚ğæ“¾ (‚x²‚Í–³‹‚·‚é)
+        //// ã‚°ãƒªãƒƒãƒ‰ã®ã‚¿ã‚¤ãƒ«ã®ä¸€ç•ªç«¯ï¼ˆå·¦ä¸Šï¼‰ã®åº§æ¨™ã®ã‚’å–å¾— (ï¼¹è»¸ã¯ç„¡è¦–ã™ã‚‹)
         //Vector2 gridTileLeftTopPos = new Vector2(gridTileTopLefTrans.transform.position.x, gridTileTopLefTrans.transform.position.z);
-        //// ƒ^ƒCƒ‹‚ÌŠp(¶ã)À•W‚ğ‹‚ß‚é
+        //// ã‚¿ã‚¤ãƒ«ã®è§’(å·¦ä¸Š)åº§æ¨™ã‚’æ±‚ã‚ã‚‹
         //Vector2 tileLeftTopPos = new Vector2(gridTileLeftTopPos.x - gridTileTopLefTrans.localScale.x / 2.0f, gridTileLeftTopPos.y + gridTileTopLefTrans.localScale.z / 2.0f);
 
         return new Vector2(m_commonData.center.x - (float)m_commonData.width / 2.0f, m_commonData.center.x + (float)m_commonData.height / 2.0f);
@@ -221,16 +221,18 @@ public class MapData : MonoBehaviour
 
 
     /// <summary>
-    /// ƒOƒŠƒbƒhÀ•W‚©‚çƒ[ƒ‹ƒhÀ•W‚Ö•ÏŠ·
+    /// ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã¸å¤‰æ›
     /// </summary>
-    /// <param name="x">ƒZƒ‹X</param>
-    /// <param name="y">ƒZƒ‹Y</param>
+    /// <param name="x">ã‚»ãƒ«X</param>
+    /// <param name="y">ã‚»ãƒ«Y</param>
     /// 
-    /// <returns>ƒ[ƒ‹ƒhÀ•W(YÀ•W‚Í0)</returns>
+    /// <returns>ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™(Yåº§æ¨™ã¯0)</returns>
     public Vector3 ConvertGridToWorldPos(int x, int y)
     {
         if (CheckInnerGridPos(new GridPos(x, y)) == false)
-            Debug.LogWarning("ƒXƒe[ƒW‚ÌƒOƒŠƒbƒh‚Ì‹«ŠEŠO‚ğw’è‚µ‚Ä‚¢‚Ü‚· (x,y) = " + x + "," + y);
+        {
+            Debug.LogWarning("ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚°ãƒªãƒƒãƒ‰ã®å¢ƒç•Œå¤–ã‚’æŒ‡å®šã—ã¦ã„ã¾ã™ (x,y) = " + x + "," + y);
+        }
 
         Vector3 worldPos;
         worldPos.x = ConvertGridToWorldPosX(x);
@@ -261,10 +263,10 @@ public class MapData : MonoBehaviour
     }
 
     /// <summary>
-    /// w’è‚µ‚½ƒZƒ‹À•W‚ªƒOƒŠƒbƒh‚Ì”ÍˆÍ“à‚É‚¢‚é‚©‚Ç‚¤‚©
+    /// æŒ‡å®šã—ãŸã‚»ãƒ«åº§æ¨™ãŒã‚°ãƒªãƒƒãƒ‰ã®ç¯„å›²å†…ã«ã„ã‚‹ã‹ã©ã†ã‹
     /// </summary>
-    /// <param name="checkGridPos">ƒ`ƒFƒbƒN‚·‚éƒOƒŠƒbƒhÀ•W</param>
-    /// <returns>ƒOƒŠƒbƒh‚Ì”ÍˆÍ“à‚É‚¢‚éê‡‚Í trueA‚»‚êˆÈŠO‚Ìê‡‚Í false</returns>
+    /// <param name="checkGridPos">ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‚°ãƒªãƒƒãƒ‰åº§æ¨™</param>
+    /// <returns>ã‚°ãƒªãƒƒãƒ‰ã®ç¯„å›²å†…ã«ã„ã‚‹å ´åˆã¯ trueã€ãã‚Œä»¥å¤–ã®å ´åˆã¯ false</returns>
     public bool CheckInnerGridPos(GridPos checkGridPos)
     {
         return CheckInnerGridPos(checkGridPos.x, checkGridPos.y);
@@ -272,7 +274,7 @@ public class MapData : MonoBehaviour
 
     public bool CheckInnerGridPos(int x, int y)
     {
-        // ƒOƒŠƒbƒh‚Ì”ÍˆÍ“à‚É‚¢‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN
+        // ã‚°ãƒªãƒƒãƒ‰ã®ç¯„å›²å†…ã«ã„ã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯
         if (x >= 0 && x < m_commonData.width &&
             y >= 0 && y < m_commonData.height)
         {
@@ -283,27 +285,27 @@ public class MapData : MonoBehaviour
 
 
     /// <summary>
-    /// w’è‚µ‚½ƒ[ƒ‹ƒhÀ•W‚Ì^‰º‚ÌÅ‚à‹ß‚¢“_‚ğ•Ô‚·@^‰º‚É“_‚ª–³‚¢ê‡‚Å‚àÅ‚à‹ß‚¢“_‚ğ•Ô‚·
+    /// æŒ‡å®šã—ãŸãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã®çœŸä¸‹ã®æœ€ã‚‚è¿‘ã„ç‚¹ã‚’è¿”ã™ã€€çœŸä¸‹ã«ç‚¹ãŒç„¡ã„å ´åˆã§ã‚‚æœ€ã‚‚è¿‘ã„ç‚¹ã‚’è¿”ã™
     /// </summary>
     /// <param name="targetPos"></param>
     /// <returns></returns>
     public GridPos GetClosestGridPos(Vector3 targetPos)
     {
       
-        // ƒXƒe[ƒW‚ÌŠp(¶ã)À•W‚ğæ“¾
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ã®è§’(å·¦ä¸Š)åº§æ¨™ã‚’å–å¾—
         Vector2 tileLeftTopPos = GetStageLeftTopPos();
 
-        // ‘ÎÛÀ•W‚ğ2D‚É•ÏŠ·‚·‚é
+        // å¯¾è±¡åº§æ¨™ã‚’2Dã«å¤‰æ›ã™ã‚‹
         Vector2 targetPosVec2 = new Vector2(targetPos.x, targetPos.z);
 
 
-        // Š„‡‚ğ‹‚ß‚é 
-        // Š„‡ : pos.x / ‰¡‚Ì’·‚³ * ƒ}ƒX”
+        // å‰²åˆã‚’æ±‚ã‚ã‚‹ 
+        // å‰²åˆ : pos.x / æ¨ªã®é•·ã• * ãƒã‚¹æ•°
         float x = targetPosVec2.x  - tileLeftTopPos.x / ((float)m_commonData.width  * (float)m_commonData.tileSize) * (float)m_commonData.width;
         float y = tileLeftTopPos.y - targetPosVec2.y / ((float)m_commonData.height * (float)m_commonData.tileSize) * (float)m_commonData.height;
 
         GridPos gridPos = new GridPos();
-        // Ø‚èÌ‚Ä‚Ä‘ã“ü
+        // åˆ‡ã‚Šæ¨ã¦ã¦ä»£å…¥
         gridPos.x = (int)(x);
         gridPos.y = (int)(y);
 
