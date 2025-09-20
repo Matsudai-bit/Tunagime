@@ -87,11 +87,9 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// <summary>
     /// スライド要求
     /// </summary>
-    private void RequestSlide()
+    public virtual void RequestSlide(GridPos velocity)
     {
-
-        // ペアワッペンがない場合は自分自身をスライド
-        StartSlide(m_prevVelocity);
+        StartSlide(velocity);
     }
 
     /// <summary>
@@ -208,11 +206,18 @@ public class MoveTile : MonoBehaviour , IMoveTile
                 break;
             case State.SLIDE:
                 // スライド状態の処理
-                RequestSlide();
+                RequestSlide(m_prevVelocity);
                 break;
         }
     }
 
-  
+    /// <summary>
+    /// 移動するTransformを取得
+    /// </summary>
+    /// <returns></returns>
+    public virtual Transform GetMoveTransform()
+    {
+        return this.transform;
+    }
 
 }

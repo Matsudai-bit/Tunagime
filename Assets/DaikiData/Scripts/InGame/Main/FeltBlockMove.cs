@@ -7,11 +7,6 @@ using UnityEngine;
 public class FeltBlockMove 
     : MoveTile
 {
-    private StageBlock m_stageBlock; // ステージブロック
-
-    private readonly float TARGET_TIME = 0.3f; // 動かすターゲット時間
-
-    private GridPos m_prevVelocity;
 
     private PairBadge m_pairBadge; // ペアワッペン
 
@@ -73,6 +68,27 @@ public class FeltBlockMove
     public void SetPairBadge(PairBadge pairBadge)
     {
         m_pairBadge = pairBadge;
+        transform.SetParent(pairBadge.transform); // ペアワッペンの子として設定
+    }
+
+    public override void RequestSlide(GridPos velocity)
+    {
+        if (m_pairBadge != null)
+        {
+            // ペアワッペンがある場合はペアワッペンにスライドを依頼
+            m_pairBadge.Slide(velocity);
+            return;
+        }
+        StartSlide(velocity); // ペアワッペンがない場合は自分自身をスライド
+    }
+
+    /// <summary>
+    /// 移動するTransformを取得
+    /// </summary>
+    /// <returns></returns>
+    public override Transform GetMoveTransform()
+    {
+        return m_pairBadge.transform;
     }
 
 }

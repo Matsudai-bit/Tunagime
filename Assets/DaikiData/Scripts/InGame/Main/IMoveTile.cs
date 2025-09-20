@@ -18,4 +18,10 @@ public interface IMoveTile
     /// <param name="moveDirection"></param>
     /// <returns></returns>
     bool CanMove(GridPos moveDirection);
+
+    /// <summary>
+    /// 移動用のTransformを取得
+    /// </summary>
+    /// <returns></returns>
+    Transform GetMoveTransform();
 }

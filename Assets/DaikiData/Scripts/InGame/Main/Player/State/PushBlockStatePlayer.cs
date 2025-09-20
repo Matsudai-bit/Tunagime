@@ -55,7 +55,7 @@ public class PushBlockStatePlayer : PlayerState
 
         var velocity = m_endPosition - m_startPosition; // ブロックを押した後の目標位置から開始位置を引いて、押す方向のベクトルを計算
 
-        m_startPosition = m_tileMovement.transform.position;
+        m_startPosition = m_tileMovement.GetMoveTransform().position;
         m_endPosition = m_startPosition + velocity; // ブロックの目標位置を設定
 
         // レイヤーの変更中フラグをリセット
@@ -72,10 +72,10 @@ public class PushBlockStatePlayer : PlayerState
         owner.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // プレイヤーの速度をリセット
 
         // フェルトブロックの方向を向く
-        owner.transform.LookAt(m_tileMovement.transform); // ブロックの目標位置を向くように設定
+        owner.transform.LookAt(m_tileMovement.GetMoveTransform()); // ブロックの目標位置を向くように設定
 
         // 子として設定
-        owner.transform.SetParent(m_tileMovement.transform);
+        owner.transform.SetParent(m_tileMovement.GetMoveTransform());
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class PushBlockStatePlayer : PlayerState
     public override void OnFinishState()
     {
         // 念のため
-        m_tileMovement.transform.position = m_endPosition; // プレイヤーの位置を目標位置に設定
+        m_tileMovement.GetMoveTransform().position = m_endPosition; // プレイヤーの位置を目標位置に設定
         owner.transform.SetParent(null); // ブロックの親を解除
                                          // ブロックを押す処理
         m_tileMovement.RequestMove(owner.GetForwardDirection());
@@ -137,7 +137,7 @@ public class PushBlockStatePlayer : PlayerState
         currentTime += Time.deltaTime; // 現在の時間を更新
 
         // ブロックの位置を更新
-        m_tileMovement.transform.position = newBlockPos;
+        m_tileMovement.GetMoveTransform().position = newBlockPos;
 
 
     }
