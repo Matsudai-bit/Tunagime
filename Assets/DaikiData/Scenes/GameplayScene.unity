@@ -1054,6 +1054,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 686594425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &898359585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 898359587}
+  - component: {fileID: 898359586}
+  m_Layer: 0
+  m_Name: PairBadgeMeshLibrary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &898359586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898359585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3b316bae8a13b4491ceae021ed6c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_meshEntries:
+  - meshType: 3
+    meshPrefab: {fileID: 919132149155446097, guid: 880412dcf81698f448bd764662aaf53a, type: 3}
+  - meshType: 2
+    meshPrefab: {fileID: 919132149155446097, guid: c8cc77df4bc48404cbeee91d07a65540, type: 3}
+  - meshType: 1
+    meshPrefab: {fileID: 919132149155446097, guid: 9d9bf6a1bac8e964a98eaf17343ca405, type: 3}
+  - meshType: 0
+    meshPrefab: {fileID: 919132149155446097, guid: 501209c2a4eaaa14aa90bbdbf218c475, type: 3}
+--- !u!4 &898359587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898359585}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.807714, y: -23.836992, z: 49.270283}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &943202808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,7 +2016,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: a9870dc05d5a3894e9523a309d5b845f, type: 2}
+      objectReference: {fileID: 11400000, guid: 5f84dde78c7a75b4481119a19c6f8913, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 
@@ -2078,3 +2131,4 @@ SceneRoots:
   - {fileID: 8775922262140195919}
   - {fileID: 7161714781694852560}
   - {fileID: 2613555648635490068}
+  - {fileID: 898359587}

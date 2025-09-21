@@ -11,18 +11,6 @@ public class FeltBlockMove
     private PairBadge m_pairBadge; // ペアワッペン
 
 
-
-    enum State
-    {
-        IDLE, // 何もしない状態
-        MOVE, // 移動状態 <- プレイヤに依存
-        SLIDE, // スライド状態
-    }
-
-    private State m_state;
-
-
-
     public override bool CanMove(GridPos moveDirection)
     { 
         // ペアワッペンがある場合はペアワッペンの移動可能かチェック

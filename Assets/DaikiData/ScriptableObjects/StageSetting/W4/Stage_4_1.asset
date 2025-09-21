@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac2f82107f8d85043b6eca83a760aa5d, type: 3}
-  m_Name: Stage_1_5
+  m_Name: Stage_4_1
   m_EditorClassIdentifier: 
-  mapSetting: {fileID: 11400000, guid: 0d809b2fd905a1e4ab1354eba5d54d50, type: 2}
-  backgroundPrefab: {fileID: 3543577353858044739, guid: 68dc200c4e6f07840bd7adb50fcfc4d1, type: 3}
-  stageGenerator: {fileID: 2393295741540500681, guid: 550ce8e6784bbd64cb973ce3caf7ff1e, type: 3}
+  mapSetting: {fileID: 11400000, guid: d443461adced68d49b1660d87157e212, type: 2}
+  backgroundPrefab: {fileID: 3423388711624827180, guid: 817bdccf24893e34dbb2f1db14798cc9, type: 3}
+  stageGenerator: {fileID: 2393295741540500681, guid: 67a8ae75f2d7a4144b6d8b350a6fe3b6, type: 3}

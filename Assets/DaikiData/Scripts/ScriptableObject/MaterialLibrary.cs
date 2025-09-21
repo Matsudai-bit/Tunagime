@@ -1,19 +1,20 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
-using System.Linq; // ToDictionary‚ğg‚¤‚½‚ß‚É•K—v
+using System.Linq; // ToDictionaryã‚’ä½¿ã†ãŸã‚ã«å¿…è¦
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MaterialLibrary", menuName = "ScriptableObjects/MaterialLibrary")]
 public class MaterialLibrary : ScriptableObject
 {
-    // ƒ}ƒeƒŠƒAƒ‹‚ÌƒOƒ‹[ƒv‚ğ’è‹`
+    // ãƒãƒ†ãƒªã‚¢ãƒ«ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‚’å®šç¾©
     public enum MaterialGroup
     {
         YARN,
         FELT_BLOCK,
         CURTAIN,
         CORE,
-        FRAGMENT, // ’Ç‰Á: ‘z‚¢‚Ì’f•Ğ
+        FRAGMENT, // è¿½åŠ : æƒ³ã„ã®æ–­ç‰‡
+        PAIR_BADGE // è¿½åŠ : ãƒšã‚¢ãƒãƒƒã‚¸
     }
 
     [Serializable]
@@ -29,7 +30,7 @@ public class MaterialLibrary : ScriptableObject
         }
     }
 
-    // ƒ}ƒeƒŠƒAƒ‹ƒOƒ‹[ƒv‚Æ‚»‚ÌƒGƒ“ƒgƒŠ‚ÌƒyƒA
+    // ãƒãƒ†ãƒªã‚¢ãƒ«ã‚°ãƒ«ãƒ¼ãƒ—ã¨ãã®ã‚¨ãƒ³ãƒˆãƒªã®ãƒšã‚¢
     [Serializable]
     public struct MaterialGroupEntry
     {
@@ -37,11 +38,11 @@ public class MaterialLibrary : ScriptableObject
         public List<MaterialEntry> materialEntries;
     }
 
-    // Inspector‚Åİ’è‚·‚é‚½‚ß‚ÌƒŠƒXƒg
+    // Inspectorã§è¨­å®šã™ã‚‹ãŸã‚ã®ãƒªã‚¹ãƒˆ
     [SerializeField]
     private List<MaterialGroupEntry> m_materialGroups = new List<MaterialGroupEntry>();
 
-    // ƒ‰ƒ“ƒ^ƒCƒ€‚Å—˜—p‚·‚é«‘
+    // ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã§åˆ©ç”¨ã™ã‚‹è¾æ›¸
     private Dictionary<MaterialGroup, Dictionary<EmotionCurrent.Type, Material>> m_materialMap;
 
     private static MaterialLibrary s_instance;
@@ -51,11 +52,11 @@ public class MaterialLibrary : ScriptableObject
         {
             if (s_instance == null)
             {
-                // ƒŠƒ\[ƒXƒtƒHƒ‹ƒ_‚©‚çƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚ğƒ[ƒh
+                // ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚©ãƒ«ãƒ€ã‹ã‚‰ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ­ãƒ¼ãƒ‰
                 s_instance = Resources.Load<MaterialLibrary>("MaterialLibrary");
                 if (s_instance == null)
                 {
-                    Debug.LogError("MaterialLibraryƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚ª'Resources'ƒtƒHƒ‹ƒ_‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+                    Debug.LogError("MaterialLibraryã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒ'Resources'ãƒ•ã‚©ãƒ«ãƒ€ã«è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
                 }
                 else
                 {
@@ -67,14 +68,14 @@ public class MaterialLibrary : ScriptableObject
     }
 
     /// <summary>
-    /// ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—BInspector‚Åİ’è‚µ‚½ƒŠƒXƒg‚ğ«‘‚É•ÏŠ·‚µ‚Ü‚·B
+    /// ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–å‡¦ç†ã€‚Inspectorã§è¨­å®šã—ãŸãƒªã‚¹ãƒˆã‚’è¾æ›¸ã«å¤‰æ›ã—ã¾ã™ã€‚
     /// </summary>
     private void InitializeLibrary()
     {
         m_materialMap = new Dictionary<MaterialGroup, Dictionary<EmotionCurrent.Type, Material>>();
         foreach (var groupEntry in m_materialGroups)
         {
-            // ŠeƒOƒ‹[ƒv‚ÌƒGƒ“ƒgƒŠ‚ğ«‘‚É•ÏŠ·‚µAm_materialMap‚É’Ç‰Á
+            // å„ã‚°ãƒ«ãƒ¼ãƒ—ã®ã‚¨ãƒ³ãƒˆãƒªã‚’è¾æ›¸ã«å¤‰æ›ã—ã€m_materialMapã«è¿½åŠ 
             m_materialMap[groupEntry.materialGroup] = groupEntry.materialEntries
                 .ToDictionary(entry => entry.emotionType, entry => entry.material);
         }
@@ -82,24 +83,24 @@ public class MaterialLibrary : ScriptableObject
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½ƒ}ƒeƒŠƒAƒ‹ƒOƒ‹[ƒv‚ÆŠ´îƒ^ƒCƒv‚É‘Î‰‚·‚éƒ}ƒeƒŠƒAƒ‹‚ğæ“¾‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸãƒãƒ†ãƒªã‚¢ãƒ«ã‚°ãƒ«ãƒ¼ãƒ—ã¨æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã«å¯¾å¿œã™ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="materialGroup">ƒ}ƒeƒŠƒAƒ‹‚Ìí—Ş</param>
-    /// <param name="emotionType">æ“¾‚µ‚½‚¢ƒ}ƒeƒŠƒAƒ‹‚ÌŠ´îƒ^ƒCƒv</param>
-    /// <returns>‘Î‰‚·‚éƒ}ƒeƒŠƒAƒ‹BŒ©‚Â‚©‚ç‚È‚¢ê‡‚Ínull‚ğ•Ô‚µ‚Ü‚·B</returns>
+    /// <param name="materialGroup">ãƒãƒ†ãƒªã‚¢ãƒ«ã®ç¨®é¡</param>
+    /// <param name="emotionType">å–å¾—ã—ãŸã„ãƒãƒ†ãƒªã‚¢ãƒ«ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—</param>
+    /// <returns>å¯¾å¿œã™ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«ã€‚è¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯nullã‚’è¿”ã—ã¾ã™ã€‚</returns>
     public Material GetMaterial(MaterialGroup materialGroup, EmotionCurrent.Type emotionType)
     {
-        // ‚Ü‚¸ƒ}ƒeƒŠƒAƒ‹ƒOƒ‹[ƒv‚ª‘¶İ‚·‚é‚©Šm”F
+        // ã¾ãšãƒãƒ†ãƒªã‚¢ãƒ«ã‚°ãƒ«ãƒ¼ãƒ—ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
         if (m_materialMap.TryGetValue(materialGroup, out var innerDictionary))
         {
-            // Ÿ‚ÉŠ´îƒ^ƒCƒv‚É‘Î‰‚·‚éƒ}ƒeƒŠƒAƒ‹‚ª‘¶İ‚·‚é‚©Šm”F
+            // æ¬¡ã«æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã«å¯¾å¿œã™ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
             if (innerDictionary.TryGetValue(emotionType, out Material material))
             {
                 return material;
             }
         }
 
-        Debug.LogWarning($"[MaterialLibrary] ƒ}ƒeƒŠƒAƒ‹ '{materialGroup}' ‚ÌŠ´îƒ^ƒCƒv '{emotionType}' ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B");
+        Debug.LogWarning($"[MaterialLibrary] ãƒãƒ†ãƒªã‚¢ãƒ« '{materialGroup}' ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ— '{emotionType}' ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚");
         return null;
     }
 
@@ -109,6 +110,7 @@ public class MaterialLibrary : ScriptableObject
         m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.FELT_BLOCK, materialEntries = new List<MaterialEntry>() });
         m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.CURTAIN, materialEntries = new List<MaterialEntry>() });
         m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.CORE, materialEntries = new List<MaterialEntry>() });
+        m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.PAIR_BADGE, materialEntries = new List<MaterialEntry>() });
         
         foreach (var group in m_materialGroups)
         {

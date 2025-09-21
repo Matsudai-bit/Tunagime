@@ -5532,7 +5532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5192840727673690573}
   m_Layer: 0
-  m_Name: BackStage_4_1(Clone)
+  m_Name: BackStage_4_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

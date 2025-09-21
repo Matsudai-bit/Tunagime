@@ -51,4 +51,13 @@ public class FeltBlock : MonoBehaviour
     {
         get { return m_stageBlock; }
     }
+
+    public void SetModel(GameObject model)
+    {
+       var child = transform.GetChild(0);
+
+        m_model.SetActive(false);
+        m_model = Instantiate(model, child); ;
+
+    }
 }

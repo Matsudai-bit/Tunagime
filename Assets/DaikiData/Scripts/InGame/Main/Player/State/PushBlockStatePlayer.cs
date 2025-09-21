@@ -70,7 +70,7 @@ public class PushBlockStatePlayer : PlayerState
         owner.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // プレイヤーの速度をリセット
 
         // フェルトブロックの方向を向く
-        owner.transform.LookAt(m_tileMovement.GetMoveTransform()); // ブロックの目標位置を向くように設定
+        owner.transform.LookAt(m_tileMovement.transform); // ブロックの目標位置を向くように設定
 
         // 子として設定
         owner.transform.SetParent(m_tileMovement.GetMoveTransform());

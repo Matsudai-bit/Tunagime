@@ -287,6 +287,11 @@ public class StageObjectFactory : MonoBehaviour
             FeltBlock feltBlock = GetFeltBlock_PairBadgeFromPool().GetComponent<FeltBlock>();
             feltBlock.stageBlock.Initialize(generationBlockPositionList[i]);
 
+            feltBlock.SetModel(PairBadgeMeshLibrary.Instance.GetMeshPrefab(emotionType));
+
+            // メッシュの設定
+  
+
             // 追加
             feltBlocks.Add(feltBlock);
         }
@@ -298,8 +303,7 @@ public class StageObjectFactory : MonoBehaviour
         // 親の設定
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // マテリアルの設定
-        var meshRenderer = generationObject?.GetComponent<MeshRenderer>();
+     
 
         return generationObject;
     }
