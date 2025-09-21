@@ -7,6 +7,7 @@ public class UnknitStatePlayer : PlayerState
 {
 
     private AnimationEventHandler m_animationEventHandler; // アニメーションイベントハンドラー
+    private GameObject m_targetObject = null;
 
     public UnknitStatePlayer(Player owner) : base(owner)
     {
@@ -18,6 +19,15 @@ public class UnknitStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        m_targetObject = owner.GetTargetObject();
+
+        if (m_targetObject == null)
+        {
+            Debug.LogError("Target object not found.");
+            owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE); // 対象オブジェクトが見つからない場合はIDLE状態に戻る
+            return; // 対象オブジェクトが見つからない場合は処理を中断
+        }
+
         // 移動を停止
         owner.StopMove();
         // レイヤーの変更中フラグをリセット
@@ -46,28 +56,14 @@ public class UnknitStatePlayer : PlayerState
 
             // 毛糸だまを生成
             var stageObjectFactory = StageObjectFactory.GetInstance();
+
             // 前方のあみだに取得
-            var frontAmidaPos = owner.GetForwardGridPos(); ;
+            var frontAmidaPos = m_targetObject.GetComponent<StageBlock>().GetGridPos();
 
             var fluffBallObj = stageObjectFactory.GenerateFluffBall(null, frontAmidaPos);
             
             fluffBallObj.GetComponent<FluffBall>().OnDrop(frontAmidaPos); // 毛糸玉を配置
 
-            //var carryingObject = fluffBallObj.GetComponent<Carryable>(); // 持ち上げるオブジェクトを取得
-            //if (carryingObject == null)
-            //{
-            //    Debug.LogError("Carryable component not found on the object.");
-            //    return; // 持ち上げるオブジェクトが見つからない場合は処理を中断
-            //}
-
-            //// 持ち上げるオブジェクトを非アクティブにする
-            //fluffBallObj.SetActive(false);
-
-            //// 持ち上げる
-            //carryingObject.OnPickUp();
-
-            //// プレイヤーに持ち上げるオブジェクトをセット
-            //owner.SetCarryingObject(carryingObject);
 
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE); 
 
@@ -94,20 +90,29 @@ public class UnknitStatePlayer : PlayerState
     }
 
     /// <summary>
-    /// 編む
+    /// 解く
     /// </summary>
     private void FinishUnknit()
     {
         var stageGridData = MapData.GetInstance.GetStageGridData();
 
         // 前方のあみだに取得
-        var frontAmidaPos = owner.GetForwardGridPos(); ;
+        var frontAmidaPos = m_targetObject.GetComponent<StageBlock>().GetGridPos();
 
         stageGridData.RemoveAmidaTube(frontAmidaPos); // 前方のあみだを削除
 
         // 上下のあみだの状態を再設定
         var upAmidaPos = frontAmidaPos + GridPos.UP;
         var downAmidaPos = frontAmidaPos + GridPos.DOWN;
+
+        var upAmidaTube = stageGridData.GetAmidaTube(upAmidaPos);
+        var downAmidaTube = stageGridData.GetAmidaTube(downAmidaPos);
+
+        if (upAmidaTube == null || downAmidaTube == null)
+        {
+            //Debug.LogError("Up or Down AmidaTube not found.");
+            return; // 上下のあみだが見つからない場合は処理を中断
+        }
 
         stageGridData.GetAmidaTube(upAmidaPos).RequestChangedState(AmidaTube.State.NORMAL);
         stageGridData.GetAmidaTube(downAmidaPos).RequestChangedState(AmidaTube.State.NORMAL);

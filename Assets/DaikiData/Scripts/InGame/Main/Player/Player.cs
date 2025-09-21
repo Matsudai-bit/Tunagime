@@ -366,11 +366,15 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // Xキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.X) && CanKnit())
         {
-   
-            // 編む状態に切り替える
-            m_stateMachine.RequestStateChange(PlayerStateID.KNIT); 
+            // 編む位置
+            GridPos knittingPos = GetForwardGridPos(); // 前方のグリッド位置
 
-            
+            StopMove(); // 移動を停止
+            var targetPos = MapData.GetInstance.ConvertGridToWorldPos(knittingPos.x, knittingPos.y);
+            // プレイヤーをターゲットの方向へ向ける
+            transform.LookAt(targetPos, Vector3.up);
+            // 編む状態に切り替える
+            m_stateMachine.RequestStateChange(PlayerStateID.KNIT);    
         }
     }
 
@@ -384,6 +388,10 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             // 状態が橋なら解く
             if (StageAmidaUtility.CheckAmidaState(unknittingPos, AmidaTube.State.BRIDGE))
             {
+                StopMove(); // 移動を停止
+                var targetPos = MapData.GetInstance.ConvertGridToWorldPos(unknittingPos.x, unknittingPos.y);
+                // プレイヤーをターゲットの方向へ向ける
+                transform.LookAt(targetPos, Vector3.up);
                 // アミダを解く状態に切り替える
                 m_stateMachine.RequestStateChange(PlayerStateID.UNKNIT);
             }
@@ -413,6 +421,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
                 if ( stageBlock.CanMove(GetForwardDirection()))
                 {
+
                     // 押し出す状態に切り替える
                     m_stateMachine.RequestStateChange(PlayerStateID.PUSH_BLOCK);
                     return true; // 押し出す処理が成功した

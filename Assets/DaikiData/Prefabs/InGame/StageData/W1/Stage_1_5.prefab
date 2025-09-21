@@ -97,46 +97,67 @@ MonoBehaviour:
   m_gimmickData:
   - gridPos:
       x: 6
-      y: 1
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
-    blockType: 1
-  - gridPos:
-      x: 6
       y: 5
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
     blockType: 1
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 7
+      y: 3
+    blockType: 1
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 11
-      y: 5
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
+      y: 6
     blockType: 1
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 5
-      y: 5
-    prefab: {fileID: 282849731534080628, guid: 43a1dc60b0824e9498ad46911501168a, type: 3}
+      y: 3
     blockType: 0
+    emotionType: 3
+    rotate: {x: 0, y: 0, z: 0}
   m_floorData:
   - gridPos:
       x: 1
       y: 4
-    prefab: {fileID: 8293287876587456767, guid: 3f792b4723a547943a07b28d39b8b09e, type: 3}
     blockType: 0
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 1
       y: 6
-    prefab: {fileID: 8293287876587456767, guid: 71d69337adbe8644ca8e664002a2515a, type: 3}
     blockType: 0
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
+  m_startSlotData:
+  - gridPos:
+      x: 1
+      y: 2
+    blockType: 0
+    emotionType: 6
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 1
+      y: 6
+    blockType: 0
+    emotionType: 1
+    rotate: {x: 0, y: 0, z: 0}
   m_terminusData:
   - gridPos:
       x: 16
       y: 2
-    prefab: {fileID: 8293287876587456767, guid: 4ab905effb7c58548a3801caa6c309d8, type: 3}
     blockType: 0
+    emotionType: 1
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 16
       y: 6
-    prefab: {fileID: 8293287876587456767, guid: db2110440675d7f4197272f1e8ba2c36, type: 3}
     blockType: 0
+    emotionType: 6
+    rotate: {x: 0, y: 0, z: 0}
   m_amidaTubeGenerator:
     generator: {fileID: 5804569174167876220}
     posY: 0
@@ -191,40 +212,48 @@ MonoBehaviour:
   - gridPos:
       x: 5
       y: 1
-    prefab: {fileID: 317539346633767421, guid: 823c4f06d78928e489131b11bed8af6e, type: 3}
     blockType: 2
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 7
       y: 2
-    prefab: {fileID: 282849731534080628, guid: 43a1dc60b0824e9498ad46911501168a, type: 3}
     blockType: 1
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 7
       y: 3
-    prefab: {fileID: 504130624815832448, guid: bab951241884feb479282891e7a49be8, type: 3}
     blockType: 1
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   m_floorData:
   - gridPos:
       x: 0
       y: 2
-    prefab: {fileID: 8293287876587456767, guid: 860d38d067f34734ebe2f93bd53cdf12, type: 3}
     blockType: 0
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 0
       y: 4
-    prefab: {fileID: 8293287876587456767, guid: b49c56834d9faef4abb06a139211cb32, type: 3}
     blockType: 0
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
+  m_startSlotData: []
   m_terminusData:
   - gridPos:
       x: 15
       y: 2
-    prefab: {fileID: 8293287876587456767, guid: 0953b1dd34a3a0c488be0cb8eca245ff, type: 3}
     blockType: 0
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 15
       y: 4
-    prefab: {fileID: 8293287876587456767, guid: be5019532b2139642ba96c22817ad29c, type: 3}
     blockType: 0
+    emotionType: 0
+    rotate: {x: 0, y: 0, z: 0}
   m_amidaTubeGenerator:
     generator: {fileID: 5804569174167876220}
     posY: 0

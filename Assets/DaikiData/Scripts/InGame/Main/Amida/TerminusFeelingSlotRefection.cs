@@ -1,13 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 /// <summary>
-/// ���傼���̊j
+/// 拒絶の核の接続状態を監視し、状態が変化した際にイベントを発行するクラス
 /// </summary>
 
 public class TerminusFeelingSlotRefection : MonoBehaviour
 {
-    private TerminusFeelingSlot m_terminusFeelingSlot; // �I�_�̑z���̌^
+    private TerminusFeelingSlot m_terminusFeelingSlot; // 終点の想いの型
 
-    private bool m_isConnected = false; // �ڑ���Ԃ������t���O
+    private bool m_isConnected = false; // 接続状態を示すフラグ
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class TerminusFeelingSlotRefection : MonoBehaviour
     {
         if (m_terminusFeelingSlot.IsConnected())
         {
-            // �ڑ���Ԃ��ς�����ꍇ�ɂ̂ݒʒm
+            // 接続状態が変わった場合にのみ通知
             if (m_isConnected == false)
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CONNECTED_REJECTION_SLOT);
 
@@ -30,7 +30,7 @@ public class TerminusFeelingSlotRefection : MonoBehaviour
         }
         else
         {
-            // �ڑ���Ԃ��ς�����ꍇ�ɂ̂ݒʒm
+            // 接続状態が変わった場合にのみ通知
             if (m_isConnected == true)
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.DISCONNECTED_REJECTION_SLOT);
             m_isConnected = false;

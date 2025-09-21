@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stage_1_1
   m_EditorClassIdentifier: 
   mapSetting: {fileID: 11400000, guid: 0d809b2fd905a1e4ab1354eba5d54d50, type: 2}
-  backgroundPrefab: {fileID: 3543577353858044739, guid: b11e7a5ba127eab4ea6e289378c95d46, type: 3}
+  backgroundPrefab: {fileID: 3543577353858044739, guid: 98b04486d2d007d4c98383c4e38bd226, type: 3}
   stageGenerator: {fileID: 2393295741540500681, guid: 550ce8e6784bbd64cb973ce3caf7ff1e, type: 3}

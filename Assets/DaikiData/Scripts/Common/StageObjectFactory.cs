@@ -89,6 +89,8 @@ public class StageObjectFactory : MonoBehaviour
         if (feelingCore)
         {
             feelingCore.SetEmotionType(emotionType);
+
+
         }
 
         // ステージブロックの設定
@@ -119,6 +121,12 @@ public class StageObjectFactory : MonoBehaviour
         if (feelingCore)
         {
             feelingCore.SetEmotionType(emotionType);
+
+
+            if (feelingCore.GetEmotionType() == EmotionCurrent.Type.REJECTION)
+            {
+                generationObject.AddComponent<TerminusFeelingSlotRefection>();
+            }
         }
         // ステージブロックの設定
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();

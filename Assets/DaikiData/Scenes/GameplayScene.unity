@@ -1963,7 +1963,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: a7c2c31c33db96143ac15cfef57d42b9, type: 2}
+      objectReference: {fileID: 11400000, guid: a9870dc05d5a3894e9523a309d5b845f, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 
