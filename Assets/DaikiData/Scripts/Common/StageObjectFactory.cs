@@ -228,8 +228,10 @@ public class StageObjectFactory : MonoBehaviour
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
 
-        // マテリアルの設定
         var curtain = generationObject?.GetComponent<Curtain>();
+        // 初期化
+        curtain.Initialize();
+        // マテリアルの設定
         if (curtain)
         {
             curtain.SetMaterial(MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.CURTAIN, emotionType));

@@ -149,6 +149,20 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             {
                 movementVec.Normalize(); // 正規化
             }
+
+            var velocityTmp = movementVec * SPEED;
+
+            var featurePosition = transform.position + velocityTmp * Time.fixedDeltaTime;
+
+            var map = MapData.GetInstance;
+            // 移動先がグリッド範囲内かチェック
+            if (map.CheckInnerGridPos( map.GetClosestGridPos( featurePosition)) == false)
+            {
+                // 移動先がグリッド範囲外の場合、移動を停止
+                StopMove();
+                return;
+            }
+
             // 移動速度を設定
             m_rb.linearVelocity = movementVec * SPEED;
             // 徐々に回転
@@ -483,6 +497,9 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         m_animator.SetLayerWeight(layerIndex, targetWeight);
     }
 
+    /// <summary>
+    /// 正面の床のターゲットオブジェクトをセットする
+    /// </summary>
     public void TryForwardFloorSetting()
     {
         // プレイヤーの前方のグリッド位置を取得
@@ -496,7 +513,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             var tileData = map.GetStageGridData().GetTileData[forwardPos.y, forwardPos.x];
             GameObject floor = tileData.floor;
 
-            if (floor != null && tileData.tileObject.gameObject == null)
+            if (floor != null &&
+                tileData.tileObject.gameObject == null)
             {
                 // ターゲットオブジェクトを設定
                 SetTargetObject(floor);
@@ -519,6 +537,10 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         }
     }
 
+
+    /// <summary>
+    /// 正面の感情スロットのターゲットオブジェクトをセットする
+    /// </summary>
     public void TryForwardSlotSetting()
     {
         // プレイヤーの前方のグリッド位置を取得
@@ -569,7 +591,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
             // タイルオブジェクトが存在しない場合、アミダのブリッジ状態のオブジェクトをチェック
             AmidaTube amidaTube = map.GetStageGridData().GetAmidaTube(forwardPos);
-            if (amidaTube != null && amidaTube.GetState() == AmidaTube.State.BRIDGE)
+            if (tileObject.gameObject == null && amidaTube != null && amidaTube.GetState() == AmidaTube.State.BRIDGE)
             {
                 SetTargetObject(amidaTube.gameObject);
                 return; // アミダのブリッジ状態のオブジェクトがある場合はターゲットオブジェクトを設定して終了

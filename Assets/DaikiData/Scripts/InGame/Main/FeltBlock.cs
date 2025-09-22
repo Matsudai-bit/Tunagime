@@ -13,9 +13,6 @@ public class FeltBlock : MonoBehaviour
 
     private MeshRenderer m_meshRenderer = null; // メッシュレンダラー
 
-    private readonly float TARGET_TIME = 0.3f; // 動かすターゲット時間
-
-    private GridPos m_prevVelocity;
 
 
     [SerializeField]

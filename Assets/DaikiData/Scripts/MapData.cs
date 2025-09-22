@@ -131,10 +131,15 @@ public class MapData : MonoBehaviour
 
     public void InitializeMapData()
     {
-        // ステージ設定を取得
-        m_mapSetting = m_stageSetting.mapSetting;
+        if (m_stageSetting != null)
+        {
+            // ステージ設定を取得
+            m_mapSetting = m_stageSetting.mapSetting;
+            m_stageGenerator = m_stageSetting.stageGenerator;
 
-        m_stageGenerator = m_stageSetting.stageGenerator;
+        }
+
+
 
         // マップ設定を受け取って初期化
         if (m_mapSetting != null)
@@ -311,9 +316,27 @@ public class MapData : MonoBehaviour
         float y = tileLeftTopPos.y - targetPosVec2.y / ((float)m_commonData.height * (float)m_commonData.tileSize) * (float)m_commonData.height;
 
         GridPos gridPos = new GridPos();
-        // 切り捨てて代入
-        gridPos.x = (int)(x);
-        gridPos.y = (int)(y);
+
+        if (x <0 )
+        {
+            gridPos.x = Mathf.CeilToInt(x) + -1;
+        }
+        else
+        {
+            // 切り捨てて代入
+            gridPos.x = (int)(x);
+        }
+
+        if (y < 0)
+        {
+            gridPos.y = Mathf.CeilToInt(y) + -1;
+        }
+        else
+        {
+            gridPos.y = (int)(y);
+
+        }
+
 
         return gridPos;
     }

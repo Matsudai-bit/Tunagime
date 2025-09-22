@@ -133,7 +133,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// <returns></returns>
     public virtual bool CanMove(GridPos moveDirection)
     {
-        return IsObstacleInPath(moveDirection);
+        return (IsObstacleInPath(moveDirection) && m_state == State.IDLE);
     }
 
     /// <summary>

@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -62204423531070250, guid: 8d64ca22a1038c5468ffdbe37d7fd657, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8d64ca22a1038c5468ffdbe37d7fd657, type: 3}
       propertyPath: m_Name
       value: back_stage_1_2

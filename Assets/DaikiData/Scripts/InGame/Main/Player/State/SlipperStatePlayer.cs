@@ -18,19 +18,46 @@ public class SlipperStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
-        // 滑る状態の開始時にアニメーションを設定
-        owner.GetAnimator().SetBool("Slide", true);
+        var map = MapData.GetInstance;
 
-        // プレイヤーの移動方向の取得
+
+
+        // 滑る状態を開始し、アニメーションを再生します
+        owner.GetAnimator().SetBool("Slide", true);
+        owner.StopMove(); // 物理移動を即座に停止します
+
+        // プレイヤーの移動方向から主要な方向を特定します
+        // XとZ軸のどちらがより支配的かを判断します
         Vector3 velocityNormal = owner.GetPreviousMoveVelocity();
         velocityNormal.Normalize();
-        m_directionBaseGrid = (Mathf.Abs(velocityNormal.x) > Mathf.Abs(velocityNormal.z))
-          ? new GridPos((int)Mathf.Round(velocityNormal.x), 0)
-          : new GridPos(0, -(int)Mathf.Round(velocityNormal.z));
+        bool isMovingHorizontally = Mathf.Abs(velocityNormal.x) > Mathf.Abs(velocityNormal.z);
 
-        owner.StopMove(); // 物理移動を停止
+        // 特定された方向に合わせて、スライドの基準となるグリッド方向を設定します
+        m_directionBaseGrid = isMovingHorizontally
+            ? new GridPos((int)Mathf.Round(velocityNormal.x), 0)
+            : new GridPos(0, -(int)Mathf.Round(velocityNormal.z));
 
-        Debug.Log(m_directionBaseGrid.x + "," + m_directionBaseGrid.y);
+        // 現在位置を最も近いグリッドの中心に調整します
+        // スライド方向と垂直な軸上でのみ、位置をグリッドの中心に合わせます
+        var currentGridPos = map.GetClosestGridPos(owner.transform.position);
+        Vector3 targetWorldPos = map.ConvertGridToWorldPos(currentGridPos);
+
+        float newX = owner.transform.position.x;
+        float newZ = owner.transform.position.z;
+
+        // スライド方向が横（X軸）の場合、Z座標をグリッドの中心に合わせる
+        if (isMovingHorizontally)
+        {
+            newZ = targetWorldPos.z;
+        }
+        // スライド方向が縦（Z軸）の場合、X座標をグリッドの中心に合わせる
+        else
+        {
+            newX = targetWorldPos.x;
+        }
+
+        owner.transform.position = new Vector3(newX, owner.transform.position.y, newZ);
+
     }
 
     /// <summary>

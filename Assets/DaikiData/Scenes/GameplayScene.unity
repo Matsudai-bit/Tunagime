@@ -215,28 +215,27 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6077778034472503104, guid: 8b0a05b0eac8c61438b37fb053865803, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8692230568260034588, guid: 8b0a05b0eac8c61438b37fb053865803, type: 3}
       propertyPath: m_text
       value: 'MOVE          : ArrowKey
 
-        PickUp         : Z
+        PushBlock    : Z
 
-        PutDown    
-        : Z
-
-        PushBlock  : Z
-
-        Knit               : X
-
-        Unknit         
+        Knit             
         : X
 
-        Reset            : Q
+        Unknit          : X
 
-        Exit                : Esc
+        Reset           : Q
 
-        StageSelect:
-        Tab'
+        Exit             
+        : Esc
+
+        StageSelect  : Tab'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2016,7 +2015,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: 5f84dde78c7a75b4481119a19c6f8913, type: 2}
+      objectReference: {fileID: 11400000, guid: 4fe1fa7688697ec4e8f89fd741549b79, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 

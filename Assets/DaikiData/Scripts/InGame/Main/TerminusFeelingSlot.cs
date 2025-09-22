@@ -1,13 +1,13 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// I“_‚É‚ ‚éŒ^
+/// çµ‚ç‚¹ã«ã‚ã‚‹å‹
 /// </summary>
 public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
 {
-    private StageBlock m_stageBlock;    // ƒXƒe[ƒWƒuƒƒbƒN
+    private StageBlock m_stageBlock;    // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯
 
-    private FeelingSlot m_feelingSlot; // ‘z‚¢‚ÌŒ^
+    private FeelingSlot m_feelingSlot; // æƒ³ã„ã®å‹
 
     [SerializeField]
     bool m_isConnection;
@@ -15,32 +15,34 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
 
     private void Awake()
     {
-        // ƒXƒe[ƒWƒuƒƒbƒN‚ğæ“¾
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã‚’å–å¾—
         m_stageBlock = GetComponent<StageBlock>();
         if (m_stageBlock == null)
         {
             Debug.LogError("TerminusFeelingSlot requires a StageBlock component.");
         }
 
-        // ‘z‚¢‚ÌŒ^‚ğæ“¾
+        // æƒ³ã„ã®å‹ã‚’å–å¾—
         m_feelingSlot = GetComponent<FeelingSlot>();
         if (m_feelingSlot == null)
         {
             Debug.LogError("TerminusFeelingSlot requires a FeelingSlot component.");
         }
+
+        // ã‚ªãƒ–ã‚¶ãƒ¼ãƒãƒ¼ã¨ã—ã¦ç™»éŒ²
+        GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
+        FeelingSlotStateMonitor.GetInstance.RegisterMonitorObject(this);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // ƒIƒuƒU[ƒo[‚Æ‚µ‚Ä“o˜^
-        GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
+   
 
-        // ‰Šúó‘Ô‚ÅÚ‘±‚ğƒ`ƒFƒbƒN
+        // åˆæœŸçŠ¶æ…‹ã§æ¥ç¶šã‚’ãƒã‚§ãƒƒã‚¯
         m_isConnection = false;
 
-        // ƒ‚ƒjƒ^[‚É“o˜^
-        FeelingSlotStateMonitor.GetInstance.RegisterMonitorObject(this);
+        // ãƒ¢ãƒ‹ã‚¿ãƒ¼ã«ç™»éŒ²
     }
 
     // Update is called once per frame
@@ -50,7 +52,7 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
     }
 
     /// <summary>
-    /// Œq‚ª‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    /// ç¹‹ãŒã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
     /// </summary>
     /// <returns></returns>
     public bool IsConnected()
@@ -58,21 +60,21 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
         return m_isConnection;
     }
     /// <summary>
-    /// Ú‘±ó‘Ô‚ğƒ`ƒFƒbƒN‚·‚éƒƒ\ƒbƒh
+    /// æ¥ç¶šçŠ¶æ…‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
 
     private void CheckConnection()
     {
-        //@ƒOƒŠƒbƒhƒf[ƒ^‚Ìæ“¾
+        //ã€€ã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
         StageGridData gridData = MapData.GetInstance.GetStageGridData();
 
-        //@ƒOƒŠƒbƒhˆÊ’u‚Ìæ“¾
+        //ã€€ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã®å–å¾—
         GridPos gridPos = m_stageBlock.GetGridPos();
 
-        // ¶—×‚ÌƒOƒŠƒbƒh‚ğƒ`ƒFƒbƒN
+        // å·¦éš£ã®ã‚°ãƒªãƒƒãƒ‰ã‚’ãƒã‚§ãƒƒã‚¯
         GridPos checkGridPos = gridPos + new GridPos(-1, 0);
 
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ğæ“¾
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã‚’å–å¾—
         var amidaTube = gridData.GetAmidaTube(checkGridPos);
 
         if (amidaTube == null)
@@ -82,10 +84,10 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
             return;
         }
 
-        // Ú‘±ó‘Ô‚ÌŠm”F
+        // æ¥ç¶šçŠ¶æ…‹ã®ç¢ºèª
         if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType())
   
-            // I“_‚ÌŠ´î‚Æˆê’v‚µ‚Ä‚¢‚éê‡‚ÍŒq‚ª‚Á‚Ä‚¢‚é
+            // çµ‚ç‚¹ã®æ„Ÿæƒ…ã¨ä¸€è‡´ã—ã¦ã„ã‚‹å ´åˆã¯ç¹‹ãŒã£ã¦ã„ã‚‹
             m_isConnection = true;
         else
             m_isConnection = false;
@@ -106,16 +108,18 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
     {
         get
         {
-            return m_feelingSlot.GetEmotionType(); // ‘z‚¢‚ÌŒ^‚ÌŠ´îƒ^ƒCƒv‚ğæ“¾
+            return m_feelingSlot.GetEmotionType(); // æƒ³ã„ã®å‹ã®æ„Ÿæƒ…ã‚¿ã‚¤ãƒ—ã‚’å–å¾—
         }
     }
 
-    // íœ
+    // å‰Šé™¤æ™‚
     private void OnDestroy()
     {
-        // ƒQ[ƒ€ƒCƒ“ƒ^ƒ‰ƒNƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚ÌƒIƒuƒU[ƒo[‚ğ‰ğœ
+        // ã‚²ãƒ¼ãƒ ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚ªãƒ–ã‚¶ãƒ¼ãƒãƒ¼ã‚’è§£é™¤
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
-        // ƒ‚ƒjƒ^[‚©‚ç“o˜^‰ğœ
+        // ãƒ¢ãƒ‹ã‚¿ãƒ¼ã‹ã‚‰ç™»éŒ²è§£é™¤
         FeelingSlotStateMonitor.GetInstance.RemoveMonitor(this);
     }
+
+
 }

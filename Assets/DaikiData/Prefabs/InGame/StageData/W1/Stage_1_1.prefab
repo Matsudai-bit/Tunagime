@@ -94,37 +94,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea09bf9d66209b489d2409aeed878ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gimmickData:
-  - gridPos:
-      x: 9
-      y: 4
-    blockType: 1
-    emotionType: 0
-    rotate: {x: 0, y: 0, z: 0}
+  m_gimmickData: []
   m_floorData: []
   m_startSlotData:
   - gridPos:
       x: 1
-      y: 3
+      y: 2
+    blockType: 0
+    emotionType: 2
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 1
+      y: 4
     blockType: 0
     emotionType: 4
     rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 1
-      y: 5
+      y: 6
     blockType: 0
     emotionType: 1
     rotate: {x: 0, y: 0, z: 0}
   m_terminusData:
   - gridPos:
       x: 16
-      y: 3
+      y: 2
+    blockType: 0
+    emotionType: 2
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 16
+      y: 4
     blockType: 0
     emotionType: 1
     rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 16
-      y: 5
+      y: 6
     blockType: 0
     emotionType: 4
     rotate: {x: 0, y: 0, z: 0}
@@ -275,5 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_amidaTubePrefab: {fileID: 1485287712651525407, guid: 014f017145954ca49bc2913c402a40dd, type: 3}
-  m_horizonalAmidaPosY: 0300000005000000
-  m_addAmidaPos: []
+  m_horizonalAmidaPosY: 020000000400000006000000
+  m_addAmidaPos:
+  - x: 9
+    y: 3

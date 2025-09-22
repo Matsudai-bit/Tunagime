@@ -103,7 +103,13 @@ public class WalkStatePlayer : PlayerState
 
     public bool CanSlide()
     {
-        var stageGridData = MapData.GetInstance.GetStageGridData(); 
+
+        if (MapData.GetInstance.CheckInnerGridPos(owner.GetGridPosition()) == false)
+        {
+            return false;
+        }
+
+            var stageGridData = MapData.GetInstance.GetStageGridData(); 
         var myGridPosFloor = stageGridData.GetFloorObject(owner.GetGridPosition());
 
         if (myGridPosFloor)

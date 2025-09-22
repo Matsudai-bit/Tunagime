@@ -30,6 +30,8 @@ public class Curtain : MonoBehaviour
 
     private StageBlock m_stageBlock = null; // ステージブロック
 
+    [Header("====== 監視 ======")]
+    [SerializeField]
     private State m_state = State.OPENING; // カーテンの状態
 
     private Vector3 m_startPos_R ; // カーテンの開始位置（X軸方向）
@@ -80,7 +82,6 @@ public class Curtain : MonoBehaviour
 
     void Start()
     {
-
         // 現在のカーテンの位置Xを取得
         m_startPos_R = m_curtainModel_R.transform.localPosition;
         // カーテンの終了位置Xを設定
@@ -126,11 +127,16 @@ public class Curtain : MonoBehaviour
         // フェルトブロックのマップへ追加
         stageGridData.TryPlaceTileObject(m_feltBlock_R.stageBlock.GetGridPos(), m_feltBlock_R.gameObject);
         stageGridData.TryPlaceTileObject(m_feltBlock_L.stageBlock.GetGridPos(), m_feltBlock_L.gameObject);
+        Initialize();
+        
+    }
+
+    public void Initialize()
+    {
 
         m_state = State.CLOSING_FINISHED; // 初期状態を閉じた状態に設定
 
         TryChangeState();
-        
     }
 
     // Update is called once per frame
@@ -139,7 +145,6 @@ public class Curtain : MonoBehaviour
         if (m_state == State.OPENING_FINISHED || m_state == State.CLOSING_FINISHED)
         {
             TryChangeState();
-
         }
 
         switch (m_state)
@@ -227,10 +232,11 @@ public class Curtain : MonoBehaviour
 
     private void TryChangeState()
     {
-
         // 型の繋がりモニター
         var slotStateMonitor = FeelingSlotStateMonitor.GetInstance;
-        if (slotStateMonitor.IsConnected(m_emotionCurrent.CurrentType))
+        // 接続されている場合はカーテンを開く、接続されていない場合はカーテンを閉じる
+        if (slotStateMonitor.IsConnected(m_emotionCurrent.CurrentType) &&
+            slotStateMonitor.IsConnected(EmotionCurrent.Type.REJECTION) == false)
         {
             // カーテンの状態を開く状態に設定
             if (m_state == State.CLOSING_FINISHED)
