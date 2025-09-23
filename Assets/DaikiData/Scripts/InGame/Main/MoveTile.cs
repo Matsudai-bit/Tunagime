@@ -22,9 +22,12 @@ public class MoveTile : MonoBehaviour , IMoveTile
 
     private GridPos m_prevVelocity;
 
+    [SerializeField]
     private State m_state;
 
-   protected StageBlock stageBlock { get { return m_stageBlock; } }
+    private State m_prevState;
+
+    protected StageBlock stageBlock { get { return m_stageBlock; } }
 
     /// <summary>
     /// Awake is called when the script instance is being loaded
@@ -55,6 +58,26 @@ public class MoveTile : MonoBehaviour , IMoveTile
         m_state = State.IDLE; // 初期状態は何もしない状態
     }
 
+    private void Update()
+    {
+        if (m_state != m_prevState && m_state == State.IDLE)
+        {
+            if (CanSlide())
+            {
+                ChangeState(State.SLIDE);
+            }
+        }
+
+        m_prevState = m_state;
+    }
+
+    /// <summary>
+    /// 移動開始
+    /// </summary>
+    public virtual void StartMove()
+    {
+        ChangeState(State.MOVE);
+    }
 
     /// <summary>
     /// 移動要求
@@ -79,8 +102,8 @@ public class MoveTile : MonoBehaviour , IMoveTile
 
         m_prevVelocity = velocity;
 
-        if (CanSlide()) ChangeState(State.SLIDE);
-        else ChangeState(State.IDLE);
+
+        ChangeState(State.IDLE);
 
     }
 
@@ -98,6 +121,8 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// <param name="velocity"></param>
     public void StartSlide(GridPos velocity)
     {
+        m_state = State.SLIDE;
+
         var map = MapData.GetInstance; // マップデータを取得
 
         // ブロックを押す前の開始位置を設定
@@ -121,8 +146,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
                 m_stageBlock.UpdatePosition(endGridPos);
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);
 
-                if (CanSlide()) ChangeState(State.SLIDE);
-                else ChangeState(State.IDLE);
+                ChangeState(State.IDLE);
             });
     }
 
@@ -202,10 +226,11 @@ public class MoveTile : MonoBehaviour , IMoveTile
         switch (m_state)
         {
             case State.IDLE:
+                m_state = State.IDLE;
                 // 何もしない状態
                 break;
             case State.MOVE:
-
+                m_state = State.MOVE;
                 break;
             case State.SLIDE:
                 // スライド状態の処理

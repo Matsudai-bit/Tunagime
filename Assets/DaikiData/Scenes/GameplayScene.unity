@@ -2144,7 +2144,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: ac2d3de3f72fa0046b22199be91904d0, type: 2}
+      objectReference: {fileID: 11400000, guid: 558a63e5b03621a4bafa6534085cd305, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 

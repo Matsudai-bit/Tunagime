@@ -46,10 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_satinModels:
-  - {fileID: 919132149155446097, guid: 7f39fd491c2a4774486602bbd31c4715, type: 3}
-  - {fileID: 919132149155446097, guid: c3817c69ff3884c448ad918f2aead91c, type: 3}
-  - {fileID: 919132149155446097, guid: 0f871dd392920a64e9379853d3c59735, type: 3}
-  - {fileID: 919132149155446097, guid: 263e1b8664a0a7343baef70267976572, type: 3}
+  - {fileID: 919132149155446097, guid: f3859cee37a6bb9499a72723e9489c93, type: 3}
   m_currentModel: {fileID: 0}
 --- !u!114 &3374923881821340002
 MonoBehaviour:

@@ -40,7 +40,17 @@ public class FeltBlockMove
 
     }
 
+    public override void StartMove()
+    {
+        if (m_pairBadge)
+        {
+            // ペアワッペンがある場合はペアワッペンの移動を開始
+            m_pairBadge.StartMove();
+            return;
+        }
 
+        ChangeState(State.MOVE);
+    }
 
     public override bool CanSlide()
     {
@@ -61,12 +71,12 @@ public class FeltBlockMove
 
     public override void RequestSlide(GridPos velocity)
     {
-        if (m_pairBadge != null)
-        {
-            // ペアワッペンがある場合はペアワッペンにスライドを依頼
-            m_pairBadge.Slide(velocity);
-            return;
-        }
+        //if (m_pairBadge != null)
+        //{
+        //    // ペアワッペンがある場合はペアワッペンにスライドを依頼
+        //    m_pairBadge.Slide(velocity);
+        //    return;
+        //}
         StartSlide(velocity); // ペアワッペンがない場合は自分自身をスライド
     }
 

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -50,7 +51,7 @@ public class PairBadge : MonoBehaviour
     public bool CanSlide()
     {
         // すべてのフェルトブロックがスライド可能かチェック
-        return m_feltBlocks.TrueForAll(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsSlippery());
+        return m_feltBlocks.Any(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsSlippery());
     }
 
     public void Slide(GridPos velocity)
@@ -58,6 +59,14 @@ public class PairBadge : MonoBehaviour
         foreach (var feltBlock in m_feltBlocks)
         {
             feltBlock.GetComponent<FeltBlockMove>().StartSlide(velocity); // 各フェルトブロックをスライド
+        }
+    }
+
+    public void StartMove()
+    {
+        foreach (var feltBlock in m_feltBlocks)
+        {
+            feltBlock.GetComponent<FeltBlockMove>().ChangeState(MoveTile.State.MOVE); // 各フェルトブロックの移動を開始
         }
     }
 

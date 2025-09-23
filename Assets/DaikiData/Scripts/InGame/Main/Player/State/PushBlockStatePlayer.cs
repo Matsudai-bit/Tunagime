@@ -23,6 +23,7 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+
         // 移動を停止
         owner.StopMove();
 
@@ -30,15 +31,15 @@ public class PushBlockStatePlayer : PlayerState
                                        // test
         // 押す対象のブロックを取得
         m_tileMovement = GetPushComponent();
+        
+        m_tileMovement.StartMove();
+
         if (m_tileMovement == null)
         {
             // 押す対象のブロックが見つからない場合は待機状態に遷移
             owner.GetStateMachine().RequestStateChange(PlayerStateID.IDLE);
             return;
         }
-
-
-
         
         // ブロックを押す前の開始位置を設定
         var blockPos = m_tileMovement.GetComponent<StageBlock>().GetGridPos(); // ブロックのグリッド位置を取得
