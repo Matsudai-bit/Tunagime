@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4310584710123951017, guid: a4375d82d30dec54ba3391861bf6b251, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -3277139832630013673, guid: a4375d82d30dec54ba3391861bf6b251, type: 3}
       propertyPath: near clip plane
       value: 0.3

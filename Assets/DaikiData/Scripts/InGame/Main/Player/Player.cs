@@ -396,11 +396,16 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     {
         // Xキーを押したときの処理
         if (Input.GetKeyDown(KeyCode.X))
-        {   // 解く位置
+        {   
+            // 解く位置
             GridPos unknittingPos = GetForwardGridPos(); // 前方のグリッド位置
 
+            var stageGridData = MapData.GetInstance.GetStageGridData();
+            var tileObject = stageGridData.GetTileObject(unknittingPos);
+
             // 状態が橋なら解く
-            if (StageAmidaUtility.CheckAmidaState(unknittingPos, AmidaTube.State.BRIDGE))
+            if (StageAmidaUtility.CheckAmidaState(unknittingPos, AmidaTube.State.BRIDGE) && 
+                tileObject.gameObject == null)
             {
                 StopMove(); // 移動を停止
                 var targetPos = MapData.GetInstance.ConvertGridToWorldPos(unknittingPos.x, unknittingPos.y);

@@ -1,13 +1,13 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ƒQ[ƒ€“à‚ÌƒCƒ“ƒ^ƒ‰ƒNƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚ðŠÄŽ‹‚·‚é‚½‚ß‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
+/// ã‚²ãƒ¼ãƒ å†…ã®ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç›£è¦–ã™ã‚‹ãŸã‚ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
 /// </summary>
 public  interface IGameInteractionObserver 
 {
     /// <summary>
-    /// ƒQ[ƒ€“à‚ÌƒCƒ“ƒ^ƒ‰ƒNƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚ðŽóM‚·‚éƒƒ\ƒbƒh
+    /// ã‚²ãƒ¼ãƒ å†…ã®ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã‚’å—ä¿¡ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="eventID">ƒCƒxƒ“ƒgƒƒbƒZ[ƒW</param>
+    /// <param name="eventID">ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸</param>
     public void OnEvent(InteractionEvent eventID);
 }
