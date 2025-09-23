@@ -34,6 +34,11 @@ public class MoveTile : MonoBehaviour , IMoveTile
     /// </summary>
     public virtual void Awake()
     {
+        m_stageBlock = GetComponent<StageBlock>();
+        if (m_stageBlock == null)
+        {
+            Debug.LogError("FeltBlock requires a StageBlock component.");
+        }
         OnAwake();
     }
 
@@ -42,13 +47,9 @@ public class MoveTile : MonoBehaviour , IMoveTile
         OnStart();
     }
 
-    protected void OnAwake()
+    protected virtual void OnAwake()
     {
-        m_stageBlock = GetComponent<StageBlock>();
-        if (m_stageBlock == null)
-        {
-            Debug.LogError("FeltBlock requires a StageBlock component.");
-        }
+
     }
         
 

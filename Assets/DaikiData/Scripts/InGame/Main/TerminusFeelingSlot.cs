@@ -31,18 +31,18 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
 
         // オブザーバーとして登録
         GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
+
+        // モニターに登録
         FeelingSlotStateMonitor.GetInstance.RegisterMonitorObject(this);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-   
-
         // 初期状態で接続をチェック
         m_isConnection = false;
 
-        // モニターに登録
+        CheckConnection();
     }
 
     // Update is called once per frame
@@ -85,7 +85,8 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
         }
 
         // 接続状態の確認
-        if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType())
+        if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType() && 
+            m_feelingSlot.IsInsertCore())
   
             // 終点の感情と一致している場合は繋がっている
             m_isConnection = true;

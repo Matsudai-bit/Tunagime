@@ -96,24 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gimmickData:
   - gridPos:
-      x: 13
-      y: 3
-    blockType: 8
-    emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
-  - gridPos:
-      x: 10
-      y: 7
-    blockType: 8
-    emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
-  - gridPos:
-      x: 5
-      y: 9
-    blockType: 8
-    emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
-  - gridPos:
       x: 1
       y: 7
     blockType: 2
@@ -155,6 +137,30 @@ MonoBehaviour:
     blockType: 0
     emotionType: 3
     rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 5
+      y: 3
+    blockType: 8
+    emotionType: 2
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 13
+      y: 3
+    blockType: 8
+    emotionType: 2
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 10
+      y: 3
+    blockType: 8
+    emotionType: 2
+    rotate: {x: 0, y: 0, z: 0}
+  - gridPos:
+      x: 17
+      y: 3
+    blockType: 8
+    emotionType: 2
+    rotate: {x: 0, y: 0, z: 0}
   m_floorData: []
   m_startSlotData:
   - gridPos:
@@ -179,8 +185,8 @@ MonoBehaviour:
   - gridPos:
       x: 20
       y: 3
-    blockType: 0
-    emotionType: 0
+    blockType: 9
+    emotionType: 2
     rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 20

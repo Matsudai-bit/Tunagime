@@ -44,6 +44,7 @@ public class StageGenerator : MonoBehaviour
         SATIN_FLOOR,            // サテン床
         PAIR_BADGE,             // ペアバッジ
         FRAGMENT,               // 想いの断片
+        TERMINUS_SLOT_EMPTY,    // 終点の想いの核（空）
         NONE,                 // なし
     }
 
@@ -243,19 +244,30 @@ public class StageGenerator : MonoBehaviour
         {
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
-            // 床の生成
-            GameObject instanceObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType);
+            // 型の生成
+            GameObject instanceCoreObj = null;
+                
+            if (generation.blockType == GenerationType.TERMINUS_SLOT_EMPTY)
+            {
+                // 終点の想いの型（空）の生成
+                instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType, true);
+            }
+            else
+            {
+                // 終点の生成
+                instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType, false);
+            }
 
 
             // 新しい床オブジェクトを設定
-            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
+            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceCoreObj;
 
             // 新しい床オブジェクトを設定
-            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
-            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
+            map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceCoreObj);
+            map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceCoreObj;
 
-            TerminusFeelingSlot terminusFeelingSlot = instanceObj.GetComponent<TerminusFeelingSlot>();
-            if (terminusFeelingSlot != null && instanceObj?.GetComponent<TerminusFeelingSlotRefection>() == null)
+            TerminusFeelingSlot terminusFeelingSlot = instanceCoreObj.GetComponent<TerminusFeelingSlot>();
+            if (terminusFeelingSlot != null && instanceCoreObj?.GetComponent<TerminusFeelingSlotRefection>() == null)
             {
                 clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
             }

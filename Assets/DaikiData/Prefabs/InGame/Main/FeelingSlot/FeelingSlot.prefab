@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 8706480369918969109}
   - component: {fileID: 7254520666059769937}
   - component: {fileID: 4947024199510877127}
+  - component: {fileID: 3000895540944693329}
   m_Layer: 0
   m_Name: FeelingSlot
   m_TagString: Untagged
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_feelingCore: {fileID: 4303563446309205035}
+  m_meshRenderer: {fileID: 1135107928529269258}
 --- !u!114 &4947024199510877127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +149,19 @@ MonoBehaviour:
     y: 0
   m_blockType: 0
   m_canInteract: 0
+--- !u!114 &3000895540944693329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293287876587456767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7739178aa8aa740ac8061b97b849b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Type: 0
 --- !u!1001 &1729702233300659854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +219,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32a25b97942cc4e45b53656ccfb1fa44, type: 3}
+--- !u!23 &1135107928529269258 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 32a25b97942cc4e45b53656ccfb1fa44, type: 3}
+  m_PrefabInstance: {fileID: 1729702233300659854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2273080282253396325 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 32a25b97942cc4e45b53656ccfb1fa44, type: 3}

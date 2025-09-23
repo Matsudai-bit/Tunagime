@@ -1,45 +1,45 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [Header( "====== ƒXƒe[ƒW¶¬Ší(‰½ƒXƒe[ƒW)‚Ìİ’è “Á‚Éİ’è‚µ‚È‚­‚Ä‚à‘åä•v@ƒ}ƒbƒvƒf[ƒ^‚©‚ç©“®‚Åæ“¾‚³‚ê‚é ======")]
+    [Header( "====== ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨(ä½•ã‚¹ãƒ†ãƒ¼ã‚¸)ã®è¨­å®š ç‰¹ã«è¨­å®šã—ãªãã¦ã‚‚å¤§ä¸ˆå¤«ã€€ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰è‡ªå‹•ã§å–å¾—ã•ã‚Œã‚‹ ======")]
     [SerializeField]
     private GameObject m_stageGenerator;
 
-    [Header("====== Šee‚Ìİ’è ======")]
+    [Header("====== å„è¦ªã®è¨­å®š ======")]
     [SerializeField]
 
-    [Header("‚ ‚İ‚¾ƒ`ƒ…[ƒu")]
+    [Header("ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–")]
     private Transform m_amidaParent;
 
-    [Header("°")]
+    [Header("åºŠ")]
     [SerializeField]
     private Transform m_floorBlockParent;
 
-    [Header("ƒMƒ~ƒbƒNŠÖ˜A")]
+    [Header("ã‚®ãƒŸãƒƒã‚¯é–¢é€£")]
     [SerializeField]
     private Transform m_gimmickParent;
 
-    [Header("======ƒQ[ƒ€ƒfƒBƒŒƒNƒ^[‚Ìİ’è ======")]
-    [SerializeField]@private GameDirector m_gameDirector; // ƒQ[ƒ€ƒfƒBƒŒƒNƒ^[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    [Header("======ã‚²ãƒ¼ãƒ ãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼ã®è¨­å®š ======")]
+    [SerializeField]ã€€private GameDirector m_gameDirector; // ã‚²ãƒ¼ãƒ ãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
-    [Header("====== ƒNƒŠƒAó‘Ô‚Ìƒ`ƒFƒbƒJ[‚Ìİ’è ======")]
-    [SerializeField] private ClearConditionChecker m_clearConditionChecker; // ƒNƒŠƒAó‘Ô‚Ìƒ`ƒFƒbƒJ[
+    [Header("====== ã‚¯ãƒªã‚¢çŠ¶æ…‹ã®ãƒã‚§ãƒƒã‚«ãƒ¼ã®è¨­å®š ======")]
+    [SerializeField] private ClearConditionChecker m_clearConditionChecker; // ã‚¯ãƒªã‚¢çŠ¶æ…‹ã®ãƒã‚§ãƒƒã‚«ãƒ¼
 
-    [Header("====== ‚ ‚İ‚¾ƒ}ƒl[ƒWƒƒ[‚Ìİ’è ======")]
-    [SerializeField] private AmidaManager m_amidaManager; // ‚ ‚İ‚¾ƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    [Header("====== ã‚ã¿ã ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®è¨­å®š ======")]
+    [SerializeField] private AmidaManager m_amidaManager; // ã‚ã¿ã ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
-        var map = MapData.GetInstance; // ƒ}ƒbƒvƒf[ƒ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
+        var map = MapData.GetInstance; // ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
 
-        // ƒXƒe[ƒW¶¬Ší‚Ìæ“¾
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨ã®å–å¾—
         m_stageGenerator = map.GetStageGenerator();
 
-        // ƒXƒe[ƒW¶¬Ší‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
         if (m_stageGenerator != null)
         {
             m_stageGenerator = Instantiate(m_stageGenerator, Vector3.zero, Quaternion.identity);
@@ -53,7 +53,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ƒXƒe[ƒW¶¬Ší‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆå™¨ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
         }
     }
 

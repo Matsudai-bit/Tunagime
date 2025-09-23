@@ -3,6 +3,13 @@
 
 public class CoreMove : MoveTile
 {
+    FeelingCore m_feelingCore;
+
+    protected override void OnAwake()
+    {
+       m_feelingCore =  GetComponent<FeelingCore>();
+    }
+
     /// <summary>
     /// 移動
     /// </summary>
@@ -61,7 +68,7 @@ public class CoreMove : MoveTile
         if ((targetTileObject.stageBlock != null))
         {
             var feelingSlot = targetTileObject.gameObject.GetComponent<FeelingSlot>();
-            if (feelingSlot != null && !feelingSlot.IsInsertCore())
+            if (feelingSlot != null && !feelingSlot.CanInsertCore(m_feelingCore.GetEmotionType()))
             {
 
                 return true;

@@ -109,6 +109,38 @@ public class Fragment : MonoBehaviour
         // 現在の状態がMOVINGの場合のみ、移動処理を実行
         if (m_currentState == State.MOVING)
         {
+            // 現在のタイルを取得
+            var stageGridData = MapData.GetInstance.GetStageGridData();
+
+            var amidaTube = stageGridData.GetAmidaTube(m_stageBlock.GetGridPos());
+
+
+            if (amidaTube == null)
+            {
+                // 一番近い距離のあみだチューブを探す
+                var closestAmidaTube = StageAmidaUtility.FindClosestAmidaTube(transform.position);
+                if (closestAmidaTube != null && closestAmidaTube.GetState() == AmidaTube.State.NORMAL)
+                {
+                    var closetGridPos = closestAmidaTube.GetComponent<StageBlock>().GetGridPos();
+
+                    if (closetGridPos != m_stageBlock.GetGridPos())
+                    {
+                        m_stageBlock.UpdatePosition(closetGridPos, true);
+                        m_prevGridPos = m_stageBlock.GetGridPos();
+
+                        m_currentMovementDirection = m_currentSideDirection;
+                    }
+
+  
+                }
+                else
+                {
+                    Debug.LogWarning("No AmidaTube found nearby.");
+                }
+
+            }
+
+            // ステージのグリッドに沿って断片を移動させる
             MoveOnGrid();
         }
     }
@@ -371,9 +403,9 @@ public class Fragment : MonoBehaviour
             return;
         }
 
-        if (m_currentSideDirection == MovementDirectionID.RIGHT)
+        if (m_currentSideDirection == MovementDirectionID.RIGHT || 
+            ( fragment.CurrentSideDirection == MovementDirectionID.LEFT &&  m_currentSideDirection == MovementDirectionID.LEFT))
         {
-
             if (fragment.CurrentSideDirection != m_currentSideDirection || m_currentMovementDirection == MovementDirectionID.DOWN)
             {
                 MergeFragment(fragment);

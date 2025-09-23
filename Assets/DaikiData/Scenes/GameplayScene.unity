@@ -256,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4401691212151970669, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.87
       objectReference: {fileID: 0}
     - target: {fileID: 4401691212151970669, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -308,6 +308,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361160774393927509, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7495615921906011165, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7495615921906011165, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7495615921906011165, guid: 0aa2a777782089241a4dca739fa374d6, type: 3}
@@ -1345,6 +1353,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8989203395568978508, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989203395568978508, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.1
       objectReference: {fileID: 0}
@@ -2144,7 +2156,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: 558a63e5b03621a4bafa6534085cd305, type: 2}
+      objectReference: {fileID: 11400000, guid: 5f84dde78c7a75b4481119a19c6f8913, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 

@@ -80,6 +80,16 @@ public class StageObjectFactory : MonoBehaviour
 
         // 生成するオブジェクトの取得
         GameObject generationObject = GetFeelingSlotFromPool();
+
+        var feelingSlot = generationObject?.GetComponent<FeelingSlot>();
+        if (feelingSlot == null)
+        {
+            Debug.LogError("FeelingSlot コンポーネントが見つかりません。");
+            return null;
+        }
+        feelingSlot.SetEmotionType(emotionType);
+
+
         // 親の設定
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
@@ -109,25 +119,46 @@ public class StageObjectFactory : MonoBehaviour
     /// <param name="gridPos"></param>
     /// <param name="emotionType"></param>
     /// <returns></returns>
-    public GameObject GenerateTerminusFeelingSlot(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
+    public GameObject GenerateTerminusFeelingSlot(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType, bool isCoreEmpty)
     {
         // 生成するオブジェクトの取得
         GameObject generationObject = GetTerminusFeelingSlotFromPool();
+
+        var feelingSlot = generationObject?.GetComponent<FeelingSlot>();
+        if (feelingSlot == null)
+        {
+            Debug.LogError("FeelingSlot コンポーネントが見つかりません。");
+            return null;
+        }
+
+        feelingSlot.SetEmotionType(emotionType);
+
         // 親の設定
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
-        // 種類の設定
-        var feelingCore = generationObject?.GetComponent<FeelingSlot>().GetFeelingCore();
-        if (feelingCore)
-        {
-            feelingCore.SetEmotionType(emotionType);
 
 
-            if (feelingCore.GetEmotionType() == EmotionCurrent.Type.REJECTION)
+            // 種類の設定
+            var feelingCore = feelingSlot.GetFeelingCore();
+            if (feelingCore)
             {
-                generationObject.AddComponent<TerminusFeelingSlotRefection>();
+                if (isCoreEmpty == false)
+                {
+                    feelingCore.SetEmotionType(emotionType);
+
+                    if (feelingCore.GetEmotionType() == EmotionCurrent.Type.REJECTION)
+                    {
+                        generationObject.AddComponent<TerminusFeelingSlotRefection>();
+                    }
+                }
+                else
+                {
+                    feelingCore.SetEmotionType(EmotionCurrent.Type.NONE);
+                    feelingCore.SetActive(false);
+                }
             }
-        }
+        
+
         // ステージブロックの設定
         StageBlock stageBlock = generationObject.GetComponent<StageBlock>();
         stageBlock.SetBlockType(StageBlock.BlockType.FEELING_SLOT);

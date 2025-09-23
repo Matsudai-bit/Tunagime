@@ -150,10 +150,7 @@ public class MapData : MonoBehaviour
             m_commonData.tileSize = m_mapSetting.tileSize;
             m_commonData.BaseTilePosY = m_mapSetting.BaseTilePosY;
         }
-        else
-        {
-            Debug.LogError("MapData: マップ設定が未設定です。");
-        }
+
     }
 
 

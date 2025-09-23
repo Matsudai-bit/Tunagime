@@ -14,7 +14,7 @@ public class MaterialLibrary : ScriptableObject
         CURTAIN,
         CORE,
         FRAGMENT, // 追加: 想いの断片
-        PAIR_BADGE // 追加: ペアバッジ
+        FEELING_SLOT // 
     }
 
     [Serializable]
@@ -110,7 +110,7 @@ public class MaterialLibrary : ScriptableObject
         m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.FELT_BLOCK, materialEntries = new List<MaterialEntry>() });
         m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.CURTAIN, materialEntries = new List<MaterialEntry>() });
         m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.CORE, materialEntries = new List<MaterialEntry>() });
-        m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.PAIR_BADGE, materialEntries = new List<MaterialEntry>() });
+        m_materialGroups.Add(new MaterialGroupEntry { materialGroup = MaterialGroup.FEELING_SLOT, materialEntries = new List<MaterialEntry>() });
         
         foreach (var group in m_materialGroups)
         {
