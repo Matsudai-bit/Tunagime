@@ -1,6 +1,4 @@
-﻿using System.Xml.Schema;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// グリッド座標
@@ -22,6 +20,8 @@ public struct GridPos
 
     public static GridPos operator +(GridPos lhs, GridPos rhs) => new GridPos(lhs.x + rhs.x, lhs.y + rhs.y);
     public static GridPos operator -(GridPos lhs, GridPos rhs) => new GridPos(lhs.x - rhs.x, lhs.y - rhs.y);
+
+    public static GridPos operator *(GridPos lhs, int scalar) => new GridPos(lhs.x * scalar, lhs.y * scalar);
 
     // == 演算子のオーバーロード
     public static bool operator ==(GridPos lhs, GridPos rhs)

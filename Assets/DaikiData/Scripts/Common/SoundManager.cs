@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 
@@ -11,8 +10,7 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager s_instance = null;
 
-    [SerializeField]
-    private GameSoundData m_gameSoundData ;
+    public  GameSoundData m_gameSoundData ;
 
     private Dictionary<SoundID, SoundData> m_soundDictionary = new();
     private List<AudioSource> m_audioSourceList = new();
@@ -79,6 +77,9 @@ public class SoundManager : MonoBehaviour
         //{
         //    m_audioSourceList[i] = gameObject.AddComponent<AudioSource>();
         //}
+
+        // サウンドデータのインスタンスを取得
+        m_gameSoundData = GameSoundData.GetInstance; 
 
         // サウンドデータを辞書に変換
         foreach (var soundData in m_gameSoundData.soundData)

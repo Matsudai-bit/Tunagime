@@ -428,21 +428,44 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// </summary>
     public bool TryPushBlock()
     {
+        if (m_targetObject == null) return false;
+
+
         // 正面に半ブロック分のレイを飛ばす
         if (Input.GetKey(KeyCode.Z))
         {
             // マップの取得
             var map = MapData.GetInstance;
 
+            // 前方のグリッド位置がグリッド範囲内かチェック
             if (map.CheckInnerGridPos(GetForwardGridPos()) == false) return false;
 
+            
+            var stageGridData = map.GetStageGridData();
 
-            if (m_targetObject?.GetComponent<IMoveTile>() != null )
+
+            // プレイヤーの後方のグリッド方向
+            var reverseForward = GetForwardDirection() * -1;
+
+            var targetStageBlock = m_targetObject.GetComponent<StageBlock>();
+
+            if (targetStageBlock == null)
+            {
+                Debug.Log("targetStageBlock が null です");
+            }
+
+            // ブロックの後方のグリッド位置
+            var blockTargetReverseGridPos = targetStageBlock.GetGridPos() + reverseForward;
+
+            var reverseForwardTileObject = stageGridData.GetTileObject(blockTargetReverseGridPos);
+
+            if (m_targetObject?.GetComponent<IMoveTile>() != null &&
+                reverseForwardTileObject.gameObject == null)
             {
                 // 押しだすブロックの一個置く側に空間が空いていれば押し出すことが出来る
-                var stageBlock = m_targetObject.GetComponent<IMoveTile>();
+                var moveTile = m_targetObject.GetComponent<IMoveTile>();
 
-                if ( stageBlock.CanMove(GetForwardDirection()))
+                if ( moveTile.CanMove(GetForwardDirection()))
                 {
 
                     // 押し出す状態に切り替える

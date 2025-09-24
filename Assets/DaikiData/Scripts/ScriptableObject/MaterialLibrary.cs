@@ -46,6 +46,8 @@ public class MaterialLibrary : ScriptableObject
     private Dictionary<MaterialGroup, Dictionary<EmotionCurrent.Type, Material>> m_materialMap;
 
     private static MaterialLibrary s_instance;
+
+
     public static MaterialLibrary GetInstance
     {
         get
