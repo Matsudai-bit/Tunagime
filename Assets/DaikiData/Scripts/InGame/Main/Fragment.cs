@@ -95,7 +95,11 @@ public class Fragment : MonoBehaviour
 
     private void Awake()
     {
-        InitializeComponents();
+        m_stageBlock = GetComponent<StageBlock>();
+        if (m_stageBlock == null)
+        {
+            Debug.LogError("Fragment requires a StageBlock component.");
+        }
     }
 
     private void Start()
@@ -199,15 +203,12 @@ public class Fragment : MonoBehaviour
     }
 
     /// <summary>
-    /// コンポーネントの初期化を行う
+    /// 初期化処理
     /// </summary>
-    private void InitializeComponents()
+    /// <param name="startLevel"></param>
+    public void Initialize(Level startLevel)
     {
-        m_stageBlock = GetComponent<StageBlock>();
-        if (m_stageBlock == null)
-        {
-            Debug.LogError("Fragment requires a StageBlock component.");
-        }
+        m_level = startLevel;
     }
 
     /// <summary>
@@ -403,15 +404,21 @@ public class Fragment : MonoBehaviour
             return;
         }
 
-        if (m_currentSideDirection == MovementDirectionID.RIGHT || 
-            ( fragment.CurrentSideDirection == MovementDirectionID.LEFT &&  m_currentSideDirection == MovementDirectionID.LEFT))
+        if ((int)(fragment.level) == (int)(m_level))
         {
-            if (fragment.CurrentSideDirection != m_currentSideDirection || m_currentMovementDirection == MovementDirectionID.DOWN)
+
+            // 同じレベルの場合、移動方向に応じてマージを決定
+            if (m_currentSideDirection == MovementDirectionID.RIGHT ||
+                (fragment.CurrentSideDirection == MovementDirectionID.LEFT && m_currentSideDirection == MovementDirectionID.LEFT))
             {
-                MergeFragment(fragment);
-                return;
+                if (fragment.CurrentSideDirection != m_currentSideDirection || m_currentMovementDirection == MovementDirectionID.DOWN)
+                {
+                    MergeFragment(fragment);
+                    return;
+                }
             }
         }
+
 
         gameObject.SetActive(false); // 自分自身を非アクティブにする
         MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // グリッドデータから削除

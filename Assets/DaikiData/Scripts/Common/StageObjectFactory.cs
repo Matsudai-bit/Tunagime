@@ -341,15 +341,24 @@ public class StageObjectFactory : MonoBehaviour
         return generationObject;
     }
 
-    public GameObject GenerateFragment(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType)
+    public GameObject GenerateFragment(Transform parent, GridPos gridPos, EmotionCurrent.Type emotionType, int levelValue)
     {
         // 生成するオブジェクトの取得
         GameObject generationObject = GetFragmentFromPool();
         // 親の設定
         if (parent != null)
             generationObject.transform.SetParent(parent, true);
+
+        Fragment fragment = generationObject?.GetComponent<Fragment>();
+        if (fragment == null)
+        {
+            Debug.LogError("Fragment コンポーネントが見つかりません。");
+            return null;
+        }
+        fragment.Initialize((Fragment.Level)levelValue);
+
         // マテリアルの設定
-        var meshRenderer = generationObject?.GetComponent<Fragment>().MeshRenderer;
+        var meshRenderer = fragment.MeshRenderer;
         if (meshRenderer != null)
         {
             meshRenderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FRAGMENT, emotionType);

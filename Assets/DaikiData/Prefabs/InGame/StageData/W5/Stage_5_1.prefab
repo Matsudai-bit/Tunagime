@@ -133,34 +133,28 @@ MonoBehaviour:
     rotate: {x: 0, y: 0, z: 0}
   - gridPos:
       x: 6
-      y: 7
+      y: 8
     blockType: 0
     emotionType: 3
     rotate: {x: 0, y: 0, z: 0}
   - gridPos:
-      x: 5
-      y: 3
+      x: 4
+      y: 9
     blockType: 8
     emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
+    rotate: {x: 2, y: 0, z: 0}
   - gridPos:
       x: 13
       y: 3
     blockType: 8
     emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
+    rotate: {x: 1, y: 0, z: 0}
   - gridPos:
-      x: 10
-      y: 3
+      x: 5
+      y: 7
     blockType: 8
     emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
-  - gridPos:
-      x: 17
-      y: 3
-    blockType: 8
-    emotionType: 2
-    rotate: {x: 0, y: 0, z: 0}
+    rotate: {x: 1, y: 0, z: 0}
   m_floorData: []
   m_startSlotData:
   - gridPos:
