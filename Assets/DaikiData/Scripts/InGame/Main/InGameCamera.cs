@@ -1,12 +1,13 @@
 ﻿using DG.Tweening;
-using DG.Tweening.Core;
-using UnityEditor;
 using UnityEngine;
 
 /// <summary>
 /// インゲームカメラ
 /// </summary>
-public class InGameCamera : MonoBehaviour
+public class InGameCamera 
+    : MonoBehaviour
+    , IInGameFlowEventObserver
+
 {
     private Vector3 m_targetPosition;        // 目標座標
 
@@ -35,6 +36,12 @@ public class InGameCamera : MonoBehaviour
         GAME_PLAYING,       // ゲーム中
     }
 
+    void Awake()
+    {
+        // ゲームフロウイベントの登録
+        InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,8 +55,12 @@ public class InGameCamera : MonoBehaviour
         m_targetPosition = transform.position;
         m_targetRotate = transform.rotation;
 
-        // 最初の状態
-        ChangeState(State.FOCUS_PLAYER);
+    }
+
+    void OnDestroy()
+    {
+        // ゲームフロウイベントの登録解除
+        InGameFlowEventMessenger.GetInstance.RemoveObserver(this);
     }
 
     // Update is called once per frame
@@ -71,10 +82,13 @@ public class InGameCamera : MonoBehaviour
     /// </summary>
     void StartGameStartingState()
     {
-  
 
         transform.DOBlendableMoveBy(m_targetPosition - transform.position,START_GAME_STARTING_TIME).SetEase(Ease.InOutSine);
-        transform.DORotateQuaternion(m_targetRotate, START_GAME_STARTING_TIME * 0.6f).SetEase(Ease.InOutSine);
+        transform.DORotateQuaternion(m_targetRotate, START_GAME_STARTING_TIME * 0.6f).SetEase(Ease.InOutSine).OnComplete(() =>
+        {
+            // シーケンス完了イベントを通知
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.INTRO_SEQUENCE_END);
+        });
     }
 
     /// <summary>
@@ -88,13 +102,20 @@ public class InGameCamera : MonoBehaviour
         // 注視点を初期位置に
         transform.DOBlendableMoveBy(new Vector3(0.0f, 0.0f, -8.0f), 2.0f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            ChangeState(State.GAME_SATARTING);
-        }); ;
+            // フォーカス完了イベントを通知
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_END);
+        });
     }
 
+    /// <summary>
+    /// ゲーム中状態の開始
+    /// </summary>
     void StartGamePlayingState()
     {
-
+        // 位置と回転を目標に
+        transform.position = m_targetPosition;
+        
+        transform.rotation = m_targetRotate;
     }
 
     /// <summary>
@@ -102,26 +123,7 @@ public class InGameCamera : MonoBehaviour
     /// </summary>
     void UpdateGameStartingState()
     {
-   //     // 時間を進める
-   //     m_currentTime += Time.deltaTime;
-
-   //     // 補間率
-   //     float lerpRate = m_currentTime / START_GAME_STARTING_TIME;
-   //     // 補間率の上限
-   //     lerpRate = Mathf.Min(lerpRate, 1.0f);
-
-   //     transform.position = Vector3.Lerp(m_startFocusPosition, m_targetPosition, lerpRate);
-   //     transform.rotation = Quaternion.Slerp(m_startFocusRotate, m_targetRotate, Mathf.Min(1.0f,lerpRate*1.8f));
-
-        
-
-   ////     transform.LookAt(m_startFocusPosition);
-
-
-   //     if (lerpRate >= 1.0f)
-   //     {
-   //         m_state = State.GAME_PLAYING;
-   //     }
+ 
     }
 
     void ChangeState(State state)
@@ -140,6 +142,29 @@ public class InGameCamera : MonoBehaviour
                 StartGamePlayingState();
                 break;
         }
+    }
 
+    /// <summary>
+    /// ゲームフロウイベント
+    /// </summary>
+    /// <param name="eventID"></param>
+    public void OnEvent(InGameFlowEventID eventID)
+    {
+        switch (eventID)
+        {
+            
+            case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
+                ChangeState(State.FOCUS_PLAYER);
+                break;
+
+            case InGameFlowEventID.INTRO_SEQUENCE_START:
+                ChangeState(State.GAME_SATARTING);
+                break;
+
+            case InGameFlowEventID.GAME_START:
+                ChangeState(State.GAME_PLAYING);
+                break;
+
+        }
     }
 }

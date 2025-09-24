@@ -17,7 +17,7 @@ public class StageGenerator : MonoBehaviour
     /// ギミック生成データ
     /// </summary>
     [System.Serializable]
-    class GenerationGimmickData
+    public class GenerationGimmickData
     {
         public GridPos gridPos;
         public GenerationType blockType; // ブロックの種類
@@ -33,7 +33,7 @@ public class StageGenerator : MonoBehaviour
         }
     }
 
-    enum GenerationType
+    public enum GenerationType
     {
         FELT_BLOCK,             // フェルトブロック
         FLUFF_BALL,             // 毛糸玉

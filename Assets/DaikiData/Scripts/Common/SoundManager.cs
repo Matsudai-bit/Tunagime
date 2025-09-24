@@ -126,6 +126,7 @@ public class SoundManager : MonoBehaviour
             // BGM用のAudioSourceを設定して再生
             m_bgmAudioSource.clip = soundData.clip;
             m_bgmAudioSource.loop = true;
+            m_bgmAudioSource.volume = 0.2f;
             m_bgmAudioSource.Play();
             //Play(soundData.clip); //見つかったら、再生
         }

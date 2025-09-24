@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// ゲーム内のフローイベントを管理するクラス シングルトン
 /// </summary>
-public class InGameFlowEventMessenger : MonoBehaviour
+public class InGameFlowEventMessenger 
 {
     private List<IInGameFlowEventObserver> m_observers = new List<IInGameFlowEventObserver>(); // オブザーバーのリスト
 
@@ -24,7 +24,6 @@ public class InGameFlowEventMessenger : MonoBehaviour
             return s_instance;
         }
     }
-    private InGameFlowEventMessenger() { }
 
     /// <summary>
     /// オブザーバーを登録するメソッド

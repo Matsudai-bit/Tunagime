@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// 
 /// </summary>
-public class MoveTile : MonoBehaviour , IMoveTile
+public class MoveTile : MonoBehaviour, IMoveTile
 {
-   public enum State
+    public enum State
     {
         IDLE, // 何もしない状態
         MOVE, // 移動状態 <- プレイヤに依存
@@ -18,7 +18,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     [SerializeField]
     private StageBlock m_stageBlock; // ステージブロック
 
-    private readonly float TARGET_TIME = 0.3f; // 動かすターゲット時間
+    private readonly float TARGET_TIME = 0.15f; // 動かすターゲット時間
 
     private GridPos m_prevVelocity;
 
@@ -51,7 +51,7 @@ public class MoveTile : MonoBehaviour , IMoveTile
     {
 
     }
-        
+
 
     protected void OnStart()
     {
@@ -249,4 +249,14 @@ public class MoveTile : MonoBehaviour , IMoveTile
         return this.transform;
     }
 
+    public State GetCurrentState()
+    {
+        return m_state;
+    }
+
+    public State GetPrevState()
+    {
+        return m_prevState;
+    }
 }
+

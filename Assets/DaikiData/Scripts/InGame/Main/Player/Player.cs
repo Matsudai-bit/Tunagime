@@ -70,9 +70,6 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
         var map = MapData.GetInstance;
 
-        // リロード
-        if (Input.GetKeyDown(KeyCode.Q)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
  
 
     
@@ -459,13 +456,15 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
             var reverseForwardTileObject = stageGridData.GetTileObject(blockTargetReverseGridPos);
 
-            if (m_targetObject?.GetComponent<IMoveTile>() != null &&
+            if (m_targetObject?.GetComponent<MoveTile>() != null &&
                 reverseForwardTileObject.gameObject == null)
             {
                 // 押しだすブロックの一個置く側に空間が空いていれば押し出すことが出来る
-                var moveTile = m_targetObject.GetComponent<IMoveTile>();
+                var moveTile = m_targetObject.GetComponent<MoveTile>();
 
-                if ( moveTile.CanMove(GetForwardDirection()))
+                if ( moveTile.CanMove(GetForwardDirection()) && 
+                    moveTile.GetCurrentState() == MoveTile.State.IDLE &&
+                    moveTile.GetPrevState() == MoveTile.State.IDLE)
                 {
 
                     // 押し出す状態に切り替える

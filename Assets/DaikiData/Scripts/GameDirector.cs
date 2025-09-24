@@ -1,45 +1,111 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameDirector : MonoBehaviour
+public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 {
+    bool m_isFirstUpdate = true;
 
     [SerializeField] GameObject m_clearUI;
+
+    void Awake()
+    {
+        // ã‚²ãƒ¼ãƒ ãƒ•ãƒ­ã‚¦ã‚¤ãƒ™ãƒ³ãƒˆã®ç™»éŒ²
+        InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Application.targetFrameRate = 60; // 60fps‚Éİ’è
+        // 60fpsã«è¨­å®š
+        Application.targetFrameRate = 60; 
 
     }
+
+    void OnDestroy()
+    {
+        // ã‚²ãƒ¼ãƒ ãƒ•ãƒ­ã‚¦ã‚¤ãƒ™ãƒ³ãƒˆã®ç™»éŒ²è§£é™¤
+        InGameFlowEventMessenger.GetInstance.RemoveObserver(this);
+    }   
 
     // Update is called once per frame
     void Update()
     {
+        if (m_isFirstUpdate)
+        {
+            m_isFirstUpdate = false;
 
+            // ã‚²ãƒ¼ãƒ é–‹å§‹ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€šçŸ¥
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_START);
+            return;
+        }
 
-        // EscƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒQ[ƒ€‚ğI—¹
+        // Escã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚²ãƒ¼ãƒ ã‚’çµ‚äº†
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-            Debug.Log("ƒQ[ƒ€‚ğI—¹‚µ‚Ü‚µ‚½B");
+            Debug.Log("ã‚²ãƒ¼ãƒ ã‚’çµ‚äº†ã—ã¾ã—ãŸã€‚");
         }
 
-        // Tab‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW‘I‘ğ‚É‚¢‚­
+        // TabãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠã«ã„ã
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            // ƒ^ƒCƒgƒ‹ƒV[ƒ“‚É‘JˆÚ‚·‚éˆ—
+            // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã«é·ç§»ã™ã‚‹å‡¦ç†
             UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
-            Debug.Log("ƒ^ƒCƒgƒ‹ƒV[ƒ“‚É–ß‚è‚Ü‚·B");
+            Debug.Log("ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã«æˆ»ã‚Šã¾ã™ã€‚");
         }
+
+
+        // ãƒªãƒ­ãƒ¼ãƒ‰
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        }
+
+
     }
 
-    // ƒQ[ƒ€‚ªƒNƒŠƒA‚µ‚½‚ÉŒÄ‚Î‚ê‚é
+    // ã‚²ãƒ¼ãƒ ãŒã‚¯ãƒªã‚¢ã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹
     public void OnGameClear()
     {
-        // ƒNƒŠƒAUI‚ğ•\¦‚·‚éˆ—
-        Debug.Log("ƒQ[ƒ€ƒNƒŠƒAI");
-        // ‚±‚±‚ÉƒQ[ƒ€ƒNƒŠƒA‚Ìˆ—‚ğ’Ç‰Á
+        // ã‚¯ãƒªã‚¢UIã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†
+        Debug.Log("ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ï¼");
+        // ã“ã“ã«ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ã®å‡¦ç†ã‚’è¿½åŠ 
         m_clearUI.SetActive(true);
+
+
+    }
+
+    public void LoadStageSelectScene()
+    {
+        SceneManager.LoadScene("StageSelectScene");
+    }
+
+    /// <summary>
+    /// ã‚²ãƒ¼ãƒ ãƒ•ãƒ­ã‚¦ã‚¤ãƒ™ãƒ³ãƒˆ
+    /// </summary>
+    /// <param name="eventID"></param>
+    public void OnEvent(InGameFlowEventID eventID)
+    {
+        switch (eventID)
+        {
+            // ã‚ºãƒ¼ãƒ ã‚¢ã‚¦ãƒˆçµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆ
+            case InGameFlowEventID.ZOOM_OUT_PLAYER_END:
+                // ã‚¤ãƒ³ãƒˆãƒ­ã‚·ãƒ¼ã‚±ãƒ³ã‚¹é–‹å§‹ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€šçŸ¥
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.INTRO_SEQUENCE_START);
+                break;
+
+            // ã‚¤ãƒ³ãƒˆãƒ­ã‚·ãƒ¼ã‚±ãƒ³ã‚¹çµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆ
+            case InGameFlowEventID.INTRO_SEQUENCE_END:
+                // ã‚²ãƒ¼ãƒ é–‹å§‹ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€šçŸ¥
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_START);
+                break;
+
+            case InGameFlowEventID.GAME_END:
+                // ã‚²ãƒ¼ãƒ çµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€šçŸ¥
+                LoadStageSelectScene();
+                break;
+        }
     }
 }
 
