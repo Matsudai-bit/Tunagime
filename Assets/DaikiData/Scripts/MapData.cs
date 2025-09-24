@@ -137,6 +137,8 @@ public class MapData : MonoBehaviour
             m_mapSetting = m_stageSetting.mapSetting;
             m_stageGenerator = m_stageSetting.stageGenerator;
 
+            SoundManager.GetInstance.PlayBGM(m_mapSetting.bgmID);
+
         }
 
 

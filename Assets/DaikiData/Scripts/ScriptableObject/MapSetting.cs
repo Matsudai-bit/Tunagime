@@ -11,6 +11,8 @@ public class MapSetting : ScriptableObject
 
     public float BaseTilePosY;
 
+    public SoundID bgmID;
+
 
 
 }

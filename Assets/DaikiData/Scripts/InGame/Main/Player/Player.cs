@@ -163,10 +163,14 @@ public class Player : MonoBehaviour , IGameInteractionObserver
                 return;
             }
 
+            m_rb.angularVelocity = Vector3.zero; // 回転速度もゼロに設定
+
             // 移動速度を設定
             m_rb.linearVelocity = movementVec * SPEED;
             // 徐々に回転
-            Quaternion targetRotation = Quaternion.LookRotation(movementVec, Vector3.up);
+            Quaternion targetRotation = Quaternion.LookRotation(movementVec);
+
+            //Debug.Log("ターゲット回転" + targetRotation.eulerAngles);
 
             //if (  m_rb.rotation.eulerAngles == Vector3.zero)
             //{

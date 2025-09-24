@@ -17,4 +17,4 @@ MonoBehaviour:
   center: {x: 0, y: 0}
   tileSize: 1
   BaseTilePosY: 0
-  backgroundPrefab: {fileID: 3543577353858044739, guid: bfef48083cfa91a47843fbbe27549d8e, type: 3}
+  bgmID: 2

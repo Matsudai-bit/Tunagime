@@ -7,7 +7,7 @@ public class SlipperStatePlayer : PlayerState
 {
     public GridPos m_directionBaseGrid; // グリッド基準のスライドする方向の
 
-    private readonly float SLIDE_SPEED = 2.0f; // スライド速度 1秒に動く量
+    private readonly float SLIDE_SPEED = 4.0f; // スライド速度 1秒に動く量
 
     public SlipperStatePlayer(Player owner) : base(owner)
     {
