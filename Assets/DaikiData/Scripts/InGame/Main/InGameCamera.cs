@@ -112,10 +112,10 @@ public class InGameCamera
     /// </summary>
     void StartGamePlayingState()
     {
-        // 位置と回転を目標に
-        transform.position = m_targetPosition;
+        //// 位置と回転を目標に
+        //transform.position = m_targetPosition;
         
-        transform.rotation = m_targetRotate;
+        //transform.rotation = m_targetRotate;
     }
 
     /// <summary>

@@ -251,6 +251,10 @@ public class StageObjectFactory : MonoBehaviour
     }
 
 
+    public GameObject GenerateCurtain(Transform parent, StageLayoutData.GenerationOptionID optionID, GridPos gridPos, EmotionCurrent.Type emotionType)
+    {
+        return GenerateCurtain(parent, (float)(optionID) * 90.0f, gridPos, emotionType);
+    }
     public GameObject GenerateCurtain(Transform parent, float localRotateY, GridPos gridPos, EmotionCurrent.Type emotionType)
     {
         // 生成するオブジェクトの取得

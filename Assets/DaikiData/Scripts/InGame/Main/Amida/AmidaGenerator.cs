@@ -1,9 +1,10 @@
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using static AmidaManager;
 
 
 /// <summary>
-/// ‚ ‚İ‚¾‚­‚¶‚Ì¶¬Ší@iƒVƒ“ƒOƒ‹ƒgƒ“j
+/// ã‚ã¿ã ãã˜ã®ç”Ÿæˆå™¨ã€€ï¼ˆã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ï¼‰
 /// </summary>
 public class AmidaTubeGenerator : MonoBehaviour
 {
@@ -13,18 +14,18 @@ public class AmidaTubeGenerator : MonoBehaviour
     {
         get
         {
-            // ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚Ü‚¾null‚Ìê‡
+            // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒã¾ã nullã®å ´åˆ
             if (s_instance == null)
             {
-                // ƒV[ƒ““à‚ÉŠù‘¶‚ÌMapDataƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ’T‚·
+                // ã‚·ãƒ¼ãƒ³å†…ã«æ—¢å­˜ã®MapDataã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’æ¢ã™
 
-                // ‚»‚ê‚Å‚àŒ©‚Â‚©‚ç‚È‚¢ê‡iƒV[ƒ““à‚É‚Ü‚¾‚È‚¢ê‡j
+                // ãã‚Œã§ã‚‚è¦‹ã¤ã‹ã‚‰ãªã„å ´åˆï¼ˆã‚·ãƒ¼ãƒ³å†…ã«ã¾ã ãªã„å ´åˆï¼‰
                 if (s_instance == null)
                 {
-                    // V‚µ‚¢GameObject‚ğì¬‚µAMapDataƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ’Ç‰Á‚·‚é
+                    // æ–°ã—ã„GameObjectã‚’ä½œæˆã—ã€MapDataã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’è¿½åŠ ã™ã‚‹
                     GameObject singletonObject = new GameObject(typeof(MapData).Name);
                     s_instance = singletonObject.AddComponent<AmidaTubeGenerator>();
-                    Debug.Log($"[MapData] ƒVƒ“ƒOƒ‹ƒgƒ“‚ğ¶¬‚µ‚Ü‚µ‚½: {singletonObject.name}");
+                    Debug.Log($"[MapData] ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚’ç”Ÿæˆã—ã¾ã—ãŸ: {singletonObject.name}");
                 }
             }
             return s_instance;
@@ -32,17 +33,17 @@ public class AmidaTubeGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ì¶¬—pƒf[ƒ^
+    /// ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ç”Ÿæˆç”¨ãƒ‡ãƒ¼ã‚¿
     /// </summary>
     /// 
 
     [System.Serializable]
     public struct DirectionPassage
     {
-        public bool up;       // ã‚É’Ê‰ß‰Â”\‚©‚Ç‚¤‚©
-        public bool down;     // ‰º‚É’Ê‰ß‰Â”\‚©‚Ç‚¤‚©
-        public bool left;     // ¶‚É’Ê‰ß‰Â”\‚©‚Ç‚¤‚©
-        public bool right;    // ‰E‚É’Ê‰ß‰Â”\‚©‚Ç‚¤‚©
+        public bool up;       // ä¸Šã«é€šéå¯èƒ½ã‹ã©ã†ã‹
+        public bool down;     // ä¸‹ã«é€šéå¯èƒ½ã‹ã©ã†ã‹
+        public bool left;     // å·¦ã«é€šéå¯èƒ½ã‹ã©ã†ã‹
+        public bool right;    // å³ã«é€šéå¯èƒ½ã‹ã©ã†ã‹
         public bool CanPass(Vector3Int direction)
         {
             if (direction == Vector3Int.up) return up;
@@ -56,26 +57,26 @@ public class AmidaTubeGenerator : MonoBehaviour
     [System.Serializable]
     public struct AmidaCellData
     {
-        public bool isMake;                         //@ì‚é‚©‚Ç‚¤‚©
-        public DirectionPassage passage;            //@’Ê‰ß‰Â”\‚È•ûŒü
-        public GridPos gridPos;                // ƒOƒŠƒbƒhÀ•W
+        public bool isMake;                         //ã€€ä½œã‚‹ã‹ã©ã†ã‹
+        public DirectionPassage passage;            //ã€€é€šéå¯èƒ½ãªæ–¹å‘
+        public GridPos gridPos;                // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™
     }
 
     AmidaCellData[,] m_amidaGenerationDataGrid;
 
 
-    [SerializeField] private GameObject m_amidaTubePrefab;    // ‚ ‚İ‚¾
-    private Transform m_amidaTubeParent;    // ‚ ‚İ‚¾‚Ìe
+    [SerializeField] private GameObject m_amidaTubePrefab;    // ã‚ã¿ã 
+    private Transform m_amidaTubeParent;    // ã‚ã¿ã ã®è¦ª
 
 
-    [Header(" ==== ƒeƒXƒg—p ====")]
-    [Header("‚ ‚İ‚¾‚Ì‰¡‚ÌˆÊ’u‚ÌY")]
-    [SerializeField] private int[] m_horizonalAmidaPosY ;
-    [Header("’Ç‰Á‚Ì‚ ‚İ‚¾‚Ì¶¬ˆÊ’u")]
-    [SerializeField] private GridPos[] m_addAmidaPos;
+    [Header(" ==== ãƒ†ã‚¹ãƒˆç”¨ ====")]
+    [Header("ã‚ã¿ã ã®æ¨ªã®ä½ç½®ã®Y")]
+    [SerializeField] public List<int> m_horizonalAmidaPosY ;
+    [Header("è¿½åŠ ã®ã‚ã¿ã ã®ç”Ÿæˆä½ç½®")]
+    [SerializeField] public List<GridPos> m_addAmidaPos;
 
     /// <summary>
-    /// Awakeƒƒ\ƒbƒh
+    /// Awakeãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     private void Awake()
     {
@@ -83,21 +84,21 @@ public class AmidaTubeGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// ‚ ‚İ‚¾‚Ì¶¬
+    /// ã‚ã¿ã ã®ç”Ÿæˆ
     /// </summary>
-    /// <param name="amidaTopPartPosY">‚ ‚İ‚¾‚Ì°‚Ìã•”À•W</param>
+    /// <param name="amidaTopPartPosY">ã‚ã¿ã ã®åºŠã®ä¸Šéƒ¨åº§æ¨™</param>
     /// <param name="map"></param>
-    /// <returns>¶¬‚µ‚½ƒOƒŠƒbƒhƒf[ƒ^</returns>
+    /// <returns>ç”Ÿæˆã—ãŸã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿</returns>
     public GameObject[,]  GenerateAmida(Transform amidaParent)
     {
         var map = MapData.GetInstance;
 
-        m_amidaTubeParent = amidaParent; // ‚ ‚İ‚¾‚Ìe‚Ìİ’è
+        m_amidaTubeParent = amidaParent; // ã‚ã¿ã ã®è¦ªã®è¨­å®š
 
-        // ‚ ‚İ‚¾ƒOƒŠƒbƒh
+        // ã‚ã¿ã ã‚°ãƒªãƒƒãƒ‰
         GameObject[,] amidaGrid;
 
-        // ‚ ‚İ‚¾ƒOƒŠƒbƒh‚Ì¶¬
+        // ã‚ã¿ã ã‚°ãƒªãƒƒãƒ‰ã®ç”Ÿæˆ
         amidaGrid = new GameObject[map.GetCommonData().height, map.GetCommonData().width];
         m_amidaGenerationDataGrid = new AmidaCellData[map.GetCommonData().height, map.GetCommonData().width];
 
@@ -106,7 +107,7 @@ public class AmidaTubeGenerator : MonoBehaviour
         AmidaCellData straightLeftRight = new AmidaCellData();
         AmidaCellData straightUpDown = new AmidaCellData();
 
-        // ‚»‚ê‚¼‚ê‚ÌƒpƒCƒv‚Ì‰Šú‰»
+        // ãã‚Œãã‚Œã®ãƒ‘ã‚¤ãƒ—ã®åˆæœŸåŒ–
         amidaA.isMake = true;
         amidaB.isMake = true;
         straightLeftRight.isMake = true;
@@ -124,7 +125,7 @@ public class AmidaTubeGenerator : MonoBehaviour
         straightUpDown.passage.up = true;
         straightUpDown.passage.down = true;
 
-        //// ¶¬ƒf[ƒ^‚Ìİ’è
+        //// ç”Ÿæˆãƒ‡ãƒ¼ã‚¿ã®è¨­å®š
         //m_amidaGenerationDataGrid[2, 1] = straightUpDown;
         //m_amidaGenerationDataGrid[2, 5] = straightUpDown;
         //m_amidaGenerationDataGrid[2, 10] = straightUpDown;
@@ -141,7 +142,7 @@ public class AmidaTubeGenerator : MonoBehaviour
         //m_amidaGenerationDataGrid[6, 17] = straightUpDown;
         //m_amidaGenerationDataGrid[6, 2] = straightUpDown;
 
-        // ‰¡Œü‚«‚ÌƒpƒCƒv‚ğ”z’u
+        // æ¨ªå‘ãã®ãƒ‘ã‚¤ãƒ—ã‚’é…ç½®
         foreach (var posY in m_horizonalAmidaPosY)
         {
             for (int cx = 1; cx < map.GetCommonData().width - 1; cx++)
@@ -152,7 +153,7 @@ public class AmidaTubeGenerator : MonoBehaviour
         }
 
 
-        // ‚ ‚İ‚¾ƒpƒCƒv‚Ì¶¬
+        // ã‚ã¿ã ãƒ‘ã‚¤ãƒ—ã®ç”Ÿæˆ
         for (int cy = 0; cy < map.GetCommonData().height; cy++)
         {
             for (int cx = 0; cx < map.GetCommonData().width; cx++)
@@ -166,7 +167,7 @@ public class AmidaTubeGenerator : MonoBehaviour
                 var amidaTube = amidaGrid[cy, cx].GetComponent<AmidaTube>();
                 var stageBlock = amidaGrid[cy, cx].GetComponent<StageBlock>();
 
-                stageBlock.SetGridPos(new GridPos(cx, cy)); // ƒOƒŠƒbƒhÀ•W‚Ìİ’è
+                stageBlock.SetGridPos(new GridPos(cx, cy)); // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã®è¨­å®š
 
                 map.GetStageGridData().GetTileData[cy, cx].amidaTube = amidaTube;
 
@@ -175,7 +176,7 @@ public class AmidaTubeGenerator : MonoBehaviour
             }
         }
 
-        // Še‚ ‚İ‚¾‚É—×Ú‚·‚é‚ ‚İ‚¾ƒpƒCƒv‚ğİ’è‚·‚é
+        // å„ã‚ã¿ã ã«éš£æ¥ã™ã‚‹ã‚ã¿ã ãƒ‘ã‚¤ãƒ—ã‚’è¨­å®šã™ã‚‹
         for (int cy = 0; cy < map.GetCommonData().height; cy++)
         {
             for (int cx = 0; cx < map.GetCommonData().width; cx++)
@@ -187,13 +188,13 @@ public class AmidaTubeGenerator : MonoBehaviour
 
                 if (amidaTube == null)
                 {
-                    Debug.LogWarning($"‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ª({cx}, {cy}) ‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚É‘¶İ‚µ‚Ü‚¹‚ñ");
+                    Debug.LogWarning($"ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ãŒ({cx}, {cy}) ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«å­˜åœ¨ã—ã¾ã›ã‚“");
                     continue;
                 }
 
                 if (m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.right))
                 {
-                    // ‰E‚É’Ê‰ß‰Â”\‚Èê‡A‰EA¶‚Ì‚ ‚İ‚¾ƒpƒCƒv‚ğİ’è
+                    // å³ã«é€šéå¯èƒ½ãªå ´åˆã€å³ã€å·¦ã®ã‚ã¿ã ãƒ‘ã‚¤ãƒ—ã‚’è¨­å®š
                     AmidaTube left;
                     AmidaTube right;
 
@@ -212,7 +213,7 @@ public class AmidaTubeGenerator : MonoBehaviour
 
                 if (m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.up))
                 {
-                    // ã‚É’Ê‰ß‰Â”\‚Èê‡Aã‚Ì‚ ‚İ‚¾ƒpƒCƒv‚ğİ’è
+                    // ä¸Šã«é€šéå¯èƒ½ãªå ´åˆã€ä¸Šã®ã‚ã¿ã ãƒ‘ã‚¤ãƒ—ã‚’è¨­å®š
                     AmidaTube up;
                     if (cy - 1 >= 0)
                         up = amidaGrid[cy - 1, cx]?.GetComponent<AmidaTube>();
@@ -224,7 +225,7 @@ public class AmidaTubeGenerator : MonoBehaviour
 
                 if (m_amidaGenerationDataGrid[cy, cx].passage.CanPass(Vector3Int.down))
                 {
-                    // ‰º‚É’Ê‰ß‰Â”\‚Èê‡A‰º‚Ì‚ ‚İ‚¾ƒpƒCƒv‚ğİ’è
+                    // ä¸‹ã«é€šéå¯èƒ½ãªå ´åˆã€ä¸‹ã®ã‚ã¿ã ãƒ‘ã‚¤ãƒ—ã‚’è¨­å®š
                     AmidaTube down;
                     if (cy + 1 < map.GetCommonData().height)
                         down = amidaGrid[cy + 1, cx]?.GetComponent<AmidaTube>();
@@ -252,7 +253,7 @@ public class AmidaTubeGenerator : MonoBehaviour
 
 
 
-        // ¶¬‚µ‚½ƒOƒŠƒbƒhƒf[ƒ^‚ğ•Ô‚·
+        // ç”Ÿæˆã—ãŸã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™
         return amidaGrid;
     }
 
@@ -262,12 +263,12 @@ public class AmidaTubeGenerator : MonoBehaviour
 
         GameObject bridge = Instantiate(m_amidaTubePrefab ,generatePos, Quaternion.identity, m_amidaTubeParent.transform);
 
-        bridge.GetComponent<StageBlock>().SetGridPos(gridPos); // ƒOƒŠƒbƒhÀ•W‚Ìİ’è
+        bridge.GetComponent<StageBlock>().SetGridPos(gridPos); // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã®è¨­å®š
 
         var map = MapData.GetInstance;
 
         var stageGridData = map.GetStageGridData();
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ì“o˜^
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ç™»éŒ²
         map.GetStageGridData().SetAmidaTube(gridPos, bridge.GetComponent<AmidaTube>());
 
         
@@ -278,19 +279,19 @@ public class AmidaTubeGenerator : MonoBehaviour
 
 
 
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìó‘Ô‚ğİ’è
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®çŠ¶æ…‹ã‚’è¨­å®š
         stageGridData.GetAmidaTube(gridPos).RequestChangedState(AmidaTube.State.BRIDGE);
         stageGridData.GetAmidaTube(knotDownPos).RequestChangedState(AmidaTube.State.KNOT_DOWN);
         stageGridData.GetAmidaTube(knotUpPos).RequestChangedState(AmidaTube.State.KNOT_UP);
 
 
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ìó‘Ô‚ğ•ÏX
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®çŠ¶æ…‹ã‚’å¤‰æ›´
         stageGridData.GetAmidaTube(knotDownPos) .ChangeState();
         stageGridData.GetAmidaTube(gridPos)     .ChangeState();
         stageGridData.GetAmidaTube(knotUpPos)   .ChangeState();
 
 
-        // •ûŒü‚Ì‚ ‚İ‚¾‚Ìİ’è
+        // æ–¹å‘ã®ã‚ã¿ã ã®è¨­å®š
 
 
 
@@ -302,7 +303,7 @@ public class AmidaTubeGenerator : MonoBehaviour
 
 
    /// <summary>
-   /// ‚ ‚İ‚¾ƒpƒCƒv‚ğ¶¬‚·‚éˆ—
+   /// ã‚ã¿ã ãƒ‘ã‚¤ãƒ—ã‚’ç”Ÿæˆã™ã‚‹å‡¦ç†
    /// </summary>
    /// <param name="amidaData"></param>
    /// <param name="cx"></param>
@@ -313,7 +314,7 @@ public class AmidaTubeGenerator : MonoBehaviour
    /// <returns></returns>
     GameObject CreateAmidaTube(AmidaCellData amidaData, int cx, int cy, MapData map, float amidaTopPartPosY)
     {
-        // ã‰º¶‰E‚É’Ê‰ß‰Â”\‚©‚Ç‚¤‚©‚ğ”»’è
+        // ä¸Šä¸‹å·¦å³ã«é€šéå¯èƒ½ã‹ã©ã†ã‹ã‚’åˆ¤å®š
         bool canUpPassThrough = false;
         bool canDownThrough = false;
         bool canRightPassThrough = false;
@@ -350,11 +351,11 @@ public class AmidaTubeGenerator : MonoBehaviour
         }
 
 
-        // À•W‚Ìİ’è
+        // åº§æ¨™ã®è¨­å®š
         Vector3 pos = map.ConvertGridToWorldPos(cx, cy);
         pos.y =  amidaTopPartPosY;
 
-        // ¶¬
+        // ç”Ÿæˆ
         GameObject newAmida = Instantiate(m_amidaTubePrefab, pos, Quaternion.identity, m_amidaTubeParent.transform);
 
 
@@ -362,7 +363,7 @@ public class AmidaTubeGenerator : MonoBehaviour
         newAmida.GetComponent<AmidaTube>().RequestChangedState(AmidaTube.State.NORMAL);
 
   
-        // ‚ ‚İ‚¾ƒ`ƒ…[ƒu‚Ì“o˜^
+        // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ã®ç™»éŒ²
         return newAmida;
     }
 

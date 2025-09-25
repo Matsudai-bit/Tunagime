@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static StageLayoutData;
-using NUnit.Framework;
-using Unity.Burst.CompilerServices;
-
-
 
 
 // エディタ専用の機能を含むため、UNITY_EDITORディレクティブを使用
@@ -26,7 +22,7 @@ public class StageLayoutData : ScriptableObject
     public class GridData
     {
         public string label;
-        public GimmickData gimmickDataArray;
+        public GimmickData gimmickData;
     }
     public enum GenerationType
     {
@@ -42,6 +38,23 @@ public class StageLayoutData : ScriptableObject
         TERMINUS_SLOT_EMPTY,    // 終点の想いの核（空）
         NONE,                 // なし
     }
+
+    public enum GenerationSlotType
+    {
+        NONE,
+        SLOT_NORMA,          // ノーマルスロット
+        SLOT_EMPTY           // 空スロット
+    }
+
+    [Serializable]
+    public enum GenerationOptionID
+    {
+        ID_00 = 0,
+        ID_01 = 1,
+        ID_02 = 2,
+        ID_03 = 3,
+    }
+
 
     /// <summary>
     /// あみだの線を引く行を指定するクラス
@@ -70,7 +83,7 @@ public class StageLayoutData : ScriptableObject
         public GridPos gridPos;
         public GenerationType blockType; // ブロックの種類
         public EmotionCurrent.Type emotionType; // 感情タイプ
-        public int typeNumber;          // 回転
+        public GenerationOptionID option;          // 回転
         public bool changeToSatinFloor;   // サテン床に変化するかどうか
         public bool placeAmidaTube;       // あみだの筒を配置するかどうか
 
@@ -78,7 +91,7 @@ public class StageLayoutData : ScriptableObject
         {
             gridPos = new GridPos();
             blockType = GenerationType.NONE;
-            typeNumber = 0;
+            option = GenerationOptionID.ID_00;
             emotionType = EmotionCurrent.Type.NONE;
             changeToSatinFloor = false;
         }
@@ -107,6 +120,58 @@ public class StageLayoutData : ScriptableObject
         }
 
     }
+
+    [Serializable]
+    public class RootSlotLayout
+    {
+        public string label;
+        public SlotPlaceData[] slotPlaceData = new SlotPlaceData[2];
+
+        public void SetLabel(int rowIndex)
+        {
+            label = (rowIndex + 1).ToString() + "行目 ------------------------------------------------------------------------------------------------";
+        }
+
+        public RootSlotLayout(int y, int width)
+        {
+            label = "Row";
+            slotPlaceData = new SlotPlaceData[2];
+
+            slotPlaceData[0] = new SlotPlaceData();
+            slotPlaceData[1] = new SlotPlaceData();
+
+            slotPlaceData[0].label = "始点の型";
+            slotPlaceData[1].label = "終点の型";
+
+            slotPlaceData[0].gridPos = new GridPos(0, y);
+            slotPlaceData[1].gridPos = new GridPos(width-1, y);
+
+            slotPlaceData[0].slotType = GenerationSlotType.NONE;
+            slotPlaceData[1].slotType = GenerationSlotType.NONE;
+        }
+    }
+
+        /// <summary>
+        /// スロット配置データ
+        /// </summary>
+        [Serializable]
+    public class SlotPlaceData
+    {
+        public string label;
+        public GenerationSlotType slotType;    // スロットの種類
+        public EmotionCurrent.Type emotionType;     // 感情タイプ
+        public GridPos gridPos;
+
+        public SlotPlaceData()
+        {
+            label = "Slot";
+            slotType = GenerationSlotType.NONE;
+            emotionType = EmotionCurrent.Type.NONE;
+            gridPos = new GridPos();
+        }
+
+    }
+
     [Header(" ステージの横幅(確認用) ")]
     [SerializeField] public int width;
     [Header(" ステージの縦幅(確認用) ")]
@@ -118,6 +183,17 @@ public class StageLayoutData : ScriptableObject
     // メインのレイアウトデータリスト
     [Header("======== ギミック配置データ ========")]
     public List<RootLayout> rootLayoutList = new List<RootLayout>();
+
+    public List<RootLayout> RootLayoutList { get { return rootLayoutList; } }
+
+    [Space(10.0f)]
+
+    // スロット配置データリスト
+    [Header("======== スロット配置データ ========")]
+    public List<RootSlotLayout> slotPlaceDataList = new List<RootSlotLayout>();
+
+    public List<RootSlotLayout> SlotPlaceDataList { get { return slotPlaceDataList; } }
+
 
 
 }
@@ -150,6 +226,7 @@ public class StageLayoutDataEditor : Editor
 
 
             InitializeGimmickGrid(stageLayoutData);
+            InitializeSlotGrid(stageLayoutData);
 
             // 変更を保存
             EditorUtility.SetDirty(stageLayoutData);
@@ -176,13 +253,35 @@ public class StageLayoutDataEditor : Editor
             {
                 GridData newGrid = new GridData();
                 newGrid.label = $"Grid ({x + 1}, {y + 1})";
-                newGrid.gimmickDataArray = new GimmickData();
-                newGrid.gimmickDataArray.gridPos = new GridPos(x + 1, y + 1);
+                newGrid.gimmickData = new GimmickData();
+                newGrid.gimmickData.gridPos = new GridPos(x, y);
                 //GimmickData generationGimmickData  = new();
-                //newGrid.gimmickDataArray = generationGimmickData;
+                //newGrid.gimmickData = generationGimmickData;
                 newRoot.gridDataList.Add(newGrid);
             }
             stageLayoutData.rootLayoutList.Add(newRoot);
+        }
+
+        Debug.Log($"ステージグリッドデータを初期化しました: {stageLayoutData.mapSetting.width}x{stageLayoutData.mapSetting.height}");
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageLayoutData"></param>
+    void InitializeSlotGrid(StageLayoutData stageLayoutData)
+    {
+        stageLayoutData.slotPlaceDataList.Clear();
+        for (int y = 0; y < stageLayoutData.mapSetting.height; y++)
+        {
+    
+            var newSlot = new RootSlotLayout(y, stageLayoutData.mapSetting.width);
+
+            newSlot.SetLabel(y);
+
+            stageLayoutData.slotPlaceDataList.Add(newSlot);
+            
         }
 
         Debug.Log($"ステージグリッドデータを初期化しました: {stageLayoutData.mapSetting.width}x{stageLayoutData.mapSetting.height}");

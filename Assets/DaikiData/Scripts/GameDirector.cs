@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
@@ -6,6 +8,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     bool m_isFirstUpdate = true;
 
     [SerializeField] GameObject m_clearUI;
+
+    [SerializeField] GameObject m_clearUIPanel;
 
     void Awake()
     {
@@ -73,7 +77,22 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // ここにゲームクリアの処理を追加
         m_clearUI.SetActive(true);
 
+        // クリアUIのパネルを表示
+        m_clearUIPanel.SetActive(true);
 
+        var s =WaitAndLoadStageSelectScene(300);
+
+    }
+
+    /// <summary>
+    /// ステージセレクトシーンに遷移
+    /// </summary>
+    /// <param name="waitTime"></param>
+    /// <returns></returns>
+    async UniTask WaitAndLoadStageSelectScene(int waitTime)
+    {
+        await UniTask.Delay(waitTime);
+        InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
     }
 
     public void LoadStageSelectScene()
@@ -103,7 +122,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
             case InGameFlowEventID.GAME_END:
                 // ゲーム終了イベントを通知
-                LoadStageSelectScene();
+                //LoadStageSelectScene();
                 break;
         }
     }

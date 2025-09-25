@@ -20,6 +20,10 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private Transform m_gimmickParent;
 
+    [Header("想いの型")]
+    [SerializeField]
+    private Transform m_feelingSlotParent;
+
     [Header("======ゲームディレクターの設定 ======")]
     [SerializeField]　private GameDirector m_gameDirector; // ゲームディレクターのインスタンス
 
@@ -48,6 +52,7 @@ public class StageManager : MonoBehaviour
                 m_amidaParent,
                 m_floorBlockParent,
                 m_gimmickParent,
+                m_feelingSlotParent,
                 m_clearConditionChecker
             );
         }

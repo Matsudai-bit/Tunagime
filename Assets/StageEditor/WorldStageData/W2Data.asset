@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e5350ca34ca8045aad364fbbc57266, type: 3}
+  m_Name: W2Data
+  m_EditorClassIdentifier: 
+  stageSettings:
+  - {fileID: 11400000, guid: 64029a9d3824cf34fad8a99966a501be, type: 2}
+  - {fileID: 11400000, guid: 0417cf3f652de494d95f5710719c5b9b, type: 2}
+  - {fileID: 11400000, guid: 266ebe52ea96c6a4ab37b916528a6233, type: 2}
+  - {fileID: 11400000, guid: 1a91f615d70c1cb47ba6b51fed9e5f4d, type: 2}
+  - {fileID: 11400000, guid: a7c2c31c33db96143ac15cfef57d42b9, type: 2}

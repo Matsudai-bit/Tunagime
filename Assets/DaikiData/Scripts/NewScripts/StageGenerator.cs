@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using static StageLayoutData;
 
 
 
@@ -12,6 +14,8 @@ public class StageGenerator : MonoBehaviour
 
     [Header("==== 新しいシステムを使うかどうか ==== ")]
     public bool m_usingNewSystem = false; // 新しいシステムを使うかどうか
+    [Header("==== ギミック生成データ ==== ")]
+    public StageLayoutData m_stageLayoutData; // ステージレイアウトデータ <- New
 
     /// <summary>
     /// ギミック生成データ
@@ -93,7 +97,13 @@ public class StageGenerator : MonoBehaviour
       
     }
 
-    public void Generate(AmidaManager amidaManager, Transform amidaParent, Transform floorParent, Transform gimmickParent, ClearConditionChecker clearConditionChecker)
+    public void Generate(
+        AmidaManager amidaManager, 
+        Transform amidaParent,
+        Transform floorParent, 
+        Transform gimmickParent,
+        Transform feelingSlotParent,
+        ClearConditionChecker clearConditionChecker)
     {
 
         MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, EmotionCurrent.Type.FAITHFULNESS); // マテリアルライブラリの初期化
@@ -114,30 +124,44 @@ public class StageGenerator : MonoBehaviour
             m_topFloorBlockGenerator.generator.GetComponent<FloorBlockGenerator>().
             GenerateFloor(false, floorParent);
 
-        // あみだチューブの生成
-        if (m_amidaTubeGenerator.generator)
-
-            m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>().GenerateAmida(amidaParent);
 
 
         if (m_usingNewSystem)
         {
-
+            GenerateNewSystem(
+                amidaManager,
+                amidaParent,
+                floorParent,
+                gimmickParent,
+                feelingSlotParent,
+                clearConditionChecker);
         }
         else
         {
+
+            // あみだチューブの生成
+            if (m_amidaTubeGenerator.generator)
+                m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>().GenerateAmida(amidaParent);
+
             GenerateOldSystem(
                 amidaManager,
                 amidaParent,
                 floorParent,
                 gimmickParent,
+                feelingSlotParent,
                 clearConditionChecker);
         }
 
         
     }
 
-    void GenerateOldSystem(AmidaManager amidaManager, Transform amidaParent, Transform floorParent, Transform gimmickParent, ClearConditionChecker clearConditionChecker)
+    void GenerateOldSystem(
+        AmidaManager amidaManager,
+        Transform amidaParent,
+        Transform floorParent,
+        Transform gimmickParent,
+        Transform feelingSlotParent,
+        ClearConditionChecker clearConditionChecker)
     {
         var map = MapData.GetInstance;
 
@@ -225,7 +249,7 @@ public class StageGenerator : MonoBehaviour
             {
                 case GenerationType.SATIN_FLOOR:
                     // サテン床の生成
-                    generationObject = stageObjectFactory.GenerateSatinFloor(gimmickParent, fixedGridPos);
+                    generationObject = stageObjectFactory.GenerateSatinFloor(floorParent, fixedGridPos);
                     // 生成されたオブジェクトの位置を設定
                     map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, generationObject);
                     break;
@@ -239,7 +263,7 @@ public class StageGenerator : MonoBehaviour
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
 
             // 床の生成
-            GameObject instanceObj = stageObjectFactory.GenerateFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType);
+            GameObject instanceObj = stageObjectFactory.GenerateFeelingSlot(feelingSlotParent, fixedGridPos, generation.emotionType);
 
 
             // 新しい床オブジェクトを設定
@@ -270,12 +294,12 @@ public class StageGenerator : MonoBehaviour
             if (generation.blockType == GenerationType.TERMINUS_SLOT_EMPTY)
             {
                 // 終点の想いの型（空）の生成
-                instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType, true);
+                instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(feelingSlotParent, fixedGridPos, generation.emotionType, true);
             }
             else
             {
                 // 終点の生成
-                instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(gimmickParent, fixedGridPos, generation.emotionType, false);
+                instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(feelingSlotParent, fixedGridPos, generation.emotionType, false);
             }
 
 
@@ -294,6 +318,206 @@ public class StageGenerator : MonoBehaviour
         }
     }
 
-  
+
+
+    void GenerateNewSystem(
+        AmidaManager amidaManager,
+        Transform amidaParent,
+        Transform floorParent,
+        Transform gimmickParent,
+        Transform feelingSlotParent,
+        ClearConditionChecker clearConditionChecker)
+    {
+
+        var map = MapData.GetInstance;
+        var stageObjectFactory = StageObjectFactory.GetInstance();
+        // あみだチューブの生成器
+        var amidaGenerator = m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>();
+
+        amidaGenerator.m_addAmidaPos.Clear();
+        amidaGenerator.m_horizonalAmidaPosY.Clear();
+
+
+        // ギミックの生成
+        foreach (var generation in m_stageLayoutData.RootLayoutList)
+        {
+            if (generation.createHorizonalAmidaLine)
+            {
+                // 横あみだラインの生成
+                amidaGenerator.m_horizonalAmidaPosY.Add(generation.gridDataList.First().gimmickData.gridPos.y+1);
+            }
+
+
+            foreach (var gridData in generation.gridDataList)
+            {
+                var gimmickData = gridData.gimmickData;
+
+                GridPos fixedGridPos = new GridPos(gimmickData.gridPos.x , gimmickData.gridPos.y);
+
+                // あみだチューブの設置座標の追加
+                if (gimmickData.placeAmidaTube)
+                {
+                    amidaGenerator.m_addAmidaPos.Add(new GridPos(fixedGridPos.x + 1, fixedGridPos.y + 1));
+                }
+
+
+                if (gimmickData.changeToSatinFloor)
+                {
+                    // サテン床の生成
+                    GameObject satinObject = stageObjectFactory.GenerateSatinFloor(floorParent, fixedGridPos);
+                    // 生成されたオブジェクトの位置を設定
+                    map.GetStageGridData().TryRePlaceFloorObject(fixedGridPos, satinObject);
+                }
+
+                if (gimmickData.blockType == StageLayoutData.GenerationType.NONE) continue; // ブロックの種類がNONEの場合はスキップ
+                GameObject gimmickDataObject = null;
+
+
+
+                switch (gimmickData.blockType)
+                {
+                    case StageLayoutData.GenerationType.FLUFF_BALL:
+                        // フラフボールの生成
+                        gimmickDataObject = stageObjectFactory.GenerateFluffBall(gimmickParent, fixedGridPos);
+                        // 生成されたオブジェクトの位置を設定
+                        map.GetStageGridData().TryPlaceTileObject(fixedGridPos, gimmickDataObject);
+                        break;
+                    case StageLayoutData.GenerationType.FELT_BLOCK:
+                        // フェルトブロックの生成
+                        gimmickDataObject = stageObjectFactory.GenerateFeltBlock(gimmickParent, fixedGridPos, gimmickData.emotionType);
+                        // 生成されたオブジェクトの位置を設定
+                        map.GetStageGridData().TryPlaceTileObject(fixedGridPos, gimmickDataObject);
+                        break;
+                    case StageLayoutData.GenerationType.FELT_BLOCK_NO_MOVEMENT:
+                        // 動かないフェルトブロックの生成
+                        gimmickDataObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
+                        // 生成されたオブジェクトの位置を設定
+                        map.GetStageGridData().TryPlaceTileObject(fixedGridPos, gimmickDataObject);
+                        break;
+                    case StageLayoutData.GenerationType.CURTAIN:
+                        // カーテンの生成
+                        gimmickDataObject = stageObjectFactory.GenerateCurtain(gimmickParent, gimmickData.option, fixedGridPos, gimmickData.emotionType);
+                        // 生成されたオブジェクトの位置を設定
+                        map.GetStageGridData().TryPlaceTileObject(fixedGridPos, gimmickDataObject);
+                        break;
+
+                    case StageLayoutData.GenerationType.PAIR_BADGE:
+                        // ペアバッジの生成
+
+                        // 同じ種類の座標を全て取得
+                        var gimmickDataBlock = m_gimmickData.Where(data => data.blockType == GenerationType.PAIR_BADGE && data.emotionType == gimmickData.emotionType).ToList();
+                        // 座標
+                        var gimmickDataPosList = gimmickDataBlock.Select(data => new GridPos(data.gridPos.x, data.gridPos.y)).ToList();
+
+                        // ペアバッジの生成
+                        gimmickDataObject = stageObjectFactory.GeneratePairBadge(gimmickParent, gimmickDataPosList, gimmickData.emotionType);
+
+                        // 生成されたオブジェクトの位置を設定
+
+                        foreach (var feltBlock in gimmickDataObject.GetComponent<PairBadge>().GetFeltBlocks())
+                        {
+                            map.GetStageGridData().TryPlaceTileObject(feltBlock.stageBlock.GetGridPos(), feltBlock.gameObject);
+                        }
+
+                        foreach (var data in gimmickDataBlock)
+                        {
+                            data.blockType = GenerationType.NONE; // 生成したペアバッジの座標はNONEに設定
+                        }
+
+                        break;
+                    case StageLayoutData.GenerationType.FRAGMENT:
+                        // 想いの断片の生成
+                        gimmickDataObject = stageObjectFactory.GenerateFragment(gimmickParent, fixedGridPos, gimmickData.emotionType, (int)gimmickData.option + 1);
+                        // 生成されたオブジェクトの位置を設定
+                        map.GetStageGridData().TryPlaceTileObject(fixedGridPos, gimmickDataObject);
+                        break;
+                
+
+                }
+
+             
+            }
+
+        }
+
+        // あみだチューブの生成
+        amidaGenerator.GenerateAmida(amidaParent);
+
+        // 開始スロットの生成　
+        foreach (var generation in m_stageLayoutData.SlotPlaceDataList)
+        {
+            // 始点スロットデータ
+            if (generation.slotPlaceData[0] != null && generation.slotPlaceData[0].slotType != StageLayoutData.GenerationSlotType.NONE)
+            {
+                var slotData = generation.slotPlaceData[0];
+
+                
+
+                GridPos fixedGridPos = slotData.gridPos;
+
+                // 始点の生成
+
+                GameObject instanceObj = stageObjectFactory.GenerateFeelingSlot(feelingSlotParent, fixedGridPos, slotData.emotionType);
+
+
+                // 新しい床オブジェクトを設定
+                map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceObj;
+
+                // 新しい床オブジェクトを設定
+                map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceObj);
+                map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceObj;
+
+                if (instanceObj.GetComponent<FeelingSlot>() != null)
+                {
+                    // FeelingSlotの初期化
+                    FeelingSlot feelingSlot = instanceObj.GetComponent<FeelingSlot>();
+                    amidaManager.AddFeelingSlot(feelingSlot);
+                }
+
+            }
+
+            // 終点スロットデータ
+            if (generation.slotPlaceData[1] != null && generation.slotPlaceData[1].slotType != StageLayoutData.GenerationSlotType.NONE)
+            {
+                var slotData = generation.slotPlaceData[1];
+                GridPos fixedGridPos = slotData.gridPos;
+                // 型の生成
+                GameObject instanceCoreObj = null;
+
+                if (slotData.slotType == StageLayoutData.GenerationSlotType.SLOT_EMPTY)
+                {
+                    // 終点の想いの型（空）の生成
+                    instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(feelingSlotParent, fixedGridPos, slotData.emotionType, true);
+                }
+                else
+                {
+                    // 終点の生成
+                    instanceCoreObj = stageObjectFactory.GenerateTerminusFeelingSlot(feelingSlotParent, fixedGridPos, slotData.emotionType, false);
+                }
+
+
+                // 新しい床オブジェクトを設定
+                map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].floor = instanceCoreObj;
+
+                // 新しい床オブジェクトを設定
+                map.GetStageGridData().TryPlaceTileObject(fixedGridPos, instanceCoreObj);
+                map.GetStageGridData().GetTileData[fixedGridPos.y, fixedGridPos.x].tileObject.gameObject = instanceCoreObj;
+
+                TerminusFeelingSlot terminusFeelingSlot = instanceCoreObj.GetComponent<TerminusFeelingSlot>();
+                if (terminusFeelingSlot != null && instanceCoreObj?.GetComponent<TerminusFeelingSlotRefection>() == null)
+                {
+                    clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
+                }
+
+            }
+        }
+
+
+
+
+
+    }
+
+
 
 }
