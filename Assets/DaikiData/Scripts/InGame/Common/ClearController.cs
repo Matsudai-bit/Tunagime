@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class ClearController : MonoBehaviour
 {
+    [Header("====== ゲームの親 ======")]
+    [SerializeField] private Transform m_gameParent;    // ゲームの親オブジェクト
+
     [Header("====== クリア時に消すオブジェクトのトランスフォーム ======")]
     [SerializeField] private GameObject m_clearOffParent; // クリア時に消すオブジェクト
 
@@ -11,9 +14,13 @@ public class ClearController : MonoBehaviour
 
     public GameObject m_opaqueScreen; // クリア時に表示する不透明な画面
 
+    private GameObject m_stageObject; // ステージオブジェクト
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
+        var map = MapData.GetInstance;
+
         m_clearUIGroup.SetActive(true); // クリアUIグループを表示する
 
         // クリアUIグループを非表示にする
@@ -32,6 +39,11 @@ public class ClearController : MonoBehaviour
             m_clearOffParent.SetActive(false); 
             // フェードアウトが完了した後の処理
             opaqueImage.DOFade(0.0f, 2.0f).SetEase(Ease.OutCirc);
+
+            // ステージオブジェクトを再生成する
+            m_stageObject = Instantiate(map.GetStageObject(), m_gameParent);
+
+            
         });
 
 

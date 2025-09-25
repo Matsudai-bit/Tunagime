@@ -356,4 +356,13 @@ public class MapData : MonoBehaviour
         return m_stageGenerator;
     }
 
+    /// <summary>
+    /// ステージオブジェクトの取得
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetStageObject()
+    {
+        return m_stageSetting.stageObject;
+    }
+
 }

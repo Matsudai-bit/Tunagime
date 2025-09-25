@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea09bf9d66209b489d2409aeed878ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_usingNewSystem: 0
-  m_stageLayoutData: {fileID: 11400000, guid: 65b09e419c6c81c4c8d1e1e91b886b97, type: 2}
+  m_usingNewSystem: 1
+  m_stageLayoutData: {fileID: 11400000, guid: 1120c7038280f984c80bfda3419c722d, type: 2}
   m_gimmickData: []
   m_floorData: []
   m_startSlotData:
