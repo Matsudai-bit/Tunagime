@@ -9,9 +9,9 @@ using UnityEngine;
 /// </summary>
 public class StageGenerator : MonoBehaviour
 {
-   
 
-
+    [Header("==== 新しいシステムを使うかどうか ==== ")]
+    public bool m_usingNewSystem = false; // 新しいシステムを使うかどうか
 
     /// <summary>
     /// ギミック生成データ
@@ -120,15 +120,35 @@ public class StageGenerator : MonoBehaviour
             m_amidaTubeGenerator.generator.GetComponent<AmidaTubeGenerator>().GenerateAmida(amidaParent);
 
 
+        if (m_usingNewSystem)
+        {
 
-        var stageObjectFactory = StageObjectFactory.GetInstance(); 
+        }
+        else
+        {
+            GenerateOldSystem(
+                amidaManager,
+                amidaParent,
+                floorParent,
+                gimmickParent,
+                clearConditionChecker);
+        }
+
+        
+    }
+
+    void GenerateOldSystem(AmidaManager amidaManager, Transform amidaParent, Transform floorParent, Transform gimmickParent, ClearConditionChecker clearConditionChecker)
+    {
+        var map = MapData.GetInstance;
+
+        var stageObjectFactory = StageObjectFactory.GetInstance();
         // ギミックの生成
         foreach (var generation in m_gimmickData)
         {
             if (generation.blockType == GenerationType.NONE) continue; // ブロックの種類がNONEの場合はスキップ
 
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
-            GameObject generationObject = null;           
+            GameObject generationObject = null;
 
             switch (generation.blockType)
             {
@@ -156,7 +176,7 @@ public class StageGenerator : MonoBehaviour
                     // 生成されたオブジェクトの位置を設定
                     map.GetStageGridData().TryPlaceTileObject(fixedGridPos, generationObject);
                     break;
-               
+
                 case GenerationType.PAIR_BADGE:
                     // ペアバッジの生成
 
@@ -169,7 +189,7 @@ public class StageGenerator : MonoBehaviour
                     generationObject = stageObjectFactory.GeneratePairBadge(gimmickParent, generationPosList, generation.emotionType);
 
                     // 生成されたオブジェクトの位置を設定
-                    
+
                     foreach (var feltBlock in generationObject.GetComponent<PairBadge>().GetFeltBlocks())
                     {
                         map.GetStageGridData().TryPlaceTileObject(feltBlock.stageBlock.GetGridPos(), feltBlock.gameObject);
@@ -190,7 +210,7 @@ public class StageGenerator : MonoBehaviour
 
             }
 
-        
+
         }
 
         // 床の生成 通常床は自動で生成されている
@@ -212,8 +232,8 @@ public class StageGenerator : MonoBehaviour
             }
         }
 
-            // 開始スロットの生成　
-            foreach (var generation in m_startSlotData)
+        // 開始スロットの生成　
+        foreach (var generation in m_startSlotData)
         {
 
             GridPos fixedGridPos = new GridPos(generation.gridPos.x - 1, generation.gridPos.y - 1);
@@ -246,7 +266,7 @@ public class StageGenerator : MonoBehaviour
 
             // 型の生成
             GameObject instanceCoreObj = null;
-                
+
             if (generation.blockType == GenerationType.TERMINUS_SLOT_EMPTY)
             {
                 // 終点の想いの型（空）の生成
@@ -272,11 +292,6 @@ public class StageGenerator : MonoBehaviour
                 clearConditionChecker.AddTerminusFeelingSlot(terminusFeelingSlot);
             }
         }
-
-
-
-
-
     }
 
   
