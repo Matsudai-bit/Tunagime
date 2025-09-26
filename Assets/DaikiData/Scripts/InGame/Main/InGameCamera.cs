@@ -34,6 +34,7 @@ public class InGameCamera
         FOCUS_PLAYER,       // プレイヤー注視状態
         GAME_SATARTING,     // ゲーム開始
         GAME_PLAYING,       // ゲーム中
+        CLEAR_STATE,      // クリア状態
     }
 
     void Awake()
@@ -118,6 +119,15 @@ public class InGameCamera
         //transform.rotation = m_targetRotate;
     }
 
+    void StartGameClearState() 
+    {
+        // 位置と回転を目標に
+        transform.position = m_targetPosition - new Vector3(0.0f, 0.0f, -4.0f);
+
+        // 目標座標の周りを回転する
+        transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 5.0f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+    }
+
     /// <summary>
     /// ゲーム開始状態の更新
     /// </summary>
@@ -140,6 +150,9 @@ public class InGameCamera
                 break;
             case State.GAME_PLAYING:
                 StartGamePlayingState();
+                break;
+            case State.CLEAR_STATE:
+                StartGameClearState();
                 break;
         }
     }
@@ -165,6 +178,22 @@ public class InGameCamera
                 ChangeState(State.GAME_PLAYING);
                 break;
 
+
         }
     }
+
+    /// <summary>
+    /// 目標座標の設定
+    /// </summary>
+    /// <param name="targetPosition"></param>
+    public void SetTargetPosition(Vector3 targetPosition)
+    {
+        m_targetPosition = targetPosition;
+    }
+
+    public void RequestChangeClearState()
+    {
+        ChangeState(State.CLEAR_STATE);
+    }
+
 }

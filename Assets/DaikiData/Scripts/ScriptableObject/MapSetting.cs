@@ -14,5 +14,8 @@ public class MapSetting : ScriptableObject
     public SoundID bgmID;
 
 
+    public GameObject feelingPiece; // 想いのカケラプレハブ
+
+
 
 }

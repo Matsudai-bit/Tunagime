@@ -365,4 +365,13 @@ public class MapData : MonoBehaviour
         return m_stageSetting.stageObject;
     }
 
+    /// <summary>
+    /// 想いのカケラの取得
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetFeelingPiece()
+    {
+        return m_mapSetting.feelingPiece;
+    }
+
 }

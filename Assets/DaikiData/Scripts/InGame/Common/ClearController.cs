@@ -12,9 +12,14 @@ public class ClearController : MonoBehaviour
     [Header("====== クリアUIグループ ======")]
     [SerializeField] private GameObject m_clearUIGroup; // クリアUIグループ
 
+    [Header("====== インゲームカメラスクリプト ======")]
+    [SerializeField] private InGameCamera m_gameCamera; // ゲームカメラ
+
     public GameObject m_opaqueScreen; // クリア時に表示する不透明な画面
 
     private GameObject m_stageObject; // ステージオブジェクト
+
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
@@ -43,7 +48,12 @@ public class ClearController : MonoBehaviour
             // ステージオブジェクトを再生成する
             m_stageObject = Instantiate(map.GetStageObject(), m_gameParent);
 
-            
+            m_gameCamera = GameObject.FindGameObjectWithTag("Camera").GetComponent<InGameCamera>();
+
+            m_gameCamera.SetTargetPosition(m_stageObject.transform.position);
+
+            m_gameCamera.RequestChangeClearState();
+
         });
 
 

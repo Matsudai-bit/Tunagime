@@ -11,6 +11,8 @@ TagManager:
   - AmidaBlock
   - Floor
   - FeltBlock
+  - StageObject
+  - Camera
   layers:
   - Default
   - TransparentFX

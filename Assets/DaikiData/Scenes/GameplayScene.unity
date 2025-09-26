@@ -279,9 +279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caf08309acc7ef46a3065ac16806a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameParent: {fileID: 0}
+  m_gameParent: {fileID: 686594425}
   m_clearOffParent: {fileID: 1701588843}
   m_clearUIGroup: {fileID: 2242755106415217098}
+  m_gameCamera: {fileID: 0}
   m_opaqueScreen: {fileID: 6165978534459251813, guid: 1800dcae0b4316c4dbd47708c7378f53, type: 3}
 --- !u!1 &330585543
 GameObject:
