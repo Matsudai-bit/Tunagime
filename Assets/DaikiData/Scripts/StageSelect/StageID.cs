@@ -5,7 +5,6 @@
 /// </summary>
 public enum StageID
 {
-    NONE = -1,
     STAGE_1 = 0,
     STAGE_2 = 1,
     STAGE_3 = 2,

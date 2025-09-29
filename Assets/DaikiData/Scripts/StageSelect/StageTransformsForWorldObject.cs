@@ -32,7 +32,7 @@ public class StageTransformsForWorldObject : MonoBehaviour
         m_stageTransformDict = new Dictionary<StageID, Transform>();
         foreach (var stageTransform in m_stageTransforms)
         {
-            if (stageTransform.stageID != StageID.NONE && stageTransform.stageTransform != null)
+            if ( stageTransform.stageTransform != null)
             {
                 m_stageTransformDict[stageTransform.stageID] = stageTransform.stageTransform;
             }
