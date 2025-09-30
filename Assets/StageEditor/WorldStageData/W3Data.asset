@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e5350ca34ca8045aad364fbbc57266, type: 3}
   m_Name: W3Data
   m_EditorClassIdentifier: 
+  worldID: 2
   stageSettings:
   - {fileID: 11400000, guid: ab36358e2ffcdd3429edecd8538b9ede, type: 2}
   - {fileID: 11400000, guid: 3befc39ee9280614a8ba11aafd1bf579, type: 2}

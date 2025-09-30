@@ -65,6 +65,7 @@ public class StageSelectButton : MonoBehaviour
 
     private void PlayGameStage()
     {
+
         SceneManager.LoadScene("GameplayScene");
     }
 }

@@ -1,16 +1,30 @@
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
-/// ƒXƒe[ƒW‘I‘ğƒV[ƒ“‚ÌŠÇ—ƒNƒ‰ƒX
+/// ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠã‚·ãƒ¼ãƒ³ã®ç®¡ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class StageSelectScene : MonoBehaviour
 {
-    [SerializeField] private GameObject m_stage1_1; // ƒXƒe[ƒW1-1‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_stage1_2; // ƒXƒe[ƒW1-2‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_stage1_3; // ƒXƒe[ƒW1-3‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_stage1_4; // ƒXƒe[ƒW1-4‚ÌƒvƒŒƒnƒu
-    [SerializeField] private GameObject m_stage1_5; // ƒXƒe[ƒW1-5‚ÌƒvƒŒƒnƒu
+    //[Serializable]
+    //struct StageButtonData
+    //{
+    //    public string stageName; // ã‚¹ãƒ†ãƒ¼ã‚¸å
+    //    public StageID stageID; // ã‚¹ãƒ†ãƒ¼ã‚¸ID
+    //    public Button stageButton; // ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠãƒœã‚¿ãƒ³
+    //}
+
+    //// å¤‰æ•°å®£è¨€ ----------------------------------------------------------------
+
+    //[SerializeField] private StageData m_stages; // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã®é…åˆ—
+
+    [SerializeField] private GameObject m_stage1_1; // ã‚¹ãƒ†ãƒ¼ã‚¸1-1ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_stage1_2; // ã‚¹ãƒ†ãƒ¼ã‚¸1-2ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_stage1_3; // ã‚¹ãƒ†ãƒ¼ã‚¸1-3ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_stage1_4; // ã‚¹ãƒ†ãƒ¼ã‚¸1-4ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] private GameObject m_stage1_5; // ã‚¹ãƒ†ãƒ¼ã‚¸1-5ã®ãƒ—ãƒ¬ãƒãƒ–
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,31 +41,31 @@ public class StageSelectScene : MonoBehaviour
     public void OnClickStage1_1()
     {
         MapData.GetInstance.SetStageGenerator(m_stage1_1);
-        PlayGameStage(); // ƒXƒe[ƒW‘I‘ğŒã‚ÉƒQ[ƒ€ƒvƒŒƒCƒV[ƒ“‚Ö‘JˆÚ
+        PlayGameStage(); // ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠå¾Œã«ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã¸é·ç§»
     }
 
     public void OnClickStage1_2()
     {
         MapData.GetInstance.SetStageGenerator(m_stage1_2);
-        PlayGameStage(); // ƒXƒe[ƒW‘I‘ğŒã‚ÉƒQ[ƒ€ƒvƒŒƒCƒV[ƒ“‚Ö‘JˆÚ
+        PlayGameStage(); // ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠå¾Œã«ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã¸é·ç§»
 
     }
     public void OnClickStage1_3()
     {
         MapData.GetInstance.SetStageGenerator(m_stage1_3);
-        PlayGameStage(); // ƒXƒe[ƒW‘I‘ğŒã‚ÉƒQ[ƒ€ƒvƒŒƒCƒV[ƒ“‚Ö‘JˆÚ
+        PlayGameStage(); // ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠå¾Œã«ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã¸é·ç§»
 
     }
     public void OnClickStage1_4()
     {
         MapData.GetInstance.SetStageGenerator(m_stage1_4);
-        PlayGameStage(); // ƒXƒe[ƒW‘I‘ğŒã‚ÉƒQ[ƒ€ƒvƒŒƒCƒV[ƒ“‚Ö‘JˆÚ
+        PlayGameStage(); // ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠå¾Œã«ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã¸é·ç§»
 
     }
     public void OnClickStage1_5()
     {
         MapData.GetInstance.SetStageGenerator(m_stage1_5);
-        PlayGameStage(); // ƒXƒe[ƒW‘I‘ğŒã‚ÉƒQ[ƒ€ƒvƒŒƒCƒV[ƒ“‚Ö‘JˆÚ
+        PlayGameStage(); // ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠå¾Œã«ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã¸é·ç§»
 
     }
 
