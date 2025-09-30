@@ -3220,7 +3220,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3290,14 +3290,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813019427970485444}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.038951337, y: -0.82324684, z: 0.20389715, w: 0.5283686}
-  m_LocalPosition: {x: -0.28, y: 0, z: -0.36}
+  m_LocalRotation: {x: -0.04602579, y: -0.8775816, z: 0.16392028, w: 0.44817665}
+  m_LocalPosition: {x: -0.43, y: 0, z: -6.17}
   m_LocalScale: {x: 0.59999996, y: 0.60000014, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5253139709438150410}
   m_Father: {fileID: 2609364291230778146}
-  m_LocalEulerAnglesHint: {x: 17.131, y: -112.034, z: 17.012}
+  m_LocalEulerAnglesHint: {x: 14.268, y: -124.185, z: 13.589}
 --- !u!1 &1870372635867831264
 GameObject:
   m_ObjectHideFlags: 0
@@ -6260,7 +6260,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6446,7 +6446,7 @@ Transform:
   m_GameObject: {fileID: 3383442958768779061}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.22, y: -0, z: -5.48}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9086,7 +9086,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -13429,7 +13429,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -16482,7 +16482,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7
+  m_VersionIndex: 10
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

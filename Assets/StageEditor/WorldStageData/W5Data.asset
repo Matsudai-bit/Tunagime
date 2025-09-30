@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e5350ca34ca8045aad364fbbc57266, type: 3}
   m_Name: W5Data
   m_EditorClassIdentifier: 
+  worldID: 4
   stageSettings:
   - {fileID: 11400000, guid: 5f84dde78c7a75b4481119a19c6f8913, type: 2}
   - {fileID: 11400000, guid: 4e5ac1da13df09346ae92ee1e3dfc323, type: 2}

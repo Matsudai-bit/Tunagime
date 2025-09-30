@@ -1,10 +1,16 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// ステージセレクトのコントローラー
+/// </summary>
 public class StageSelectController : MonoBehaviour
 {
    public enum State
@@ -13,10 +19,17 @@ public class StageSelectController : MonoBehaviour
         STAGE_SELECT,
         CHANGING_WORLD_SELECTING, // ステージセレクトに切り替え中
         WORLD_SELECT,
-    }   
+    }
 
+    [Header("ボタンの親オブジェクト")]
     [SerializeField]
     private Transform m_buttonParent; // ボタンの親オブジェクト
+
+    [Header("ワールドオブジェクトセレクター")]
+    [SerializeField]
+    private WorldObjectSelector m_worldObjectSelector; // ワールドオブジェクトセレクター
+
+    private WorldStageData m_worldStageData;
 
     private GameObject m_buttonPrefab; // ボタンのプレハブ
 
@@ -28,6 +41,8 @@ public class StageSelectController : MonoBehaviour
     private State m_currentState = State.STAGE_SELECT; // 現在の状態
 
     private GameObject m_rootWorldButton; // 親のワールドボタン
+
+    private WorldID m_currentWorldID = WorldID.World_1; // 現在のワールドID
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
@@ -56,6 +71,13 @@ public class StageSelectController : MonoBehaviour
             foreach (var element in m_buttonObjects)
             {
                 element.SetActive(true);
+                var button = element.GetComponent<Button>();
+                button.onClick.AddListener(() =>
+                {
+                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[(int)m_currentWorldID]);
+
+                    SceneManager.LoadScene("GameplayScene");
+                });
             }
         }
         else
@@ -67,8 +89,23 @@ public class StageSelectController : MonoBehaviour
             for (int i = 1; i <= buttonCount; i++)
             {
                 StageID stageID = (StageID)i;
-                GameObject button = Instantiate(m_buttonPrefab, m_buttonParent);
-                m_buttonObjects.Add(button);
+                GameObject buttonObject = Instantiate(m_buttonPrefab, m_buttonParent);
+                m_buttonObjects.Add(buttonObject);
+
+                buttonObject.name = "StageButton_" + stageID.ToString();
+                var text = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
+                if (text)
+                {
+                    text.text = "ステージ" + i.ToString();
+                }
+
+            var button = buttonObject.GetComponent<Button>();
+                button.onClick.AddListener(() =>
+                {
+                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[(int)m_currentWorldID]);
+
+                    SceneManager.LoadScene("GameplayScene");
+                });
             }
         }
 
@@ -91,6 +128,16 @@ public class StageSelectController : MonoBehaviour
     public void SetRootWorldButton(GameObject root)
     {
         m_rootWorldButton = root;
+    }
+
+    public void SetWorldStageData(WorldStageData data)
+    {
+        m_worldStageData = data;
+    }
+
+    public void SetCurrentWorldID(WorldID id)
+    {
+        m_currentWorldID = id;
     }
 
 
@@ -209,23 +256,34 @@ public class StageSelectController : MonoBehaviour
 
         int buttonCount = Enum.GetValues(typeof(StageID)).Length + 1;
 
-        // 下入力
+      // 下入力
         if (input.y < 0)
         {
             // 循環させるために剰余を取る
-            newStageID = (newStageID + 1) % buttonCount;
+            newStageID = (newStageID + 1) ;
         }
         // 上入力
         else if (input.y > 0)
         {
             // 負の数に対応するために、長さを足してから剰余を取る
-            newStageID = (newStageID - 1 + buttonCount) % buttonCount;
+            newStageID = (newStageID - 1 );
         }
+
+        newStageID = Math.Clamp(newStageID, 0, Enum.GetValues(typeof(StageID)).Length );
 
         if (newStageID != (int)m_currentButtonIndex)
         {
             m_currentButtonIndex = newStageID;
             UpdateButtonState();
+
+            if (m_currentButtonIndex >= 1)
+            {
+                m_worldObjectSelector.ChangeStage((StageID)(m_currentButtonIndex - 1));
+            }
+            else
+            {
+                m_worldObjectSelector.ResetCameraPosition();
+            }
             Debug.Log($"Switched to {m_currentButtonIndex}");
         }
     }
@@ -246,11 +304,19 @@ public class StageSelectController : MonoBehaviour
         GameObject buttonObj = m_buttonObjects[m_currentButtonIndex];
 
         Button button = buttonObj.GetComponent<Button>();
+
+        Debug.Log($"Clicked button for {m_currentButtonIndex}");
+        if (m_currentButtonIndex == 0)
+        {
+            // ワールドボタンが押された場合、ワールドセレクトに戻る
+            ExitStageSelect();
+            return;
+        }
+
         if (button != null)
         {
-            ExitStageSelect();
-         
-            Debug.Log($"Clicked button for {m_currentButtonIndex}");
+            
+            button.onClick.Invoke();
         }
         else
         {
@@ -291,5 +357,7 @@ public class StageSelectController : MonoBehaviour
         Debug.Log("OnCancel called");
         ChangeState(State.WORLD_SELECT);
         UpdateButtonState();
+        // ワールドオブジェクトセレクターにワールドセレクトに戻るよう指示
+        m_worldObjectSelector.ResetCameraPosition();
     }
 }

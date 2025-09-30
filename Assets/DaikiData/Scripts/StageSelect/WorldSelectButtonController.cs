@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -44,7 +45,18 @@ public class WorldSelectButtonController : MonoBehaviour
     [SerializeField]
     StageSelectButtonDataForWorld m_stageSelectButtonDataForWorld; // 各ワールドのボタンの情報
 
+    [Header("ワールドオブジェクトセレクター")]
+    [SerializeField]
+    private WorldObjectSelector m_worldObjectSelector; // ワールドオブジェクトセレクター
     private Dictionary<WorldID, GameObject> m_worldSelectButtonDictionary = new Dictionary<WorldID, GameObject>(); // 辞書型でワールドIDとボタンのGameObjectを紐付け
+
+
+    [Header("ワールドステージデータ")]
+    [SerializeField]
+    private List<WorldStageData> worldStageDatas = new(); // ワールドステージデータのリスト
+
+    private Dictionary<WorldID, WorldStageData> m_worldDataDictionary = new ();             // 辞書型でワールドIDとワールドデータを紐付け
+
 
     private WorldID m_currentWorldID; // 現在のワールドID
 
@@ -52,12 +64,19 @@ public class WorldSelectButtonController : MonoBehaviour
 
     private Dictionary<WorldID, Vector3> m_layoutPositions = new Dictionary<WorldID, Vector3>(); // ボタンのレイアウト位置リスト
 
+   
     void Awake()
     {
         // 配列のデータを辞書に変換
         foreach (var data in m_worldSelectButtonDataArray)
         {
             m_worldSelectButtonDictionary[data.worldID] = data.gameObject;
+        }
+
+        // ワールドステージデータのリストを辞書に変換
+        foreach (var data in worldStageDatas)
+        {
+            m_worldDataDictionary[data.worldID] = data;
         }
     }
 
@@ -76,6 +95,8 @@ public class WorldSelectButtonController : MonoBehaviour
         }
 
         ChangeState(State.WORLD_SELECT);
+
+        ChangeWorldObject(m_currentWorldID, WorldObjectSelector.ScrollDirection.RIGHT);
     }
 
     // Update is called once per frame
@@ -150,6 +171,8 @@ public class WorldSelectButtonController : MonoBehaviour
                 m_stageSelectController.SetButtonPrefab(m_stageSelectButtonDataForWorld.stageSelectButtonData[(int)m_currentWorldID].buttonPrefab);
                 m_stageSelectController.SetRootWorldButton(m_worldSelectButtonDictionary[m_currentWorldID]);
                 m_stageSelectController.gameObject.SetActive(true);
+                m_stageSelectController.SetCurrentWorldID(m_currentWorldID);
+                m_stageSelectController.SetWorldStageData(m_worldDataDictionary[m_currentWorldID]);
                 break;
             case State.CHANGING_WORLD_SELECT:
                 
@@ -163,9 +186,6 @@ public class WorldSelectButtonController : MonoBehaviour
 
     void StartChangingWorldSelect()
     {
-
-
-
         // ステージセレクトのボタンを非表示にする
         m_stageSelectController.gameObject.SetActive(false);
         // 各ボタンを元の位置に戻す
@@ -186,6 +206,13 @@ public class WorldSelectButtonController : MonoBehaviour
                 Debug.Log("Changed to WORLD_SELECT state");
                 UpdateButtonState();
             });
+
+            // テキストを復活
+            var text = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (text != null)
+            {
+                text.DOFade(1, 1.5f).SetEase(Ease.InOutSine);
+            }
         }
     }
 
@@ -217,10 +244,18 @@ public class WorldSelectButtonController : MonoBehaviour
                 var button = kvp.Value;
                 button.GetComponent<Image>().DOFade(0, 0.5f).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
-                    button.SetActive(false);   
+                    button.SetActive(false);
+
                 });
 
-                
+                // テキストもフェードアウト
+                var text = button.GetComponentInChildren<TextMeshProUGUI>();
+                if (text != null)
+                {
+                    text.DOFade(0, 0.5f).SetEase(Ease.InOutSine);
+                }
+
+
             }
         }
     }
@@ -247,15 +282,6 @@ public class WorldSelectButtonController : MonoBehaviour
     }
 
 
-    private void OnPointerExitAll()
-    {
-        foreach (var kvp in m_worldSelectButtonDictionary)
-        {
-            var targetButton = kvp.Value.GetComponent<Button>();
-            targetButton.OnPointerExit(null);
-        }
-    }
-
     /// <summary>
     /// 上下の入力に基づいてワールドIDを変更
     /// </summary>
@@ -280,19 +306,22 @@ public class WorldSelectButtonController : MonoBehaviour
         if (input.y < 0)
         {
             // 循環させるために剰余を取る
-            newWorldID = (newWorldID + 1) % Enum.GetValues(typeof(WorldID)).Length;
+            newWorldID = (newWorldID + 1) ;
         }
         // 上入力
         else if (input.y > 0)
         {
             // 負の数に対応するために、長さを足してから剰余を取る
-            newWorldID = (newWorldID - 1 + Enum.GetValues(typeof(WorldID)).Length) % Enum.GetValues(typeof(WorldID)).Length;
+            newWorldID = (newWorldID - 1 );
         }
+
+        newWorldID = Math.Clamp(newWorldID, 0, Enum.GetValues(typeof(WorldID)).Length - 1);
 
         if (newWorldID != (int)m_currentWorldID)
         {
             m_currentWorldID = (WorldID)newWorldID;
             UpdateButtonState();
+            ChangeWorldObject(m_currentWorldID, (WorldObjectSelector.ScrollDirection)(-input.y));
             Debug.Log($"Switched to {m_currentWorldID}");
         }
     }
@@ -339,6 +368,20 @@ public class WorldSelectButtonController : MonoBehaviour
         if (targetButton == null) return;
 
         targetButton.OnPointerEnter(null);
+    }
+
+    /// <summary>
+    /// 現在のワールドIDを取得
+    /// </summary>
+    /// <returns></returns>
+    public WorldID GetCurrentWorldID()
+    {
+        return m_currentWorldID;
+    }
+
+    void ChangeWorldObject(WorldID worldID, WorldObjectSelector.ScrollDirection scrollDirection)
+    {
+        m_worldObjectSelector.ChangeWorldObject(worldID, scrollDirection);
     }
 
 }

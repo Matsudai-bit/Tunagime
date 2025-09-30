@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e5350ca34ca8045aad364fbbc57266, type: 3}
   m_Name: W2Data
   m_EditorClassIdentifier: 
+  worldID: 1
   stageSettings:
   - {fileID: 11400000, guid: 64029a9d3824cf34fad8a99966a501be, type: 2}
   - {fileID: 11400000, guid: 0417cf3f652de494d95f5710719c5b9b, type: 2}
