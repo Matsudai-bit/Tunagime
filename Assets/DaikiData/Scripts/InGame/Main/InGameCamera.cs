@@ -24,7 +24,7 @@ public class InGameCamera
     private Quaternion m_targetRotate;
 
     [SerializeField]
-    private float START_GAME_STARTING_TIME = 3.0f; // ゲーム開始状態の時間
+    private float START_GAME_STARTING_TIME = 2.0f; // ゲーム開始状態の時間
 
     /// <summary>
     /// 状態
@@ -97,15 +97,25 @@ public class InGameCamera
     /// </summary>
     void StartFocusPlayerState()
     {
-        transform.position = m_startFocusPosition + new Vector3(0.0f, 1.5f, -m_player.transform.localScale.z);
+        transform.position = m_startFocusPosition + new Vector3(0.0f, 1.5f, -(m_player.transform.localScale.z - 0.12f));
         transform.rotation = m_startFocusRotate;
 
+        var endpoint = transform.position + new Vector3(0.0f, 10.0f, -8.0f);
+
+        const float DURATION = 1.0f;
+
         // 注視点を初期位置に
-        transform.DOBlendableMoveBy(new Vector3(0.0f, 0.0f, -8.0f), 2.0f).SetEase(Ease.InOutSine).OnComplete(() =>
+        transform.DOMove(endpoint, DURATION).SetEase(Ease.InOutSine).SetDelay(0.5f).OnComplete(() =>
         {
             // フォーカス完了イベントを通知
             InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_END);
         });
+
+        Vector3 direction = m_player.transform.position - endpoint;
+
+        var lookAt = Quaternion.LookRotation(direction.normalized);
+        transform.DORotateQuaternion(lookAt, DURATION * 0.5f).SetEase(Ease.OutQuart).SetDelay(0.5f);
+
     }
 
     /// <summary>

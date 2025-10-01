@@ -38,13 +38,6 @@ public class StageSelectCamera : MonoBehaviour
     /// <param name="targetPosition"></param>
     void MoveTarget(Vector3 targetPosition)
     {
-        // スクリーン座標取得  
-        var screenPos = new Vector2(Screen.width - Screen.width / 4, Screen.height / 2);
-        // ワールド座標に変換  
-        var worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-
-
-
         var targetDirection = targetPosition - m_startPosition;
         var velocity = (targetDirection.magnitude - m_stageTransformsForWorldObject.worldTransform.localScale.x) * targetDirection.normalized;
 
@@ -54,7 +47,7 @@ public class StageSelectCamera : MonoBehaviour
 
         transform.DORotateQuaternion
             (Quaternion.LookRotation(targetDirection.normalized, Vector3.up), 1.0f).SetEase(Ease.OutQuint);
-        transform.DOBlendableMoveBy(targetPosition - transform.position, 1.5f).SetEase(Ease.OutQuint);
+        transform.DOMove(targetPosition, 1.5f).SetEase(Ease.OutQuint);
     }
 
     /// <summary>

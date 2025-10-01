@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static StageLayoutData;
+using System.Linq;
+
 
 
 // エディタ専用の機能を含むため、UNITY_EDITORディレクティブを使用
@@ -119,6 +121,31 @@ public class StageLayoutData : ScriptableObject
             createHorizonalAmidaLine = false;
         }
 
+        // RootLayout.cs (RootLayoutクラス内)
+        public RootLayout DeepCopy()
+        {
+            // ここでRootLayout内のすべてのフィールドをコピーして新しいインスタンスを返す
+            return new RootLayout
+            {
+                // 例えば、intやstringなど値型は直接代入
+                label = this.label,
+                createHorizonalAmidaLine = this.createHorizonalAmidaLine,
+                gridDataList = this.gridDataList.Select(item => new GridData
+                {
+                    label = item.label,
+                    gimmickData = new GimmickData
+                    {
+                        gridPos = new GridPos(item.gimmickData.gridPos.x, item.gimmickData.gridPos.y),
+                        blockType = item.gimmickData.blockType,
+                        emotionType = item.gimmickData.emotionType,
+                        option = item.gimmickData.option,
+                        changeToSatinFloor = item.gimmickData.changeToSatinFloor,
+                        placeAmidaTube = item.gimmickData.placeAmidaTube
+                    }
+                }).ToList(),
+            };
+        }
+
     }
 
     [Serializable]
@@ -149,6 +176,8 @@ public class StageLayoutData : ScriptableObject
             slotPlaceData[0].slotType = GenerationSlotType.NONE;
             slotPlaceData[1].slotType = GenerationSlotType.NONE;
         }
+
+      
     }
 
         /// <summary>

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/DaikiData/Scenes/TitleScene.unity
+    guid: 09371cdbd609a0346b4a386c5e11c1bb
+  - enabled: 1
     path: Assets/DaikiData/Scenes/StageSelectScene.unity
     guid: 46e66a05bcdee0245b83360cfd19bbbc
   - enabled: 1

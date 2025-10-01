@@ -98,11 +98,12 @@ public class StageSelectController : MonoBehaviour
                 {
                     text.text = "ステージ" + i.ToString();
                 }
+                int stageIndex = i - 1;
 
-            var button = buttonObject.GetComponent<Button>();
+                var button = buttonObject.GetComponent<Button>();
                 button.onClick.AddListener(() =>
                 {
-                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[(int)m_currentWorldID]);
+                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[stageIndex]);
 
                     SceneManager.LoadScene("GameplayScene");
                 });

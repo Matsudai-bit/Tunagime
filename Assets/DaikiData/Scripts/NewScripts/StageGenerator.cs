@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static StageLayoutData;
@@ -25,11 +26,11 @@ public class StageGenerator : MonoBehaviour
     {
         public GridPos gridPos;
         public GenerationType blockType; // ブロックの種類
-        public EmotionCurrent.Type emotionType ; // 感情タイプ
+        public EmotionCurrent.Type emotionType; // 感情タイプ
         public Vector3 rotate;          // 回転
 
         GenerationGimmickData()
-        { 
+        {
             gridPos = new GridPos();
             blockType = GenerationType.NONE;
             rotate = Vector3.zero;
@@ -70,37 +71,37 @@ public class StageGenerator : MonoBehaviour
 
     [Header("==== 生成データ ==== ")]
     [Header("ギミック生成データ")]
-    [SerializeField] private GenerationGimmickData[] m_gimmickData ;  // ギミックの生成機
+    [SerializeField] private GenerationGimmickData[] m_gimmickData;  // ギミックの生成機
     [Header("床系生成データ")]
-    [SerializeField] private GenerationGimmickData[] m_floorData ;  // ギミックの生成機
+    [SerializeField] private GenerationGimmickData[] m_floorData;  // ギミックの生成機
     [Header("始点核生成データ")]
-    [SerializeField] private GenerationGimmickData[] m_startSlotData ;  // ギミックの生成機
+    [SerializeField] private GenerationGimmickData[] m_startSlotData;  // ギミックの生成機
     [Header("終点核生成データ")]
     [SerializeField] private GenerationGimmickData[] m_terminusData;  // 終点の生成機
 
     [Header("==== 生成機 ==== ")]
-    
+
     [SerializeField] private Generator m_amidaTubeGenerator;  // あみだチューブの生成機
 
     [SerializeField] private Generator m_topFloorBlockGenerator;  // トップ層の床ブロックの生成機
 
-    
-   
+
+
     private void Awake()
     {
-       
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
-      
+
     }
 
     public void Generate(
-        AmidaManager amidaManager, 
+        AmidaManager amidaManager,
         Transform amidaParent,
-        Transform floorParent, 
+        Transform floorParent,
         Transform gimmickParent,
         Transform feelingSlotParent,
         ClearConditionChecker clearConditionChecker)
@@ -152,7 +153,7 @@ public class StageGenerator : MonoBehaviour
                 clearConditionChecker);
         }
 
-        
+
     }
 
     void GenerateOldSystem(
@@ -328,6 +329,9 @@ public class StageGenerator : MonoBehaviour
         Transform feelingSlotParent,
         ClearConditionChecker clearConditionChecker)
     {
+        List<RootLayout> rootLayoutList = m_stageLayoutData.rootLayoutList
+        .Select(layout => layout.DeepCopy())
+        .ToList();
 
         var map = MapData.GetInstance;
         var stageObjectFactory = StageObjectFactory.GetInstance();
@@ -339,12 +343,12 @@ public class StageGenerator : MonoBehaviour
 
 
         // ギミックの生成
-        foreach (var generation in m_stageLayoutData.RootLayoutList)
+        foreach (var generation in rootLayoutList)
         {
             if (generation.createHorizonalAmidaLine)
             {
                 // 横あみだラインの生成
-                amidaGenerator.m_horizonalAmidaPosY.Add(generation.gridDataList.First().gimmickData.gridPos.y+1);
+                amidaGenerator.m_horizonalAmidaPosY.Add(generation.gridDataList.First().gimmickData.gridPos.y + 1);
             }
 
 
@@ -352,7 +356,7 @@ public class StageGenerator : MonoBehaviour
             {
                 var gimmickData = gridData.gimmickData;
 
-                GridPos fixedGridPos = new GridPos(gimmickData.gridPos.x , gimmickData.gridPos.y);
+                GridPos fixedGridPos = new GridPos(gimmickData.gridPos.x, gimmickData.gridPos.y);
 
                 // あみだチューブの設置座標の追加
                 if (gimmickData.placeAmidaTube)
@@ -405,15 +409,32 @@ public class StageGenerator : MonoBehaviour
                         // ペアバッジの生成
 
                         // 同じ種類の座標を全て取得
-                        var gimmickDataBlock = m_gimmickData.Where(data => data.blockType == GenerationType.PAIR_BADGE && data.emotionType == gimmickData.emotionType).ToList();
+                        List<GridData> gimmickDataBlock = new List<GridData>();
+
+                       
+                        for (int i = 0; i < rootLayoutList.Count; i++)
+                        {
+                            var otherLayout = rootLayoutList[i];
+
+                            foreach (var data in otherLayout.gridDataList)
+                            {
+                                if (data == gridData) continue; // 自分自身はスキップ
+                                if (data.gimmickData.blockType == StageLayoutData.GenerationType.PAIR_BADGE
+                                    && data.gimmickData.emotionType == gimmickData.emotionType
+                                    && !gimmickDataBlock.Contains(data))
+                                {
+                                    gimmickDataBlock.Add(data);
+                                }
+                            }
+                        }
+
                         // 座標
-                        var gimmickDataPosList = gimmickDataBlock.Select(data => new GridPos(data.gridPos.x, data.gridPos.y)).ToList();
+                        var gimmickDataPosList = gimmickDataBlock.Select(data => new GridPos(data.gimmickData.gridPos.x, data.gimmickData.gridPos.y)).ToList();
 
                         // ペアバッジの生成
                         gimmickDataObject = stageObjectFactory.GeneratePairBadge(gimmickParent, gimmickDataPosList, gimmickData.emotionType);
 
                         // 生成されたオブジェクトの位置を設定
-
                         foreach (var feltBlock in gimmickDataObject.GetComponent<PairBadge>().GetFeltBlocks())
                         {
                             map.GetStageGridData().TryPlaceTileObject(feltBlock.stageBlock.GetGridPos(), feltBlock.gameObject);
@@ -421,7 +442,7 @@ public class StageGenerator : MonoBehaviour
 
                         foreach (var data in gimmickDataBlock)
                         {
-                            data.blockType = GenerationType.NONE; // 生成したペアバッジの座標はNONEに設定
+                            data.gimmickData.blockType = StageLayoutData.GenerationType.NONE; // 生成したペアバッジの座標はNONEに設定
                         }
 
                         break;
@@ -431,11 +452,11 @@ public class StageGenerator : MonoBehaviour
                         // 生成されたオブジェクトの位置を設定
                         map.GetStageGridData().TryPlaceTileObject(fixedGridPos, gimmickDataObject);
                         break;
-                
+
 
                 }
 
-             
+
             }
 
         }
@@ -451,7 +472,7 @@ public class StageGenerator : MonoBehaviour
             {
                 var slotData = generation.slotPlaceData[0];
 
-                
+
 
                 GridPos fixedGridPos = slotData.gridPos;
 
