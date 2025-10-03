@@ -190,7 +190,7 @@ public class InGameCamera
                 ChangeState(State.GAME_SATARTING);
                 break;
 
-            case InGameFlowEventID.GAME_START:
+            case InGameFlowEventID.GAME_PLAYING_START:
                 ChangeState(State.GAME_PLAYING);
                 break;
 

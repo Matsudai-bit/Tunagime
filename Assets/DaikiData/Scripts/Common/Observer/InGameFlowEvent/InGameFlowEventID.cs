@@ -11,8 +11,11 @@ public enum InGameFlowEventID
     INTRO_SEQUENCE_START,   // ゲームのイントロシーケンスが開始された
     INTRO_SEQUENCE_END,     // ゲームのイントロシーケンスが終了した
 
-    GAME_START,             // ゲームが開始された
-    GAME_END,               // ゲームが終了された
+    GAME_START_EFFECT_START,// ゲーム開始エフェクトが始まった
+    GAME_START_EFFECT_END,  // ゲーム開始エフェクトが終わった
+
+    GAME_PLAYING_START,     // ゲームプレイが開始された
+    GAME_PLAYING_END,       // ゲームプレイが終了した
 
     GAME_CLEAR,             // ゲームがクリアされた
 

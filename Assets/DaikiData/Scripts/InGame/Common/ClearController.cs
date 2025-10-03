@@ -47,7 +47,7 @@ public class ClearController : MonoBehaviour
             opaqueImage.DOFade(0.0f, 2.0f).SetEase(Ease.OutCirc).OnComplete(() =>
             {
                 // 次のイベントを通知
-                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_END);
             });
 
             // ステージオブジェクトを生成する

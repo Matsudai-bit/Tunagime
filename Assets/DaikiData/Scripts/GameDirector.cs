@@ -8,12 +8,19 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 {
     bool m_isFirstUpdate = true;
 
+    [Header("ゲーム開始UIパネル")]
+    [SerializeField] GameObject m_gameStartUIPanel;
+
+    [Header("クリアUI")]
     [SerializeField] GameObject m_clearUI;
 
+    [Header("クリアUIパネル")]
     [SerializeField] GameObject m_clearUIPanel;
 
     [Header("プレイヤーの入力システム")]
     [SerializeField] PlayerInput m_playerInput;
+
+    
 
     void Awake()
     {
@@ -43,7 +50,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             m_isFirstUpdate = false;
 
             // ゲーム開始のイベントを通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_CLEAR);
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_START);
             return;
         }
 
@@ -124,16 +131,24 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             // イントロシーケンス終了イベント
             case InGameFlowEventID.INTRO_SEQUENCE_END:
                 // ゲーム開始イベントを通知
-                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_START);
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_START_EFFECT_START);
                 m_playerInput.actions.Enable();
                 break;
+            case InGameFlowEventID.GAME_START_EFFECT_START:
+                // ゲーム開始UIパネルを表示する
+                m_gameStartUIPanel.SetActive(true);
+                break;
 
+            case InGameFlowEventID.GAME_START_EFFECT_END:
+                // ゲームプレイ開始イベントを通知
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_START);
+                break;
             case InGameFlowEventID.GAME_CLEAR:
                 // ゲームクリアイベントを通知
                 OnGameClear();
                 break;
 
-            case InGameFlowEventID.GAME_END:
+            case InGameFlowEventID.GAME_PLAYING_END:
                 var s = WaitAndLoadStageSelectScene(300);
                 // ゲーム終了イベントを通知
                 LoadStageSelectScene();
