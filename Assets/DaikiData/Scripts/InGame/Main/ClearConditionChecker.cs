@@ -1,26 +1,26 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 
 /// <summary>
-/// ƒNƒŠƒAğŒ‚ğƒ`ƒFƒbƒN‚·‚éƒNƒ‰ƒX
+/// ã‚¯ãƒªã‚¢æ¡ä»¶ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
 {
-    [Header("ƒNƒŠƒAğŒ‚Ìİ’è")]
+    [Header("ã‚¯ãƒªã‚¢æ¡ä»¶ã®è¨­å®š")]
     [SerializeField]
-    private List<TerminusFeelingSlot> terminusFeelingSlots = new List<TerminusFeelingSlot>(); // I“_‚É‚ ‚éŒ^‚ÌƒŠƒXƒg
+    private List<TerminusFeelingSlot> terminusFeelingSlots = new List<TerminusFeelingSlot>(); // çµ‚ç‚¹ã«ã‚ã‚‹å‹ã®ãƒªã‚¹ãƒˆ
 
-    private bool m_isConnectionRejectionSlot = false; // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    private bool m_isConnectionRejectionSlot = false; // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
 
     
-    private bool m_isDelayClearCheck = false;// ƒNƒŠƒA”»’è‚ğ’x‰„‚³‚¹‚é‚©‚Ç‚¤‚©
+    private bool m_isDelayClearCheck = false;// ã‚¯ãƒªã‚¢åˆ¤å®šã‚’é…å»¶ã•ã›ã‚‹ã‹ã©ã†ã‹
 
     private GameDirector m_gameDirector;
 
     private void Awake()
     {
-        // GameDirector‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
+        // GameDirectorã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
         m_gameDirector = GetComponent<GameDirector>();
         if (m_gameDirector == null)
         {
@@ -31,34 +31,34 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // ƒIƒuƒU[ƒo[‚Æ‚µ‚Ä“o˜^
+        // ã‚ªãƒ–ã‚¶ãƒ¼ãƒãƒ¼ã¨ã—ã¦ç™»éŒ²
         GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
 
-        m_isConnectionRejectionSlot = false; // ‰Šúó‘Ô‚Å‚ÍÚ‘±‚³‚ê‚Ä‚¢‚È‚¢
+        m_isConnectionRejectionSlot = false; // åˆæœŸçŠ¶æ…‹ã§ã¯æ¥ç¶šã•ã‚Œã¦ã„ãªã„
         m_isDelayClearCheck = false;
     }
 
 
     /// <summary>
-    /// XVˆ—
+    /// æ›´æ–°å‡¦ç†
     /// </summary>
     void Update()
     {
         if (m_isDelayClearCheck)
         {
-            // ƒNƒŠƒAğŒ‚Ìƒ`ƒFƒbƒN‚ğ’x‰„‚³‚¹‚éê‡‚Í‰½‚à‚µ‚È‚¢
+            // ã‚¯ãƒªã‚¢æ¡ä»¶ã®ãƒã‚§ãƒƒã‚¯ã‚’é…å»¶ã•ã›ã‚‹å ´åˆã¯ä½•ã‚‚ã—ãªã„
             m_isDelayClearCheck = false;
             return;
         }
 
-        // ƒNƒŠƒAğŒ‚Ìƒ`ƒFƒbƒN
+        // ã‚¯ãƒªã‚¢æ¡ä»¶ã®ãƒã‚§ãƒƒã‚¯
         if (CheckClearCondition())
         {
-            Debug.Log("ƒNƒŠƒAğŒ‚ğ’B¬‚µ‚Ü‚µ‚½I");
-            // ƒNƒŠƒAˆ—‚ğ‚±‚±‚É’Ç‰Á
+            Debug.Log("ã‚¯ãƒªã‚¢æ¡ä»¶ã‚’é”æˆã—ã¾ã—ãŸï¼");
+            // ã‚¯ãƒªã‚¢å‡¦ç†ã‚’ã“ã“ã«è¿½åŠ 
             if (m_gameDirector != null)
             {
-                m_gameDirector.OnGameClear(); // ƒQ[ƒ€ƒNƒŠƒA‚Ìˆ—‚ğŒÄ‚Ño‚·
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_CLEAR); // ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€šçŸ¥
             }
 
         }
@@ -67,26 +67,26 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
 
     private bool CheckClearCondition()
     {
-        // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚Ä‚¢‚éê‡‚ÍƒNƒŠƒAğŒ‚ğ–‚½‚³‚È‚¢
+        // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ã‚¯ãƒªã‚¢æ¡ä»¶ã‚’æº€ãŸã•ãªã„
         if (m_isConnectionRejectionSlot)
             return false;
 
-        // ƒNƒŠƒAğŒ‚ğ–‚½‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN
+        // ã‚¯ãƒªã‚¢æ¡ä»¶ã‚’æº€ãŸã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯
         foreach (var slot in terminusFeelingSlots)
         {
             if (!slot.IsConnected())
             {
-                return false; // 1‚Â‚Å‚àŒq‚ª‚Á‚Ä‚¢‚È‚¢ê‡‚ÍƒNƒŠƒAğŒ–¢’B¬
+                return false; // 1ã¤ã§ã‚‚ç¹‹ãŒã£ã¦ã„ãªã„å ´åˆã¯ã‚¯ãƒªã‚¢æ¡ä»¶æœªé”æˆ
             }
         }
-        return true; // ‘S‚Ä‚ÌI“_‚ªŒq‚ª‚Á‚Ä‚¢‚éê‡‚ÍƒNƒŠƒAğŒ’B¬
+        return true; // å…¨ã¦ã®çµ‚ç‚¹ãŒç¹‹ãŒã£ã¦ã„ã‚‹å ´åˆã¯ã‚¯ãƒªã‚¢æ¡ä»¶é”æˆ
     }
 
     /// <summary>
-    /// I“_‚É‚ ‚éŒ^‚ğ’Ç‰Á‚·‚éƒƒ\ƒbƒh
+    /// çµ‚ç‚¹ã«ã‚ã‚‹å‹ã‚’è¿½åŠ ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="slot"></param>
-    public void AddTerminusFeelingSlot(TerminusFeelingSlot slot) // ‚¢‚Â‚©ƒCƒ“ƒ^[ƒtƒF[ƒX‚ğ–á‚¤Œ`‚É‚µ‚½‚¢
+    public void AddTerminusFeelingSlot(TerminusFeelingSlot slot) // ã„ã¤ã‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã‚’è²°ã†å½¢ã«ã—ãŸã„
     {
         if (!terminusFeelingSlots.Contains(slot))
         {
@@ -96,26 +96,26 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
 
     public void OnEvent(InteractionEvent eventID)
     {
-        // ƒCƒxƒ“ƒgID‚É‰‚¶‚Äˆ—‚ğ•ªŠò
+        // ã‚¤ãƒ™ãƒ³ãƒˆIDã«å¿œã˜ã¦å‡¦ç†ã‚’åˆ†å²
         switch (eventID)
         {
             case InteractionEvent.CONNECTED_REJECTION_SLOT:
-                m_isConnectionRejectionSlot = true; // I“_‚Ì‹‘â‚ÌŠj‚ªÚ‘±‚³‚ê‚½
+                m_isConnectionRejectionSlot = true; // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒæ¥ç¶šã•ã‚ŒãŸ
                 break;
             case InteractionEvent.DISCONNECTED_REJECTION_SLOT:
-                m_isConnectionRejectionSlot = false; // I“_‚Ì‹‘â‚ÌŠj‚ªØ’f‚³‚ê‚½
+                m_isConnectionRejectionSlot = false; // çµ‚ç‚¹ã®æ‹’çµ¶ã®æ ¸ãŒåˆ‡æ–­ã•ã‚ŒãŸ
                 break;
             case InteractionEvent.FLOWWING_AMIDAKUJI:
-                m_isDelayClearCheck = true; // ‚ ‚İ‚¾‚ğ’H‚éƒCƒxƒ“ƒg‚ª”­¶‚µ‚½ê‡AƒNƒŠƒA”»’è‚ğ’x‰„‚³‚¹‚é
+                m_isDelayClearCheck = true; // ã‚ã¿ã ã‚’è¾¿ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆãŒç™ºç”Ÿã—ãŸå ´åˆã€ã‚¯ãƒªã‚¢åˆ¤å®šã‚’é…å»¶ã•ã›ã‚‹
                 break;
             default:
                 break;
         }
     }
-    // íœ
+    // å‰Šé™¤æ™‚
     private void OnDestroy()
     {
-        // ƒQ[ƒ€ƒCƒ“ƒ^ƒ‰ƒNƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚ÌƒIƒuƒU[ƒo[‚ğ‰ğœ
+        // ã‚²ãƒ¼ãƒ ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚ªãƒ–ã‚¶ãƒ¼ãƒãƒ¼ã‚’è§£é™¤
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
     }
 }

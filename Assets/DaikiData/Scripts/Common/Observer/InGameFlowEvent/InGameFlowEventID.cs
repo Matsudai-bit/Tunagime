@@ -14,6 +14,8 @@ public enum InGameFlowEventID
     GAME_START,             // ゲームが開始された
     GAME_END,               // ゲームが終了された
 
+    GAME_CLEAR,             // ゲームがクリアされた
+
     GAME_PAUSE,             // ゲームが一時停止された
     GAME_RESUME,            // ゲームが再開された
 

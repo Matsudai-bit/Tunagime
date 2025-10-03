@@ -41,11 +41,16 @@ public class ClearController : MonoBehaviour
         opaqueImage.DOFade(1.0f, 5.0f).SetEase(Ease.OutQuint).OnComplete(() =>
         {
             // クリア時に消すオブジェクトを非表示にする
-            m_clearOffParent.SetActive(false); 
-            // フェードアウトが完了した後の処理
-            opaqueImage.DOFade(0.0f, 2.0f).SetEase(Ease.OutCirc);
+            m_clearOffParent.SetActive(false);
 
-            // ステージオブジェクトを再生成する
+            // フェードアウトが完了した後の処理
+            opaqueImage.DOFade(0.0f, 2.0f).SetEase(Ease.OutCirc).OnComplete(() =>
+            {
+                // 次のイベントを通知
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
+            });
+
+            // ステージオブジェクトを生成する
             m_stageObject = Instantiate(map.GetStageObject(), m_gameParent);
 
             m_gameCamera = GameObject.FindGameObjectWithTag("Camera").GetComponent<InGameCamera>();
@@ -53,6 +58,8 @@ public class ClearController : MonoBehaviour
             m_gameCamera.SetTargetPosition(m_stageObject.transform.position);
 
             m_gameCamera.RequestChangeClearState();
+
+           
 
         });
 

@@ -1,7 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
 
 public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 {
@@ -10,6 +11,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [SerializeField] GameObject m_clearUI;
 
     [SerializeField] GameObject m_clearUIPanel;
+
+    [Header("プレイヤーの入力システム")]
+    [SerializeField] PlayerInput m_playerInput;
 
     void Awake()
     {
@@ -39,7 +43,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             m_isFirstUpdate = false;
 
             // ゲーム開始のイベントを通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_START);
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_CLEAR);
             return;
         }
 
@@ -80,7 +84,6 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // クリアUIのパネルを表示
         m_clearUIPanel.SetActive(true);
 
-        var s =WaitAndLoadStageSelectScene(300);
 
     }
 
@@ -92,7 +95,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     async UniTask WaitAndLoadStageSelectScene(int waitTime)
     {
         await UniTask.Delay(waitTime);
-        InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
+       // InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
     }
 
     public void LoadStageSelectScene()
@@ -108,6 +111,10 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     {
         switch (eventID)
         {
+            case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
+                m_playerInput.actions.Disable();
+                break;
+
             // ズームアウト終了イベント
             case InGameFlowEventID.ZOOM_OUT_PLAYER_END:
                 // イントロシーケンス開始イベントを通知
@@ -118,11 +125,18 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.INTRO_SEQUENCE_END:
                 // ゲーム開始イベントを通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_START);
+                m_playerInput.actions.Enable();
+                break;
+
+            case InGameFlowEventID.GAME_CLEAR:
+                // ゲームクリアイベントを通知
+                OnGameClear();
                 break;
 
             case InGameFlowEventID.GAME_END:
+                var s = WaitAndLoadStageSelectScene(300);
                 // ゲーム終了イベントを通知
-                //LoadStageSelectScene();
+                LoadStageSelectScene();
                 break;
         }
     }

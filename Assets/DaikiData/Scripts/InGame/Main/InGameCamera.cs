@@ -49,6 +49,12 @@ public class InGameCamera
         // プレイヤーの取得
         m_player = GameObject.FindGameObjectWithTag("Player");
 
+        if (m_player == null)
+        {
+            Debug.LogError("Playerオブジェクトが見つかりません。");
+            return;
+        }
+
         m_startFocusPosition = m_player.transform.position ;
         m_startFocusRotate = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, 1.0f));
 
