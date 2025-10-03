@@ -18,4 +18,4 @@ MonoBehaviour:
   tileSize: 1
   BaseTilePosY: 0
   bgmID: 1
-  feelingPiece: {fileID: 4480761877807609919, guid: 9253a667ea414b4468f688d2df508c29, type: 3}
+  feelingPiece: {fileID: 5985809012520726641, guid: 9253a667ea414b4468f688d2df508c29, type: 3}

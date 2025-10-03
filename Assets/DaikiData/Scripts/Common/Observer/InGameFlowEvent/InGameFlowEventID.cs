@@ -15,9 +15,16 @@ public enum InGameFlowEventID
     GAME_START_EFFECT_END,  // ゲーム開始エフェクトが終わった
 
     GAME_PLAYING_START,     // ゲームプレイが開始された
-    GAME_PLAYING_END,       // ゲームプレイが終了した
 
     GAME_CLEAR,             // ゲームがクリアされた
+
+    GAME_CLEAR_EFFECT_START, // ゲームクリアエフェクトが始まった
+    GAME_CLEAR_EFFECT_END,   // ゲームクリアエフェクトが終わった
+
+    GOING_GET_FEELING_PIECE_START, // 感情ピース取得シーケンスが始まった
+    GOING_GET_FEELING_PIECE_END,   // 感情ピース取得シーケンスが終わった
+
+    GAME_PLAYING_END,       // ゲームプレイが終了した
 
     GAME_PAUSE,             // ゲームが一時停止された
     GAME_RESUME,            // ゲームが再開された

@@ -50,7 +50,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             m_isFirstUpdate = false;
 
             // ゲーム開始のイベントを通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_START);
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_CLEAR);
             return;
         }
 
@@ -152,6 +152,21 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                 var s = WaitAndLoadStageSelectScene(300);
                 // ゲーム終了イベントを通知
                 LoadStageSelectScene();
+                break;
+
+            case InGameFlowEventID.GAME_CLEAR_EFFECT_START:
+                m_playerInput.actions.Disable();
+                break;
+            case InGameFlowEventID.GAME_CLEAR_EFFECT_END:
+                // ゲームプレイ終了イベントを通知
+
+                break;
+
+            case InGameFlowEventID.GOING_GET_FEELING_PIECE_START:
+                m_playerInput.actions.Enable();
+                break;
+            case InGameFlowEventID.GOING_GET_FEELING_PIECE_END:
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_END);
                 break;
         }
     }
