@@ -68,13 +68,22 @@ public class StageSelectController : MonoBehaviour
         {
             // ボタンの作成
             m_buttonObjects[0] = m_rootWorldButton;
-            foreach (var element in m_buttonObjects)
+
+            int buttonCount = Enum.GetValues(typeof(StageID)).Length;
+            for (int i = 1; i <= buttonCount; i++)
             {
-                element.SetActive(true);
-                var button = element.GetComponent<Button>();
+                var buttonObject = m_buttonObjects[i];
+                buttonObject.SetActive(true);
+                int stageIndex = i - 1;
+                var button = buttonObject.GetComponent<Button>();
                 button.onClick.AddListener(() =>
                 {
-                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[(int)m_currentWorldID]);
+
+                    var gameProgressData = GameProgressManager.Instance.GameProgressData;
+                    gameProgressData.worldID = m_currentWorldID;
+                    gameProgressData.stageID = (StageID)stageIndex;
+
+                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[stageIndex]);
 
                     SceneManager.LoadScene("GameplayScene");
                 });
@@ -98,11 +107,16 @@ public class StageSelectController : MonoBehaviour
                 {
                     text.text = "ステージ" + i.ToString();
                 }
-                int stageIndex = i - 1;
 
+                int stageIndex = i - 1;
                 var button = buttonObject.GetComponent<Button>();
                 button.onClick.AddListener(() =>
                 {
+
+                    var gameProgressData =  GameProgressManager.Instance.GameProgressData;
+                    gameProgressData.worldID = m_currentWorldID;
+                    gameProgressData.stageID = (StageID)stageIndex;
+
                     MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[stageIndex]);
 
                     SceneManager.LoadScene("GameplayScene");

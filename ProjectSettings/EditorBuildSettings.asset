@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/DaikiData/Scenes/ProtSample.unity
     guid: 53d246e8688219c4b9bfc61744cae19f
+  - enabled: 1
+    path: Assets/DaikiData/Scenes/ResultScene.unity
+    guid: b036a9b1368775d40b70b7fb8667dbee
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -72,6 +72,38 @@ public class MapData : MonoBehaviour
     private static MapData s_instance ;
 
 
+    /// <summary>
+    /// 共通データ
+    /// </summary>
+    [System.Serializable]
+    public struct CommonData
+    {
+        public int width;     // 横幅（タイル数
+        public int height;    // 縦幅 (タイル数)
+        public Vector2 center;// 中心座標
+
+        public float tileSize; // タイルのサイズ
+
+        public float BaseTilePosY;
+
+    }
+
+    private MapSetting m_mapSetting; // マップ設定
+
+
+    [SerializeField] private CommonData m_commonData;
+
+    [Header("====== ステージ設定 ======")]
+    [SerializeField] private StageSetting m_stageSetting; // ステージ設定
+
+    private StageGridData m_stageGridData;
+
+    [Header("====== ゲームデータ ======")]
+    [SerializeField] private GameProgressData m_gameProgressData; // ゲーム進行データ
+
+    [Header("====== ゲームステージデータ ======")]
+    [SerializeField] private GameStageData m_gameStageData; // ゲームステージデータ
+
     // 唯一のインスタンスにアクセスするためのプロパティ
     public static MapData GetInstance
     {
@@ -156,31 +188,6 @@ public class MapData : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 共通データ
-    /// </summary>
-    [System.Serializable]
-    public struct CommonData
-    {
-        public int width;     // 横幅（タイル数
-        public int height;    // 縦幅 (タイル数)
-        public Vector2 center;// 中心座標
-         
-        public float tileSize; // タイルのサイズ
-
-        public float BaseTilePosY;
-
-    }
-
-     private MapSetting m_mapSetting; // マップ設定
-
-
-    [SerializeField] private CommonData m_commonData;
-
-    [Header("====== ステージ設定 ======")]
-    [SerializeField] private StageSetting m_stageSetting; // ステージ設定
-
-    private StageGridData m_stageGridData;
 
     /// <summary>
     /// 共通データの取得
@@ -347,7 +354,14 @@ public class MapData : MonoBehaviour
 
     public void SetStageSetting(StageSetting stageSetting)
     {
-        m_stageSetting = stageSetting;
+       // m_stageSetting = stageSetting;
+
+        // ゲーム進行データを取得
+        m_gameProgressData = GameProgressManager.Instance.GameProgressData;
+
+        // ゲームステージデータを取得
+        m_stageSetting = m_gameStageData.GetStageSetting(m_gameProgressData.worldID, m_gameProgressData.stageID);
+
         InitializeMapData();
     }
 
