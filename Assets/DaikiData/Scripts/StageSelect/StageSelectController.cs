@@ -29,8 +29,6 @@ public class StageSelectController : MonoBehaviour
     [SerializeField]
     private WorldObjectSelector m_worldObjectSelector; // ワールドオブジェクトセレクター
 
-    private WorldStageData m_worldStageData;
-
     private GameObject m_buttonPrefab; // ボタンのプレハブ
 
     private List<GameObject> m_buttonObjects = new ();  // ステージセレクトボタンのリスト
@@ -83,7 +81,6 @@ public class StageSelectController : MonoBehaviour
                     gameProgressData.worldID = m_currentWorldID;
                     gameProgressData.stageID = (StageID)stageIndex;
 
-                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[stageIndex]);
 
                     SceneManager.LoadScene("GameplayScene");
                 });
@@ -117,7 +114,6 @@ public class StageSelectController : MonoBehaviour
                     gameProgressData.worldID = m_currentWorldID;
                     gameProgressData.stageID = (StageID)stageIndex;
 
-                    MapData.GetInstance.SetStageSetting(m_worldStageData.stageSettings[stageIndex]);
 
                     SceneManager.LoadScene("GameplayScene");
                 });
@@ -145,11 +141,7 @@ public class StageSelectController : MonoBehaviour
         m_rootWorldButton = root;
     }
 
-    public void SetWorldStageData(WorldStageData data)
-    {
-        m_worldStageData = data;
-    }
-
+ 
     public void SetCurrentWorldID(WorldID id)
     {
         m_currentWorldID = id;
@@ -182,7 +174,7 @@ public class StageSelectController : MonoBehaviour
                 // イージングをかける
                 var targetPosition = new Vector2(basePosition.x + offsetX * i, basePosition.y - i * offsetY);
                 float duration = 1.0f ;
-               var d =  rectTransform.DOLocalMove(targetPosition, duration).SetEase(Ease.OutCubic).SetDelay(1.0f / 5);
+               var d =  rectTransform.DOLocalMove(targetPosition, duration).SetEase(Ease.OutCubic).SetDelay(0);
 
                 // 最後のボタンのアニメーション完了時に状態を変更
                 if (i == m_buttonObjects.Count - 1)

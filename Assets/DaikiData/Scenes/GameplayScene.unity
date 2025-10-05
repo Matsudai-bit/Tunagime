@@ -783,6 +783,7 @@ MonoBehaviour:
   m_gameStartUIPanel: {fileID: 493697163}
   m_clearUIPanel: {fileID: 133225239}
   m_playerInput: {fileID: 1121456762}
+  m_gameTime: 0
 --- !u!114 &434684993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2782,10 +2783,18 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: ac2d3de3f72fa0046b22199be91904d0, type: 2}
+      objectReference: {fileID: 11400000, guid: f837f71f8f80692499a0cf2a59475451, type: 2}
+    - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
+      propertyPath: m_gameStageData
+      value: 
+      objectReference: {fileID: 11400000, guid: d1a72ca2300a5884282c3e20b13ce3bc, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageGenerator
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
+      propertyPath: m_applyDebugSetting
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

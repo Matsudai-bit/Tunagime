@@ -5,7 +5,12 @@
 /// </summary>
 public class GameProgressManager 
 {
-    GameProgressData m_gameProgressData = new();
+    GameProgressData m_gameProgressData ;
+
+    private GameProgressManager()
+    {
+        m_gameProgressData = new();
+    }
 
     public GameProgressData GameProgressData
     {

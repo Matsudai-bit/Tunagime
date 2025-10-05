@@ -63,13 +63,6 @@ public struct GridPos
 
 public class MapData : MonoBehaviour
 {
-    [Header("====== ステージ生成器(何ステージ)の設定 ======")]
-    [SerializeField] 
-    private GameObject m_stageGenerator; // ステージ生成器の参照
-
-    // 1. staticなreadonlyフィールドでインスタンスを保持
-    //    アプリケーション起動時にインスタンスが作成されます。
-    private static MapData s_instance ;
 
 
     /// <summary>
@@ -95,6 +88,19 @@ public class MapData : MonoBehaviour
 
     [Header("====== ステージ設定 ======")]
     [SerializeField] private StageSetting m_stageSetting; // ステージ設定
+
+    [Header("====== デバッグモードにするかどうか ======")]
+    [SerializeField]
+    bool m_applyDebugSetting = false;
+
+    [Header("====== ステージ生成器(何ステージ)の設定 ======")]
+    [SerializeField]
+    private GameObject m_stageGenerator; // ステージ生成器の参照
+
+    // 1. staticなreadonlyフィールドでインスタンスを保持
+    //    アプリケーション起動時にインスタンスが作成されます。
+    private static MapData s_instance;
+
 
     private StageGridData m_stageGridData;
 
@@ -131,6 +137,8 @@ public class MapData : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
+
         // 既にインスタンスが存在する場合
         if (s_instance != null && s_instance != this)
         {
@@ -144,7 +152,6 @@ public class MapData : MonoBehaviour
 
         // シーンを跨いで存続させる
         DontDestroyOnLoad(this.gameObject);
-        Initialize();
      
     }
 
@@ -153,6 +160,15 @@ public class MapData : MonoBehaviour
     /// </summary>
     public void Initialize()
     {
+        if (m_applyDebugSetting == false)
+        {
+            // ゲーム進行データを取得
+            m_gameProgressData = GameProgressManager.Instance.GameProgressData;
+            // ゲームステージデータを取得
+            m_stageSetting = m_gameStageData.GetStageSetting(m_gameProgressData.worldID, m_gameProgressData.stageID);
+        }
+
+
         InitializeMapData();
 
         // コンポーネント取得
@@ -352,18 +368,6 @@ public class MapData : MonoBehaviour
         m_stageGenerator = stageGenerator;
     }
 
-    public void SetStageSetting(StageSetting stageSetting)
-    {
-       // m_stageSetting = stageSetting;
-
-        // ゲーム進行データを取得
-        m_gameProgressData = GameProgressManager.Instance.GameProgressData;
-
-        // ゲームステージデータを取得
-        m_stageSetting = m_gameStageData.GetStageSetting(m_gameProgressData.worldID, m_gameProgressData.stageID);
-
-        InitializeMapData();
-    }
 
     public GameObject GetStageGenerator()
     {

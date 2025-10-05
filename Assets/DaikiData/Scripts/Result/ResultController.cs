@@ -56,6 +56,9 @@ public class ResultController : MonoBehaviour
     [SerializeField]
     private GameObject m_stageSelectButton; // ステージセレクトボタン
 
+    [Header("======= ゲーム進行データ(監視用) ======= ")]
+    [SerializeField]
+    private GameProgressData m_gameProgressData;
 
     private float m_currentUpperTime; // 現在のクリアタイム（秒）
 
@@ -69,14 +72,26 @@ public class ResultController : MonoBehaviour
 
     private Vector3 m_feelingPieceStartPosition; // 想いのかけら開始位置
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
     void Start()
     {
+        // ゲーム進行データの取得
+        m_gameProgressData = GameProgressManager.Instance.GameProgressData;
 
-       m_clearTimeObject.SetActive(false);
+        // クリアタイムの取得
+        m_clearTime = (int)m_gameProgressData.clearTime;
+
+        m_clearTimeObject.SetActive(false);
         m_feelingPiece.SetActive(false);
         m_stageSelectButton.SetActive(false);
+        m_idleAnimationHash = 0;
+
         ChangeState(State.DISPLAY_STAGE_CLEAR_TEXT);
+
+
     }
 
     // Update is called once per frame
@@ -88,7 +103,7 @@ public class ResultController : MonoBehaviour
                 UpdateCountUpClearTime();
                 break;
             case State.TUNAGIME_JOU_ANIMATION:
-                UpdateTunagimeJouAnimation();
+            //    UpdateTunagimeJouAnimation();
                 break;
             default:
                 break;
@@ -177,6 +192,7 @@ public class ResultController : MonoBehaviour
 
     void UpdateTunagimeJouAnimation()
     {
+        if (m_idleAnimationHash == 0) { return; }
 
         var animationState = m_tunagimeAnimator.GetCurrentAnimatorStateInfo(0);
 
@@ -259,6 +275,8 @@ public class ResultController : MonoBehaviour
             return;
         }
 
+        Debug.Log("State Change : " + m_currentState.ToString() + " -> " + newState.ToString());
+
         m_currentState = newState;
 
         switch (m_currentState)
@@ -316,7 +334,7 @@ public class ResultController : MonoBehaviour
     /// </summary>
     private void FinishForce()
     {
-        m_currentState = State.END;
+        ChangeState(State.END);
 
         m_clearTimeObject.transform.DOComplete();
         m_feelingPiece.transform.DOComplete();

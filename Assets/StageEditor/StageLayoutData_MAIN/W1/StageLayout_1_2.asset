@@ -327,8 +327,8 @@ MonoBehaviour:
         gridPos:
           x: 14
           y: 1
-        blockType: 10
-        emotionType: 0
+        blockType: 0
+        emotionType: 3
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
-        placeAmidaTube: 0
+        placeAmidaTube: 1
     - label: Grid (5, 3)
       gimmickData:
         gridPos:
@@ -430,11 +430,11 @@ MonoBehaviour:
         gridPos:
           x: 8
           y: 2
-        blockType: 8
+        blockType: 10
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
-        placeAmidaTube: 1
+        placeAmidaTube: 0
     - label: Grid (10, 3)
       gimmickData:
         gridPos:
@@ -513,7 +513,7 @@ MonoBehaviour:
         gridPos:
           x: 0
           y: 3
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -603,8 +603,8 @@ MonoBehaviour:
         gridPos:
           x: 9
           y: 3
-        blockType: 10
-        emotionType: 0
+        blockType: 0
+        emotionType: 3
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
         gridPos:
           x: 15
           y: 3
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -740,7 +740,7 @@ MonoBehaviour:
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
-        placeAmidaTube: 0
+        placeAmidaTube: 1
     - label: Grid (8, 5)
       gimmickData:
         gridPos:
@@ -766,7 +766,7 @@ MonoBehaviour:
         gridPos:
           x: 9
           y: 4
-        blockType: 10
+        blockType: 1
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -776,7 +776,7 @@ MonoBehaviour:
         gridPos:
           x: 10
           y: 4
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1176,13 +1176,13 @@ MonoBehaviour:
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 2
+      emotionType: 1
       gridPos:
         x: 0
         y: 1
     - label: "\u7D42\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 2
+      emotionType: 4
       gridPos:
         x: 15
         y: 1
@@ -1203,14 +1203,14 @@ MonoBehaviour:
   - label: "4\u884C\u76EE ------------------------------------------------------------------------------------------------"
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
-      slotType: 1
-      emotionType: 4
+      slotType: 0
+      emotionType: 0
       gridPos:
         x: 0
         y: 3
     - label: "\u7D42\u70B9\u306E\u578B"
-      slotType: 1
-      emotionType: 1
+      slotType: 0
+      emotionType: 0
       gridPos:
         x: 15
         y: 3
@@ -1232,13 +1232,13 @@ MonoBehaviour:
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 1
+      emotionType: 4
       gridPos:
         x: 0
         y: 5
     - label: "\u7D42\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 4
+      emotionType: 1
       gridPos:
         x: 15
         y: 5

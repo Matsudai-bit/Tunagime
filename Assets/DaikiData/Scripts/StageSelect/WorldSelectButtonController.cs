@@ -1,10 +1,8 @@
 ﻿using DG.Tweening;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -51,13 +49,6 @@ public class WorldSelectButtonController : MonoBehaviour
     private Dictionary<WorldID, GameObject> m_worldSelectButtonDictionary = new Dictionary<WorldID, GameObject>(); // 辞書型でワールドIDとボタンのGameObjectを紐付け
 
 
-    [Header("ワールドステージデータ")]
-    [SerializeField]
-    private List<WorldStageData> worldStageDatas = new(); // ワールドステージデータのリスト
-
-    private Dictionary<WorldID, WorldStageData> m_worldDataDictionary = new ();             // 辞書型でワールドIDとワールドデータを紐付け
-
-
     private WorldID m_currentWorldID; // 現在のワールドID
 
     private State m_currentState = State.WORLD_SELECT; // 現在の状態
@@ -71,12 +62,6 @@ public class WorldSelectButtonController : MonoBehaviour
         foreach (var data in m_worldSelectButtonDataArray)
         {
             m_worldSelectButtonDictionary[data.worldID] = data.gameObject;
-        }
-
-        // ワールドステージデータのリストを辞書に変換
-        foreach (var data in worldStageDatas)
-        {
-            m_worldDataDictionary[data.worldID] = data;
         }
     }
 
@@ -172,7 +157,6 @@ public class WorldSelectButtonController : MonoBehaviour
                 m_stageSelectController.SetRootWorldButton(m_worldSelectButtonDictionary[m_currentWorldID]);
                 m_stageSelectController.gameObject.SetActive(true);
                 m_stageSelectController.SetCurrentWorldID(m_currentWorldID);
-                m_stageSelectController.SetWorldStageData(m_worldDataDictionary[m_currentWorldID]);
                 break;
             case State.CHANGING_WORLD_SELECT:
                 

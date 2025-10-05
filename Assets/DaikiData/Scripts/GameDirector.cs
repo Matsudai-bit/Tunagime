@@ -17,7 +17,12 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [Header("プレイヤーの入力システム")]
     [SerializeField] PlayerInput m_playerInput;
 
-    
+    [Header("ゲーム時間")]
+    [SerializeField]
+    private float m_gameTime = 0.0f;
+
+    private bool m_isGameClear = false;
+
 
     void Awake()
     {
@@ -29,8 +34,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     void Start()
     {
         // 60fpsに設定
-        Application.targetFrameRate = 60; 
+        Application.targetFrameRate = 60;
 
+        m_gameTime = 0.0f;
     }
 
     void OnDestroy()
@@ -47,7 +53,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             m_isFirstUpdate = false;
 
             // ゲーム開始のイベントを通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_CLEAR);
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_START);
             return;
         }
 
@@ -75,6 +81,12 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         }
 
 
+        if (m_isGameClear == false)
+        {
+            // ゲーム時間を更新
+            m_gameTime += Time.deltaTime;
+        }
+
     }
 
     // ゲームがクリアした時に呼ばれる
@@ -84,6 +96,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         Debug.Log("ゲームクリア！");
         // ここにゲームクリアの処理を追加
 
+        m_isGameClear = true;
+
+        GameProgressManager.Instance.GameProgressData.clearTime = m_gameTime;
 
         // クリアUIのパネルを表示
         m_clearUIPanel.SetActive(true);

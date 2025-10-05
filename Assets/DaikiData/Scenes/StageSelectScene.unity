@@ -308,7 +308,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706524893}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_3
         m_Mode: 1
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706524893}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_5
         m_Mode: 1
@@ -623,12 +623,6 @@ MonoBehaviour:
   m_stageSelectController: {fileID: 732850243}
   m_stageSelectButtonDataForWorld: {fileID: 11400000, guid: 99dfa91a11b6dca45bfed9dd4b22801c, type: 2}
   m_worldObjectSelector: {fileID: 1285280870}
-  worldStageDatas:
-  - {fileID: 11400000, guid: 2154b4ca87189474f9b57ec519cb675d, type: 2}
-  - {fileID: 11400000, guid: ab9a792986a13a14c807d55323ecc0de, type: 2}
-  - {fileID: 11400000, guid: a1c7eeddef3d6b74d906cb19f0534bc4, type: 2}
-  - {fileID: 11400000, guid: b004302ae19f83c4681b4fcce4903474, type: 2}
-  - {fileID: 11400000, guid: 61674002c38a00b42840d63d19992bd8, type: 2}
 --- !u!4 &360864780
 Transform:
   m_ObjectHideFlags: 0
@@ -918,7 +912,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 455882852}
-  - component: {fileID: 455882853}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -950,26 +943,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -145.1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &455882853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455882851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54a895cae5ec5d741b45ddbef908743e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_worldStageData:
-  - {fileID: 11400000, guid: 2154b4ca87189474f9b57ec519cb675d, type: 2}
-  - {fileID: 11400000, guid: ab9a792986a13a14c807d55323ecc0de, type: 2}
-  - {fileID: 11400000, guid: a1c7eeddef3d6b74d906cb19f0534bc4, type: 2}
-  - {fileID: 11400000, guid: b004302ae19f83c4681b4fcce4903474, type: 2}
-  - {fileID: 11400000, guid: 61674002c38a00b42840d63d19992bd8, type: 2}
-  m_stageSelectButton: {fileID: 706524893}
-  m_stageSelectWindow: {fileID: 1458931043}
 --- !u!1 &475979969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1026,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706524893}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_4
         m_Mode: 1
@@ -1519,7 +1492,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706524893}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_1
         m_Mode: 1
@@ -1609,7 +1582,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 706524892}
-  - component: {fileID: 706524893}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -1641,30 +1613,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -145.1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &706524893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706524891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa6935737bd5d7d4e953515bd554ac7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageSettings:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  stageButtons:
-  - {fileID: 654571083}
-  - {fileID: 1494503627}
-  - {fileID: 28976363}
-  - {fileID: 475979971}
-  - {fileID: 277121314}
 --- !u!1 &714966191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,7 +1696,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455882853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WorldSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_5
         m_Mode: 1
@@ -1880,21 +1828,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6921664145190624910, guid: b9889d3bd855ad645a10b622ddfb62ee, type: 3}
   m_PrefabInstance: {fileID: 6192211480892066045}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &772560730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 772560726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54a895cae5ec5d741b45ddbef908743e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_worldStageData: []
-  m_stageSelectButton: {fileID: 0}
-  m_stageSelectWindow: {fileID: 0}
 --- !u!1 &841479844
 GameObject:
   m_ObjectHideFlags: 0
@@ -2521,7 +2454,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455882853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WorldSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_4
         m_Mode: 1
@@ -2654,7 +2587,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455882853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WorldSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_1
         m_Mode: 1
@@ -3170,7 +3103,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706524893}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_2
         m_Mode: 1
@@ -3220,63 +3153,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494503625}
   m_CullTransparentMesh: 1
---- !u!1001 &1514298535
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 222031544996483522, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108858070992129889, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
-      propertyPath: m_Name
-      value: MapData
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
 --- !u!1 &1651127100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3360,7 +3236,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455882853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WorldSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_3
         m_Mode: 1
@@ -3629,7 +3505,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455882853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WorldSelectButton, Assembly-CSharp
         m_MethodName: OnClickStage_n_2
         m_Mode: 1
@@ -5092,10 +4968,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6921664145190624910, guid: b9889d3bd855ad645a10b622ddfb62ee, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 772560730}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9889d3bd855ad645a10b622ddfb62ee, type: 3}
 --- !u!1001 &6352407797575277579
 PrefabInstance:
@@ -5420,7 +5293,6 @@ SceneRoots:
   - {fileID: 27278363}
   - {fileID: 447484160}
   - {fileID: 518533470}
-  - {fileID: 1514298535}
   - {fileID: 360864780}
   - {fileID: 732850242}
   - {fileID: 1285280871}

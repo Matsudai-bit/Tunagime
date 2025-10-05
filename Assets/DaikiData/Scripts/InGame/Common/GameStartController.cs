@@ -43,8 +43,8 @@ public class GameStartController : MonoBehaviour
         var targetRightCharacterPosition = rightCharacterRectTransform.position;
 
         // 開始位置を設定
-        leftCharacterRectTransform.position = targetLeftCharacterPosition + new Vector3(-800.0f, 0.0f, 0.0f);
-        rightCharacterRectTransform.position = targetRightCharacterPosition + new Vector3(800.0f, 0.0f, 0.0f);
+        leftCharacterRectTransform.position = targetLeftCharacterPosition + new Vector3(-1000.0f, 0.0f, 0.0f);
+        rightCharacterRectTransform.position = targetRightCharacterPosition + new Vector3(1000.0f, 0.0f, 0.0f);
 
 
         // イージングで移動
