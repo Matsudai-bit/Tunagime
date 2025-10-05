@@ -46,7 +46,7 @@ public class ClearController : MonoBehaviour
         opaqueImage.color = new Color(1, 1, 1, 0); // 初期状態は透明
 
         // フェードインしてからフェードアウトする
-        opaqueImage.DOFade(1.0f, 5.0f).SetEase(Ease.OutQuint).OnComplete(() =>
+        opaqueImage.DOFade(1.0f, 2.0f).SetEase(Ease.OutQuint).OnComplete(() =>
         {
             OnFadeInComplete(opaqueImage, map);
         });
@@ -106,7 +106,7 @@ public class ClearController : MonoBehaviour
         {
             var distance = Vector3.Distance(m_player.transform.position, m_feelingPiece.transform.position);
 
-            if (distance < 2.0f)
+            if (distance < 1.1f)
             {
                 // プレイヤーが感情ピースに近づいた場合、感情ピースを消す
                 Destroy(m_feelingPiece);

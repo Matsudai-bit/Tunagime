@@ -11,9 +11,6 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [Header("ゲーム開始UIパネル")]
     [SerializeField] GameObject m_gameStartUIPanel;
 
-    [Header("クリアUI")]
-    [SerializeField] GameObject m_clearUI;
-
     [Header("クリアUIパネル")]
     [SerializeField] GameObject m_clearUIPanel;
 
@@ -86,7 +83,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // クリアUIを表示する処理
         Debug.Log("ゲームクリア！");
         // ここにゲームクリアの処理を追加
-        m_clearUI.SetActive(true);
+
 
         // クリアUIのパネルを表示
         m_clearUIPanel.SetActive(true);
@@ -107,7 +104,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     public void LoadStageSelectScene()
     {
-        SceneManager.LoadScene("StageSelectScene");
+        SceneManager.LoadScene("ResultScene");
     }
 
     /// <summary>
