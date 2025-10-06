@@ -1,0 +1,229 @@
+{
+    "worldDataList": [
+        {
+            "worldID": 0,
+            "stageDataList": [
+                {
+                    "stageID": 0,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": false,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 1,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 2,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 3,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 4,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "worldID": 1,
+            "stageDataList": [
+                {
+                    "stageID": 0,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": false,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 1,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 2,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 3,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 4,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "worldID": 2,
+            "stageDataList": [
+                {
+                    "stageID": 0,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": false,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 1,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 2,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 3,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 4,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "worldID": 3,
+            "stageDataList": [
+                {
+                    "stageID": 0,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": false,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 1,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 2,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 3,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 4,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "worldID": 4,
+            "stageDataList": [
+                {
+                    "stageID": 0,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": false,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 1,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 2,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 3,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                },
+                {
+                    "stageID": 4,
+                    "stageStatus": {
+                        "isClear": false,
+                        "locked": true,
+                        "clearTime": 0.0
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -780,6 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2bb0fdfc6ebe542a115281ae101678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_startState: 7
   m_gameStartUIPanel: {fileID: 493697163}
   m_clearUIPanel: {fileID: 133225239}
   m_playerInput: {fileID: 1121456762}
@@ -1978,6 +1979,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5383336024257685706, guid: 097af25f932a82248b526c37812cf347, type: 3}
   m_PrefabInstance: {fileID: 79674954582780959}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2005554344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005554346}
+  - component: {fileID: 2005554345}
+  m_Layer: 0
+  m_Name: SaveDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2005554345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005554344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27954c98bc913844f84dfde818b5a2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveDataSetting: {fileID: 11400000, guid: 4b97da6920e0d7743844ea8c973f4cdf, type: 2}
+--- !u!4 &2005554346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005554344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6199663, y: 2.0793185, z: 4.3998346}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2016825072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,7 +2840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_applyDebugSetting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2908,3 +2954,4 @@ SceneRoots:
   - {fileID: 2613555648635490068}
   - {fileID: 898359587}
   - {fileID: 4685612197361750067}
+  - {fileID: 2005554346}

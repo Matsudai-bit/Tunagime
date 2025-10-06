@@ -8,6 +8,10 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 {
     bool m_isFirstUpdate = true;
 
+    [Header("開始状態")]
+    [SerializeField]
+    InGameFlowEventID m_startState ;
+
     [Header("ゲーム開始UIパネル")]
     [SerializeField] GameObject m_gameStartUIPanel;
 
@@ -53,7 +57,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             m_isFirstUpdate = false;
 
             // ゲーム開始のイベントを通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.ZOOM_OUT_PLAYER_START);
+            InGameFlowEventMessenger.GetInstance.Notify(m_startState);
             return;
         }
 
