@@ -418,7 +418,6 @@ public class StageGenerator : MonoBehaviour
 
                             foreach (var data in otherLayout.gridDataList)
                             {
-                                if (data == gridData) continue; // 自分自身はスキップ
                                 if (data.gimmickData.blockType == StageLayoutData.GenerationType.PAIR_BADGE
                                     && data.gimmickData.emotionType == gimmickData.emotionType
                                     && !gimmickDataBlock.Contains(data))

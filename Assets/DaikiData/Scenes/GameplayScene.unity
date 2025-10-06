@@ -2783,7 +2783,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: f837f71f8f80692499a0cf2a59475451, type: 2}
+      objectReference: {fileID: 11400000, guid: 5f84dde78c7a75b4481119a19c6f8913, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_gameStageData
       value: 

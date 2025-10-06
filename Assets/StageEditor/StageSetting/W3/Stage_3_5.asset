@@ -15,3 +15,4 @@ MonoBehaviour:
   mapSetting: {fileID: 11400000, guid: ee756106f26d24146a71c2134a3e55bd, type: 2}
   backgroundPrefab: {fileID: 3543577353858044739, guid: 4a5242a8d06ffd34ab90de447d87bfed, type: 3}
   stageGenerator: {fileID: 2393295741540500681, guid: 7cab1eea5df45494eb2d0233ff4fc3a4, type: 3}
+  stageObject: {fileID: 3131397636303683701, guid: 6e182eef1f28cd84fab1f961f64af871, type: 3}
