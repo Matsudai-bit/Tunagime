@@ -1,28 +1,77 @@
+ï»¿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// °¶¬
+/// åºŠç”Ÿæˆ
 /// </summary>
 public class FloorBlockGenerator : MonoBehaviour
 {
+    /// <summary>
+    /// åºŠã®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿
+    /// </summary>
+    [Serializable]
+    struct FloorMaterialData
+    {
+        public string label;
+        public Material material;
+        public WorldID worldID;
+    }
 
-    [SerializeField] private GameObject m_floorBlockPrefab;    // ƒXƒe[ƒWƒuƒƒbƒN
-    [SerializeField] private Transform m_floorBlockParent;    // ƒXƒe[ƒWƒuƒƒbƒN‚Ìe   
+    [Header("====== åºŠã®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿ ======")]
+    [SerializeField] private FloorMaterialData[] m_floorMaterialDatas; // åºŠã®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿é…åˆ—
+
+    private Dictionary<WorldID, Material> m_floorMaterialDataDic = new Dictionary<WorldID, Material>(); // åºŠã®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿è¾æ›¸
 
 
-    public GameObject line; // ƒ‰ƒCƒ“•\¦—pƒIƒuƒWƒFƒNƒg
+    [SerializeField] private GameObject m_floorBlockPrefab;    // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯
+    [SerializeField] private Transform m_floorBlockParent;    // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®è¦ª   
+
+
+    public GameObject line; // ãƒ©ã‚¤ãƒ³è¡¨ç¤ºç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+
+    private void Awake()
+    {
+        // åºŠã®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿è¾æ›¸ã®åˆæœŸåŒ–
+        if (m_floorMaterialDatas != null)
+        {
+            foreach (var data in m_floorMaterialDatas)
+            {
+                if (data.material != null && !m_floorMaterialDataDic.ContainsKey(data.worldID))
+                {
+                    m_floorMaterialDataDic.Add(data.worldID, data.material);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("åºŠã®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
+        }
+    }
+
+    private void Start()
+    {
+        var map = MapData.GetInstance;
+
+        var gameProgressData = GameProgressManager.Instance.GameProgressData;
+
+        m_floorBlockPrefab.GetComponent<MeshRenderer>().material = m_floorMaterialDataDic[gameProgressData.worldID];
+    }
 
 
     /// <summary>
-    /// Šˆ“®‚µ‚Ä‚¢‚È‚¢°‚ğ‘{‚µ‚Ä‘—‚é
+    /// æ´»å‹•ã—ã¦ã„ãªã„åºŠã‚’æœã—ã¦é€ã‚‹
     /// </summary>
     /// <param name="gridPos"></param>
     /// <param name="map"></param>
     /// <param name="generationPosY"></param>
     /// <returns></returns>
-   public GameObject GenerateFloor(GridPos gridPos)
+    public GameObject GenerateFloor(GridPos gridPos)
     {
-        // qƒIƒuƒWƒFƒNƒg‚ğŠi”[‚·‚é”z—ñì¬
+
+
+
+        // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹é…åˆ—ä½œæˆ
         var children = new Transform[m_floorBlockParent.transform.childCount];
 
         MapData map = MapData.GetInstance;
@@ -34,10 +83,10 @@ public class FloorBlockGenerator : MonoBehaviour
 
         pos.y = map.GetCommonData().BaseTilePosY;
 
-        // 0`ŒÂ”-1‚Ü‚Å‚Ìq‚ğ‡”Ô‚É”z—ñ‚ÉŠi”[
+        // 0ï½å€‹æ•°-1ã¾ã§ã®å­ã‚’é †ç•ªã«é…åˆ—ã«æ ¼ç´
         for (int i = 0; i < m_floorBlockParent.transform.childCount; i++)
         {
-            // q—v‘f‚Ìæ“¾
+            // å­è¦ç´ ã®å–å¾—
             var child = m_floorBlockParent.transform.GetChild(i);
 
             if (child.gameObject != null && child.gameObject.activeSelf == false)
@@ -51,17 +100,17 @@ public class FloorBlockGenerator : MonoBehaviour
 
       
 
-        // ¶¬
+        // ç”Ÿæˆ
         return Instantiate(m_floorBlockPrefab, pos, Quaternion.identity, m_floorBlockParent.transform);
     }
 
 
 
     /// <summary>
-    /// °‚Ì¶¬
+    /// åºŠã®ç”Ÿæˆ
     /// </summary>
     /// <param name="generationPosY"></param>
-    /// <returns>¶¬‚µ‚½ƒOƒŠƒbƒhƒf[ƒ^</returns>
+    /// <returns>ç”Ÿæˆã—ãŸã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿</returns>
     public GameObject[,] GenerateFloor(  bool grid, Transform parent)
     {
         GameObject[,] floorBlockGrid;
@@ -69,11 +118,11 @@ public class FloorBlockGenerator : MonoBehaviour
         MapData map = MapData.GetInstance;
 
 
-        // eƒIƒuƒWƒFƒNƒg‚Ìİ’è
+        // è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¨­å®š
         m_floorBlockParent = parent;
 
 
-        // ƒXƒe[ƒWƒOƒŠƒbƒh‚Ì¶¬
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚°ãƒªãƒƒãƒ‰ã®ç”Ÿæˆ
         floorBlockGrid = new GameObject[map.GetCommonData().height, map.GetCommonData().width];
 
         for (int cy = 0; cy < map.GetCommonData().height; cy++)
@@ -87,7 +136,7 @@ public class FloorBlockGenerator : MonoBehaviour
 
                 pos.y = map.GetCommonData().BaseTilePosY;
 
-                // ¶¬
+                // ç”Ÿæˆ
                 floorBlockGrid[cy, cx] = Instantiate(m_floorBlockPrefab, pos, Quaternion.identity, m_floorBlockParent.transform);
 
 
@@ -98,10 +147,10 @@ public class FloorBlockGenerator : MonoBehaviour
 
 
         if (grid)
-        // ƒOƒŠƒbƒh‚Ìü‚Ì•`‰æ
+        // ã‚°ãƒªãƒƒãƒ‰ã®ç·šã®æç”»
         CreateGridEffects(map, map.GetCommonData().BaseTilePosY);
 
-        // ã•”‚ÌÀ•W‚ÌZo
+        // ä¸Šéƒ¨ã®åº§æ¨™ã®ç®—å‡º
         //       topPartPosY = generationPosY + (m_floorBlockPrefab.transform.localScale.y / 2.0f);
 
         var boxCollider = m_floorBlockParent.GetComponent<BoxCollider>();
@@ -115,16 +164,16 @@ public class FloorBlockGenerator : MonoBehaviour
             
         }
         else
-            Debug.LogWarning(m_floorBlockParent.name + "‚ÌBoxCollider‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+            Debug.LogWarning(m_floorBlockParent.name + "ã®BoxColliderãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
 
 
-            // ¶¬‚µ‚½ƒOƒŠƒbƒhƒf[ƒ^‚ğ•Ô‚·
+            // ç”Ÿæˆã—ãŸã‚°ãƒªãƒƒãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™
             return floorBlockGrid;
     }
 
 
     /// <summary>
-    /// ƒOƒŠƒbƒhƒ‰ƒCƒ“‚Ì¶¬
+    /// ã‚°ãƒªãƒƒãƒ‰ãƒ©ã‚¤ãƒ³ã®ç”Ÿæˆ
     /// </summary>
     private void CreateGridEffects(MapData map, float generationPosY)
     {
@@ -139,7 +188,7 @@ public class FloorBlockGenerator : MonoBehaviour
                 generationPosY + (map.GetCommonData().tileSize / 2 + 0.01f),
                 -((float)(map.GetCommonData().height) / 2.0f) * map.GetCommonData().tileSize + map.GetCommonData().tileSize / 2.0f);
 
-            obj.transform.localScale = new Vector3(1, 1, map.GetCommonData().height * map.GetCommonData().tileSize);    // ‚Ç‚ê‚¾‚¯L‚Î‚·‚©‚ÍGetCommonData().height‚ğŒ©‚é
+            obj.transform.localScale = new Vector3(1, 1, map.GetCommonData().height * map.GetCommonData().tileSize);    // ã©ã‚Œã ã‘ä¼¸ã°ã™ã‹ã¯GetCommonData().heightã‚’è¦‹ã‚‹
         }
         for (int y = 1; y < map.GetCommonData().height; y++)
         {
@@ -153,7 +202,21 @@ public class FloorBlockGenerator : MonoBehaviour
                 worldZ + map.GetCommonData().tileSize / 2);
 
             obj.transform.rotation = Quaternion.Euler(0, 90, 0);
-            obj.transform.localScale = new Vector3(1, 1, map.GetCommonData().width * map.GetCommonData().tileSize); // ‚Ç‚ê‚¾‚¯L‚Î‚·‚©‚ÍGetWidth()‚ğŒ©‚é
+            obj.transform.localScale = new Vector3(1, 1, map.GetCommonData().width * map.GetCommonData().tileSize); // ã©ã‚Œã ã‘ä¼¸ã°ã™ã‹ã¯GetWidth()ã‚’è¦‹ã‚‹
         }
+    }
+
+    private void Reset()
+    {
+        m_floorMaterialDatas = new FloorMaterialData[Enum.GetValues(typeof(WorldID)).Length];
+
+        for (int i = 0; i < m_floorMaterialDatas.Length; i++)
+        {
+            m_floorMaterialDatas[i].label = "World_" + (i + 1);
+            m_floorMaterialDatas[i].worldID = (WorldID)i;
+            m_floorMaterialDatas[i].material = null;
+        }
+
+
     }
 }

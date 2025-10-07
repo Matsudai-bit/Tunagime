@@ -13,13 +13,23 @@ public class InGameCamera
 
     GameObject m_player;              // プレイヤー
 
+    [Header("====== クリア時のカメラ位置 ======")]
+    [SerializeField]
+    public Vector3 m_clearCameraPosition = new Vector3(0.0f, 15.6f, 18.0f); // クリア時のカメラ位置
+
+    [Header("====== クリア時のカメラ回転 ======")]
+    [SerializeField]
+    public Vector3 m_clearCameraRotate   = new Vector3(33.0f, 0.0f, 0.0f);   // クリア時のカメラ回転
+
+    [Space(10)]
+
+
     [SerializeField]
     private Vector3 m_startFocusPosition;    // 初期注視点
 
     private Quaternion m_startFocusRotate;   // 初期注視点の回転
 
     private State m_state;
-
 
     private Quaternion m_targetRotate;
 
@@ -35,6 +45,7 @@ public class InGameCamera
         GAME_SATARTING,     // ゲーム開始
         GAME_PLAYING,       // ゲーム中
         CLEAR_STATE,      // クリア状態
+        GOING_GET_FEELING_PIECE_START, // 感情ピース取得中
     }
 
     void Awake()
@@ -144,6 +155,13 @@ public class InGameCamera
         transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 5.0f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
     }
 
+    void StartGoingGetFeelingPieceStartState()
+    {
+        transform.DOLocalMove(m_clearCameraPosition, 1.0f).SetEase(Ease.InOutSine);
+
+       transform.DORotateQuaternion(Quaternion.Euler(m_clearCameraRotate), 1.0f).SetEase(Ease.InOutSine);
+    }
+
     /// <summary>
     /// ゲーム開始状態の更新
     /// </summary>
@@ -170,6 +188,10 @@ public class InGameCamera
             case State.CLEAR_STATE:
                 StartGameClearState();
                 break;
+            case State.GOING_GET_FEELING_PIECE_START:
+                // 位置と回転を目標に
+                StartGoingGetFeelingPieceStartState();
+                break;
         }
     }
 
@@ -193,7 +215,9 @@ public class InGameCamera
             case InGameFlowEventID.GAME_PLAYING_START:
                 ChangeState(State.GAME_PLAYING);
                 break;
-
+            case InGameFlowEventID.GOING_GET_FEELING_PIECE_START:
+                ChangeState(State.GOING_GET_FEELING_PIECE_START);
+                break;
 
         }
     }

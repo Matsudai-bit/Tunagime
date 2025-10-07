@@ -44,6 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c4d7e04955ce24ca4f20591bd42f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_floorMaterialDatas:
+  - label: World1
+    material: {fileID: 2100000, guid: da1313ea29447ce4aac5ed06d9eea614, type: 2}
+    worldID: 0
+  - label: World2
+    material: {fileID: 2100000, guid: 9b7789a88b387004aa715409750e65f7, type: 2}
+    worldID: 1
+  - label: World3
+    material: {fileID: 2100000, guid: e131578bb73bbed42802650466786587, type: 2}
+    worldID: 2
+  - label: World4
+    material: {fileID: 2100000, guid: 5960a71c22c13a14b864cc516ec141f3, type: 2}
+    worldID: 3
+  - label: World5
+    material: {fileID: 2100000, guid: ce89e8337454cb345bd772c9e2bf87e6, type: 2}
+    worldID: 4
   m_floorBlockPrefab: {fileID: 6500922775881901902, guid: 2b1b1d6c10054e94ca3cfdb7e3b94b13, type: 3}
   m_floorBlockParent: {fileID: 0}
   line: {fileID: 6678230496819153631, guid: 76c9a53a8a7f8034f9ab4031e7caf7fe, type: 3}
@@ -94,6 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea09bf9d66209b489d2409aeed878ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_usingNewSystem: 0
+  m_stageLayoutData: {fileID: 0}
   m_gimmickData:
   - gridPos:
       x: 6
@@ -574,6 +592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea09bf9d66209b489d2409aeed878ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_usingNewSystem: 0
+  m_stageLayoutData: {fileID: 0}
   m_gimmickData:
   - gridPos:
       x: 5
