@@ -3,7 +3,17 @@ guid: 2e9471662168eda4ca56ffb9154049d1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 5_1_back_low
+    second: {fileID: 2100000, guid: d6469a544a3d4ab4499b682495000b23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_stage_5_3
+    second: {fileID: 2100000, guid: 0ab6eafd739f2ff40be1897f5cc671d5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -97,7 +107,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

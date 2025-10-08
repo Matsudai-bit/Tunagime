@@ -3,7 +3,17 @@ guid: bce80f784e54a66498977b71b3e196d2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_stage5_5
+    second: {fileID: 2100000, guid: b79f0ecb7490de048ac7358025f04e3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_stage5_5_liver
+    second: {fileID: 2100000, guid: e80e438618e7efa4b8f88e1b902e8a33, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -97,7 +107,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
