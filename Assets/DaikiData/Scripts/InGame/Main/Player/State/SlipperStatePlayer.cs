@@ -143,7 +143,7 @@ public class SlipperStatePlayer : PlayerState
             if (Physics.Raycast(owner.transform.position, direction, out hits[i], 0.5f))
             {
                 // 当たったオブジェクトのタグをチェック
-                if (hits[i].collider?.gameObject.GetComponent<StageBlock>())
+                if (hits[i].collider?.gameObject.GetComponent<StageBlock>() && hits[i].collider?.gameObject.GetComponent<StageBlock>().GetBlockType() != StageBlock.BlockType.FRAGMENT)
                 {
                     return true; // 滑る状態を終了できる
                 }

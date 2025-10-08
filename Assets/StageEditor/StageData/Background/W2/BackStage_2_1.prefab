@@ -32,7 +32,7 @@ Transform:
   - {fileID: 7605660265167990536}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1001 &2624132527224500922
+--- !u!1001 &479439625596874186
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -43,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 786169067993013449, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_Name
       value: StageCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552825283561932694, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
+      propertyPath: m_clearCameraPosition.y
+      value: 15.6
       objectReference: {fileID: 0}
     - target: {fileID: 8736789990373623762, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89,10 +93,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
---- !u!4 &6725451586336404840 stripped
+--- !u!4 &9194133791228701208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8736789990373623762, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
-  m_PrefabInstance: {fileID: 2624132527224500922}
+  m_PrefabInstance: {fileID: 479439625596874186}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7928027267301198051
 PrefabInstance:
@@ -164,7 +168,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a4375d82d30dec54ba3391861bf6b251, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6725451586336404840}
+      addedObject: {fileID: 9194133791228701208}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4375d82d30dec54ba3391861bf6b251, type: 3}
 --- !u!4 &7605660265167990536 stripped

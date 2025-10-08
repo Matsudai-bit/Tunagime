@@ -780,11 +780,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2bb0fdfc6ebe542a115281ae101678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_startState: 0
+  m_startState: 7
   m_gameStartUIPanel: {fileID: 493697163}
   m_clearUIPanel: {fileID: 133225239}
   m_playerInput: {fileID: 1121456762}
   m_gameTime: 0
+  m_stageManager: {fileID: 1481420551}
 --- !u!114 &434684993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1697,6 +1698,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 686594425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1481420551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6048810749413723080, guid: e2565badc629c4341b0d36e0316f55b7, type: 3}
+  m_PrefabInstance: {fileID: 3253809629110126912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb44c7433f362a149abd3c52aea0af67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548910274
 GameObject:
   m_ObjectHideFlags: 0

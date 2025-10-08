@@ -185,7 +185,6 @@ public class MapData : MonoBehaviour
             m_mapSetting = m_stageSetting.mapSetting;
             m_stageGenerator = m_stageSetting.stageGenerator;
 
-            SoundManager.GetInstance.PlayBGM(m_mapSetting.bgmID);
 
         }
 
@@ -391,5 +390,7 @@ public class MapData : MonoBehaviour
     {
         return m_mapSetting.feelingPiece;
     }
+
+    public MapSetting MapSetting { get { return m_mapSetting; } }
 
 }

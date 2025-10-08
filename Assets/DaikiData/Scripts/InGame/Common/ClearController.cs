@@ -62,8 +62,12 @@ public class ClearController : MonoBehaviour
         // フェードアウトが完了した後の処理
         opaqueImage.DOFade(0.0f, 1.0f).SetEase(Ease.OutCirc).OnComplete(OnFadeOutComplete);
 
-        // ステージオブジェクトを生成する
-        m_stageObject = Instantiate(map.GetStageObject(), m_gameParent);
+        if (map.GetStageObject())
+        {
+            // ステージオブジェクトを生成する
+            m_stageObject = Instantiate(map.GetStageObject(), m_gameParent);
+        }
+ 
     }
 
     private void OnFadeOutComplete()
@@ -90,12 +94,16 @@ public class ClearController : MonoBehaviour
 
         m_feelingPiece.transform.position = stageObjectPosition + new Vector3(0.0f, -1.0f, 0.0f);
 
-        m_feelingPiece.transform.DOBlendableMoveBy(new Vector3(0.0f, 2.0f, 0.0f), 1.0f).SetEase(Ease.OutBack).SetDelay(0.5f).OnComplete(() =>
+        m_feelingPiece.transform.DOBlendableMoveBy(new Vector3(0.0f, 5.0f, 0.0f), 1.0f).SetEase(Ease.InBack).SetDelay(0.5f).OnComplete(() =>
         {
-            // 感情ピースのスポーン開始を通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GOING_GET_FEELING_PIECE_START);
+            m_feelingPiece.transform.DOBlendableMoveBy(new Vector3(1.0f, -3.0f, 0.0f), 1.0f).SetEase(Ease.OutBack).SetDelay(0.3f).OnComplete(() =>
+            {
+                // 感情ピースのスポーン開始を通知
+                InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GOING_GET_FEELING_PIECE_START);
 
-            m_isClearEffectStarted = true; // クリアエフェクトが開始された
+                m_isClearEffectStarted = true; // クリアエフェクトが開始された
+            });
+
         });
     }
 

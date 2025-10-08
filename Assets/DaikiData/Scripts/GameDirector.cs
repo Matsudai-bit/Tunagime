@@ -25,6 +25,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [SerializeField]
     private float m_gameTime = 0.0f;
 
+    [Header("ステージマネージャー")]
+    [SerializeField] private StageManager m_stageManager;
+
     private bool m_isGameClear = false;
 
 
@@ -41,6 +44,16 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         Application.targetFrameRate = 60;
 
         m_gameTime = 0.0f;
+
+        var map = MapData.GetInstance;
+
+        map.Initialize();
+
+        
+       SoundManager.GetInstance.PlayBGM(map.MapSetting.bgmID);
+
+        // ステージの生成
+        m_stageManager.Generate(map.GetStageGenerator(), this);
     }
 
     void OnDestroy()

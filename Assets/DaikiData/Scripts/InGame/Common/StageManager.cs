@@ -38,16 +38,42 @@ public class StageManager : MonoBehaviour
     void Start()
     {
 
-        var map = MapData.GetInstance; // マップデータのインスタンスを取得
+        //var map = MapData.GetInstance; // マップデータのインスタンスを取得
 
-        // ステージ生成器の取得
-        m_stageGenerator = map.GetStageGenerator();
+        //// ステージ生成器の取得
+        //m_stageGenerator = map.GetStageGenerator();
 
+        //// ステージ生成器のインスタンスを生成
+        //if (m_stageGenerator != null)
+        //{
+        //    m_stageGenerator = Instantiate(m_stageGenerator, Vector3.zero, Quaternion.identity);
+        //    m_stageGenerator.GetComponent<StageGenerator>().Generate(
+        //        m_amidaManager,
+        //        m_amidaParent,
+        //        m_floorBlockParent,
+        //        m_gimmickParent,
+        //        m_feelingSlotParent,
+        //        m_clearConditionChecker
+        //    );
+        //}
+        //else
+        //{
+        //    Debug.LogError("ステージ生成器が設定されていません。");
+        //}
+    }
+
+    /// <summary>
+    /// ステージ生成器を使ってステージを生成する
+    /// </summary>
+    /// <param name="stageGenerator"></param>
+    /// <param name="gameDirector"></param>
+    public void Generate(GameObject stageGenerator, GameDirector gameDirector)
+    {
         // ステージ生成器のインスタンスを生成
-        if (m_stageGenerator != null)
+        if (stageGenerator != null)
         {
-            m_stageGenerator = Instantiate(m_stageGenerator, Vector3.zero, Quaternion.identity);
-            m_stageGenerator.GetComponent<StageGenerator>().Generate(
+            stageGenerator = Instantiate(stageGenerator, Vector3.zero, Quaternion.identity);
+            stageGenerator.GetComponent<StageGenerator>().Generate(
                 m_amidaManager,
                 m_amidaParent,
                 m_floorBlockParent,
