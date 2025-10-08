@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea09bf9d66209b489d2409aeed878ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_usingNewSystem: 0
-  m_stageLayoutData: {fileID: 0}
+  m_usingNewSystem: 1
+  m_stageLayoutData: {fileID: 11400000, guid: 3e57dbcd78acdfc4baefde1ef4580315, type: 2}
   m_gimmickData:
   - gridPos:
       x: 10

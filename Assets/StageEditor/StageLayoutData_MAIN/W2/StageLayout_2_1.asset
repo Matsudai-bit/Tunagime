@@ -257,7 +257,7 @@ MonoBehaviour:
         gridPos:
           x: 5
           y: 1
-        blockType: 10
+        blockType: 1
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
         changeToSatinFloor: 0
         placeAmidaTube: 0
   - label: "3\u884C\u76EE ------------------------------------------------------------------------------------------------"
-    createHorizonalAmidaLine: 0
+    createHorizonalAmidaLine: 1
     gridDataList:
     - label: Grid (1, 3)
       gimmickData:
@@ -749,7 +749,7 @@ MonoBehaviour:
         changeToSatinFloor: 0
         placeAmidaTube: 0
   - label: "5\u884C\u76EE ------------------------------------------------------------------------------------------------"
-    createHorizonalAmidaLine: 0
+    createHorizonalAmidaLine: 1
     gridDataList:
     - label: Grid (1, 5)
       gimmickData:
@@ -969,7 +969,7 @@ MonoBehaviour:
         gridPos:
           x: 3
           y: 5
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -979,7 +979,7 @@ MonoBehaviour:
         gridPos:
           x: 4
           y: 5
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
         gridPos:
           x: 5
           y: 5
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
         gridPos:
           x: 10
           y: 5
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1049,17 +1049,17 @@ MonoBehaviour:
         gridPos:
           x: 11
           y: 5
-        blockType: 10
-        emotionType: 0
+        blockType: 5
+        emotionType: 2
         option: 0
         changeToSatinFloor: 0
-        placeAmidaTube: 0
+        placeAmidaTube: 1
     - label: Grid (13, 6)
       gimmickData:
         gridPos:
           x: 12
           y: 5
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1115,7 +1115,7 @@ MonoBehaviour:
         changeToSatinFloor: 0
         placeAmidaTube: 0
   - label: "7\u884C\u76EE ------------------------------------------------------------------------------------------------"
-    createHorizonalAmidaLine: 0
+    createHorizonalAmidaLine: 1
     gridDataList:
     - label: Grid (1, 7)
       gimmickData:
@@ -1152,9 +1152,9 @@ MonoBehaviour:
         gridPos:
           x: 3
           y: 6
-        blockType: 10
-        emotionType: 0
-        option: 0
+        blockType: 5
+        emotionType: 1
+        option: 1
         changeToSatinFloor: 0
         placeAmidaTube: 0
     - label: Grid (5, 7)
@@ -1162,8 +1162,8 @@ MonoBehaviour:
         gridPos:
           x: 4
           y: 6
-        blockType: 10
-        emotionType: 0
+        blockType: 0
+        emotionType: 3
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
@@ -1172,9 +1172,9 @@ MonoBehaviour:
         gridPos:
           x: 5
           y: 6
-        blockType: 10
-        emotionType: 0
-        option: 0
+        blockType: 5
+        emotionType: 1
+        option: 1
         changeToSatinFloor: 0
         placeAmidaTube: 0
     - label: Grid (7, 7)
@@ -1335,7 +1335,7 @@ MonoBehaviour:
         gridPos:
           x: 3
           y: 7
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1345,7 +1345,7 @@ MonoBehaviour:
         gridPos:
           x: 4
           y: 7
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1355,7 +1355,7 @@ MonoBehaviour:
         gridPos:
           x: 5
           y: 7
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1695,14 +1695,14 @@ MonoBehaviour:
   - label: "3\u884C\u76EE ------------------------------------------------------------------------------------------------"
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
-      slotType: 0
-      emotionType: 0
+      slotType: 1
+      emotionType: 1
       gridPos:
         x: 0
         y: 2
     - label: "\u7D42\u70B9\u306E\u578B"
-      slotType: 0
-      emotionType: 0
+      slotType: 1
+      emotionType: 2
       gridPos:
         x: 17
         y: 2
@@ -1723,14 +1723,14 @@ MonoBehaviour:
   - label: "5\u884C\u76EE ------------------------------------------------------------------------------------------------"
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
-      slotType: 0
-      emotionType: 0
+      slotType: 1
+      emotionType: 2
       gridPos:
         x: 0
         y: 4
     - label: "\u7D42\u70B9\u306E\u578B"
-      slotType: 0
-      emotionType: 0
+      slotType: 1
+      emotionType: 4
       gridPos:
         x: 17
         y: 4
@@ -1751,14 +1751,14 @@ MonoBehaviour:
   - label: "7\u884C\u76EE ------------------------------------------------------------------------------------------------"
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
-      slotType: 0
-      emotionType: 0
+      slotType: 1
+      emotionType: 4
       gridPos:
         x: 0
         y: 6
     - label: "\u7D42\u70B9\u306E\u578B"
-      slotType: 0
-      emotionType: 0
+      slotType: 1
+      emotionType: 1
       gridPos:
         x: 17
         y: 6
