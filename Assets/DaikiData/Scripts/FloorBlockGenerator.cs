@@ -47,15 +47,15 @@ public class FloorBlockGenerator : MonoBehaviour
         {
             Debug.LogWarning("床のマテリアルデータが設定されていません");
         }
+
+        var map = MapData.GetInstance;
+        var gameProgressData = GameProgressManager.Instance.GameProgressData;
+        m_floorBlockPrefab.GetComponent<MeshRenderer>().material = m_floorMaterialDataDic[gameProgressData.worldID];
     }
 
     private void Start()
     {
-        var map = MapData.GetInstance;
 
-        var gameProgressData = GameProgressManager.Instance.GameProgressData;
-
-        m_floorBlockPrefab.GetComponent<MeshRenderer>().material = m_floorMaterialDataDic[gameProgressData.worldID];
     }
 
 
