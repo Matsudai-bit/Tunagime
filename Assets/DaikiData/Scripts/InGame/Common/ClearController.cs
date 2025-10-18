@@ -90,7 +90,11 @@ public class ClearController : MonoBehaviour
 
         m_feelingPiece = Instantiate(map.GetFeelingPiece(), m_gameParent);
 
-        Vector3 stageObjectPosition = m_stageObject.transform.position;
+        Vector3 stageObjectPosition = map.GetStageCenterPos();
+        if (m_stageObject)
+        {
+            stageObjectPosition = m_stageObject.transform.position;
+        }
 
         m_feelingPiece.transform.position = stageObjectPosition + new Vector3(0.0f, -1.0f, 0.0f);
 
