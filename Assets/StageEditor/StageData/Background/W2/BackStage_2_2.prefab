@@ -120,17 +120,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 8552825283561932694, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
+      propertyPath: m_clearCameraPosition.y
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552825283561932694, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
+      propertyPath: m_clearCameraPosition.z
+      value: 13.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8736789990373623762, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8736789990373623762, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.374716
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 8736789990373623762, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.8474674
+      value: 7.55
       objectReference: {fileID: 0}
     - target: {fileID: 8736789990373623762, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_LocalRotation.w
