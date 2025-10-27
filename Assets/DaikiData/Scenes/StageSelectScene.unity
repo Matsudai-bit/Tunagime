@@ -2212,8 +2212,8 @@ MonoBehaviour:
   m_worldObjects:
   - {fileID: 3383442958768779061, guid: 19d463356b94af94b90af5c223763a93, type: 3}
   - {fileID: 4327323352442681105, guid: 5b98f843f3dc58140a036cb940fd15e3, type: 3}
-  - {fileID: 3383442958768779061, guid: 19d463356b94af94b90af5c223763a93, type: 3}
-  - {fileID: 3383442958768779061, guid: 19d463356b94af94b90af5c223763a93, type: 3}
+  - {fileID: 2418959467232757049, guid: 3c0cfa03dbe7a0d4783e66c4bd89813f, type: 3}
+  - {fileID: 8136370509458847375, guid: 0ce6e7bf65a68594dba1bd6d417b871b, type: 3}
   - {fileID: 731126173055642774, guid: ecc55b50dd7bef14086d9c13cf4492ea, type: 3}
   m_worldObjectParent: {fileID: 673744704}
   m_worldSelectButtonController: {fileID: 360864779}

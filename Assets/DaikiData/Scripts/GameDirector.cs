@@ -28,6 +28,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [Header("ステージマネージャー")]
     [SerializeField] private StageManager m_stageManager;
 
+    [Header("エフェクトコントローラー")]
+    [SerializeField] private EffectController m_effectController;
+
     private bool m_isGameClear = false;
 
 
@@ -43,14 +46,20 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // 60fpsに設定
         Application.targetFrameRate = 60;
 
+        // ゲーム時間の初期化
         m_gameTime = 0.0f;
 
         var map = MapData.GetInstance;
-
+        // マップデータの初期化
         map.Initialize();
 
-        
-       SoundManager.GetInstance.PlayBGM(map.MapSetting.bgmID);
+        // エフェクトコントローラーにボリュームプロファイルを設定
+        m_effectController.SetVolumeProfile(map.MapSetting.volumeProfile);
+        // ステージパーティクルの設定
+        m_effectController.PlayParticle(map.MapSetting.stageEffectParticlePrefab);
+
+        // BGMの再生
+        SoundManager.GetInstance.PlayBGM(map.MapSetting.bgmID);
 
         // ステージの生成
         m_stageManager.Generate(map.GetStageGenerator(), this);

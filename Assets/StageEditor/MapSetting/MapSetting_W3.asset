@@ -18,4 +18,6 @@ MonoBehaviour:
   tileSize: 1
   BaseTilePosY: 0
   bgmID: 3
+  volumeProfile: {fileID: 11400000, guid: fb04625021482af47a0391a130b60116, type: 2}
+  stageEffectParticlePrefab: {fileID: 5474242297826407145, guid: f0d7294c1884ab141820eb5006ba540a, type: 3}
   feelingPiece: {fileID: 5388162571035748508, guid: d9d41edc2b2c29d42a4247703ac8562f, type: 3}

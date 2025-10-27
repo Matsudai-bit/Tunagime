@@ -786,6 +786,7 @@ MonoBehaviour:
   m_playerInput: {fileID: 1121456762}
   m_gameTime: 0
   m_stageManager: {fileID: 1481420551}
+  m_effectController: {fileID: 1012821842}
 --- !u!114 &434684993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,6 +1012,10 @@ PrefabInstance:
     - target: {fileID: 6198968008702218681, guid: 8480db5928b1bf94fb45b5885e317844, type: 3}
       propertyPath: m_Name
       value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198968008702218681, guid: 8480db5928b1bf94fb45b5885e317844, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1328,6 +1333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System
       objectReference: {fileID: 0}
+    - target: {fileID: 144774378836897912, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2704117409311022249, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.48
@@ -1398,6 +1407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1012821841}
+  - component: {fileID: 1012821842}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -1423,6 +1433,19 @@ Transform:
   - {fileID: 472300870}
   m_Father: {fileID: 686594425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1012821842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012821840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862f71836ff22bb4baa6c06bfa3e5eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_volume: {fileID: 2067142984}
 --- !u!4 &1121456758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2858015213670384109, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
@@ -2130,7 +2153,7 @@ PrefabInstance:
     - target: {fileID: 1702676015137461793, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
       propertyPath: sharedProfile
       value: 
-      objectReference: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2090564629872262648, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
       propertyPath: m_Name
       value: Global Volume
@@ -2148,6 +2171,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
+--- !u!114 &2067142984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1702676015137461793, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
+  m_PrefabInstance: {fileID: 2067142983}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &60829728148052476
 MonoBehaviour:
   m_ObjectHideFlags: 0

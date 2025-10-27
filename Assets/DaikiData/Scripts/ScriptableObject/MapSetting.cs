@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(fileName = "MapSetting", menuName = "MapSetting")]
 public class MapSetting : ScriptableObject
@@ -9,10 +10,13 @@ public class MapSetting : ScriptableObject
 
     public float tileSize; // タイルのサイズ
 
-    public float BaseTilePosY;
+    public float BaseTilePosY;  // 基準タイルのY座標
 
-    public SoundID bgmID;
+    public SoundID bgmID;       // BGMのID
 
+    public VolumeProfile volumeProfile; // ポストプロセスのボリュームプロファイル
+
+    public GameObject stageEffectParticlePrefab; // ステージエフェクトのパーティクルシステムプレハブ
 
     public GameObject feelingPiece; // 想いのカケラプレハブ
 
