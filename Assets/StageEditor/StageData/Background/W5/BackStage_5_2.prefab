@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7009edca14789a74db272b52b1c93e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_clearCameraPosition: {x: 0, y: 15.6, z: 18}
+  m_clearCameraPosition: {x: 0, y: 18, z: 22}
   m_clearCameraRotate: {x: 33, y: 0, z: 0}
   m_startFocusPosition: {x: -6.5, y: 0, z: 3.5}
   START_GAME_STARTING_TIME: 2
