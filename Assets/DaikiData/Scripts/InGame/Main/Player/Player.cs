@@ -73,6 +73,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // ゲームインタラクションイベントのオブザーバーを登録
         GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
 
+        StopMove();
 
     }
 
