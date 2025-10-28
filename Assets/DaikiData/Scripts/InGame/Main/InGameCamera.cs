@@ -114,7 +114,7 @@ public class InGameCamera
     /// </summary>
     void StartFocusPlayerState()
     {
-        transform.position = m_startFocusPosition + new Vector3(0.0f, 1.5f, -(m_player.transform.localScale.z - 0.02f));
+        transform.position = m_startFocusPosition + new Vector3(0.0f, 1.5f, -(m_player.transform.lossyScale.z - 0.12f));
         transform.rotation = m_startFocusRotate;
 
         var endpoint = transform.position + new Vector3(0.0f, 10.0f, -8.0f);
