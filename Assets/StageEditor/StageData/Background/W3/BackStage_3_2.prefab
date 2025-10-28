@@ -41,6 +41,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6573365323330575865}
     m_Modifications:
+    - target: {fileID: 2740450206912495418, guid: f0f93396143c74846bc1e162cbf618b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2744857888545566171, guid: f0f93396143c74846bc1e162cbf618b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -81,6 +85,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4316657619659151799, guid: f0f93396143c74846bc1e162cbf618b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4769659079449147423, guid: f0f93396143c74846bc1e162cbf618b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9143749139795012604, guid: f0f93396143c74846bc1e162cbf618b7, type: 3}
       propertyPath: m_Name
       value: Light_3_2
@@ -110,6 +122,10 @@ PrefabInstance:
     - target: {fileID: 8552825283561932694, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_clearCameraRotate.x
       value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552825283561932694, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
+      propertyPath: m_startFocusPosition.z
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8552825283561932694, guid: 35b3ff86ab4d979479d6cd2c0cf07f9f, type: 3}
       propertyPath: m_clearCameraPosition.y

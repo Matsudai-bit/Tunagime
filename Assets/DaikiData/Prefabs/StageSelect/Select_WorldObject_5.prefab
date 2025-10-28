@@ -390,19 +390,19 @@ MonoBehaviour:
   m_stageTransforms:
   - stageName: Stage 1
     stageID: 0
-    stageTransform: {fileID: 2333183829853571842}
+    stageTransform: {fileID: 7275294611672809403}
   - stageName: Stage 2
     stageID: 1
-    stageTransform: {fileID: 7275294611672809403}
+    stageTransform: {fileID: 2333183829853571842}
   - stageName: Stage 3
     stageID: 2
-    stageTransform: {fileID: 403228003691500975}
+    stageTransform: {fileID: 8607188402826493469}
   - stageName: Stage 4
     stageID: 3
-    stageTransform: {fileID: 4918366460071708127}
+    stageTransform: {fileID: 403228003691500975}
   - stageName: Stage 5
     stageID: 4
-    stageTransform: {fileID: 8607188402826493469}
+    stageTransform: {fileID: 4918366460071708127}
   worldTransform: {fileID: 5040005043137401508}
 --- !u!1 &947871181637062770
 GameObject:
