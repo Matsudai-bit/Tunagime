@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -30,6 +32,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     [Header("エフェクトコントローラー")]
     [SerializeField] private EffectController m_effectController;
+
+    [Header("チュートリアコントローラ")]
+    [SerializeField] private TutorialWindowController m_tutorialController;
 
     private bool m_isGameClear = false;
 
@@ -207,6 +212,24 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_END);
                 break;
         }
+
+        if (MapData.GetInstance.StageSetting.tutorialEventData)
+        {
+            var tutorialEventDict = MapData.GetInstance.StageSetting.tutorialEventData.GetTutorialEventDictionary();
+            List<Sprite> pageSprites;
+            if (tutorialEventDict.TryGetValue(eventID, out pageSprites))
+            {
+                if (pageSprites.Count > 0 )
+                {
+                    m_tutorialController.Initialize(pageSprites);
+                    m_tutorialController.StartTutorial();
+                }
+
+            }
+        }
+      
     }
+
+
 }
 

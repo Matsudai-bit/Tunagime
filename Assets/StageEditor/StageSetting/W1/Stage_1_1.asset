@@ -16,3 +16,4 @@ MonoBehaviour:
   backgroundPrefab: {fileID: 3543577353858044739, guid: b11e7a5ba127eab4ea6e289378c95d46, type: 3}
   stageGenerator: {fileID: 2393295741540500681, guid: 550ce8e6784bbd64cb973ce3caf7ff1e, type: 3}
   stageObject: {fileID: 2197697869289920317, guid: f639fc2497c9b6d408eff1ffbc74e4d8, type: 3}
+  tutorialEventData: {fileID: 11400000, guid: aebafca67eb69894586ac88a8abda4dd, type: 2}

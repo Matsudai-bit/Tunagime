@@ -15,5 +15,7 @@ public class StageSetting : ScriptableObject
     [Header("ステージオブジェクト")]
     public GameObject stageObject; // ステージオブジェクトの親オブジェクト
 
+    [Header("チュートリアイベントデータ（設定しなくてもよい）")]
+    public TutorialEventData tutorialEventData;
 
 }
