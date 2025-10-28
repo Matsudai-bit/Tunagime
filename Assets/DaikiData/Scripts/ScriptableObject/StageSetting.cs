@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageSetting", menuName = "StageSetting")]
 public class StageSetting : ScriptableObject
@@ -13,7 +14,6 @@ public class StageSetting : ScriptableObject
 
     [Header("ステージオブジェクト")]
     public GameObject stageObject; // ステージオブジェクトの親オブジェクト
-
 
 
 }
