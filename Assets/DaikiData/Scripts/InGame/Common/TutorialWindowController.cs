@@ -1,15 +1,18 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-
 
 /// <summary>
 /// チュートリアルの操作コンポーネント
 /// </summary>
 public class TutorialWindowController : MonoBehaviour
 {
+
+
+    #region　データ構造
     class TutorialImageForDisplay
     {
         public List<Image> keyboardImages;  // キーボード　　用
@@ -23,25 +26,24 @@ public class TutorialWindowController : MonoBehaviour
     }
     enum State
     {
+        FADE,       // フェード中
         NORMAL,     // 通常状態
         ANIMATION,  // アニメーション状態
     }
 
+    #endregion
+
+    #region 変数宣言
     [SerializeField]
     private GameObject m_tutorialImagePrefab; // チュートリアル画像プレハブ
     
     [SerializeField]
     private List<Sprite> m_tutorialPageSprites ; // チュートリアルスプライト
 
-    private List<Image> m_currentTutorialPageImages = new();   // インスタンス化されたスプライト
 
-    private Image m_currentImage;       // 現在のイメージ
-    private Image m_nextImage;       // 現在のイメージ
-    private int m_currentImageIndex;    // 現在のイメージ画像
-
-    //private int m_nextImageIndex;       // 次のイメージ画像
-
-    private TutorialImageForDisplay m_displayTutorialImageData; // 表示するチュートリアル画像データ
+    [Header("ページの親トランスフォーム")]
+    [SerializeField]
+    private Transform m_pageImageParent;
 
     [Header("次のページに行く時のアニメーション時間")]
     [SerializeField]
@@ -55,9 +57,42 @@ public class TutorialWindowController : MonoBehaviour
     [SerializeField]
     private float UPPER_Y = 20.0f;
 
+    [Header("背景イメージ")]
+    [SerializeField]
+    private Image m_backgroundImage;
+
+    [Header("右矢印UIイメージ")]
+    [SerializeField]
+    private Image m_rightArrowPageGuide;
+
+    [Header("左矢印UIイメージ")]
+    [SerializeField]
+    private Image m_leftArrowPageGuide;
+
+    [Header("終了ガイドUI（キーボード）")]
+    [SerializeField]
+    private Image m_exitGuideKeyboardImage;
+
+    [Header("終了ガイドUI（ゲームパッド）")]
+    [SerializeField]
+    private Image m_exitGuideGamepadImage;
+
     private Vector3 m_centerPosition;   // 中心座標
 
     private State m_currentState;       // 現在の状態
+
+
+    private List<Image> m_currentTutorialPageImages = new();   // インスタンス化されたスプライト
+
+    private Image m_currentImage;       // 現在のイメージ
+    private Image m_nextImage;       // 現在のイメージ
+    private int m_currentImageIndex;    // 現在のイメージ画像
+
+    //private int m_nextImageIndex;       // 次のイメージ画像
+
+    private TutorialImageForDisplay m_displayTutorialImageData; // 表示するチュートリアル画像データ
+
+    #endregion
 
     private void Awake()
     {
@@ -67,25 +102,18 @@ public class TutorialWindowController : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+
+        // イージングの設定
+        m_leftArrowPageGuide.GetComponent<RectTransform>().DOBlendableLocalMoveBy(new Vector3(25.0f, 0.0f), 1.5f).SetLoops(-1, LoopType.Yoyo);
+        m_rightArrowPageGuide.GetComponent<RectTransform>().DOBlendableLocalMoveBy(new Vector3(-25.0f, 0.0f), 1.5f).SetLoops(-1, LoopType.Yoyo);
+
+        m_exitGuideKeyboardImage.DOFade(0.7f, 1.0f).SetLoops(-1, LoopType.Yoyo);
+        m_exitGuideGamepadImage.DOFade(0.7f, 1.0f).SetLoops(-1, LoopType.Yoyo);
+
+        // 一時停止する
+        PauseEaseForGuideUI();
     }
 
-    private void Update()
-    {
-        string[] padNames = Input.GetJoystickNames();
-
-        if (padNames[0] != "")
-        {
-
-            m_currentTutorialPageImages = m_displayTutorialImageData.gamepadImages;
-            UpdateCurrentPage();
-
-        }
-        else
-        {
-            m_currentTutorialPageImages = m_displayTutorialImageData.keyboardImages;
-            UpdateCurrentPage();
-        }
-    }
 
     /// <summary>
     /// 初期化処理
@@ -97,10 +125,10 @@ public class TutorialWindowController : MonoBehaviour
         m_displayTutorialImageData = new();
 
         // キーボードイメージのセットアップ
-        SetUpImage(tutorialSpriteData.pageKeyboardSprites, m_displayTutorialImageData.keyboardImages, m_tutorialImagePrefab, transform);
+        SetUpImage(tutorialSpriteData.pageKeyboardSprites, m_displayTutorialImageData.keyboardImages, m_tutorialImagePrefab, m_pageImageParent);
 
         // ゲームパッドイメージのセットアップ
-        SetUpImage(tutorialSpriteData.pageGamepadSprites, m_displayTutorialImageData.gamepadImages, m_tutorialImagePrefab, transform);
+        SetUpImage(tutorialSpriteData.pageGamepadSprites, m_displayTutorialImageData.gamepadImages, m_tutorialImagePrefab, m_pageImageParent);
         // 現在表示するリストを設定する
         m_currentTutorialPageImages = m_displayTutorialImageData.keyboardImages;
         // 初期インデックスの設定
@@ -111,12 +139,21 @@ public class TutorialWindowController : MonoBehaviour
 
         m_centerPosition = m_currentTutorialPageImages[m_currentImageIndex].gameObject.GetComponent<RectTransform>().position;
         m_currentState = State.NORMAL;
+
+        
     }
 
     public void StartTutorial()
     {
+        if (m_currentImage == null) { return; }
+
         gameObject.SetActive(true);
-        m_currentState = State.NORMAL;
+
+        UpdatePageImages();
+        UpdateGuideUI();
+
+        PlayEaseForGuideUI();
+        StartFadeIn();
     }
 
     
@@ -256,15 +293,25 @@ public class TutorialWindowController : MonoBehaviour
 
     public void OnEndTutorial(InputAction.CallbackContext context)
     {
-        ResetTutorial();
-        // 終了したことを通知
-        InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_END);
+        if (State.FADE == m_currentState) { return; }
+        if (m_displayTutorialImageData.keyboardImages.Count - 1 > m_currentImageIndex) { return; }
+
+        StartEndFade();
+        
+    }
+    private void Update()
+    {
+        if (m_currentState == State.FADE) { return; }
+
+        UpdatePageImages();
+
+        UpdateGuideUI();
     }
 
     /// <summary>
     /// 現在のイメージの更新
     /// </summary>
-    public void UpdateCurrentPage()
+    private void UpdateCurrentPage()
     {
         // 現在のイメージを非表示にする
         m_currentImage.gameObject.SetActive(false);
@@ -274,6 +321,13 @@ public class TutorialWindowController : MonoBehaviour
         m_currentImage.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// イメージの設定
+    /// </summary>
+    /// <param name="pageSprites"></param>
+    /// <param name="setImages"></param>
+    /// <param name="tutorialImagePrefab"></param>
+    /// <param name="parent"></param>
     static private void  SetUpImage(List<Sprite> pageSprites,  List<Image> setImages, GameObject tutorialImagePrefab, Transform parent)
     {
         // チュートリアルページの作成
@@ -293,9 +347,126 @@ public class TutorialWindowController : MonoBehaviour
 
             // 配列に追加
             setImages.Add(image);
+        }
+    }
 
+    void StartFadeIn()
+    {
+        m_currentState = State.FADE;
 
+        // 透明度を0にする
+        float backAlpha = m_backgroundImage.color.a;
+        m_backgroundImage.color = new Color(m_backgroundImage.color.r, m_backgroundImage.color.g, m_backgroundImage.color.b, 0.0f);
+        m_currentImage.color = new Color(m_currentImage.color.r, m_currentImage.color.g, m_currentImage.color.b, 0.0f);
+
+        // フェードする
+        m_backgroundImage.DOFade(backAlpha, 1.5f).SetEase(Ease.OutCubic);
+        m_currentImage.DOFade(1.0f, 1.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+        {
+            m_currentState = State.NORMAL;
+        });
+    }
+    void StartEndFade()
+    {
+        m_currentState = State.FADE;
+
+        UpdateGuideUI();
+
+        // 透明度を1にする
+        m_backgroundImage.DOFade(0.0f, 1.0f).SetEase(Ease.OutCubic);
+        m_currentImage.DOFade(0.0f, 1.0f).SetEase(Ease.OutCubic).OnComplete(() =>
+        {
+            PauseEaseForGuideUI();
+            ResetTutorial();
+            // 終了したことを通知
+            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_END);
+        });
+    }
+
+    void UpdatePageImages()
+    {
+        if (IsConnectedGamepad())
+        {
+
+            m_currentTutorialPageImages = m_displayTutorialImageData.gamepadImages;
+            UpdateCurrentPage();
 
         }
+        else
+        {
+            m_currentTutorialPageImages = m_displayTutorialImageData.keyboardImages;
+            UpdateCurrentPage();
+        }
+    }
+
+    /// <summary>
+    /// ガイドUIの更新処理
+    /// </summary>
+    void UpdateGuideUI()
+    {
+        // 一旦すべて見えなくする
+        m_leftArrowPageGuide    .gameObject.SetActive(false);
+        m_rightArrowPageGuide   .gameObject.SetActive(false);
+        m_exitGuideKeyboardImage.gameObject.SetActive(false);
+        m_exitGuideGamepadImage .gameObject.SetActive(false);
+
+        if (m_currentState != State.NORMAL) { return; }
+
+        // 最後のページかどうか
+        if (m_displayTutorialImageData.keyboardImages.Count - 1 <= m_currentImageIndex )
+        {
+            if (m_displayTutorialImageData.keyboardImages.Count != 1)
+            {
+                m_leftArrowPageGuide.gameObject.SetActive(true);
+            }
+
+
+            if (IsConnectedGamepad())
+            {
+                m_exitGuideGamepadImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                m_exitGuideKeyboardImage.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            m_leftArrowPageGuide.gameObject.SetActive(true);
+            m_rightArrowPageGuide.gameObject.SetActive(true);
+
+          
+
+        }
+    }
+
+    /// <summary>
+    /// ゲームパッドに接続されているかどうか
+    /// </summary>
+    /// <returns></returns>
+    private bool IsConnectedGamepad()
+    {
+        string[] padNames = Input.GetJoystickNames();
+
+        return (padNames.Length > 0 && padNames[0] != "");
+    }
+
+    void PlayEaseForGuideUI()
+    {
+        // 一時停止する
+        m_leftArrowPageGuide.GetComponent<RectTransform>().DOPlay();
+        m_rightArrowPageGuide.GetComponent<RectTransform>().DOPlay();
+
+        m_exitGuideGamepadImage.DOPlay();
+        m_exitGuideKeyboardImage.DOPlay();
+    }
+    void PauseEaseForGuideUI()
+    {
+        // 一時停止する
+        m_leftArrowPageGuide.GetComponent<RectTransform>().DOPause();
+        m_rightArrowPageGuide.GetComponent<RectTransform>().DOPause();
+
+        m_exitGuideGamepadImage.DOPause();
+        m_exitGuideKeyboardImage.DOPause();
     }
 }

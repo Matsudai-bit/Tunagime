@@ -26,7 +26,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b80de900fe1cd1d4e8922e3b5a4fef60, type: 3}
     - {fileID: 21300000, guid: 466ea23e1f4952141a296aa2d2af6bf3, type: 3}
     - {fileID: 21300000, guid: 8ca0986431555e04bb7d88a58e58b3c5, type: 3}
-  - flowEventID: 13
+  - flowEventID: 12
     pageKeyboardSprites:
     - {fileID: 21300000, guid: 1be28902648a5e54194ea11750f3b267, type: 3}
-    pageGamepadSprites: []
+    pageGamepadSprites:
+    - {fileID: 21300000, guid: 1be28902648a5e54194ea11750f3b267, type: 3}
