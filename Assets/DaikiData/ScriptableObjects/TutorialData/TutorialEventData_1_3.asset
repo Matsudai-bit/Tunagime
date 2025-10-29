@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: TutorialEventData_1_3
   m_EditorClassIdentifier: 
   m_eventPairTutorials:
-  - flowEventID: 6
-    pageSprites:
+  - flowEventID: 8
+    pageKeyboardSprites:
+    - {fileID: 21300000, guid: 15d833ec7c1d3d44c8971ebbe0f9539c, type: 3}
+    - {fileID: 21300000, guid: 6f20d25c01aec5e4eae1c91ab2b477d0, type: 3}
+    pageGamepadSprites:
     - {fileID: 21300000, guid: 15d833ec7c1d3d44c8971ebbe0f9539c, type: 3}
     - {fileID: 21300000, guid: 6f20d25c01aec5e4eae1c91ab2b477d0, type: 3}

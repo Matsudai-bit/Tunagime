@@ -48,6 +48,7 @@ public class StageSelectController : MonoBehaviour
        
         ChangeState(State.START_CHANGING_STAGE_SELECTION);
 
+
     }
 
     // Update is called once per frame
@@ -246,7 +247,7 @@ public class StageSelectController : MonoBehaviour
     /// 上下の入力に基づいてワールドIDを変更
     /// </summary>
     /// <param name="value"></param>
-    public void OnNavigate(InputValue value)
+    public void OnNavigate(InputAction.CallbackContext context)
     {
         if (m_currentState != State.STAGE_SELECT)
         {
@@ -255,7 +256,7 @@ public class StageSelectController : MonoBehaviour
 
         Debug.Log("OnNavigate called");
 
-        Vector2 input = value.Get<Vector2>();
+        Vector2 input = context.ReadValue<Vector2>();
 
         int newStageID = (int)m_currentButtonIndex;
 
@@ -299,7 +300,7 @@ public class StageSelectController : MonoBehaviour
     /// 現在のワールドIDに対応するボタンをクリック
     /// </summary>
     /// <param name="value"></param>
-    public void OnSubmit(InputValue value)
+    public void OnSubmit(InputAction.CallbackContext _context)
     {
         if (m_currentState != State.STAGE_SELECT)
         {
@@ -331,7 +332,7 @@ public class StageSelectController : MonoBehaviour
         }
     }
 
-    public void OnCancel(InputValue value)
+    public void OnCancel(InputAction.CallbackContext context)
     {
         ExitStageSelect();
     }

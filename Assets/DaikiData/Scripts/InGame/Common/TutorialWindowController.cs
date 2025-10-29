@@ -35,9 +35,11 @@ public class TutorialWindowController : MonoBehaviour
 
     private List<Image> m_currentTutorialPageImages = new();   // インスタンス化されたスプライト
 
+    private Image m_currentImage;       // 現在のイメージ
+    private Image m_nextImage;       // 現在のイメージ
     private int m_currentImageIndex;    // 現在のイメージ画像
 
-    private int m_nextImageIndex;       // 次のイメージ画像
+    //private int m_nextImageIndex;       // 次のイメージ画像
 
     private TutorialImageForDisplay m_displayTutorialImageData; // 表示するチュートリアル画像データ
 
@@ -53,9 +55,6 @@ public class TutorialWindowController : MonoBehaviour
     [SerializeField]
     private float UPPER_Y = 20.0f;
 
-
-    private List<Sprite> m_currentDisplayedTutorialSprite;   // 現在表示するスプライト
-
     private Vector3 m_centerPosition;   // 中心座標
 
     private State m_currentState;       // 現在の状態
@@ -70,10 +69,22 @@ public class TutorialWindowController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void Start()
+    private void Update()
     {
+        string[] padNames = Input.GetJoystickNames();
 
+        if (padNames[0] != "")
+        {
 
+            m_currentTutorialPageImages = m_displayTutorialImageData.gamepadImages;
+            UpdateCurrentPage();
+
+        }
+        else
+        {
+            m_currentTutorialPageImages = m_displayTutorialImageData.keyboardImages;
+            UpdateCurrentPage();
+        }
     }
 
     /// <summary>
@@ -95,9 +106,8 @@ public class TutorialWindowController : MonoBehaviour
         // 初期インデックスの設定
         m_currentImageIndex = 0;
         // 現在の画像を設定する
-        m_currentTutorialPageImages[m_currentImageIndex].gameObject.SetActive(true);
-
-
+        m_currentImage = m_currentTutorialPageImages[m_currentImageIndex];
+        m_currentImage.gameObject.SetActive(true);
 
         m_centerPosition = m_currentTutorialPageImages[m_currentImageIndex].gameObject.GetComponent<RectTransform>().position;
         m_currentState = State.NORMAL;
@@ -118,20 +128,20 @@ public class TutorialWindowController : MonoBehaviour
         if (m_currentState == State.ANIMATION) { return; }
 
         // 次のインデックスへ加算する
-        m_nextImageIndex = Mathf.Min( (m_currentImageIndex + 1), m_currentTutorialPageImages.Count - 1);
+        int nextImageIndex = Mathf.Min( (m_currentImageIndex + 1), m_currentTutorialPageImages.Count - 1);
         
-        if (m_nextImageIndex == m_currentImageIndex || m_nextImageIndex < 0) { return; }
+        if (nextImageIndex == m_currentImageIndex || nextImageIndex < 0) { return; }
 
         m_currentState = State.ANIMATION;
 
         // 現在のページのトランスフォームの取得
-        Image currentImage = m_currentTutorialPageImages[m_currentImageIndex];
+        Image currentImage = m_currentImage;
         RectTransform currentImageTransform = currentImage.GetComponent<RectTransform>();
 
         // 次のページの取得
-        Image nextImage = m_currentTutorialPageImages[m_nextImageIndex];
+        m_nextImage = m_currentTutorialPageImages[nextImageIndex];
         // 次のページを表示する
-        nextImage.gameObject.SetActive(true);
+        m_nextImage.gameObject.SetActive(true);
         
         // 透過フェード
         currentImage.DOFade(0.0f, NEXT_PAGE_ANIMATION_TIME - NEXT_PAGE_ANIMATION_TIME * 0.6f).SetEase(Ease.OutSine).SetDelay(NEXT_PAGE_ANIMATION_TIME * 0.6f);
@@ -140,7 +150,12 @@ public class TutorialWindowController : MonoBehaviour
         // Y軸のスケールを0にする
         currentImageTransform.DOScaleY(0.0f, NEXT_PAGE_ANIMATION_TIME).SetEase(Ease.OutCubic).OnComplete(() =>
         {
-            ApplyPage();
+            // 元の状態に戻す
+            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b, 1.0f);
+            currentImageTransform.position = m_centerPosition;
+            currentImageTransform.localScale = new Vector3(currentImageTransform.localScale.x, currentImageTransform.localScale.x, currentImageTransform.localScale.x);
+
+            ApplyPage(nextImageIndex);
             m_currentState = State.NORMAL;
         });
 
@@ -156,9 +171,9 @@ public class TutorialWindowController : MonoBehaviour
         if (m_currentState == State.ANIMATION) { return; }
 
         // 前のインデックスへ減算する
-        m_nextImageIndex = Mathf.Max((m_currentImageIndex - 1), 0);
+        int nextImageIndex = Mathf.Max((m_currentImageIndex - 1), 0);
 
-        if (m_nextImageIndex == m_currentImageIndex || m_nextImageIndex < 0){ return; }
+        if (nextImageIndex == m_currentImageIndex || nextImageIndex < 0){ return; }
 
         m_currentState = State.ANIMATION;
 
@@ -166,24 +181,29 @@ public class TutorialWindowController : MonoBehaviour
         Image currentImage = m_currentTutorialPageImages[m_currentImageIndex];
 
         // 次のページの取得
-        Image nextImage = m_currentTutorialPageImages[m_nextImageIndex];
+        m_nextImage = m_currentTutorialPageImages[nextImageIndex];
         // 次のページを表示する
-        nextImage.gameObject.SetActive(true);
-        RectTransform nextTransform = nextImage.GetComponent<RectTransform>(); ;
+        m_nextImage.gameObject.SetActive(true);
+        RectTransform nextTransform = m_nextImage.GetComponent<RectTransform>(); ;
 
-        float scale = nextImage.transform.localScale.x;
+        float scale = m_nextImage.transform.localScale.x;
 
 
-        nextImage.transform.localScale = new Vector3 (scale, 0.0f, scale);
+        m_nextImage.transform.localScale = new Vector3 (scale, 0.0f, scale);
         // 透過フェード
-        nextImage.DOFade(1.0f, PREVIOUS_PAGE_ANIMATION_TIME - PREVIOUS_PAGE_ANIMATION_TIME * 0.1f).SetEase(Ease.OutSine);
+        m_nextImage.DOFade(1.0f, PREVIOUS_PAGE_ANIMATION_TIME - PREVIOUS_PAGE_ANIMATION_TIME * 0.1f).SetEase(Ease.OutSine);
         // 少し上にずらす
         nextTransform.position = new Vector3(nextTransform.position.x, m_centerPosition.y + UPPER_Y, nextTransform.position.z);
         nextTransform.DOBlendableMoveBy(new Vector3(0.0f, -UPPER_Y, 0.0f), PREVIOUS_PAGE_ANIMATION_TIME).SetEase(Ease.OutCubic);
         // Y軸のスケールを0にする
         nextTransform.DOScaleY(0.2f, PREVIOUS_PAGE_ANIMATION_TIME).SetEase(Ease.OutCubic).OnComplete(() =>
         {
-            ApplyPage();
+            // 元の状態に戻す
+            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b, 1.0f);
+            nextTransform.position = m_centerPosition;
+            nextTransform.localScale = new Vector3(nextTransform.localScale.x, nextTransform.localScale.x, nextTransform.localScale.x);
+
+            ApplyPage(nextImageIndex);
             m_currentState = State.NORMAL;
         });
     }
@@ -203,16 +223,16 @@ public class TutorialWindowController : MonoBehaviour
         m_tutorialPageSprites.Clear();
         m_currentTutorialPageImages.Clear();
     }
-    void ApplyPage()
+    void ApplyPage(int nextImageIndex)
     {
-        m_currentTutorialPageImages[m_currentImageIndex].gameObject.SetActive(false);
-        m_currentTutorialPageImages[m_nextImageIndex].gameObject.SetActive(true);
+        m_currentImage  .gameObject.SetActive(false);
+        m_nextImage     .gameObject.SetActive(true);
 
-        m_currentImageIndex = m_nextImageIndex;
-        m_nextImageIndex = -1;
+        m_currentImageIndex = nextImageIndex;
+        m_currentImage = m_currentTutorialPageImages[m_currentImageIndex];
     }
 
-    public void OnNextPage(InputValue value )
+    public void OnNextPage(InputAction.CallbackContext context )
     {
         if (m_currentState == State.NORMAL)
         {
@@ -223,7 +243,7 @@ public class TutorialWindowController : MonoBehaviour
 
     }
 
-    public void OnPreviousPage(InputValue value)
+    public void OnPreviousPage(InputAction.CallbackContext context)
     {
         if (m_currentState == State.NORMAL)
         {
@@ -234,9 +254,24 @@ public class TutorialWindowController : MonoBehaviour
 
     }
 
-    public void OnEndTutorial(InputValue value)
+    public void OnEndTutorial(InputAction.CallbackContext context)
     {
         ResetTutorial();
+        // 終了したことを通知
+        InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_END);
+    }
+
+    /// <summary>
+    /// 現在のイメージの更新
+    /// </summary>
+    public void UpdateCurrentPage()
+    {
+        // 現在のイメージを非表示にする
+        m_currentImage.gameObject.SetActive(false);
+
+        // 新しく取得して表示にする
+        m_currentImage = m_currentTutorialPageImages[m_currentImageIndex];
+        m_currentImage.gameObject.SetActive(true);
     }
 
     static private void  SetUpImage(List<Sprite> pageSprites,  List<Image> setImages, GameObject tutorialImagePrefab, Transform parent)

@@ -79,6 +79,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // Update is called once per frame
     void Update()
     {
+
         if (m_isFirstUpdate)
         {
             m_isFirstUpdate = false;
@@ -162,7 +163,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         switch (eventID)
         {
             case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
-                m_playerInput.actions.Disable();
+                StopPlayerInput();
                 break;
 
             // ズームアウト終了イベント
@@ -175,7 +176,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.INTRO_SEQUENCE_END:
                 // ゲーム開始イベントを通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_START_EFFECT_START);
-                m_playerInput.actions.Enable();
+                StartPlayerInput();
                 break;
             case InGameFlowEventID.GAME_START_EFFECT_START:
                 // ゲーム開始UIパネルを表示する
@@ -211,6 +212,12 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.GOING_GET_FEELING_PIECE_END:
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_END);
                 break;
+            case InGameFlowEventID.TUTORIAL_START:
+                StartTutorial();
+                break;
+            case InGameFlowEventID.TUTORIAL_END:
+                StartPlayerInput();
+                break;
         }
 
         if (MapData.GetInstance.StageSetting.tutorialEventData)
@@ -223,12 +230,30 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                     pageSprites.pageGamepadSprites.Count > 0)
                 {
                     m_tutorialController.Initialize(pageSprites);
-                    m_tutorialController.StartTutorial();
+                    // チュートリアル開始を通知
+                    InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_START);
                 }
 
             }
         }
       
+    }
+
+
+    void StartTutorial()
+    {
+        m_tutorialController.StartTutorial();
+        StopPlayerInput();
+    }
+
+    void StopPlayerInput()
+    {
+        m_playerInput.actions.Disable();
+    }
+
+    void StartPlayerInput()
+    {
+        m_playerInput.actions.Enable();
     }
 
 
