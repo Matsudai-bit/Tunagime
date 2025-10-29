@@ -14,6 +14,9 @@ public enum InGameFlowEventID
     GAME_START_EFFECT_START,// ゲーム開始エフェクトが始まった
     GAME_START_EFFECT_END,  // ゲーム開始エフェクトが終わった
 
+    TUTORIAL_START,         // チュートリアルが開始された
+    TUTORIAL_END,           // チュートリアルが終了した
+
     GAME_PLAYING_START,     // ゲームプレイが開始された
 
     GAME_CLEAR,             // ゲームがクリアされた

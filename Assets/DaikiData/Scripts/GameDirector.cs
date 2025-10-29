@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -30,6 +32,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     [Header("エフェクトコントローラー")]
     [SerializeField] private EffectController m_effectController;
+
+    [Header("チュートリアコントローラ")]
+    [SerializeField] private TutorialWindowController m_tutorialController;
 
     private bool m_isGameClear = false;
 
@@ -74,6 +79,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // Update is called once per frame
     void Update()
     {
+
         if (m_isFirstUpdate)
         {
             m_isFirstUpdate = false;
@@ -157,7 +163,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         switch (eventID)
         {
             case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
-                m_playerInput.actions.Disable();
+                StopPlayerInput();
                 break;
 
             // ズームアウト終了イベント
@@ -170,7 +176,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.INTRO_SEQUENCE_END:
                 // ゲーム開始イベントを通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_START_EFFECT_START);
-                m_playerInput.actions.Enable();
+                StartPlayerInput();
                 break;
             case InGameFlowEventID.GAME_START_EFFECT_START:
                 // ゲーム開始UIパネルを表示する
@@ -206,7 +212,50 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.GOING_GET_FEELING_PIECE_END:
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_END);
                 break;
+            case InGameFlowEventID.TUTORIAL_START:
+                StartTutorial();
+                break;
+            case InGameFlowEventID.TUTORIAL_END:
+                StartPlayerInput();
+                break;
         }
+
+        if (MapData.GetInstance.StageSetting.tutorialEventData)
+        {
+            var tutorialEventDict = MapData.GetInstance.StageSetting.tutorialEventData.GetTutorialEventDictionary();
+            TutorialEventData.InputDataForTutorialSprite pageSprites;
+            if (tutorialEventDict.TryGetValue(eventID, out pageSprites))
+            {
+                if (pageSprites.pageKeyboardSprites.Count > 0  &&
+                    pageSprites.pageGamepadSprites.Count > 0)
+                {
+                    m_tutorialController.Initialize(pageSprites);
+                    // チュートリアル開始を通知
+                    InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_START);
+                }
+
+            }
+        }
+      
     }
+
+
+    void StartTutorial()
+    {
+        m_tutorialController.StartTutorial();
+        StopPlayerInput();
+    }
+
+    void StopPlayerInput()
+    {
+        m_playerInput.actions.Disable();
+    }
+
+    void StartPlayerInput()
+    {
+        m_playerInput.actions.Enable();
+    }
+
+
 }
 

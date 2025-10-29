@@ -15,3 +15,5 @@ MonoBehaviour:
   mapSetting: {fileID: 11400000, guid: 5be03884d89fb43419b0ed78e4975b93, type: 2}
   backgroundPrefab: {fileID: 126786177290110872, guid: edbb0f3faa3a0e149ae9939bf08ce2ef, type: 3}
   stageGenerator: {fileID: 2393295741540500681, guid: 3f8c07e0e6bb6544db734f4a7e8ba741, type: 3}
+  stageObject: {fileID: 0}
+  tutorialEventData: {fileID: 11400000, guid: 4219a4e38838bfa4399fdfd689b28ed7, type: 2}

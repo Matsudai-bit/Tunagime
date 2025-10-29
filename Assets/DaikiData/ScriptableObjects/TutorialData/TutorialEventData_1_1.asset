@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4664dcdf17285c4fad1e3a29a14313f, type: 3}
+  m_Name: TutorialEventData_1_1
+  m_EditorClassIdentifier: 
+  m_eventPairTutorials:
+  - flowEventID: 8
+    pageKeyboardSprites:
+    - {fileID: 21300000, guid: 5a0040ee1b48d734e989bd0b724811f7, type: 3}
+    - {fileID: 21300000, guid: 42e02edcda015744fbf877bd7f06a9e1, type: 3}
+    - {fileID: 21300000, guid: a4f19c0a4b18f8640b47dc761f052bdd, type: 3}
+    - {fileID: 21300000, guid: 0b46af7f7b2cdfe4ca05e3a9589be10c, type: 3}
+    - {fileID: 21300000, guid: 63cf4e491e1716d4391542be28478626, type: 3}
+    pageGamepadSprites:
+    - {fileID: 21300000, guid: 0f6dc0c7235f9494e9dc68d9bd8b0452, type: 3}
+    - {fileID: 21300000, guid: c28eff42b718db040934cb5deea093b7, type: 3}
+    - {fileID: 21300000, guid: b80de900fe1cd1d4e8922e3b5a4fef60, type: 3}
+    - {fileID: 21300000, guid: 466ea23e1f4952141a296aa2d2af6bf3, type: 3}
+    - {fileID: 21300000, guid: 8ca0986431555e04bb7d88a58e58b3c5, type: 3}
+  - flowEventID: 13
+    pageKeyboardSprites:
+    - {fileID: 21300000, guid: 1be28902648a5e54194ea11750f3b267, type: 3}
+    pageGamepadSprites: []

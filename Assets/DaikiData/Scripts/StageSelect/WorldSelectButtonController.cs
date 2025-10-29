@@ -82,6 +82,27 @@ public class WorldSelectButtonController : MonoBehaviour
         ChangeState(State.WORLD_SELECT);
 
         ChangeWorldObject(m_currentWorldID, WorldObjectSelector.ScrollDirection.RIGHT);
+
+        //Debug.Log($"OnSubmit called for {m_currentWorldID}");
+        //if (m_worldSelectButtonDictionary.TryGetValue(m_currentWorldID, out GameObject buttonObj))
+        //{
+        //    Button button = buttonObj.GetComponent<Button>();
+        //    if (button != null)
+        //    {
+        //        // 
+        //        button.OnSubmit(null);
+        //        ChangeState(State.CHANGING_STAGE_SELECT);
+        //        Debug.Log($"Clicked button for {m_currentWorldID}");
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning($"Button component not found on {buttonObj.name}");
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogWarning($"No button found for WorldID {m_currentWorldID}");
+        //}
     }
 
     // Update is called once per frame
@@ -270,7 +291,7 @@ public class WorldSelectButtonController : MonoBehaviour
     /// 上下の入力に基づいてワールドIDを変更
     /// </summary>
     /// <param name="value"></param>
-    public void OnNavigate(InputValue value)
+    public void OnNavigate(InputAction.CallbackContext context)
     {
 
         if (m_currentState != State.WORLD_SELECT)
@@ -280,7 +301,7 @@ public class WorldSelectButtonController : MonoBehaviour
 
         Debug.Log("OnNavigate called");
 
-        Vector2 input = value.Get<Vector2>();
+        Vector2 input = context.ReadValue<Vector2>();
 
         int newWorldID = (int)m_currentWorldID;
 
@@ -314,7 +335,7 @@ public class WorldSelectButtonController : MonoBehaviour
     /// 現在のワールドIDに対応するボタンをクリック
     /// </summary>
     /// <param name="value"></param>
-    public void OnSubmit(InputValue value)
+    public void OnSubmit(InputAction.CallbackContext context)
     {
         if (m_currentState != State.WORLD_SELECT)
         {

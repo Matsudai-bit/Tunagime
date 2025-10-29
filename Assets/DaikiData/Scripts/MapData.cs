@@ -392,5 +392,6 @@ public class MapData : MonoBehaviour
     }
 
     public MapSetting MapSetting { get { return m_mapSetting; } }
+    public StageSetting StageSetting { get { return m_stageSetting; } }
 
 }
