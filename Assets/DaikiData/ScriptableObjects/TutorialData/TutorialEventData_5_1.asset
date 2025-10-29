@@ -15,8 +15,8 @@ MonoBehaviour:
   m_eventPairTutorials:
   - flowEventID: 8
     pageKeyboardSprites:
-    - {fileID: 21300000, guid: b2cfc0e3d7952cd4cb14f768a84b66bf, type: 3}
     - {fileID: 21300000, guid: 4878ca446df0a8546bd88b7112d3b3a2, type: 3}
+    - {fileID: 21300000, guid: b2cfc0e3d7952cd4cb14f768a84b66bf, type: 3}
     pageGamepadSprites:
-    - {fileID: 21300000, guid: b2cfc0e3d7952cd4cb14f768a84b66bf, type: 3}
     - {fileID: 21300000, guid: 4878ca446df0a8546bd88b7112d3b3a2, type: 3}
+    - {fileID: 21300000, guid: b2cfc0e3d7952cd4cb14f768a84b66bf, type: 3}

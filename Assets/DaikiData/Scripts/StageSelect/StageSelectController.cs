@@ -249,7 +249,7 @@ public class StageSelectController : MonoBehaviour
     /// <param name="value"></param>
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        if (m_currentState != State.STAGE_SELECT)
+        if (m_currentState != State.STAGE_SELECT || !gameObject.activeSelf)
         {
             return;
         }
@@ -302,7 +302,7 @@ public class StageSelectController : MonoBehaviour
     /// <param name="value"></param>
     public void OnSubmit(InputAction.CallbackContext _context)
     {
-        if (m_currentState != State.STAGE_SELECT)
+        if (m_currentState != State.STAGE_SELECT || !gameObject.activeSelf)
         {
             return;
         }
@@ -334,6 +334,12 @@ public class StageSelectController : MonoBehaviour
 
     public void OnCancel(InputAction.CallbackContext context)
     {
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+
+
         ExitStageSelect();
     }
 
