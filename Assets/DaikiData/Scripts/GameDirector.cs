@@ -216,10 +216,11 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         if (MapData.GetInstance.StageSetting.tutorialEventData)
         {
             var tutorialEventDict = MapData.GetInstance.StageSetting.tutorialEventData.GetTutorialEventDictionary();
-            List<Sprite> pageSprites;
+            TutorialEventData.InputDataForTutorialSprite pageSprites;
             if (tutorialEventDict.TryGetValue(eventID, out pageSprites))
             {
-                if (pageSprites.Count > 0 )
+                if (pageSprites.pageKeyboardSprites.Count > 0  &&
+                    pageSprites.pageGamepadSprites.Count > 0)
                 {
                     m_tutorialController.Initialize(pageSprites);
                     m_tutorialController.StartTutorial();

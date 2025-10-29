@@ -1,14 +1,26 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+
 
 /// <summary>
 /// チュートリアルの操作コンポーネント
 /// </summary>
 public class TutorialWindowController : MonoBehaviour
 {
+    class TutorialImageForDisplay
+    {
+        public List<Image> keyboardImages;  // キーボード　　用
+        public List<Image> gamepadImages;   // ゲームパッド  用
 
+        public TutorialImageForDisplay()
+        {
+            keyboardImages = new();
+            gamepadImages = new();
+        }
+    }
     enum State
     {
         NORMAL,     // 通常状態
@@ -21,28 +33,32 @@ public class TutorialWindowController : MonoBehaviour
     [SerializeField]
     private List<Sprite> m_tutorialPageSprites ; // チュートリアルスプライト
 
-    private List<Image> m_tutorialPageImages = new();   // インスタンス化されたスプライト
+    private List<Image> m_currentTutorialPageImages = new();   // インスタンス化されたスプライト
 
-    private int m_currentImageIndex;    // 現在の画像
+    private int m_currentImageIndex;    // 現在のイメージ画像
 
-    private int m_nextImageIndex;
+    private int m_nextImageIndex;       // 次のイメージ画像
+
+    private TutorialImageForDisplay m_displayTutorialImageData; // 表示するチュートリアル画像データ
 
     [Header("次のページに行く時のアニメーション時間")]
     [SerializeField]
-    private float NEXT_PAGE_ANIMATION_TIME = 1.5f;
+    private float NEXT_PAGE_ANIMATION_TIME = 1.0f;
 
     [Header("前のページに行く時のアニメーション時間")]
     [SerializeField]
-    private float PREVIOUS_PAGE_ANIMATION_TIME = 1.5f;
+    private float PREVIOUS_PAGE_ANIMATION_TIME = 0.5f;
 
     [Header("上げるY座標の量")]
     [SerializeField]
     private float UPPER_Y = 20.0f;
 
 
-    private Vector3 m_centerPosition;
+    private List<Sprite> m_currentDisplayedTutorialSprite;   // 現在表示するスプライト
 
-    private State m_currentState;
+    private Vector3 m_centerPosition;   // 中心座標
+
+    private State m_currentState;       // 現在の状態
 
     private void Awake()
     {
@@ -63,37 +79,27 @@ public class TutorialWindowController : MonoBehaviour
     /// <summary>
     /// 初期化処理
     /// </summary>
-    public void Initialize(List<Sprite> pageSprites)
+    public void Initialize(TutorialEventData.InputDataForTutorialSprite tutorialSpriteData)
     {
         ResetTutorial();
 
-        // チュートリアルページの作成
-        for (int i = 0; i < pageSprites.Count; i++)
-        {
-            // チュートリアルのイメージの作成
-            var imageObject = Instantiate(m_tutorialImagePrefab, transform);
+        m_displayTutorialImageData = new();
 
-            imageObject.transform.SetAsFirstSibling();
+        // キーボードイメージのセットアップ
+        SetUpImage(tutorialSpriteData.pageKeyboardSprites, m_displayTutorialImageData.keyboardImages, m_tutorialImagePrefab, transform);
 
-            // イメージコンポーネントにスプライトを設定する
-            var image = imageObject.GetComponent<Image>();
-            image.sprite = pageSprites[i];
-
-            // 非表示にする
-            imageObject.SetActive(false);
-
-            // 配列に追加
-            m_tutorialPageImages.Add(image);
-
-
-
-        }
-
+        // ゲームパッドイメージのセットアップ
+        SetUpImage(tutorialSpriteData.pageGamepadSprites, m_displayTutorialImageData.gamepadImages, m_tutorialImagePrefab, transform);
+        // 現在表示するリストを設定する
+        m_currentTutorialPageImages = m_displayTutorialImageData.keyboardImages;
+        // 初期インデックスの設定
         m_currentImageIndex = 0;
         // 現在の画像を設定する
-        m_tutorialPageImages[m_currentImageIndex].gameObject.SetActive(true);
+        m_currentTutorialPageImages[m_currentImageIndex].gameObject.SetActive(true);
 
-        m_centerPosition = m_tutorialPageImages[m_currentImageIndex].gameObject.GetComponent<RectTransform>().position;
+
+
+        m_centerPosition = m_currentTutorialPageImages[m_currentImageIndex].gameObject.GetComponent<RectTransform>().position;
         m_currentState = State.NORMAL;
     }
 
@@ -101,20 +107,6 @@ public class TutorialWindowController : MonoBehaviour
     {
         gameObject.SetActive(true);
         m_currentState = State.NORMAL;
-    }
-
-    void StartChangeAnimation()
-    {
-        if (m_nextImageIndex < 0) return;
-
-        
-
-        // 次のインデックスのトランスフォームの取得
-        Transform nextImageTransform = m_tutorialPageImages[m_nextImageIndex].transform;
-
-        
-
-
     }
 
     
@@ -126,18 +118,18 @@ public class TutorialWindowController : MonoBehaviour
         if (m_currentState == State.ANIMATION) { return; }
 
         // 次のインデックスへ加算する
-        m_nextImageIndex = Mathf.Min( (m_currentImageIndex + 1), m_tutorialPageImages.Count - 1);
+        m_nextImageIndex = Mathf.Min( (m_currentImageIndex + 1), m_currentTutorialPageImages.Count - 1);
         
         if (m_nextImageIndex == m_currentImageIndex || m_nextImageIndex < 0) { return; }
 
         m_currentState = State.ANIMATION;
 
         // 現在のページのトランスフォームの取得
-        Image currentImage = m_tutorialPageImages[m_currentImageIndex];
+        Image currentImage = m_currentTutorialPageImages[m_currentImageIndex];
         RectTransform currentImageTransform = currentImage.GetComponent<RectTransform>();
 
         // 次のページの取得
-        Image nextImage = m_tutorialPageImages[m_nextImageIndex];
+        Image nextImage = m_currentTutorialPageImages[m_nextImageIndex];
         // 次のページを表示する
         nextImage.gameObject.SetActive(true);
         
@@ -171,10 +163,10 @@ public class TutorialWindowController : MonoBehaviour
         m_currentState = State.ANIMATION;
 
         // 現在のページのトランスフォームの取得
-        Image currentImage = m_tutorialPageImages[m_currentImageIndex];
+        Image currentImage = m_currentTutorialPageImages[m_currentImageIndex];
 
         // 次のページの取得
-        Image nextImage = m_tutorialPageImages[m_nextImageIndex];
+        Image nextImage = m_currentTutorialPageImages[m_nextImageIndex];
         // 次のページを表示する
         nextImage.gameObject.SetActive(true);
         RectTransform nextTransform = nextImage.GetComponent<RectTransform>(); ;
@@ -203,38 +195,72 @@ public class TutorialWindowController : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        foreach(var pageImage in m_tutorialPageImages)
+        foreach(var pageImage in m_currentTutorialPageImages)
         {
             Destroy(pageImage.gameObject);
         }
 
         m_tutorialPageSprites.Clear();
-        m_tutorialPageImages.Clear();
+        m_currentTutorialPageImages.Clear();
     }
     void ApplyPage()
     {
-        m_tutorialPageImages[m_currentImageIndex].gameObject.SetActive(false);
-        m_tutorialPageImages[m_nextImageIndex].gameObject.SetActive(true);
+        m_currentTutorialPageImages[m_currentImageIndex].gameObject.SetActive(false);
+        m_currentTutorialPageImages[m_nextImageIndex].gameObject.SetActive(true);
 
         m_currentImageIndex = m_nextImageIndex;
         m_nextImageIndex = -1;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void OnNextPage(InputValue value )
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (m_currentState == State.NORMAL)
         {
+             // 次のページに行く
             ChangeNextPage();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+
+
+    }
+
+    public void OnPreviousPage(InputValue value)
+    {
+        if (m_currentState == State.NORMAL)
         {
+            // 次のページに行く
             ChangePreviousPage();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+
+
+    }
+
+    public void OnEndTutorial(InputValue value)
+    {
+        ResetTutorial();
+    }
+
+    static private void  SetUpImage(List<Sprite> pageSprites,  List<Image> setImages, GameObject tutorialImagePrefab, Transform parent)
+    {
+        // チュートリアルページの作成
+        for (int i = 0; i < pageSprites.Count; i++)
         {
-            ResetTutorial();
+            // チュートリアルのイメージの作成
+            var imageObject = Instantiate(tutorialImagePrefab, parent);
+
+            imageObject.transform.SetAsFirstSibling();
+
+            // イメージコンポーネントにスプライトを設定する
+            var image = imageObject.GetComponent<Image>();
+            image.sprite = pageSprites[i];
+
+            // 非表示にする
+            imageObject.SetActive(false);
+
+            // 配列に追加
+            setImages.Add(image);
+
+
+
         }
     }
 }

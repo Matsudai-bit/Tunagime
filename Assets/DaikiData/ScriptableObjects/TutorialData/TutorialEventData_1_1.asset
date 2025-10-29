@@ -15,11 +15,11 @@ MonoBehaviour:
   m_eventPairTutorials:
   - flowEventID: 6
     pageSprites:
-    - {fileID: 21300000, guid: 44385b97519659a49a5e14b01a05c886, type: 3}
-    - {fileID: 21300000, guid: f728dffc3b75968448922906b59f375d, type: 3}
-    - {fileID: 21300000, guid: f458d7cfd8d870744a3efc67a859a52f, type: 3}
-    - {fileID: 21300000, guid: 7665ac7209eea4f4d9bd44c67ca151c1, type: 3}
-    - {fileID: 21300000, guid: fe9b7dcab7cc38844b3b69bd736a3b71, type: 3}
+    - {fileID: 21300000, guid: 5a0040ee1b48d734e989bd0b724811f7, type: 3}
+    - {fileID: 21300000, guid: 42e02edcda015744fbf877bd7f06a9e1, type: 3}
+    - {fileID: 21300000, guid: 3896a02af5ae34b4db0fa09d1ca6584d, type: 3}
+    - {fileID: 21300000, guid: e0be146d015e48a4caae2c4ba93e77af, type: 3}
+    - {fileID: 21300000, guid: 1ac84880fd61e2b499f45d48f79daede, type: 3}
   - flowEventID: 10
     pageSprites:
     - {fileID: 21300000, guid: 1be28902648a5e54194ea11750f3b267, type: 3}
