@@ -112,6 +112,12 @@ public class TutorialWindowController : MonoBehaviour
 
         // 一時停止する
         PauseEaseForGuideUI();
+
+
+    }
+
+    private void Start()
+    {
     }
 
 
@@ -415,12 +421,14 @@ public class TutorialWindowController : MonoBehaviour
         // 最後のページかどうか
         if (m_displayTutorialImageData.keyboardImages.Count - 1 <= m_currentImageIndex )
         {
+            // 最初のページでなければ左矢印を表示
             if (m_displayTutorialImageData.keyboardImages.Count != 1)
             {
                 m_leftArrowPageGuide.gameObject.SetActive(true);
             }
 
 
+            // 終了ガイドUIの表示
             if (IsConnectedGamepad())
             {
                 m_exitGuideGamepadImage.gameObject.SetActive(true);
@@ -430,12 +438,17 @@ public class TutorialWindowController : MonoBehaviour
                 m_exitGuideKeyboardImage.gameObject.SetActive(true);
             }
         }
+        // 最初のページかどうか
+        else if (0 == m_currentImageIndex)
+        {
+            m_rightArrowPageGuide.gameObject.SetActive(true);
+        }
         else
         {
             m_leftArrowPageGuide.gameObject.SetActive(true);
             m_rightArrowPageGuide.gameObject.SetActive(true);
 
-          
+
 
         }
     }
