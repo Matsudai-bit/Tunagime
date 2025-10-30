@@ -1,18 +1,18 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒ‚ƒfƒ‹‚ÌŠK‘w‚É•t‚¯‚é
+/// ãƒ¢ãƒ‡ãƒ«ã®éšå±¤ã«ä»˜ã‘ã‚‹
 /// </summary>
 public class YarnMeshChanger : MonoBehaviour
 {
-    private GameObject m_currentMeshInstance; // Œ»İ‚ÌƒƒbƒVƒ…
-    private AmidaTube.State m_currentMeshType = AmidaTube.State.NONE; // Œ»İ‚ÌƒƒbƒVƒ…‚Ìƒ^ƒCƒv
+    private GameObject m_currentMeshInstance; // ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥
+    private AmidaTube.State m_currentMeshType = AmidaTube.State.NONE; // ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã®ã‚¿ã‚¤ãƒ—
 
-    private Dictionary<AmidaTube.State, GameObject> m_usedMeshes = new Dictionary<AmidaTube.State, GameObject>(); // g—p‚µ‚½ƒƒbƒVƒ…‚ğ•ÛŠÇ‚µ‚Ä‚¨‚­(ƒƒ‚ƒŠŒø—¦‚ğ‚æ‚­‚·‚é‚½‚ß)
+    private Dictionary<AmidaTube.State, GameObject> m_usedMeshes = new Dictionary<AmidaTube.State, GameObject>(); // ä½¿ç”¨ã—ãŸãƒ¡ãƒƒã‚·ãƒ¥ã‚’ä¿ç®¡ã—ã¦ãŠã(ãƒ¡ãƒ¢ãƒªåŠ¹ç‡ã‚’ã‚ˆãã™ã‚‹ãŸã‚)
 
-    // ‰ŠúƒƒbƒVƒ…‚Æ‚µ‚Äİ’è‚µ‚½‚¢AmidaTube.State (ƒCƒ“ƒXƒyƒNƒ^[‚Åƒhƒƒbƒvƒ_ƒEƒ“‚©‚ç‘I‘ğ)
-    [SerializeField] private AmidaTube.State m_initialShapeType = AmidaTube.State.NONE; // ƒfƒtƒHƒ‹ƒg‚ğNone‚É‚·‚é
+    // åˆæœŸãƒ¡ãƒƒã‚·ãƒ¥ã¨ã—ã¦è¨­å®šã—ãŸã„AmidaTube.State (ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§ãƒ‰ãƒ­ãƒƒãƒ—ãƒ€ã‚¦ãƒ³ã‹ã‚‰é¸æŠ)
+    [SerializeField] private AmidaTube.State m_initialShapeType = AmidaTube.State.NONE; // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚’Noneã«ã™ã‚‹
 
     private void Awake()
     {
@@ -21,14 +21,14 @@ public class YarnMeshChanger : MonoBehaviour
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½AmidaTube.ShapeType‚ÌƒƒbƒVƒ…‚ÉØ‚è‘Ö‚¦‚Ü‚·B
-    /// MeshLibrary‚©‚çƒvƒŒƒnƒu‚ğæ“¾‚µAŒ»İ‚ÌƒIƒuƒWƒFƒNƒg‚Ìq‚Æ‚µ‚ÄƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸAmidaTube.ShapeTypeã®ãƒ¡ãƒƒã‚·ãƒ¥ã«åˆ‡ã‚Šæ›¿ãˆã¾ã™ã€‚
+    /// MeshLibraryã‹ã‚‰ãƒ—ãƒ¬ãƒãƒ–ã‚’å–å¾—ã—ã€ç¾åœ¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å­ã¨ã—ã¦ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="type">Ø‚è‘Ö‚¦‚½‚¢ƒƒbƒVƒ…‚ÌAmidaTube.State</param>
+    /// <param name="type">åˆ‡ã‚Šæ›¿ãˆãŸã„ãƒ¡ãƒƒã‚·ãƒ¥ã®AmidaTube.State</param>
     public void SetMesh(AmidaTube.State type)
     {
 
-        // Šù‚É“¯‚¶ƒ^ƒCƒv‚ÌƒƒbƒVƒ…‚ªİ’è‚³‚ê‚Ä‚¢‚éê‡‚Í‰½‚à‚µ‚È‚¢
+        // æ—¢ã«åŒã˜ã‚¿ã‚¤ãƒ—ã®ãƒ¡ãƒƒã‚·ãƒ¥ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ä½•ã‚‚ã—ãªã„
         if (m_currentMeshType == type)
         {
             return; 
@@ -40,11 +40,11 @@ public class YarnMeshChanger : MonoBehaviour
             
         }
 
-        GameObject meshPrefab = YarnMeshLibrary.Instance.GetMeshPrefab(type); // AmidaTube.ShapeType‚Åæ“¾
+        GameObject meshPrefab = YarnMeshLibrary.Instance.GetMeshPrefab(type); // AmidaTube.ShapeTypeã§å–å¾—
 
         if (meshPrefab != null)
         {
-            // «‘‚É“o˜^‚³‚ê‚Ä‚¢‚È‚¢ê‡
+            // è¾æ›¸ã«ç™»éŒ²ã•ã‚Œã¦ã„ãªã„å ´åˆ
             if (m_usedMeshes.ContainsKey(type) == false)
             {
                 m_usedMeshes[type] = Instantiate(meshPrefab, transform);
@@ -52,26 +52,26 @@ public class YarnMeshChanger : MonoBehaviour
 
             m_currentMeshInstance = m_usedMeshes[type];
 
-            m_currentMeshInstance.name = type.ToString(); // enum‚Ì–¼‘O‚ğGameObject–¼‚É‚·‚é
+            m_currentMeshInstance.name = type.ToString(); // enumã®åå‰ã‚’GameObjectåã«ã™ã‚‹
             m_currentMeshInstance.transform.localPosition = Vector3.zero;
             m_currentMeshInstance.transform.localRotation = Quaternion.identity;
             m_currentMeshInstance.transform.localScale = Vector3.one;
 
-            // Šˆ“®ó‘Ô‚É‚·‚é
+            // æ´»å‹•çŠ¶æ…‹ã«ã™ã‚‹
             m_currentMeshInstance.SetActive(true);
 
-            m_currentMeshType = type; // Œ»İ‚ÌƒƒbƒVƒ…ƒ^ƒCƒv‚ğXV
+            m_currentMeshType = type; // ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¿ã‚¤ãƒ—ã‚’æ›´æ–°
 
-            Debug.Log($"'{gameObject.name}' ‚ÌƒƒbƒVƒ…‚ğ '{type}' ‚ÉØ‚è‘Ö‚¦‚Ü‚µ‚½B");
+            //Debug.Log($"'{gameObject.name}' ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚’ '{type}' ã«åˆ‡ã‚Šæ›¿ãˆã¾ã—ãŸã€‚");
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÌƒƒbƒVƒ…‚ğØ‚è‘Ö‚¦‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½: '{type}' ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚’åˆ‡ã‚Šæ›¿ãˆã§ãã¾ã›ã‚“ã§ã—ãŸ: '{type}' ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
         }
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½ƒ}ƒeƒŠƒAƒ‹ƒ^ƒCƒv‚Ìƒ}ƒeƒŠƒAƒ‹‚ğæ“¾‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸãƒãƒ†ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ—ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
@@ -87,12 +87,12 @@ public class YarnMeshChanger : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"'{gameObject.name}' ‚Ìƒ}ƒeƒŠƒAƒ‹ƒ^ƒCƒv '{type}' ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+                Debug.LogWarning($"'{gameObject.name}' ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ— '{type}' ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
             }
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÉYarnMaterialGetter‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã«YarnMaterialGetterãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
         }
         return null;
     }
@@ -106,13 +106,13 @@ public class YarnMeshChanger : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÉYarnMaterialGetter‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã«YarnMaterialGetterãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
         }
         return EmotionCurrent.Type.NONE;
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½ƒ}ƒeƒŠƒAƒ‹‚ÉƒƒbƒVƒ…‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ•ÏX‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸãƒãƒ†ãƒªã‚¢ãƒ«ã«ãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å¤‰æ›´ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="material"></param>
     /// <param name="type"></param>
@@ -120,33 +120,33 @@ public class YarnMeshChanger : MonoBehaviour
     {
         if (m_currentMeshInstance == null)
         {
-            Debug.LogWarning("Œ»İ‚ÌƒƒbƒVƒ…ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚ ‚è‚Ü‚¹‚ñBƒƒbƒVƒ…‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogWarning("ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ¡ãƒƒã‚·ãƒ¥ã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚");
             return;
         }
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
         if (materialGetter != null)
         {
 
-            // ‘z‚¢‚Ìí—Ş‚ğİ’è
+            // æƒ³ã„ã®ç¨®é¡ã‚’è¨­å®š
              materialGetter.SetEmotionType(type, changeEmotionType) ;
 
 
-        //    Debug.Log($"'{gameObject.name}' ‚ÌƒƒbƒVƒ…‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ '{type}' ‚É•ÏX‚µ‚Ü‚µ‚½B");
+        //    Debug.Log($"'{gameObject.name}' ã®ãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ '{type}' ã«å¤‰æ›´ã—ã¾ã—ãŸã€‚");
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÉYarnMaterialGetter‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñBƒƒbƒVƒ…‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ•ÏX‚Å‚«‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã«YarnMaterialGetterãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚ãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å¤‰æ›´ã§ãã¾ã›ã‚“ã€‚");
         }
     }
 
     /// <summary>
-    /// Œ»İ‚ÌƒƒbƒVƒ…ƒCƒ“ƒXƒ^ƒ“ƒX‚É‘Î‚µ‚ÄAEmotionCurrent.Type‚ÉŠî‚Ã‚¢‚Äƒ}ƒeƒŠƒAƒ‹‚ğ“K—p‚µ‚Ü‚·B
+    /// ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã«å¯¾ã—ã¦ã€EmotionCurrent.Typeã«åŸºã¥ã„ã¦ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨ã—ã¾ã™ã€‚
     /// </summary>
     public void ApplyMaterial()
     {
         if (m_currentMeshInstance == null)
         {
-            Debug.LogWarning("Œ»İ‚ÌƒƒbƒVƒ…ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚ ‚è‚Ü‚¹‚ñBƒƒbƒVƒ…‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogWarning("ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ¡ãƒƒã‚·ãƒ¥ã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚");
             return;
         }
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
@@ -158,7 +158,7 @@ public class YarnMeshChanger : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÉYarnMaterialGetter‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñBƒ}ƒeƒŠƒAƒ‹‚ğ“K—p‚Å‚«‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã«YarnMaterialGetterãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨ã§ãã¾ã›ã‚“ã€‚");
         }
     }
 
@@ -166,7 +166,7 @@ public class YarnMeshChanger : MonoBehaviour
     {
         if (m_currentMeshInstance == null)
         {
-            Debug.LogWarning("Œ»İ‚ÌƒƒbƒVƒ…ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚ ‚è‚Ü‚¹‚ñBƒƒbƒVƒ…‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogWarning("ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ¡ãƒƒã‚·ãƒ¥ã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚");
             return;
         }
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
@@ -176,7 +176,7 @@ public class YarnMeshChanger : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÉYarnMaterialGetter‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB‘z‚¢‚Ìí—Ş‚ğƒŠƒZƒbƒg‚Å‚«‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã«YarnMaterialGetterãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚æƒ³ã„ã®ç¨®é¡ã‚’ãƒªã‚»ãƒƒãƒˆã§ãã¾ã›ã‚“ã€‚");
         }
     }
 
@@ -184,7 +184,7 @@ public class YarnMeshChanger : MonoBehaviour
     {
         if (m_currentMeshInstance == null)
         {
-            Debug.LogWarning("Œ»İ‚ÌƒƒbƒVƒ…ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚ ‚è‚Ü‚¹‚ñBƒƒbƒVƒ…‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogWarning("ç¾åœ¨ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ¡ãƒƒã‚·ãƒ¥ã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚");
             return;
         }
         YarnMaterialGetter materialGetter = m_currentMeshInstance.GetComponent<YarnMaterialGetter>();
@@ -194,7 +194,7 @@ public class YarnMeshChanger : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"'{gameObject.name}' ‚ÉYarnMaterialGetter‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB‚·‚×‚Ä‚Ì‘z‚¢‚Ìí—Ş‚ğİ’è‚Å‚«‚Ü‚¹‚ñB");
+            Debug.LogWarning($"'{gameObject.name}' ã«YarnMaterialGetterãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚ã™ã¹ã¦ã®æƒ³ã„ã®ç¨®é¡ã‚’è¨­å®šã§ãã¾ã›ã‚“ã€‚");
         }
     }
 }

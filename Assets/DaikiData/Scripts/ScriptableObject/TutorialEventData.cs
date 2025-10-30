@@ -14,12 +14,12 @@ public class TutorialEventData : ScriptableObject
     [Serializable]
     public class EventPairTutorialForInspector
     {
-        string label1 = "イベントID";
+        public string label1 = "イベントID";
         public InGameFlowEventID flowEventID;   // イベント発生するタイミング
 
-        string label2 = "キーボード用チュートリアルスプライト";
+        public string label2 = "キーボード用チュートリアルスプライト";
         public List<Sprite> pageKeyboardSprites;// キーボード用ページスプライト
-        string label3 = "ゲームパッド用チュートリアルスプライト";
+        public string label3 = "ゲームパッド用チュートリアルスプライト";
         public List<Sprite> pageGamepadSprites; // ゲームパッド用ページスプライト
     }
 

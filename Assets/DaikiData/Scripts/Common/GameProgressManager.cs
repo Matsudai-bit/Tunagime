@@ -9,7 +9,7 @@ public class GameProgressManager
 
     private GameProgressManager()
     {
-        m_gameProgressData = new();
+        m_gameProgressData = ScriptableObject.CreateInstance<GameProgressData>(); ;
     }
 
     public GameProgressData GameProgressData

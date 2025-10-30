@@ -68,6 +68,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
         // ステージの生成
         m_stageManager.Generate(map.GetStageGenerator(), this);
+
+        m_isFirstUpdate = true;
     }
 
     void OnDestroy()
@@ -83,7 +85,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         if (m_isFirstUpdate)
         {
             m_isFirstUpdate = false;
-
+            Debug.Log("ゲーム開始通知 現在の状態 : " + m_startState);
             // ゲーム開始のイベントを通知
             InGameFlowEventMessenger.GetInstance.Notify(m_startState);
             return;
@@ -163,11 +165,14 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         switch (eventID)
         {
             case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
+                Debug.Log("カメラズームの開始 ============================================================================================");
                 StopPlayerInput();
                 break;
 
             // ズームアウト終了イベント
             case InGameFlowEventID.ZOOM_OUT_PLAYER_END:
+                Debug.Log("カメラズームの終了 ============================================================================================");
+
                 // イントロシーケンス開始イベントを通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.INTRO_SEQUENCE_START);
                 break;
@@ -179,43 +184,62 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                 StartPlayerInput();
                 break;
             case InGameFlowEventID.GAME_START_EFFECT_START:
+                Debug.Log("ゲーム開始演出の開始 ============================================================================================");
+
                 // ゲーム開始UIパネルを表示する
                 m_gameStartUIPanel.SetActive(true);
                 break;
 
             case InGameFlowEventID.GAME_START_EFFECT_END:
+                Debug.Log("ゲーム開始演出の終了 ============================================================================================");
+
                 // ゲームプレイ開始イベントを通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_START);
                 break;
             case InGameFlowEventID.GAME_CLEAR:
+                Debug.Log("ゲームクリア ============================================================================================");
+
                 // ゲームクリアイベントを通知
                 OnGameClear();
                 break;
 
             case InGameFlowEventID.GAME_PLAYING_END:
+                Debug.Log("ゲームプレイの終了 ============================================================================================");
+
                 var s = WaitAndLoadStageSelectScene(300);
                 // ゲーム終了イベントを通知
                 LoadStageSelectScene();
                 break;
 
             case InGameFlowEventID.GAME_CLEAR_EFFECT_START:
+                Debug.Log("ゲームクリア演出の開始 ============================================================================================");
+
                 m_playerInput.actions.Disable();
                 break;
             case InGameFlowEventID.GAME_CLEAR_EFFECT_END:
                 // ゲームプレイ終了イベントを通知
+                Debug.Log("ゲームクリア演出の終了 ============================================================================================");
 
                 break;
 
             case InGameFlowEventID.GOING_GET_FEELING_PIECE_START:
+                Debug.Log("想いの欠片取得イベントの開始 ============================================================================================");
+
                 m_playerInput.actions.Enable();
                 break;
             case InGameFlowEventID.GOING_GET_FEELING_PIECE_END:
+                Debug.Log("想いの欠片取得イベントの終了 ============================================================================================");
+
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_PLAYING_END);
                 break;
             case InGameFlowEventID.TUTORIAL_START:
+                Debug.Log("チュートリアルの開始 ============================================================================================");
+
                 StartTutorial();
                 break;
             case InGameFlowEventID.TUTORIAL_END:
+                Debug.Log("ゲーム開始演出の終了 ============================================================================================");
+
                 StartPlayerInput();
                 break;
         }
@@ -248,11 +272,13 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     void StopPlayerInput()
     {
+        Debug.Log("プレイヤー入力停止 ---------------------------");
         m_playerInput.actions.Disable();
     }
 
     void StartPlayerInput()
     {
+        Debug.Log("プレイヤー入力開始 ---------------------------");
         m_playerInput.actions.Enable();
     }
 

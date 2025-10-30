@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/DaikiData/Scenes/TitleScene.unity
     guid: 09371cdbd609a0346b4a386c5e11c1bb
   - enabled: 1
@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/DaikiData/Scenes/ProtSample.unity
     guid: 53d246e8688219c4b9bfc61744cae19f
-  - enabled: 1
+  - enabled: 0
     path: Assets/DaikiData/Scenes/ResultScene.unity
     guid: b036a9b1368775d40b70b7fb8667dbee
   m_configObjects:

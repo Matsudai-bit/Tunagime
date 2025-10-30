@@ -36,6 +36,8 @@ public class InGameCamera
     [SerializeField]
     private float START_GAME_STARTING_TIME = 2.0f; // ゲーム開始状態の時間
 
+    bool m_isInitial = false;
+
     /// <summary>
     /// 状態
     /// </summary>
@@ -50,29 +52,43 @@ public class InGameCamera
 
     void Awake()
     {
+
         // ゲームフロウイベントの登録
         InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
+
+
+        m_isInitial = false;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Initialize();
+    }
+
+    void Initialize()
+    {
+        if (m_isInitial)
+        {
+            return;
+        }
+
         // プレイヤーの取得
         m_player = GameObject.FindGameObjectWithTag("Player");
 
         if (m_player == null)
         {
-            Debug.LogError("Playerオブジェクトが見つかりません。");
+            Debug.LogError("Playerオブジェクトが見つかりません。Start");
             return;
         }
 
-        m_startFocusPosition = m_player.transform.position ;
+        m_startFocusPosition = m_player.transform.position;
         m_startFocusRotate = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, 1.0f));
 
         // 目標座標
-        m_targetPosition = transform.position;
+        m_targetPosition = transform.localPosition;
         m_targetRotate = transform.rotation;
-
+        m_isInitial = true;
     }
 
     void OnDestroy()
@@ -101,11 +117,12 @@ public class InGameCamera
     void StartGameStartingState()
     {
 
-        transform.DOBlendableMoveBy(m_targetPosition - transform.position,START_GAME_STARTING_TIME).SetEase(Ease.InOutSine);
+        transform.DOLocalMove(m_targetPosition,START_GAME_STARTING_TIME).SetEase(Ease.InOutSine);
         transform.DORotateQuaternion(m_targetRotate, START_GAME_STARTING_TIME * 0.6f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             // シーケンス完了イベントを通知
             InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.INTRO_SEQUENCE_END);
+          
         });
     }
 
@@ -114,6 +131,22 @@ public class InGameCamera
     /// </summary>
     void StartFocusPlayerState()
     {
+
+
+        if (m_player == null)
+        {
+            Debug.LogError("プレイヤーがnullです");
+        }
+
+        if (m_startFocusPosition == null)
+        {
+            Debug.LogError("m_startFocusPositionがnullです");
+        }
+        if (m_startFocusRotate == null)
+        {
+            Debug.LogError("m_startFocusRotateがnullです");
+        }
+
         transform.position = m_startFocusPosition + new Vector3(0.0f, 1.5f, -(m_player.transform.lossyScale.z - 0.12f));
         transform.rotation = m_startFocusRotate;
 
@@ -177,6 +210,7 @@ public class InGameCamera
         switch (m_state)
         {
             case State.FOCUS_PLAYER:
+                Initialize();
                 StartFocusPlayerState();
                 break;
             case State.GAME_SATARTING:
