@@ -86,6 +86,18 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1034695527193030480, guid: ca66ec9a40fac9d4eac87d6ad9f31f55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.21
+      objectReference: {fileID: 0}
+    - target: {fileID: -1034695527193030480, guid: ca66ec9a40fac9d4eac87d6ad9f31f55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.84
+      objectReference: {fileID: 0}
+    - target: {fileID: -1034695527193030480, guid: ca66ec9a40fac9d4eac87d6ad9f31f55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 502261905355323168, guid: ca66ec9a40fac9d4eac87d6ad9f31f55, type: 3}
       propertyPath: m_IsActive
       value: 0
