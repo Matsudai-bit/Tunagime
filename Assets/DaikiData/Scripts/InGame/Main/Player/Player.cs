@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,6 +29,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     private Vector3 m_prevVelocity; // 前回の速度
 
     private InputActionAsset m_inputActionAsset; // InputActionAsset
+    private InputActionMap m_playerActionMap; // プレイヤーのInputActionMap
 
     void Awake()
     {
@@ -41,8 +41,10 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // アプリケーションのフレームレートを60に設定
         Application.targetFrameRate = 60;
 
-        m_inputActionAsset = GetComponent<PlayerInput>()?.actions; // InputActionAssetの取得
-
+        
+        m_inputActionAsset = m_gameDirector.GetComponent<PlayerInput>().actions; // InputActionAssetの取得
+        m_playerActionMap = m_inputActionAsset.FindActionMap("Player"); // プレイヤーのInputActionMapを取得
+        m_playerActionMap.FindAction("Move").IsPressed();
 
         if (m_inputActionAsset == null)
         {
@@ -80,6 +82,15 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     // Update is called once per frame
     void Update()
     {
+        m_playerActionMap = m_inputActionAsset.FindActionMap("Player"); // プレイヤーのInputActionMapを取得
+        if (m_playerActionMap.enabled )
+        {
+            UnityEngine.Debug.Log("Player Action Map is enabled");
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Player Action Map is disabled");
+        }
 
         // プレイヤーの状態マシンの更新
         m_stateMachine.UpdateState();
@@ -105,7 +116,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// <returns></returns>
     public bool IsMoving()
     {
-        return m_inputActionAsset.FindAction("Move").IsPressed();
+        return m_playerActionMap.FindAction("Move").IsPressed();
 
         //// キー入力で移動
         //float x = Input.GetAxis("Horizontal");
@@ -150,7 +161,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// </summary>
     public void Move()
     {
-        Vector2 inputVector = m_inputActionAsset.FindAction("Move").ReadValue<Vector2>();
+        Vector2 inputVector = m_playerActionMap.FindAction("Move").ReadValue<Vector2>();
 
         // キー入力で移動
         float x = inputVector.x;
@@ -341,7 +352,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public bool TryPutDown()
     {
         // Zキーを押したときの処理
-        if (m_inputActionAsset.FindAction("GimmickAction").IsPressed())
+        if (m_playerActionMap.FindAction("GimmickAction").IsPressed())
         {
             if (m_carryingObj) // 運んでいるオブジェクトを持っている場合
             {
@@ -400,7 +411,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public void TryKnit()
     {
         // Xキーを押したときの処理
-        if (m_inputActionAsset.FindAction("KnittingAction").IsPressed() && CanKnit())
+        if (m_playerActionMap.FindAction("KnittingAction").IsPressed() && CanKnit())
         {
             // 編む位置
             GridPos knittingPos = GetForwardGridPos(); // 前方のグリッド位置
@@ -417,7 +428,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public void TryUnknit()
     {
         // Xキーを押したときの処理
-        if (m_inputActionAsset.FindAction("KnittingAction").IsPressed())
+        if (m_playerActionMap.FindAction("KnittingAction").IsPressed())
         {   
             // 解く位置
             GridPos unknittingPos = GetForwardGridPos(); // 前方のグリッド位置
@@ -450,7 +461,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
 
         // 正面に半ブロック分のレイを飛ばす
-        if (m_inputActionAsset.FindAction("GimmickAction").IsPressed())
+        if (m_playerActionMap.FindAction("GimmickAction").IsPressed())
         {
             // マップの取得
             var map = MapData.GetInstance;
