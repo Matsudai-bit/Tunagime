@@ -108,7 +108,6 @@ public class MenuContentSelector : MonoBehaviour
         // 位置を取得
         Vector2 pos = rectTransform.anchoredPosition;
 
-        Debug.Log($"Menu: {menu}, Pos: {pos}, RectWidth: {rectTransform.rect.width}, SelectorWidth: {selectorRectTransform.rect.width}");
 
         // セレクターの幅を考慮して、左端に合わせる
         //pos.x = rectTransform.anchoredPosition.x - rectTransform.rect.width / 2.0f;

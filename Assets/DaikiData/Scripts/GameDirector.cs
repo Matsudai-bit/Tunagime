@@ -38,15 +38,18 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [SerializeField] private TutorialWindowController m_tutorialController;
 
     [Header("ポーズウィンドウ")]
-    [SerializeField] private GameObject m_pauseWindow;
+    [SerializeField] private PauseWindowController m_pauseWindowController;
 
     private bool m_isGameClear = false;
 
+    private InGameFlowEventID m_currentEventID ;
 
     void Awake()
     {
         m_playerInput = GetComponent<PlayerInput>();
 
+        // 初期状態を設定
+        m_currentEventID = m_startState;
 
         // ゲームフロウイベントの登録
         InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
@@ -176,6 +179,14 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     /// <param name="eventID"></param>
     public void OnEvent(InGameFlowEventID eventID)
     {
+        if (eventID != InGameFlowEventID.END_PAUSE_MENU &&
+            eventID != InGameFlowEventID.START_PAUSE_MENU)
+        {
+            m_currentEventID = eventID;
+
+        }
+      
+
         switch (eventID)
         {
             case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
@@ -259,6 +270,20 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
                 StartPlayerInput();
                 break;
+
+            case InGameFlowEventID.END_PAUSE_MENU:
+                Debug.Log("ポーズメニュー終了 ============================================================================================");
+                // 現在の状態に応じてプレイヤー入力を再開
+                if (m_currentEventID == InGameFlowEventID.GAME_PLAYING_START ||
+                    m_currentEventID == InGameFlowEventID.GOING_GET_FEELING_PIECE_START)
+                {
+                    StartPlayerInput();
+                }
+                else
+                {
+                    StopPlayerInput();
+                }
+                    break;
         }
 
         if (MapData.GetInstance.StageSetting.tutorialEventData)
@@ -287,31 +312,52 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         StopPlayerInput();
     }
 
+    /// <summary>
+    /// プレイヤー入力停止
+    /// </summary>
     void StopPlayerInput()
     {
         Debug.Log("プレイヤー入力停止 ---------------------------");
-        //m_playerInput.actions.Disable();
-        //m_playerInput.enabled = false;
+        m_playerInput.actions.Enable();
+        m_playerInput.actions.FindActionMap("UI").Disable();
+        m_playerInput.actions.FindActionMap("Player").Disable();
 
         m_playerInput.SwitchCurrentActionMap("TutorialWindow");
     }
 
+    /// <summary>
+    /// プレイヤー入力開始
+    /// </summary>
     void StartPlayerInput()
     {
         Debug.Log("プレイヤー入力開始 ---------------------------");
-        //m_playerInput.actions.Enable();
-        //m_playerInput.enabled = true;
+        m_playerInput.actions.Enable();
+        m_playerInput.actions.FindActionMap("UI").Disable();
+        m_playerInput.actions.FindActionMap("TutorialWindow").Disable();
+
         m_playerInput.SwitchCurrentActionMap("Player");
 
     }
 
+    /// <summary>
+    /// ポーズウィンドウを開く
+    /// </summary>
+    /// <param name="context"></param>
     public void OpenPauseWindow(InputAction.CallbackContext context)
     {
-        m_playerInput.actions.Disable();
-        m_playerInput.actions.FindActionMap("UI").Enable();
-        m_pauseWindow.SetActive(true);
+        if (context.performed == false) return;
+
+        // ポーズメニューを開くメッセージを送る
+        InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.START_PAUSE_MENU);
+
+        // ポーズウィンドウを開く
+        m_pauseWindowController.RequestOpenPause(m_playerInput, () => { InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.END_PAUSE_MENU); });
     }
 
+    /// <summary>
+    /// シーンをリロードする
+    /// </summary>
+    /// <param name="context"></param>
     public void ReLoadScene(InputAction.CallbackContext context)
     {
         // リロード
