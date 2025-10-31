@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static TitleSelector;
+using static MenuContentSelector;
 
 /// <summary>
 /// タイトルシーンコントローラー
@@ -14,7 +14,7 @@ public class TitleSceneController : MonoBehaviour
     [SerializeField] private Image m_titleLogo; // タイトルロゴ
 
     [Header("タイトルセレクター")]
-    [SerializeField] private TitleSelector m_titleSelector; // タイトルセレクター
+    [SerializeField] private MenuContentSelector m_titleSelector; // タイトルセレクター
 
     void Start()
     {
@@ -30,19 +30,19 @@ public class TitleSceneController : MonoBehaviour
     /// 現在のワールドIDに対応するボタンをクリック
     /// </summary>
     /// <param name="value"></param>
-    public void OnSubmit(InputValue value)
+    public void OnSubmit(InputAction.CallbackContext value)
     {
         // 各タイトルメニューに対応する処理
-        switch (m_titleSelector.CurrentTitleMenuID)
+        switch (m_titleSelector.CurrentTitleMenuName)
         {
-            case TitleMenuID.RESET_GAME:
+            case "ResetGame":
                 break;
-            case TitleMenuID.CONTINUE_GAME:
+            case "ContinueGame":
                 SceneManager.LoadScene("StageSelectScene");
                 break;
-            case TitleMenuID.SETTING:
+            case "Setting":
                 break;
-            case TitleMenuID.QUIT_GAME:
+            case "QuitGame":
                 {
 #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了

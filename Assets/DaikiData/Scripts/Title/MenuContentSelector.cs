@@ -4,24 +4,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
-/// タイトルセレクター
+/// メニューのコンテンツセレクター
 /// </summary>
-public class TitleSelector : MonoBehaviour
+public class MenuContentSelector : MonoBehaviour
 {
-    /// <summary>
-    /// タイトルメニューの種類
-    /// </summary>
-    [Serializable]
-    public enum TitleMenuID
-    {
-        RESET_GAME,
-        CONTINUE_GAME,
-        SETTING,
-        QUIT_GAME
-    }
+
 
     /// <summary>
     /// タイトルメニューの情報構造体
@@ -29,12 +19,12 @@ public class TitleSelector : MonoBehaviour
     [Serializable]
     struct TitleMenuInfo
     {
-        public TitleMenuID menu; // タイトルメニューの種類
+        public string menuName; // タイトルメニューの種類
         public GameObject gameObject; // タイトルメニューの位置
     }
 
     [Header("初期位置")]
-    [SerializeField] private TitleMenuID m_startPointMenu; // タイトルセレクターの初期位置
+    [SerializeField] private string m_startPointMenu; // タイトルセレクターの初期位置
 
     [Header("タイトルセレクター")]
     [SerializeField] private GameObject m_titleSelector; // タイトルセレクター
@@ -42,10 +32,14 @@ public class TitleSelector : MonoBehaviour
     [Header("タイトルメニュー")]
     [SerializeField] private List<TitleMenuInfo> m_titleMenu = new (); // タイトルセレクターのリスト
 
+    [Header("Canvas")]
+    [SerializeField]
+    private CanvasScaler m_canvasScalar;
 
-    private Dictionary<TitleMenuID, GameObject> m_titleMenuDict = new();  // タイトルメニューの辞書
+
+    private Dictionary<string, GameObject> m_titleMenuDict = new();  // タイトルメニューの辞書
     
-    private TitleMenuID m_currentTitleMenu; // 現在のタイトルメニュー
+    private string m_currentTitleMenu; // 現在のタイトルメニュー
 
     private float m_swayingDuration = 1.0f; // 点滅の周期
 
@@ -53,9 +47,11 @@ public class TitleSelector : MonoBehaviour
 
     bool m_isMoving = false; // 移動中かどうか
 
-    public TitleMenuID CurrentTitleMenuID
+
+
+    public string CurrentTitleMenuName
     {
-        get { return (TitleMenuID)m_currentTitleMenu; }
+        get { return m_currentTitleMenu; }
     }
 
     void Awake()
@@ -63,13 +59,15 @@ public class TitleSelector : MonoBehaviour
         // タイトルメニューの辞書を初期化
         foreach (var menuInfo in m_titleMenu)
         {
-            m_titleMenuDict[menuInfo.menu] = menuInfo.gameObject;
+            m_titleMenuDict[menuInfo.menuName] = menuInfo.gameObject;
         }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       
+
         m_currentTitleMenu = m_startPointMenu;
         UpdateSelectorPosition();
 
@@ -94,14 +92,14 @@ public class TitleSelector : MonoBehaviour
 
         var selectorRectTransform = m_titleSelector.GetComponent<RectTransform>();
 
-        selectorRectTransform.anchoredPosition = GetSelectorPosition(m_currentTitleMenu) + new Vector2(amount * ratio - amount / 2.0f, 0);
+        selectorRectTransform.anchoredPosition= GetSelectorPosition(m_currentTitleMenu) + new Vector2(amount * ratio - amount / 2.0f, 0);
 
 
-        
+
     }
 
     // 指したい場所へセレクターを移動す座標を取得する
-    private Vector2 GetSelectorPosition(TitleMenuID menu)
+    private Vector2 GetSelectorPosition(string menu)
     {
         var rectTransform = m_titleMenuDict[menu].gameObject.GetComponent<RectTransform>();
 
@@ -113,13 +111,19 @@ public class TitleSelector : MonoBehaviour
         Debug.Log($"Menu: {menu}, Pos: {pos}, RectWidth: {rectTransform.rect.width}, SelectorWidth: {selectorRectTransform.rect.width}");
 
         // セレクターの幅を考慮して、左端に合わせる
-        pos.x = rectTransform.anchoredPosition.x - rectTransform.rect.width / 2.0f;
+        //pos.x = rectTransform.anchoredPosition.x - rectTransform.rect.width / 2.0f;
 
-        pos.x -= selectorRectTransform.rect.width / 2.0f ;
+        //pos.x -= selectorRectTransform.rect.width / 2.0f;
 
-        pos.x += 15.0f; // 少し内側に寄せる
+        //pos.x = rectTransform.anchoredPosition.x;
+
+        
+        pos.x = rectTransform.anchoredPosition.x - ((rectTransform.localScale.x * rectTransform.rect.width) / 2.0f + selectorRectTransform.rect.width * selectorRectTransform.localScale.x / 2.0f);
+        pos.x += 15.0f;
+        pos.y = rectTransform.anchoredPosition.y;
 
         return (Vector3)pos;
+        //return rectTransform.position;
     }
 
     /// <summary>
@@ -133,8 +137,10 @@ public class TitleSelector : MonoBehaviour
 
         m_isMoving = true;
 
+        // ローカル座標にする
+    
         // セレクターの位置を更新
-        selectorRectTransform.DOLocalMove(newPos, 0.2f).SetEase(Ease.OutCubic).OnComplete(() =>
+        selectorRectTransform.DOAnchorPos(newPos, 0.2f).SetEase(Ease.OutCubic).OnComplete(() =>
         {
             m_isMoving = false;
         });
@@ -145,12 +151,12 @@ public class TitleSelector : MonoBehaviour
     /// 上下の入力に基づいてワールドIDを変更
     /// </summary>
     /// <param name="value"></param>
-    public void OnNavigate(InputValue value)
+    public void OnNavigate(InputAction.CallbackContext value)
     {
 
-        Vector2 input = value.Get<Vector2>();
+        Vector2 input = value.ReadValue<Vector2>();
 
-        int newPointMenu = (int)m_currentTitleMenu;
+        int newPointMenu = GetIndex(m_currentTitleMenu);
 
         // 上下の入力に基づいてワールドIDを変更
 
@@ -167,11 +173,11 @@ public class TitleSelector : MonoBehaviour
             newPointMenu = (newPointMenu - 1);
         }
 
-        newPointMenu = Math.Clamp(newPointMenu, 0, Enum.GetValues(typeof(TitleMenuID)).Length - 1);
+        newPointMenu = Math.Clamp(newPointMenu, 0, m_titleMenuDict.Count - 1);
 
-        if (newPointMenu != (int)m_currentTitleMenu)
+        if (newPointMenu != GetIndex(m_currentTitleMenu))
         {
-            m_currentTitleMenu = (TitleMenuID)newPointMenu;
+            m_currentTitleMenu = GetMenuName(newPointMenu);
 
             // セレクターの位置を更新
             UpdateSelectorPosition();
@@ -180,5 +186,42 @@ public class TitleSelector : MonoBehaviour
         }
     }
 
-    
+    /// <summary>
+    /// メニュー名からインデックスを取得
+    /// </summary>
+    /// <param name="menuName"></param>
+    /// <returns></returns>
+    int GetIndex(string menuName)
+    {
+        int index = 0;
+        foreach (var menuInfo in m_titleMenu)
+        {
+            if (menuInfo.menuName == menuName)
+            {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+    /// <summary>
+    /// インデックスからメニュー名を取得
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    string GetMenuName(int index)
+    {
+        int currentIndex = 0;
+        foreach (var menuInfo in m_titleMenu)
+        {
+            if (currentIndex == index)
+            {
+                return menuInfo.menuName;
+            }
+            currentIndex++;
+        }
+        return null;
+    }
+
 }

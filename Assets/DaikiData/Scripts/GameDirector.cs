@@ -37,6 +37,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [Header("チュートリアコントローラ")]
     [SerializeField] private TutorialWindowController m_tutorialController;
 
+    [Header("ポーズウィンドウ")]
+    [SerializeField] private GameObject m_pauseWindow;
+
     private bool m_isGameClear = false;
 
 
@@ -101,7 +104,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         {
             m_isSecondUpdate = false;
             // ゲーム開始のイベントを通知
-            m_playerInput.actions.Disable();
+            m_playerInput.actions.FindActionMap("Player").Disable();
+            m_playerInput.actions.FindActionMap("TutorialWindow").Disable();
             return;
         }
 
@@ -121,12 +125,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         }
 
 
-        // リロード
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        }
+        
 
 
         if (m_isGameClear == false)
@@ -306,6 +305,20 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     }
 
+    public void OpenPauseWindow(InputAction.CallbackContext context)
+    {
+        m_playerInput.actions.Disable();
+        m_playerInput.actions.FindActionMap("UI").Enable();
+        m_pauseWindow.SetActive(true);
+    }
 
+    public void ReLoadScene(InputAction.CallbackContext context)
+    {
+        // リロード
+     
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        
+    }
 }
 
