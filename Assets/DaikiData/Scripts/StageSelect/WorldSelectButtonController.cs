@@ -324,6 +324,9 @@ public class WorldSelectButtonController : MonoBehaviour
 
         if (newWorldID != (int)m_currentWorldID)
         {
+            // SEを鳴らす
+            SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_MOVE);
+
             m_currentWorldID = (WorldID)newWorldID;
             UpdateButtonState();
             ChangeWorldObject(m_currentWorldID, (WorldObjectSelector.ScrollDirection)(-input.y));
@@ -348,6 +351,8 @@ public class WorldSelectButtonController : MonoBehaviour
             Button button = buttonObj.GetComponent<Button>();
             if (button != null)
             {
+                // SEを鳴らす
+                SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_PUSH);
                 // 
                 button.OnSubmit(null);
                 ChangeState(State.CHANGING_STAGE_SELECT);

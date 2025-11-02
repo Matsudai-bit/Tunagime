@@ -13,13 +13,33 @@ MonoBehaviour:
   m_Name: GameSoundData
   m_EditorClassIdentifier: 
   soundData:
-  - id: 1
+  - labelName: BGM_W_1
+    id: 2
     clip: {fileID: 8300000, guid: 5c188a0d7d0e57e4e823dd71cd8774db, type: 3}
-  - id: 2
+  - labelName: BGM_W_2
+    id: 3
     clip: {fileID: 8300000, guid: b05e134edb2b6f845b03f603f50821fe, type: 3}
-  - id: 3
+  - labelName: BGM_W_3
+    id: 4
     clip: {fileID: 8300000, guid: 1446b3ecfc2002e488a99ffa55898857, type: 3}
-  - id: 4
+  - labelName: BGM_W_4
+    id: 5
     clip: {fileID: 8300000, guid: c0ae778f353d0784f97ff261e5fb9391, type: 3}
-  - id: 5
+  - labelName: BGM_W_5
+    id: 6
     clip: {fileID: 8300000, guid: 58e57e98c42e4664aab69d28942f565b, type: 3}
+  - labelName: BGM_TITLE
+    id: 0
+    clip: {fileID: 8300000, guid: 7938fd0434347c346920cca594021bec, type: 3}
+  - labelName: BGM_SELECT
+    id: 1
+    clip: {fileID: 8300000, guid: 78b44f713312e2c4aa1a6c269fa9a5b3, type: 3}
+  - labelName: SE_UI_BUTTON_BACK
+    id: 7
+    clip: {fileID: 8300000, guid: 82e3a4e6eeeb9574dba51a3b3229c60c, type: 3}
+  - labelName: SE_UI_BUTTON_PUSH
+    id: 8
+    clip: {fileID: 8300000, guid: 890a28c6a43670241a7b38beeae5eb64, type: 3}
+  - labelName: SE_UI_BUTTON_MOVE
+    id: 9
+    clip: {fileID: 8300000, guid: 86c357eefadb14449a55dc3dc665aa2f, type: 3}

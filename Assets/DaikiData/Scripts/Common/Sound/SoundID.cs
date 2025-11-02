@@ -6,6 +6,7 @@ public enum SoundID
 
     // **** タイトル ****
     BGM_TITLE,
+    BGM_SELECT,
 
     // **** インゲーム ****
     BGM_W_1,
@@ -13,4 +14,11 @@ public enum SoundID
     BGM_W_3,
     BGM_W_4,
     BGM_W_5,
+
+    // ===================================== SE =====================================
+
+    // **** UI ****
+    SE_UI_BUTTON_BACK, // 戻るボタン
+    SE_UI_BUTTON_PUSH, // 決定ボタン
+    SE_UI_BUTTON_MOVE, // カーソル移動
 }

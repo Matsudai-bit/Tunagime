@@ -195,6 +195,9 @@ public class MenuContentSelector : MonoBehaviour
 
         if (newPointMenu != GetIndex(m_currentTitleMenu))
         {
+            // SEを鳴らす
+            SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_MOVE);
+
             m_currentTitleMenu = GetMenuName(newPointMenu);
 
             // セレクターの位置を更新

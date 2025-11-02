@@ -49,7 +49,6 @@ public class StageSelectDirector : MonoBehaviour
         m_sceneTransitionFadeInEffect.StartTransition(
             () => { });
 
-        SoundManager.GetInstance.StopBGM();
         // 全て有効化する
         m_playerInput.actions.Enable();
         m_playerInput.SwitchCurrentActionMap("UI");
