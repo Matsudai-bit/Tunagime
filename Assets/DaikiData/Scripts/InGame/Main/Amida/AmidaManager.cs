@@ -207,6 +207,10 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
             {
                 // 下に進む
                 //Debug.Log("Moving DOWN");
+                if (followAmida.GetGridPos().x == 14 && followAmida.GetGridPos().y == 4)
+                {
+                    int a = 0;
+                }
                 FollowTheAmidaTube(neighborAmida.down, AmidaTube.Direction.DOWN);
                 return;
             }

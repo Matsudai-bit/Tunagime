@@ -29,6 +29,10 @@ public class StageSelectController : MonoBehaviour
     [SerializeField]
     private WorldObjectSelector m_worldObjectSelector; // ワールドオブジェクトセレクター
 
+    [Header("ステージ選択ディレクター")]
+    [SerializeField]
+    private StageSelectDirector m_stageSelectDirector;
+
     private GameObject m_buttonPrefab; // ボタンのプレハブ
 
     private List<GameObject> m_buttonObjects = new ();  // ステージセレクトボタンのリスト
@@ -83,7 +87,7 @@ public class StageSelectController : MonoBehaviour
                     gameProgressData.stageID = (StageID)stageIndex;
 
 
-                    SceneManager.LoadScene("GameplayScene");
+                    m_stageSelectDirector.LoadGameplayScene();
                 });
             }
         }
@@ -116,7 +120,7 @@ public class StageSelectController : MonoBehaviour
                     gameProgressData.stageID = (StageID)stageIndex;
 
 
-                    SceneManager.LoadScene("GameplayScene");
+                    m_stageSelectDirector.LoadGameplayScene();
                 });
             }
         }

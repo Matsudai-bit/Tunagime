@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b194e141c45872f40aded548b0b0f2f7, type: 3}
+  m_Name: StoryIllustrationData
+  m_EditorClassIdentifier: 
+  storyIllustrationForWorlds:
+  - worldName: World_1
+    worldID: 0
+    illustrationSprites:
+    - {fileID: 21300000, guid: ea300c7679d4f4d4e8b2f4fd223434db, type: 3}
+    - {fileID: 21300000, guid: 9b47e22a77f39c84b8e35a328b2fc18b, type: 3}
+    - {fileID: 21300000, guid: 97befe486df21ed41a687340651ca32e, type: 3}
+    - {fileID: 21300000, guid: f55d03fe4a690c34aa2c299a87e645ce, type: 3}
+  - worldName: World_2
+    worldID: 1
+    illustrationSprites:
+    - {fileID: 21300000, guid: cd0e71ebc5f5d2444aa61c361727220c, type: 3}
+    - {fileID: 21300000, guid: 6f02d012d4da8b54592ed9da39be6fdb, type: 3}
+    - {fileID: 21300000, guid: ca01bd3f74fe3bc4abecc8fb9085187d, type: 3}
+    - {fileID: 21300000, guid: 6f905144b171b12439a24500b373b710, type: 3}
+  - worldName: World_3
+    worldID: 2
+    illustrationSprites:
+    - {fileID: 21300000, guid: 5dd24e173e7ae8c41b51f5cd0d42bd2e, type: 3}
+    - {fileID: 21300000, guid: cc71f106b2ac30443b2639d7a3bbd499, type: 3}
+    - {fileID: 21300000, guid: 17c0a9b49d834934497d1ac5540cec53, type: 3}
+    - {fileID: 21300000, guid: 3bfcd07bba4e0a24f84242bfbd61d148, type: 3}
+  - worldName: World_4
+    worldID: 3
+    illustrationSprites:
+    - {fileID: 21300000, guid: eb6e6a81c6b68674e8a3f1f7db03d4e3, type: 3}
+    - {fileID: 21300000, guid: c2c78fa1447f8744f9af5bc008b929a5, type: 3}
+    - {fileID: 21300000, guid: 7cf78fc140bb22d4cb806751b9addc03, type: 3}
+    - {fileID: 21300000, guid: 27af215908eb85645aa3b17dc8af1e3e, type: 3}
+  - worldName: World_5
+    worldID: 4
+    illustrationSprites: []

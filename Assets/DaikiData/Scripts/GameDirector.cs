@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -112,21 +113,6 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             return;
         }
 
-        // Escキーが押されたらゲームを終了
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-            Debug.Log("ゲームを終了しました。");
-        }
-
-        // Tabが押されたらステージ選択にいく
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            // タイトルシーンに遷移する処理
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
-            Debug.Log("タイトルシーンに戻ります。");
-        }
-
 
         
 
@@ -168,7 +154,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
        // InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
     }
 
-    public void LoadStageSelectScene()
+    public void LoadResultScene()
     {
         SceneManager.LoadScene("ResultScene");
     }
@@ -180,6 +166,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     public void OnEvent(InGameFlowEventID eventID)
     {
         if (eventID != InGameFlowEventID.END_PAUSE_MENU &&
+            eventID != InGameFlowEventID.START_PAUSE_MENU&&
+            eventID != InGameFlowEventID.TUTORIAL_END &&
+            eventID != InGameFlowEventID.TUTORIAL_START &&
             eventID != InGameFlowEventID.START_PAUSE_MENU)
         {
             m_currentEventID = eventID;
@@ -237,7 +226,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
                 var s = WaitAndLoadStageSelectScene(300);
                 // ゲーム終了イベントを通知
-                LoadStageSelectScene();
+                LoadResultScene();
                 break;
 
             case InGameFlowEventID.GAME_CLEAR_EFFECT_START:
@@ -336,6 +325,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         m_playerInput.actions.FindActionMap("TutorialWindow").Disable();
 
         m_playerInput.SwitchCurrentActionMap("Player");
+        m_playerInput.currentActionMap.Enable();
 
     }
 
@@ -365,6 +355,11 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         
+    }
+
+    public void ReturnStageSelectScene()
+    {
+        SceneManager.LoadScene("StageSelectScene");
     }
 }
 

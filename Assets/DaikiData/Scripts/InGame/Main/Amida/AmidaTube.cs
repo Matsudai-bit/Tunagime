@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using static AmidaTube;
 
@@ -12,37 +12,37 @@ public class AmidaTubeData
 public class AmidaTube : MonoBehaviour, ISerializableComponent
 {
     /// <summary>
-    /// ó‘Ô‚Ìí—Ş
+    /// çŠ¶æ…‹ã®ç¨®é¡
     /// </summary>
 
     [System.Serializable]
 
     public enum State
     {
-        NONE,       // ‰½‚à‚È‚µi‰Šúó‘Ô‚â’Ê‰ß•s‰Â‚È‚Çj
-        NORMAL,     // ‰¡ü‚Ì‚İ
-        KNOT_UP,    // ã•”‚É•ªŠò‚ª‚ ‚éŒ‹‚Ñ–Ú
-        KNOT_DOWN,  // ‰º•”‚É•ªŠò‚ª‚ ‚éŒ‹‚Ñ–Ú
-        BRIDGE      // cü‚Ì‚İi‹´j
+        NONE,       // ä½•ã‚‚ãªã—ï¼ˆåˆæœŸçŠ¶æ…‹ã‚„é€šéä¸å¯ãªã©ï¼‰
+        NORMAL,     // æ¨ªç·šã®ã¿
+        KNOT_UP,    // ä¸Šéƒ¨ã«åˆ†å²ãŒã‚ã‚‹çµã³ç›®
+        KNOT_DOWN,  // ä¸‹éƒ¨ã«åˆ†å²ãŒã‚ã‚‹çµã³ç›®
+        BRIDGE      // ç¸¦ç·šã®ã¿ï¼ˆæ©‹ï¼‰
     }
 
     /// <summary>
-    /// ’Ê‰ß•ûŒü‚Ìí—Ş
+    /// é€šéæ–¹å‘ã®ç¨®é¡
     /// </summary>
     public enum Direction
     {
-        UP,         // ã
-        DOWN,       // ‰º
-        RIGHT,      // ‰E
-        LEFT,       // ¶
-        CENTER      // ’†‰›i‚ ‚İ‚¾‚Ì’†Sj
+        UP,         // ä¸Š
+        DOWN,       // ä¸‹
+        RIGHT,      // å³
+        LEFT,       // å·¦
+        CENTER      // ä¸­å¤®ï¼ˆã‚ã¿ã ã®ä¸­å¿ƒï¼‰
     }
 
-    private StageBlock m_stageBlock; // ‚±‚Ì‚ ‚İ‚¾ƒ`ƒ…[ƒu‚ª‘®‚·‚éƒXƒe[ƒWƒuƒƒbƒN
+    private StageBlock m_stageBlock; // ã“ã®ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–ãŒå±ã™ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯
 
 
-    // === —×Ú‚·‚éAmidaTube‚Ö‚ÌQÆ (d—vI) ===
-    // ‚±‚ê‚ç‚ÌQÆ‚ÍƒCƒ“ƒXƒyƒNƒ^[‚Åİ’è‚·‚é‚©Aƒ}ƒbƒv¶¬‚É©“®‚ÅŠ„‚è“–‚Ä‚é
+    // === éš£æ¥ã™ã‚‹AmidaTubeã¸ã®å‚ç…§ (é‡è¦ï¼) ===
+    // ã“ã‚Œã‚‰ã®å‚ç…§ã¯ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§è¨­å®šã™ã‚‹ã‹ã€ãƒãƒƒãƒ—ç”Ÿæˆæ™‚ã«è‡ªå‹•ã§å‰²ã‚Šå½“ã¦ã‚‹
     [System.Serializable]
     public struct NeighborAmidaTube
     {
@@ -52,21 +52,22 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
         public AmidaTube left;
     }
 
-    [Header("—×Ú‚·‚éAmidaTube")]
+    [Header("éš£æ¥ã™ã‚‹AmidaTube")]
+    [SerializeField]
     private NeighborAmidaTube m_neighborAmida;
 
     [Space]
-    [Header("==== AmidaTubeİ’è ====")]
-    [Header("ƒƒbƒVƒ…•ÏXƒXƒNƒŠƒvƒg")]
-    [SerializeField] private YarnMeshChanger m_meshChanger; // ƒƒbƒVƒ…ƒ`ƒFƒ“ƒWƒƒ[
-//    [Header("’Ê‰ß‰Â”\•ûŒü")]
-    //public DirectionPassage m_directionPassage;             // ‚±‚Ìƒ`ƒ…[ƒu‚ª’Ê‰ß‚Å‚«‚é•ûŒü
-    [Header("‰Šúó‘Ô")]
-    private State m_currentShapeType = State.NORMAL;        // Œ»İ‚Ìó‘Ô
-    private State m_requestChangeShape = State.NONE;        // ó‘Ô‚Ì•ÏX—v‹
+    [Header("==== AmidaTubeè¨­å®š ====")]
+    [Header("ãƒ¡ãƒƒã‚·ãƒ¥å¤‰æ›´ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
+    [SerializeField] private YarnMeshChanger m_meshChanger; // ãƒ¡ãƒƒã‚·ãƒ¥ãƒã‚§ãƒ³ã‚¸ãƒ£ãƒ¼
+//    [Header("é€šéå¯èƒ½æ–¹å‘")]
+    //public DirectionPassage m_directionPassage;             // ã“ã®ãƒãƒ¥ãƒ¼ãƒ–ãŒé€šéã§ãã‚‹æ–¹å‘
+    [Header("åˆæœŸçŠ¶æ…‹")]
+    private State m_currentShapeType = State.NORMAL;        // ç¾åœ¨ã®çŠ¶æ…‹
+    private State m_requestChangeShape = State.NONE;        // çŠ¶æ…‹ã®å¤‰æ›´è¦æ±‚
 
-    [Header("Šî€ƒ}ƒeƒŠƒAƒ‹")]
-    [SerializeField] private Material m_standardMaterial;    // Šî€ƒ}ƒeƒŠƒAƒ‹
+    [Header("åŸºæº–ãƒãƒ†ãƒªã‚¢ãƒ«")]
+    [SerializeField] private Material m_standardMaterial;    // åŸºæº–ãƒãƒ†ãƒªã‚¢ãƒ«
 
 
     private void Awake()
@@ -83,7 +84,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
     public void ResetEmotionCurrentType()
     {
-        // EmotionCurrent.Type‚ğƒŠƒZƒbƒg
+        // EmotionCurrent.Typeã‚’ãƒªã‚»ãƒƒãƒˆ
         m_meshChanger.ResetEmotionType();
     }
 
@@ -93,13 +94,13 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     // Update is called once per frame
     void Update()
     {
-        // ó‘Ô•ÏX‚Ì—v‹‚ª‚ ‚Á‚½‚©‚Ç‚¤‚©
+        // çŠ¶æ…‹å¤‰æ›´ã®è¦æ±‚ãŒã‚ã£ãŸã‹ã©ã†ã‹
         if (m_requestChangeShape != State.NONE)
         {
-            // ˆá‚¤ó‘Ô‚Ìê‡
+            // é•ã†çŠ¶æ…‹ã®å ´åˆ
             if (m_requestChangeShape != m_currentShapeType)
             {
-                // ó‘Ô‚ğ•ÏX
+                // çŠ¶æ…‹ã‚’å¤‰æ›´
                 ChangeState();
             }
 
@@ -109,82 +110,82 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
     public void SetEmotionCurrentType(YarnMaterialGetter.MaterialType materialType, EmotionCurrent.Type emotionTyp)
     {
-        // EmotionCurrent.Type‚ğİ’è
+        // EmotionCurrent.Typeã‚’è¨­å®š
         m_meshChanger.ChangeEmotionType(emotionTyp, materialType);
     }
 
     
 
     /// <summary>
-    /// ó‘Ô‚ğ•ÏX‚·‚éƒƒ\ƒbƒh
+    /// çŠ¶æ…‹ã‚’å¤‰æ›´ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void ChangeState()
     {
 
-        // Œ»İ‚Ìó‘Ô‚ğXV
+        // ç¾åœ¨ã®çŠ¶æ…‹ã‚’æ›´æ–°
         m_currentShapeType = m_requestChangeShape;
-        // ƒƒbƒVƒ…‚Ì•ÏX
+        // ãƒ¡ãƒƒã‚·ãƒ¥ã®å¤‰æ›´
         m_meshChanger.SetMesh(m_currentShapeType);
-        // ’Ê‰ß•ûŒü‚Ì•ÏX
+        // é€šéæ–¹å‘ã®å¤‰æ›´
         UpdateNeighborAmida();
 
-        // ‚ ‚İ‚¾‚Ìó‘Ô‚ª•ÏX‚³‚ê‚½‚±‚Æ‚ğ’Ê’m
+        // ã‚ã¿ã ã®çŠ¶æ…‹ãŒå¤‰æ›´ã•ã‚ŒãŸã“ã¨ã‚’é€šçŸ¥
         GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CHANGED_AMIDAKUJI);
 
-        m_requestChangeShape = State.NONE; // ó‘Ô•ÏX—v‹‚ğƒŠƒZƒbƒg
+        m_requestChangeShape = State.NONE; // çŠ¶æ…‹å¤‰æ›´è¦æ±‚ã‚’ãƒªã‚»ãƒƒãƒˆ
 
 
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½YarnMaterialGetter.MaterialType‚É‘Î‰‚·‚éƒ}ƒeƒŠƒAƒ‹‚ğæ“¾
+    /// æŒ‡å®šã•ã‚ŒãŸYarnMaterialGetter.MaterialTypeã«å¯¾å¿œã™ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å–å¾—
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
     public Material GetMaterial(YarnMaterialGetter.MaterialType type)
     {
-        // YarnMaterialGetter‚©‚çƒ}ƒeƒŠƒAƒ‹‚ğæ“¾
+        // YarnMaterialGetterã‹ã‚‰ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å–å¾—
         return m_meshChanger.GetMaterial(type);
     }
 
 
     public EmotionCurrent.Type GetEmotionType(YarnMaterialGetter.MaterialType type)
     {
-        // YarnMaterialGetter‚©‚çƒGƒ‚[ƒVƒ‡ƒ“ƒ^ƒCƒv‚ğæ“¾
+        // YarnMaterialGetterã‹ã‚‰ã‚¨ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒ—ã‚’å–å¾—
         return m_meshChanger.GetEmotionType(type);
     }
 
     /// <summary>
-    /// ƒ}ƒeƒŠƒAƒ‹‚ğ“K—p‚·‚é
+    /// ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨ã™ã‚‹
     /// </summary>
     public void ApplyMaterial()
     {
-        // YarnMeshChanger‚ğg—p‚µ‚Äƒ}ƒeƒŠƒAƒ‹‚ğ“K—p
+        // YarnMeshChangerã‚’ä½¿ç”¨ã—ã¦ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’é©ç”¨
         m_meshChanger.ApplyMaterial();
     }
 
     public void ApplyRejectionMaterial()
     {
         m_meshChanger.SetAllEmotionType(EmotionCurrent.Type.REJECTION);
-        // ‚·‚×‚Ä‚Ìƒ}ƒeƒŠƒAƒ‹‚É‘Î‚µ‚ÄEmotionCurrent.Type‚ğREJECTION‚Éİ’è
+        // ã™ã¹ã¦ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã«å¯¾ã—ã¦EmotionCurrent.Typeã‚’REJECTIONã«è¨­å®š
         m_meshChanger.ApplyMaterial();
     }
 
     /// <summary>
-    /// Œ»İ‚Ìó‘Ô‚ÉŠî‚Ã‚¢‚Ä—×Ú‚·‚é‚ ‚İ‚¾‚Ìƒ}ƒeƒŠƒAƒ‹‚ğXV
+    /// ç¾åœ¨ã®çŠ¶æ…‹ã«åŸºã¥ã„ã¦éš£æ¥ã™ã‚‹ã‚ã¿ã ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’æ›´æ–°
     /// </summary>
     /// <param name="followDir"></param>
     public void UpdateMeshMaterialsBasedOnAmidaState(AmidaTube.Direction followDir)
     {
         
-        // Œ»İ‚Ìó‘Ô‚ÉŠî‚Ã‚¢‚Ä—×Ú‚·‚é‚ ‚İ‚¾‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ•ÏX
+        // ç¾åœ¨ã®çŠ¶æ…‹ã«åŸºã¥ã„ã¦éš£æ¥ã™ã‚‹ã‚ã¿ã ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å¤‰æ›´
         if (m_currentShapeType == State.NONE)
         {
-            // ‰½‚à‚È‚¢ó‘Ô‚Å‚Íƒ}ƒeƒŠƒAƒ‹‚ğ•ÏX‚µ‚È‚¢
+            // ä½•ã‚‚ãªã„çŠ¶æ…‹ã§ã¯ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å¤‰æ›´ã—ãªã„
             return;
         }
 
-        // —×Ú‚·‚é‚ ‚İ‚¾‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ•ÏX
+        // éš£æ¥ã™ã‚‹ã‚ã¿ã ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å¤‰æ›´
         if (m_currentShapeType == State.NORMAL)
         {
             if (m_neighborAmida.left == null)
@@ -205,7 +206,10 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
             EmotionCurrent.Type emotionTypeLeft = m_neighborAmida.left.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT);
             m_meshChanger.ChangeEmotionType(emotionTypeLeft, YarnMaterialGetter.MaterialType.INPUT);
 
-            if (m_neighborAmida.right == null)
+            var map = MapData.GetInstance;
+            
+
+            if (m_neighborAmida.right == null && (map.GetCommonData().width - 2) > m_stageBlock.GetGridPos().x)
             {
                 return;
             }
@@ -256,7 +260,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
 
     /// <summary>
-    /// ó‘Ô•ÏX—v‹
+    /// çŠ¶æ…‹å¤‰æ›´è¦æ±‚
     /// </summary>
     /// <param name="state"></param>
     public void RequestChangedState(State state)
@@ -268,7 +272,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
 
     /// <summary>
-    /// ó‘Ô‚©‚ç—×Ú‚·‚é‚ ‚İ‚¾‚Ì•ÏX
+    /// çŠ¶æ…‹ã‹ã‚‰éš£æ¥ã™ã‚‹ã‚ã¿ã ã®å¤‰æ›´
     /// </summary>
     /// <param name="state"></param>
     
@@ -282,7 +286,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
         switch (m_currentShapeType)
         {
             case State.NORMAL:
-                // ’Êíó‘Ô‚Å‚ÍA—×Ú‚·‚é‚ ‚İ‚¾‚Ì¶‰E‚Ì‚İ‚ğİ’è
+                // é€šå¸¸çŠ¶æ…‹ã§ã¯ã€éš£æ¥ã™ã‚‹ã‚ã¿ã ã®å·¦å³ã®ã¿ã‚’è¨­å®š
                 {
                     AmidaTube left  = gridData.GetAmidaTube(gridPos.x - 1, gridPos.y);
                     AmidaTube right = gridData.GetAmidaTube(gridPos.x + 1, gridPos.y);
@@ -291,10 +295,10 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
                 break;
             case State.KNOT_UP:
                 {
-                    // ã•”‚É•ªŠò‚ª‚ ‚éŒ‹‚Ñ–Ú‚Å‚ÍAã‚Æ¶‰E‚ğİ’è
+                    // ä¸Šéƒ¨ã«åˆ†å²ãŒã‚ã‚‹çµã³ç›®ã§ã¯ã€ä¸Šã¨å·¦å³ã‚’è¨­å®š
                     AmidaTube up = gridData.GetAmidaTube(gridPos.x, gridPos.y - 1);
 
-                    // —×Ú‚·‚é‚ ‚İ‚¾‚Ì¶‰E‚ğİ’è
+                    // éš£æ¥ã™ã‚‹ã‚ã¿ã ã®å·¦å³ã‚’è¨­å®š
                     AmidaTube left = gridData.GetAmidaTube(gridPos.x - 1, gridPos.y);
                     AmidaTube right = gridData.GetAmidaTube(gridPos.x + 1, gridPos.y);
 
@@ -306,10 +310,10 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
                 }
             case State.KNOT_DOWN:
                 {
-                    // ‰º•”‚É•ªŠò‚ª‚ ‚éŒ‹‚Ñ–Ú‚Å‚ÍA‰º‚Æ¶‰E‚ğİ’è
+                    // ä¸‹éƒ¨ã«åˆ†å²ãŒã‚ã‚‹çµã³ç›®ã§ã¯ã€ä¸‹ã¨å·¦å³ã‚’è¨­å®š
                     AmidaTube down = gridData.GetAmidaTube(gridPos.x, gridPos.y + 1); ;
 
-                    // —×Ú‚·‚é‚ ‚İ‚¾‚Ì¶‰E‚ğİ’è
+                    // éš£æ¥ã™ã‚‹ã‚ã¿ã ã®å·¦å³ã‚’è¨­å®š
                     AmidaTube left = gridData.GetAmidaTube(gridPos.x - 1, gridPos.y);
                     AmidaTube right = gridData.GetAmidaTube(gridPos.x + 1, gridPos.y);
 
@@ -318,7 +322,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
                 }
             case State.BRIDGE:
                 {
-                    // cü‚Ì‚İ‚Ìó‘Ô‚Å‚ÍAã‰º‚Æ¶‰E‚ğİ’è
+                    // ç¸¦ç·šã®ã¿ã®çŠ¶æ…‹ã§ã¯ã€ä¸Šä¸‹ã¨å·¦å³ã‚’è¨­å®š
                     AmidaTube up = gridData.GetAmidaTube(gridPos.x, gridPos.y - 1);
                     AmidaTube down = gridData.GetAmidaTube(gridPos.x, gridPos.y + 1); ;
 
@@ -366,7 +370,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
 
     /// <summary>
-    /// —×Ú‚·‚é‚ ‚İ‚¾‚Ìæ“¾
+    /// éš£æ¥ã™ã‚‹ã‚ã¿ã ã®å–å¾—
     /// </summary>
     public AmidaTube GetNeighbor(Direction direction)
     {
@@ -387,7 +391,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     }
 
     /// <summary>
-    /// —×Ú‚·‚é‚ ‚İ‚¾‚Ìæ“¾
+    /// éš£æ¥ã™ã‚‹ã‚ã¿ã ã®å–å¾—
     /// </summary>
     public NeighborAmidaTube GetNeighbor()
     {
@@ -395,7 +399,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     }
 
     /// <summary>
-    /// —×Ú‚·‚é‚ ‚İ‚¾‚Ìİ’è
+    /// éš£æ¥ã™ã‚‹ã‚ã¿ã ã®è¨­å®š
     /// </summary>
     /// <param name="up"></param>
     /// <param name="down"></param>
@@ -413,7 +417,7 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     }
 
     /// <summary>
-    /// Œ»İ‚Ìó‘Ô‚ğæ“¾
+    /// ç¾åœ¨ã®çŠ¶æ…‹ã‚’å–å¾—
     /// </summary>
     /// <returns></returns>
     public State GetState()
@@ -424,19 +428,19 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
     public Direction GetFollowDirection()
     {
-        // Œ»İ‚Ìó‘Ô‚ÉŠî‚Ã‚¢‚Ä’Ê‰ß•ûŒü‚ğŒˆ’è
+        // ç¾åœ¨ã®çŠ¶æ…‹ã«åŸºã¥ã„ã¦é€šéæ–¹å‘ã‚’æ±ºå®š
         switch (m_currentShapeType)
         {
             case State.NORMAL:
-                return Direction.RIGHT; // ’Êíó‘Ô‚Å‚Í‰E•ûŒü
+                return Direction.RIGHT; // é€šå¸¸çŠ¶æ…‹ã§ã¯å³æ–¹å‘
             case State.KNOT_UP:
-                return Direction.UP; // ã•”‚É•ªŠò‚ª‚ ‚éŒ‹‚Ñ–Ú‚Å‚Íã•ûŒü
+                return Direction.UP; // ä¸Šéƒ¨ã«åˆ†å²ãŒã‚ã‚‹çµã³ç›®ã§ã¯ä¸Šæ–¹å‘
             case State.KNOT_DOWN:
-                return Direction.DOWN; // ‰º•”‚É•ªŠò‚ª‚ ‚éŒ‹‚Ñ–Ú‚Å‚Í‰º•ûŒü
+                return Direction.DOWN; // ä¸‹éƒ¨ã«åˆ†å²ãŒã‚ã‚‹çµã³ç›®ã§ã¯ä¸‹æ–¹å‘
             case State.BRIDGE:
-                return Direction.CENTER; // cü‚Ì‚İ‚Ìó‘Ô‚Å‚Í’†‰›
+                return Direction.CENTER; // ç¸¦ç·šã®ã¿ã®çŠ¶æ…‹ã§ã¯ä¸­å¤®
             default:
-                return Direction.CENTER; // ‚»‚Ì‘¼‚Ìê‡‚Í’†‰›
+                return Direction.CENTER; // ãã®ä»–ã®å ´åˆã¯ä¸­å¤®
         }
     }
 

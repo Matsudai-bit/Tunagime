@@ -954,17 +954,6 @@
                 },
                 {
                     "name": "",
-                    "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "849e9ee1-879c-4f03-b9fd-cb9855dd438e",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -1509,7 +1498,7 @@
                 {
                     "name": "",
                     "id": "25540196-d7d8-4043-94e9-4a104de8b928",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

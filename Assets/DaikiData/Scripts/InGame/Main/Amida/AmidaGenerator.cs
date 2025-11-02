@@ -251,7 +251,7 @@ public class AmidaTubeGenerator : MonoBehaviour
             GenerateAmidaBridge(gridPos);
         }
 
-
+        
 
         // 生成したグリッドデータを返す
         return amidaGrid;

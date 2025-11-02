@@ -49,9 +49,28 @@ public class MenuContentSelector : MonoBehaviour
 
 
 
+    /// <summary>
+    /// 現在のタイトルメニュー名を取得
+    /// </summary>
     public string CurrentTitleMenuName
     {
         get { return m_currentTitleMenu; }
+    }
+
+    /// <summary>
+    /// タイトルメニューのリストを取得
+    /// </summary>
+    public string[] TitleMenuList
+    {
+        get
+        {
+            List<string> menuNames = new List<string>();
+            foreach (var menuInfo in m_titleMenu)
+            {
+                menuNames.Add(menuInfo.menuName);
+            }
+            return menuNames.ToArray();
+        }
     }
 
     void Awake()
@@ -150,10 +169,10 @@ public class MenuContentSelector : MonoBehaviour
     /// 上下の入力に基づいてワールドIDを変更
     /// </summary>
     /// <param name="value"></param>
-    public void OnNavigate(InputAction.CallbackContext value)
+    public void OnNavigate(InputAction.CallbackContext context)
     {
-
-        Vector2 input = value.ReadValue<Vector2>();
+        if (m_titleMenuDict.Count <= 0 ) { return; }
+        Vector2 input = context.ReadValue<Vector2>();
 
         int newPointMenu = GetIndex(m_currentTitleMenu);
 

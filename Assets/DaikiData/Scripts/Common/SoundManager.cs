@@ -112,6 +112,14 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
     }
 
+    public void StopBGM()
+    {
+        if (m_bgmAudioSource != null)
+        {
+            m_bgmAudioSource.Stop();
+        }
+    }
+
     //指定された別名で登録されたAudioClipを再生
     public void PlayBGM(SoundID id)
     {

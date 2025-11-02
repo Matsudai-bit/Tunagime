@@ -1,7 +1,8 @@
 ﻿using DG.Tweening;
 using System;
-using UnityEditor.SearchService;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,6 +33,25 @@ public class PauseWindowController : MonoBehaviour
     [SerializeField]
     private PauseMenuManualController m_pauseMenuManualController; // ポーズメニューのマニュアルコントローラー
 
+    #region インスペクター表示よう構造体
+
+    /// <summary>
+    /// 決定時のイベント構造体
+    /// </summary>
+    [Serializable]
+    struct SubmitEventInfo
+    {
+        public string menuName; // メニュー名
+        public UnityEvent submitEvent; // 決定時のイベント
+    }
+    #endregion
+
+    [Header("イベント辞書 ======================================-")]
+    [SerializeField]
+    private List<SubmitEventInfo> m_submitEventList = new(); // 決定時のイベントリスト
+
+    private Dictionary<string, UnityEvent> m_submitEvent; // 決定時のイベント辞書
+
 
     private Vector3 m_initialContentPosition; // コンテンツの初期位置
     private float m_initialBackgroundAlpha; // 背景フィルター画像の初期透明度
@@ -43,7 +63,6 @@ public class PauseWindowController : MonoBehaviour
     private Action m_onExitPause; // ポーズメニューを閉じたときの処理
 
   
-
     public void RequestOpenPause(PlayerInput playerInput, Action onExitPause)
     {
 
@@ -54,9 +73,34 @@ public class PauseWindowController : MonoBehaviour
         m_onExitPause = onExitPause;
     }
 
-   
+    private void Reset()
+    {
+
+
+        if (m_submitEventList == null) return;
+        var contentSelector = GetComponent<MenuContentSelector>();
+        // ラベル名を設定
+        m_submitEventList.Clear();
+        foreach (var menuName in contentSelector.TitleMenuList)
+        {
+            m_submitEventList.Add(new SubmitEventInfo
+            {
+                menuName = menuName,
+                submitEvent = new UnityEvent()
+            });
+        }
+
+
+    }
     void Awake()
     {
+        // イベント辞書を初期化
+        m_submitEvent = new Dictionary<string, UnityEvent>();
+        foreach (var submitEventInfo in m_submitEventList)
+        {
+            m_submitEvent[submitEventInfo.menuName] = submitEventInfo.submitEvent;
+        }
+
         var contentRect = m_contentParent.GetComponent<RectTransform>(); 
         // 初期位置を保存しておく
         m_initialContentPosition = contentRect.anchoredPosition;
@@ -96,14 +140,20 @@ public class PauseWindowController : MonoBehaviour
         contentRect.DOAnchorPosX(m_initialContentPosition.x, m_fadeInTime).SetEase(Ease.OutCubic).OnComplete(() => // アニメーション完了時の処理
         {
             // ポーズメニューが開かれたときの処理を呼び出す
-            m_pauseMenuManualController.OnOpenPause(m_fadeInTime);
+            if (m_pauseMenuManualController)
+            {
+                m_pauseMenuManualController.OnOpenPause(m_fadeInTime);
+            }
         });
     }
 
     void OnClosePause()
     {
         // ポーズメニューが開かれたときの処理を呼び出す
-        m_pauseMenuManualController.OnClosePause(m_fadeOutTime);
+        if (m_pauseMenuManualController)
+        {
+            m_pauseMenuManualController.OnClosePause(m_fadeOutTime);
+        }
 
         // 透過画像をフェードアウトさせる
         m_backgroundFilterImage.DOFade(0, m_fadeOutTime).SetEase(Ease.OutSine);
@@ -154,16 +204,14 @@ public class PauseWindowController : MonoBehaviour
             // 設定
             case "Setting":
                 break;
-            // ステージ選択へ戻る
-            case "ReturnStageSelect":
-                // ステージシーンへ戻る処理
-                SceneManager.LoadScene("StageSelectScene");
+            // 戻る
+            default:
+                m_submitEvent[contentSelector.CurrentTitleMenuName].Invoke();
                 break;
 
 
         }
 
-        // ポーズメニューを閉じる
-        OnClosePause();
+   
     }
 }

@@ -15,6 +15,11 @@ public class ClearController : MonoBehaviour
     [Header("====== プレイヤー ======")]
     [SerializeField]　private GameObject m_player; // プレイヤーオブジェクト
 
+    [Header("====== 想いのカケラの動き ======")]
+    [SerializeField] private Vector3 m_feelingPieceUpVelocity   = new Vector3(0.0f, 5.0f, 0.0f); // 想いのカケラの位置
+    [SerializeField] private Vector3 m_feelingPieceDownVelocity = new Vector3(1.0f, -3.0f, 0.0f); // 想いのカケラの位置
+
+
 
     public GameObject m_opaqueScreen; // クリア時に表示する不透明な画面
 
@@ -96,11 +101,13 @@ public class ClearController : MonoBehaviour
             stageObjectPosition = m_stageObject.transform.position;
         }
 
+        // 感情ピースの初期位置をステージオブジェクトの少し下に設定
         m_feelingPiece.transform.position = stageObjectPosition + new Vector3(0.0f, -1.0f, 0.0f);
 
-        m_feelingPiece.transform.DOBlendableMoveBy(new Vector3(0.0f, 5.0f, 0.0f), 1.0f).SetEase(Ease.InBack).SetDelay(0.5f).OnComplete(() =>
+        // 感情ピースを上に移動させるアニメーション
+        m_feelingPiece.transform.DOBlendableMoveBy(m_feelingPieceUpVelocity, 1.0f).SetEase(Ease.InBack).SetDelay(0.5f).OnComplete(() =>
         {
-            m_feelingPiece.transform.DOBlendableMoveBy(new Vector3(1.0f, -3.0f, 0.0f), 1.0f).SetEase(Ease.OutBack).SetDelay(0.3f).OnComplete(() =>
+            m_feelingPiece.transform.DOBlendableMoveBy(m_feelingPieceDownVelocity, 1.0f).SetEase(Ease.OutBack).SetDelay(0.3f).OnComplete(() =>
             {
                 // 感情ピースのスポーン開始を通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GOING_GET_FEELING_PIECE_START);
