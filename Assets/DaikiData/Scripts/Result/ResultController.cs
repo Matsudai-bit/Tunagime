@@ -9,6 +9,7 @@ public class ResultController : MonoBehaviour
 {
     public enum State
     {
+        INDLE = -1,
         DISPLAY_STAGE_CLEAR_TEXT = 0, // ステージクリアテキスト表示  
         DISPLAY_CLEAR_TIME,     // クリアタイム表示
         COUTN_UP_CLEAR_TIME,    // クリアタイムカウントアップ
@@ -56,6 +57,15 @@ public class ResultController : MonoBehaviour
     [SerializeField]
     private GameObject m_stageSelectButton; // ステージセレクトボタン
 
+    [Header ("シーン遷移演出(フェードイン)")]
+    [SerializeField]
+    private SceneTransitionEffect m_sceneTransitionFadeIn;
+
+    [Header("シーン遷移演出(フェードアウト)")]
+    [SerializeField]
+    private SceneTransitionEffect m_sceneTransitionFadeOut;
+
+
     [Header("======= ゲーム進行データ(監視用) ======= ")]
     [SerializeField]
     private GameProgressData m_gameProgressData;
@@ -78,6 +88,8 @@ public class ResultController : MonoBehaviour
 
     void Start()
     {
+        m_currentState = State.INDLE;
+
         // ゲーム進行データの取得
         m_gameProgressData = GameProgressManager.Instance.GameProgressData;
 
@@ -89,7 +101,11 @@ public class ResultController : MonoBehaviour
         m_stageSelectButton.SetActive(false);
         m_idleAnimationHash = 0;
 
-        ChangeState(State.DISPLAY_STAGE_CLEAR_TEXT);
+        m_sceneTransitionFadeIn.StartTransition(() => {
+            ChangeState(State.DISPLAY_STAGE_CLEAR_TEXT);
+
+        });
+
 
 
     }
@@ -323,8 +339,22 @@ public class ResultController : MonoBehaviour
         }
         else
         {
-            // ステージセレクトシーンへ遷移
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
+
+            m_sceneTransitionFadeOut.StartTransition(() =>
+            {
+                if (m_gameProgressData.stageID == StageID.STAGE_5)
+                {
+                    // ステージセレクトシーンへ遷移
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("StoryScene");
+                }
+                else
+                {
+                    // ステージセレクトシーンへ遷移
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
+                }
+
+            });
+         
         }
      
     }

@@ -288,13 +288,18 @@ public class StoryIllustrationWindowController : MonoBehaviour
 
     }
 
-    public void OnEndTutorial(InputAction.CallbackContext context)
+    /// <summary>
+    /// ストーリーを終了できるかどうか
+    /// </summary>
+    /// <returns></returns>
+    public bool CanEndStory()
     {
-        if (State.FADE == m_currentState) { return; }
-        if (m_displayTutorialImageData.keyboardImages.Count - 1 > m_currentImageIndex) { return; }
+        if (State.FADE == m_currentState) { return　false; }
+        if (m_displayTutorialImageData.keyboardImages.Count - 1 > m_currentImageIndex) { return false; }
 
-        StartEndFade();
-        
+        return true;
+
+
     }
     private void Update()
     {
@@ -366,22 +371,7 @@ public class StoryIllustrationWindowController : MonoBehaviour
             Invoke(nameof(ShowGuideUI), 3.0f);
         });
     }
-    void StartEndFade()
-    {
-        m_currentState = State.FADE;
-
-        UpdateGuideUI();
-
-        // 透明度を1にする
-        m_backgroundImage.DOFade(0.0f, 1.0f).SetEase(Ease.OutCubic);
-        m_currentImage.DOFade(0.0f, 1.0f).SetEase(Ease.OutCubic).OnComplete(() =>
-        {
-            PauseEaseForGuideUI();
-            ResetTutorial();
-            // 終了したことを通知
-            InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_END);
-        });
-    }
+   
 
     void UpdatePageImages()
     {

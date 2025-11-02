@@ -36,6 +36,10 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private StoryIllustrationData m_storyIllustrationData;
 
+    [Header("シーン遷移演出(フェードアウト)")]
+    [SerializeField]
+    private SceneTransitionEffect m_sceneTransitionFadeOut;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -68,6 +72,22 @@ public class StoryDirector : MonoBehaviour
         {
             SceneManager.LoadScene("StoryScene");
         }
+    }
+
+    /// <summary>
+    /// ストーリーシーン終了時処理
+    /// </summary>
+    public void OnExitStoryScene(InputAction.CallbackContext context)
+    {
+        if (!context.performed){ return; }
+
+        if (m_storyIllustrationWindowController.CanEndStory() == false) { return; }
+
+        m_sceneTransitionFadeOut.StartTransition(() =>
+        {
+            SceneManager.LoadScene("StageSelectScene");
+        });
+
     }
 
 }
