@@ -198,13 +198,13 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
         }
         else if (m_currentShapeType == State.KNOT_UP || m_currentShapeType == State.KNOT_DOWN)
         {
-            if (m_neighborAmida.left == null)
+            if (m_neighborAmida.left != null && 1 < m_stageBlock.GetGridPos().x)
             {
-                return;
+                EmotionCurrent.Type emotionTypeLeft = m_neighborAmida.left.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT);
+                m_meshChanger.ChangeEmotionType(emotionTypeLeft, YarnMaterialGetter.MaterialType.INPUT);
             }
 
-            EmotionCurrent.Type emotionTypeLeft = m_neighborAmida.left.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT);
-            m_meshChanger.ChangeEmotionType(emotionTypeLeft, YarnMaterialGetter.MaterialType.INPUT);
+
 
             var map = MapData.GetInstance;
             
@@ -257,6 +257,38 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
 
         }
     }
+
+    /// <summary>
+    /// 開始時の感情タイプ設定
+    /// </summary>
+    /// <param name="emotionType"></param>
+    public void SetStartingEmotionType(EmotionCurrent.Type emotionType)
+    {
+        switch (m_currentShapeType)
+        {
+            case State.NORMAL:
+                m_meshChanger.SetAllEmotionType(emotionType);
+                break;
+            case State.KNOT_UP:
+                m_meshChanger.ChangeEmotionType(emotionType, YarnMaterialGetter.MaterialType.INPUT);
+                m_meshChanger.ChangeEmotionType(emotionType, YarnMaterialGetter.MaterialType.BRIDGE_UP);
+                break;
+            case State.KNOT_DOWN:
+                m_meshChanger.ChangeEmotionType(emotionType, YarnMaterialGetter.MaterialType.INPUT);
+                m_meshChanger.ChangeEmotionType(emotionType, YarnMaterialGetter.MaterialType.BRIDGE_DOWN);
+                break;
+            case State.BRIDGE:
+                m_meshChanger.SetAllEmotionType(emotionType);
+
+                break;
+            default:
+                Debug.LogWarning("Unknown state for SetStartingEmotionType: " + m_currentShapeType);
+                break;
+        }
+
+
+    }
+
 
 
     /// <summary>
