@@ -34,12 +34,15 @@ MonoBehaviour:
   - labelName: BGM_SELECT
     id: 1
     clip: {fileID: 8300000, guid: 78b44f713312e2c4aa1a6c269fa9a5b3, type: 3}
-  - labelName: SE_UI_BUTTON_BACK
+  - labelName: BGM_STORY
     id: 7
+    clip: {fileID: 8300000, guid: b4f6231ec9053b244a84da2d7714bf01, type: 3}
+  - labelName: SE_UI_BUTTON_BACK
+    id: 8
     clip: {fileID: 8300000, guid: 82e3a4e6eeeb9574dba51a3b3229c60c, type: 3}
   - labelName: SE_UI_BUTTON_PUSH
-    id: 8
+    id: 9
     clip: {fileID: 8300000, guid: 890a28c6a43670241a7b38beeae5eb64, type: 3}
   - labelName: SE_UI_BUTTON_MOVE
-    id: 9
+    id: 10
     clip: {fileID: 8300000, guid: 86c357eefadb14449a55dc3dc665aa2f, type: 3}

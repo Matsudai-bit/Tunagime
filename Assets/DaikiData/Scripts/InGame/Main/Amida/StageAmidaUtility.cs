@@ -25,7 +25,14 @@ public class StageAmidaUtility
         return amidaTube.GetState() == checkState;
     }
 
-    public static AmidaTube FindClosestAmidaTube(Vector3 position)
+    /// <summary>
+    /// 指定されたワールド座標に最も近いあみだチューブを取得します。
+    /// </summary>
+    /// <param name="position"> ワールド座標 </param>
+    /// <param name="stateNormal">状態をノーマルに限定するかどうか</param>
+    /// <param name="notTileObject">タイルオブジェクトがいない場所を選択するかどうか</param>
+    /// <returns></returns>
+    public static AmidaTube FindClosestAmidaTube(Vector3 position,bool stateNormal, bool notTileObject)
     {
         var map = MapData.GetInstance;
         var gridData = map.GetStageGridData();
@@ -56,6 +63,22 @@ public class StageAmidaUtility
             AmidaTube tube = gridData.GetAmidaTube(checkGridPos);
             if (tube != null)
             {
+                // 状態をノーマルに限定する場合、チェック
+                if (stateNormal && tube.GetState() != AmidaTube.State.NORMAL)
+                {
+                    continue;
+                }
+
+                if (notTileObject)
+                {
+                    TileObject tileObject = gridData.GetTileObject(checkGridPos);
+                    if (tileObject.gameObject != null)
+                    {
+                        // タイルオブジェクトが存在する場合はスキップ
+                        continue;
+                    }
+                }
+
                 Vector3 tubeWorldPos = map.ConvertGridToWorldPos(checkGridPos);
                 float distanceSqr = (position - tubeWorldPos).sqrMagnitude;
                 if (distanceSqr < closestDistanceSqr)

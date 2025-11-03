@@ -67,6 +67,8 @@ public class TitleSceneController : MonoBehaviour
     /// <param name="value"></param>
     public void OnSubmit(InputAction.CallbackContext value)
     {
+        if (!value.performed) { return; }
+
         // SEを鳴らす
         SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_PUSH);
         // 各タイトルメニューに対応する処理

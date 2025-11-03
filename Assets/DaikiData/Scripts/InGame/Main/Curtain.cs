@@ -50,6 +50,8 @@ public class Curtain : MonoBehaviour
 
     private EmotionCurrent m_emotionCurrent;  // 想いの種類
 
+    private bool m_isClosing = false; // カーテンを閉じられるかどうかのフラグ
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -133,7 +135,7 @@ public class Curtain : MonoBehaviour
 
     public void Initialize()
     {
-
+        m_isClosing = false;
         m_state = State.CLOSING_FINISHED; // 初期状態を閉じた状態に設定
 
         TryChangeState();
@@ -142,24 +144,28 @@ public class Curtain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_state == State.OPENING_FINISHED || m_state == State.CLOSING_FINISHED)
+        if (m_state == State.OPENING_FINISHED ||    // 開いた状態の場合
+            m_state == State.CLOSING_FINISHED ||    // 閉じた状態の場合
+            (m_state == State.CLOSING && m_isClosing == false)) // 閉じる状態で閉じられない場合
         {
             TryChangeState();
         }
+
+    
 
         switch (m_state)
         {
             case State.OPENING:
                 break;
             case State.CLOSING:
-                // カーテンを閉じる処理
-                
+    
                 break;
             case State.OPENING_FINISHED:
                 // 開いた状態の処理
                 break;
             case State.CLOSING_FINISHED:
                 // 閉じた状態の処理
+    
                 break;
         }
     }
@@ -208,12 +214,16 @@ public class Curtain : MonoBehaviour
 
     private void StartCloseCurtain()
     {
-        m_collider.enabled = true; // カーテンのコライダーを無効化
 
         var stageGridData = MapData.GetInstance.GetStageGridData();
         // ステージブロックのグリッド位置を取得して、カーテンのグリッドデータに追加
-        stageGridData.TryPlaceTileObject(m_stageBlock.GetGridPos(), gameObject);
-
+        m_isClosing = stageGridData.TryPlaceTileObject(m_stageBlock.GetGridPos(), gameObject);
+        
+        if (!m_isClosing)
+        {
+            return; // カーテンを閉じられない場合は処理を中断
+        }
+        m_collider.enabled = true; // カーテンのコライダーを無効化
 
         // カーテンを閉じる処理
         float backPower = 1.0f;

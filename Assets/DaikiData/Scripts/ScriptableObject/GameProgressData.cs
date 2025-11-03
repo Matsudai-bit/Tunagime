@@ -11,6 +11,9 @@ public class GameProgressData : ScriptableObject
     [Header("現在のステージID")]
     public StageID stageID; // 現在のステージID
 
+    [Header("開始状態")]
+    public InGameFlowEventID startState; // 開始状態
+
     [Header("クリア時間")]
     public float clearTime; // クリア時間
 }

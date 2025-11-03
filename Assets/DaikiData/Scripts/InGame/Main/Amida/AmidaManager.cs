@@ -60,8 +60,9 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
             ResetAllAmidaTubeType();
 
             // あみだチューブを辿る回数処理を実行
-            for (int i = 0; i < LOOP_COUNT; i++) 
+            for (int i = 0; i < LOOP_COUNT; i++)
             {
+                // 各想いスロットのあみだチューブの先頭に想いの型を設定
                 foreach (var slot in m_feelingSlots)
                 {
                     // スタート位置
@@ -72,18 +73,34 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
                     var emotionType = slot.GetEmotionType();
 
                     // 先頭のあみだチューブの設定
-                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.INPUT, emotionType); // スロットのマテリアルを設定
-                    startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.OUTPUT, emotionType); // スロットのマテリアルを設定
+                    //startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.INPUT, emotionType); // スロットのマテリアルを設定
+                    //startAmidaTube.SetEmotionCurrentType(YarnMaterialGetter.MaterialType.OUTPUT, emotionType); // スロットのマテリアルを設定
+                    startAmidaTube.SetStartingEmotionType(emotionType); // スタートの想いの型を設定
 
-                    // あみだチューブを辿る処理
-                    FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);
 
                 }
+                // 各想いスロットからあみだチューブを辿る
+                foreach (var slot in m_feelingSlots)
+                {
+                    // スタート位置
+                    var startPos = slot.StageBlock.GetGridPos() + new GridPos(1, 0);
+                    // あみだチューブの取得
+                    var startAmidaTube = stageGridData.GetAmidaTube(startPos);
 
+                     if (startAmidaTube.GetState() == AmidaTube.State.KNOT_UP)
+                        startAmidaTube.UpdateMeshMaterialsBasedOnAmidaState(AmidaTube.Direction.DOWN);
+                     if (startAmidaTube.GetState() == AmidaTube.State.KNOT_DOWN)
+                        startAmidaTube.UpdateMeshMaterialsBasedOnAmidaState(AmidaTube.Direction.UP);
+
+                    
+
+
+                        // あみだチューブを辿る処理
+                        FollowTheAmidaTube(startAmidaTube, AmidaTube.Direction.RIGHT);
+                }
             }
-
-            // 辿ることが終了したことを通知する (呼び出しタイミング大事)
-            GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.FLOWWING_AMIDAKUJI); // あみだくじが変更されたことを通知
+                // 辿ることが終了したことを通知する (呼び出しタイミング大事)
+                GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.FLOWWING_AMIDAKUJI); // あみだくじが変更されたことを通知
 
             if (m_connectedRejectionSlot)
             {
@@ -108,6 +125,8 @@ public class AmidaManager : MonoBehaviour , IGameInteractionObserver
         stageGridData.ResetAmidaDataChanged();
 
     }
+
+  
 
     /// <summary>
     /// 指定したあみだチューブを辿る

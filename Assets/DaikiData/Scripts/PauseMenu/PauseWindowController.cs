@@ -12,6 +12,8 @@ using UnityEngine.UI;
 /// </summary>
 public class PauseWindowController : MonoBehaviour
 {
+    [Header("親(親が有効の時に入力可能)")]
+    [SerializeField] private GameObject m_parentObject;
 
     [Header("パラメータ ======================================-")]
     [Header("フェードイン時間")]
@@ -186,6 +188,7 @@ public class PauseWindowController : MonoBehaviour
     {
 
         if (context.performed == false) return;
+        if (m_parentObject == null || !m_parentObject.activeSelf) { return; }
 
         var contentSelector = GetComponent<MenuContentSelector>();
 

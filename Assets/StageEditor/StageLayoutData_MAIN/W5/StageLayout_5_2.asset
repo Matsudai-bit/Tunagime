@@ -1039,7 +1039,7 @@ MonoBehaviour:
         gridPos:
           x: 0
           y: 5
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
@@ -1635,7 +1635,7 @@ MonoBehaviour:
         gridPos:
           x: 19
           y: 7
-        blockType: 10
+        blockType: 2
         emotionType: 0
         option: 0
         changeToSatinFloor: 0
