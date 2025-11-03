@@ -95,6 +95,7 @@ public class StageSelectController : MonoBehaviour
                     var gameProgressData = GameProgressManager.Instance.GameProgressData;
                     gameProgressData.worldID = m_currentWorldID;
                     gameProgressData.stageID = (StageID)stageIndex;
+                    gameProgressData.startState = InGameFlowEventID.ZOOM_OUT_PLAYER_START;
 
 
                     m_stageSelectDirector.LoadGameplayScene();
@@ -128,6 +129,7 @@ public class StageSelectController : MonoBehaviour
                     var gameProgressData =  GameProgressManager.Instance.GameProgressData;
                     gameProgressData.worldID = m_currentWorldID;
                     gameProgressData.stageID = (StageID)stageIndex;
+                    gameProgressData.startState = InGameFlowEventID.ZOOM_OUT_PLAYER_START;
 
 
                     m_stageSelectDirector.LoadGameplayScene();

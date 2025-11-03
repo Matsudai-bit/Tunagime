@@ -1283,6 +1283,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "b027378e-13f5-4e46-9560-876e5b132cda",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextPage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Gamepad",
                     "id": "120ee2a2-71c1-437c-85e7-abecda6ae6fc",
                     "path": "2DVector",

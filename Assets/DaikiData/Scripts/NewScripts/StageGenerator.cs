@@ -462,6 +462,23 @@ public class StageGenerator : MonoBehaviour
 
         }
 
+        // ステージを囲うように不動ブロックを設置
+        for (int x = -1; x <= map.GetCommonData().width; x++)
+        {
+            for (int y = -1; y <= map.GetCommonData().height; y++)
+            {
+                // 周囲の枠に不動ブロックを設置
+                if (x == -1 || x == map.GetCommonData().width || y == -1 || y == map.GetCommonData().height)
+                {
+                    GridPos fixedGridPos = new GridPos(x, y);
+                    GameObject blockObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
+                    // 見えなくする
+                    blockObject.GetComponent<FeltBlock>().meshRenderer.enabled = false;
+                    //  map.GetStageGridData().TryPlaceTileObject(fixedGridPos, blockObject);
+                }
+            }
+        }
+
         // あみだチューブの生成
         amidaGenerator.GenerateAmida(amidaParent);
 

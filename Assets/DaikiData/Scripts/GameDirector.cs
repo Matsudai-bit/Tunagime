@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +12,10 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 {
     bool m_isFirstUpdate = true;
     bool m_isSecondUpdate = true;
+
+    [Header("デバックモードを有効にする")]
+    [SerializeField]
+    private bool m_isDebugMode = false;
 
     [Header("開始状態")]
     [SerializeField]
@@ -45,10 +50,15 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     private InGameFlowEventID m_currentEventID ;
 
+    private Action m_onStartUpdating ; // 更新開始時の処理
+
     void Awake()
     {
         m_playerInput = GetComponent<PlayerInput>();
-
+        if (m_isDebugMode == false)
+        {
+            m_startState = GameProgressManager.Instance.GameProgressData.startState;
+        }
         // 初期状態を設定
         m_currentEventID = m_startState;
 
@@ -81,6 +91,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         m_stageManager.Generate(map.GetStageGenerator(), this);
 
 
+
+        
         m_isFirstUpdate = true;
     }
 
@@ -98,6 +110,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             m_isFirstUpdate = false;
             Debug.Log("ゲーム開始通知 現在の状態 : " + m_startState);
 
+            // ゲーム開始のイベントを通知
             InGameFlowEventMessenger.GetInstance.Notify(m_startState);
 
             return;
@@ -106,10 +119,13 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
         if (m_isSecondUpdate)
         {
+            if (m_onStartUpdating != null)
+            {
+                m_onStartUpdating();
+            }
+
             m_isSecondUpdate = false;
-            // ゲーム開始のイベントを通知
-            m_playerInput.actions.FindActionMap("Player").Disable();
-            m_playerInput.actions.FindActionMap("TutorialWindow").Disable();
+
             return;
         }
 
@@ -180,8 +196,13 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         {
             case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
                 Debug.Log("カメラズームの開始 ============================================================================================");
-                StopPlayerInput();
-         
+
+                // 更新開始時の処理を設定
+                m_onStartUpdating = () =>
+                {
+                    StopPlayerInput();
+                };
+
                 break;
 
             // ズームアウト終了イベント
@@ -212,8 +233,21 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                 break;
             case InGameFlowEventID.GAME_PLAYING_START:
                 Debug.Log("ゲームプレイの開始 ============================================================================================");
-                StartPlayerInput();
-                break;
+
+                if (m_isSecondUpdate)
+                {
+                    // 更新開始時の処理を設定
+                    m_onStartUpdating = () =>
+                    {
+                        StartPlayerInput();
+                    };
+                }
+                else
+                {
+                    StartPlayerInput();
+                }
+
+                    break;
             case InGameFlowEventID.GAME_CLEAR:
                 Debug.Log("ゲームクリア ============================================================================================");
 
@@ -252,7 +286,20 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.TUTORIAL_START:
                 Debug.Log("チュートリアルの開始 ============================================================================================");
 
-                StartTutorial();
+
+                if (m_isSecondUpdate)
+                {
+                    // 更新開始時の処理を設定
+                    m_onStartUpdating = () =>
+                    {
+                        StartTutorial();
+                    };
+                }
+                else
+                {
+                    StartTutorial();
+
+                }
                 break;
             case InGameFlowEventID.TUTORIAL_END:
                 Debug.Log("ゲーム開始演出の終了 ============================================================================================");
@@ -351,8 +398,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     public void ReLoadScene(InputAction.CallbackContext context)
     {
         // リロード
-     
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameProgressManager.Instance.GameProgressData.startState = InGameFlowEventID.GAME_PLAYING_START;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         
     }
