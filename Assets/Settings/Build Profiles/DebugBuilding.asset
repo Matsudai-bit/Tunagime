@@ -19,11 +19,7 @@ MonoBehaviour:
   m_PlatformBuildProfile:
     rid: 1887023013786026046
   m_OverrideGlobalSceneList: 1
-  m_Scenes:
-  - m_enabled: 1
-    m_path: Assets/DaikiData/Scenes/StageSelectScene.unity
-  - m_enabled: 1
-    m_path: Assets/DaikiData/Scenes/GameplayScene.unity
+  m_Scenes: []
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:

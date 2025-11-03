@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -37,13 +38,19 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [Header("チュートリアコントローラ")]
     [SerializeField] private TutorialWindowController m_tutorialController;
 
+    [Header("ポーズウィンドウ")]
+    [SerializeField] private PauseWindowController m_pauseWindowController;
+
     private bool m_isGameClear = false;
 
+    private InGameFlowEventID m_currentEventID ;
 
     void Awake()
     {
         m_playerInput = GetComponent<PlayerInput>();
 
+        // 初期状態を設定
+        m_currentEventID = m_startState;
 
         // ゲームフロウイベントの登録
         InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
@@ -101,32 +108,13 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         {
             m_isSecondUpdate = false;
             // ゲーム開始のイベントを通知
-            m_playerInput.actions.Disable();
+            m_playerInput.actions.FindActionMap("Player").Disable();
+            m_playerInput.actions.FindActionMap("TutorialWindow").Disable();
             return;
         }
 
-        // Escキーが押されたらゲームを終了
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-            Debug.Log("ゲームを終了しました。");
-        }
 
-        // Tabが押されたらステージ選択にいく
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            // タイトルシーンに遷移する処理
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
-            Debug.Log("タイトルシーンに戻ります。");
-        }
-
-
-        // リロード
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        }
+        
 
 
         if (m_isGameClear == false)
@@ -166,7 +154,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
        // InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_END);
     }
 
-    public void LoadStageSelectScene()
+    public void LoadResultScene()
     {
         SceneManager.LoadScene("ResultScene");
     }
@@ -177,6 +165,17 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     /// <param name="eventID"></param>
     public void OnEvent(InGameFlowEventID eventID)
     {
+        if (eventID != InGameFlowEventID.END_PAUSE_MENU &&
+            eventID != InGameFlowEventID.START_PAUSE_MENU&&
+            eventID != InGameFlowEventID.TUTORIAL_END &&
+            eventID != InGameFlowEventID.TUTORIAL_START &&
+            eventID != InGameFlowEventID.START_PAUSE_MENU)
+        {
+            m_currentEventID = eventID;
+
+        }
+      
+
         switch (eventID)
         {
             case InGameFlowEventID.ZOOM_OUT_PLAYER_START:
@@ -227,7 +226,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
                 var s = WaitAndLoadStageSelectScene(300);
                 // ゲーム終了イベントを通知
-                LoadStageSelectScene();
+                LoadResultScene();
                 break;
 
             case InGameFlowEventID.GAME_CLEAR_EFFECT_START:
@@ -260,6 +259,20 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
                 StartPlayerInput();
                 break;
+
+            case InGameFlowEventID.END_PAUSE_MENU:
+                Debug.Log("ポーズメニュー終了 ============================================================================================");
+                // 現在の状態に応じてプレイヤー入力を再開
+                if (m_currentEventID == InGameFlowEventID.GAME_PLAYING_START ||
+                    m_currentEventID == InGameFlowEventID.GOING_GET_FEELING_PIECE_START)
+                {
+                    StartPlayerInput();
+                }
+                else
+                {
+                    StopPlayerInput();
+                }
+                    break;
         }
 
         if (MapData.GetInstance.StageSetting.tutorialEventData)
@@ -288,24 +301,65 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         StopPlayerInput();
     }
 
+    /// <summary>
+    /// プレイヤー入力停止
+    /// </summary>
     void StopPlayerInput()
     {
         Debug.Log("プレイヤー入力停止 ---------------------------");
-        //m_playerInput.actions.Disable();
-        //m_playerInput.enabled = false;
+        m_playerInput.actions.Enable();
+        m_playerInput.actions.FindActionMap("UI").Disable();
+        m_playerInput.actions.FindActionMap("Player").Disable();
 
         m_playerInput.SwitchCurrentActionMap("TutorialWindow");
     }
 
+    /// <summary>
+    /// プレイヤー入力開始
+    /// </summary>
     void StartPlayerInput()
     {
         Debug.Log("プレイヤー入力開始 ---------------------------");
-        //m_playerInput.actions.Enable();
-        //m_playerInput.enabled = true;
+        m_playerInput.actions.Enable();
+        m_playerInput.actions.FindActionMap("UI").Disable();
+        m_playerInput.actions.FindActionMap("TutorialWindow").Disable();
+
         m_playerInput.SwitchCurrentActionMap("Player");
+        m_playerInput.currentActionMap.Enable();
 
     }
 
+    /// <summary>
+    /// ポーズウィンドウを開く
+    /// </summary>
+    /// <param name="context"></param>
+    public void OpenPauseWindow(InputAction.CallbackContext context)
+    {
+        if (context.performed == false) return;
 
+        // ポーズメニューを開くメッセージを送る
+        InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.START_PAUSE_MENU);
+
+        // ポーズウィンドウを開く
+        m_pauseWindowController.RequestOpenPause(m_playerInput, () => { InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.END_PAUSE_MENU); });
+    }
+
+    /// <summary>
+    /// シーンをリロードする
+    /// </summary>
+    /// <param name="context"></param>
+    public void ReLoadScene(InputAction.CallbackContext context)
+    {
+        // リロード
+     
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        
+    }
+
+    public void ReturnStageSelectScene()
+    {
+        SceneManager.LoadScene("StageSelectScene");
+    }
 }
 

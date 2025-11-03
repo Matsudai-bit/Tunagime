@@ -82,7 +82,7 @@ public class SoundManager : MonoBehaviour
         m_gameSoundData = GameSoundData.GetInstance; 
 
         // サウンドデータを辞書に変換
-        foreach (var soundData in m_gameSoundData.soundData)
+        foreach (var soundData in m_gameSoundData.SoundData)
         {
             m_soundDictionary.Add(soundData.id, soundData);
         }
@@ -112,8 +112,16 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
     }
 
+    public void StopBGM()
+    {
+        if (m_bgmAudioSource != null)
+        {
+            m_bgmAudioSource.Stop();
+        }
+    }
+
     //指定された別名で登録されたAudioClipを再生
-    public void PlayBGM(SoundID id)
+    public bool PlayBGM(SoundID id)
     {
         if (m_soundDictionary.TryGetValue(id, out var soundData)) //管理用Dictionary から、別名で探索
         {
@@ -129,24 +137,27 @@ public class SoundManager : MonoBehaviour
             m_bgmAudioSource.volume = 0.2f;
             m_bgmAudioSource.Play();
             //Play(soundData.clip); //見つかったら、再生
+            return true;
         }
         else
         {
             Debug.LogWarning($"その別名は登録されていません:{name}");
+            return false;
         }
     }
 
-    public void PlaySE(SoundID id)
+    public bool PlaySE(SoundID id)
     {
         if (m_soundDictionary.TryGetValue(id, out var soundData)) //管理用Dictionary から、別名で探索
         {
  
             Play(soundData.clip); //見つかったら、再生
-
+            return true;
         }
         else
         {
             Debug.LogWarning($"その別名は登録されていません:{name}");
+            return false;
         }
     }
 }

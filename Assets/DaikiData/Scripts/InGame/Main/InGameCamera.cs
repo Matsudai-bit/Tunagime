@@ -253,6 +253,23 @@ public class InGameCamera
                 ChangeState(State.GOING_GET_FEELING_PIECE_START);
                 break;
 
+            // 一時停止関連
+            case InGameFlowEventID.START_PAUSE_MENU:
+                // 一時停止をする
+                if (m_state != State.GAME_PLAYING)
+                {
+                    DOTween.Pause(transform);
+                }
+                break;
+                //  
+            case InGameFlowEventID.END_PAUSE_MENU:
+                // 一時停止を解除する
+                if (m_state != State.GAME_PLAYING)
+                {
+                    DOTween.Play(transform);
+                }
+                break;
+
         }
     }
 

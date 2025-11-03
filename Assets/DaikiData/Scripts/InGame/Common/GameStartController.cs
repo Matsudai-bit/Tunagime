@@ -5,7 +5,9 @@ using UnityEngine;
 /// <summary>
 /// ゲーム開始コントローラー
 /// </summary>
-public class GameStartController : MonoBehaviour
+public class GameStartController 
+    : MonoBehaviour
+    , IInGameFlowEventObserver
 {
 
     [Header("====== 開始左の文字 ======")]
@@ -20,6 +22,18 @@ public class GameStartController : MonoBehaviour
     [Header("====== ゲーム開始UIパネル ======")]
     [SerializeField]
     private GameObject m_startUIPanel; // ゲーム開始UIパネル
+
+    private void Awake()
+    {
+        // オブザーバーに登録
+        InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
+    }
+
+    private void OnDestroy()
+    {
+        // オブザーバーから登録解除
+        InGameFlowEventMessenger.GetInstance.RemoveObserver(this);
+    }
 
 
 
@@ -62,8 +76,55 @@ public class GameStartController : MonoBehaviour
                 m_startUIPanel.SetActive(false);
             });
 
-
+        
         });
+    }
+
+    /// <summary>
+    /// イベント受信処理
+    /// </summary>
+    /// <param name="eventID"></param>
+    /// <exception cref="System.NotImplementedException"></exception>
+    public void OnEvent(InGameFlowEventID eventID)
+    {
+        switch (eventID)
+        {
+            // 一時停止関連
+        case InGameFlowEventID.START_PAUSE_MENU:
+            PauseDOTween();
+            break;
+
+        case InGameFlowEventID.END_PAUSE_MENU:
+            // 一時停止を解除する
+            ResumeDOTween();
+
+            break;
+        }
+    }
+
+    /// <summary>
+    /// 一時停止
+    /// </summary>
+    private void PauseDOTween()
+    {
+        // RectTransformの位置を取得
+        m_startCharacterLeft.GetComponent<RectTransform>()  .DOPause();
+        m_startCharacterRight.GetComponent<RectTransform>() .DOPause();
+
+        m_startCharacterLeft.GetComponent<TextMeshProUGUI>().DOPause();
+        m_startCharacterRight.GetComponent<TextMeshProUGUI>().DOPause();
+    }
+
+    /// <summary>
+    /// 一時停止解除
+    /// </summary>
+    private void ResumeDOTween()
+    {
+        // RectTransformの位置を取得
+        m_startCharacterLeft.GetComponent<RectTransform>().DOPlay();
+        m_startCharacterRight.GetComponent<RectTransform>().DOPlay();
+        m_startCharacterLeft.GetComponent<TextMeshProUGUI>().DOPlay();
+        m_startCharacterRight.GetComponent<TextMeshProUGUI>().DOPlay();
     }
 }
 

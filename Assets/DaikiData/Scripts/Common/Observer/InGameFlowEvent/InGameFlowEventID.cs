@@ -32,5 +32,9 @@ public enum InGameFlowEventID
     GAME_PAUSE,             // ゲームが一時停止された
     GAME_RESUME,            // ゲームが再開された
 
+    START_PAUSE_MENU,   // ポーズメニューが開始された
+    END_PAUSE_MENU,     // ポーズメニューが終了した
+
+
 }
 

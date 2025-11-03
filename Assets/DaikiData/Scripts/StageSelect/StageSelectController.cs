@@ -29,6 +29,10 @@ public class StageSelectController : MonoBehaviour
     [SerializeField]
     private WorldObjectSelector m_worldObjectSelector; // ワールドオブジェクトセレクター
 
+    [Header("ステージ選択ディレクター")]
+    [SerializeField]
+    private StageSelectDirector m_stageSelectDirector;
+
     private GameObject m_buttonPrefab; // ボタンのプレハブ
 
     private List<GameObject> m_buttonObjects = new ();  // ステージセレクトボタンのリスト
@@ -83,7 +87,7 @@ public class StageSelectController : MonoBehaviour
                     gameProgressData.stageID = (StageID)stageIndex;
 
 
-                    SceneManager.LoadScene("GameplayScene");
+                    m_stageSelectDirector.LoadGameplayScene();
                 });
             }
         }
@@ -116,7 +120,7 @@ public class StageSelectController : MonoBehaviour
                     gameProgressData.stageID = (StageID)stageIndex;
 
 
-                    SceneManager.LoadScene("GameplayScene");
+                    m_stageSelectDirector.LoadGameplayScene();
                 });
             }
         }
@@ -280,7 +284,8 @@ public class StageSelectController : MonoBehaviour
         newStageID = Math.Clamp(newStageID, 0, Enum.GetValues(typeof(StageID)).Length );
 
         if (newStageID != (int)m_currentButtonIndex)
-        {
+        {    // SEを鳴らす
+            SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_MOVE);
             m_currentButtonIndex = newStageID;
             UpdateButtonState();
 
@@ -316,6 +321,7 @@ public class StageSelectController : MonoBehaviour
         Debug.Log($"Clicked button for {m_currentButtonIndex}");
         if (m_currentButtonIndex == 0)
         {
+
             // ワールドボタンが押された場合、ワールドセレクトに戻る
             ExitStageSelect();
             return;
@@ -323,7 +329,8 @@ public class StageSelectController : MonoBehaviour
 
         if (button != null)
         {
-            
+            // SEを鳴らす
+            SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_PUSH);
             button.onClick.Invoke();
         }
         else
@@ -368,6 +375,8 @@ public class StageSelectController : MonoBehaviour
         {
             return;
         }
+        // SEを鳴らす
+        SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_BACK);
         Debug.Log("OnCancel called");
         ChangeState(State.WORLD_SELECT);
         UpdateButtonState();
