@@ -23,6 +23,10 @@ public class MenuContentSelector : MonoBehaviour
         public GameObject gameObject; // タイトルメニューの位置
     }
 
+    [Header("親(親が有効の時に入力可能)")]
+    [SerializeField] private GameObject m_parentObject;
+
+
     [Header("初期位置")]
     [SerializeField] private string m_startPointMenu; // タイトルセレクターの初期位置
 
@@ -172,6 +176,8 @@ public class MenuContentSelector : MonoBehaviour
     public void OnNavigate(InputAction.CallbackContext context)
     {
         if (m_titleMenuDict.Count <= 0 ) { return; }
+        if (m_parentObject == null || !m_parentObject.activeSelf) { return; }
+
         Vector2 input = context.ReadValue<Vector2>();
 
         int newPointMenu = GetIndex(m_currentTitleMenu);

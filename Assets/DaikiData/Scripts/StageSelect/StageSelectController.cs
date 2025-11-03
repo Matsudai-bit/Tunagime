@@ -33,6 +33,16 @@ public class StageSelectController : MonoBehaviour
     [SerializeField]
     private StageSelectDirector m_stageSelectDirector;
 
+    [Header("入力を受け付けるかどうか")]
+    [SerializeField]
+    private bool m_acceptInput = true; // 入力を受け付けるかどうか
+
+    public bool AcceptInput
+    {
+        get { return m_acceptInput; }
+        set { m_acceptInput = value; }
+    }
+
     private GameObject m_buttonPrefab; // ボタンのプレハブ
 
     private List<GameObject> m_buttonObjects = new ();  // ステージセレクトボタンのリスト
@@ -253,6 +263,9 @@ public class StageSelectController : MonoBehaviour
     /// <param name="value"></param>
     public void OnNavigate(InputAction.CallbackContext context)
     {
+        if (!m_acceptInput)     { return; }
+        if (!context.performed) { return; }
+
         if (m_currentState != State.STAGE_SELECT || !gameObject.activeSelf)
         {
             return;
@@ -305,8 +318,11 @@ public class StageSelectController : MonoBehaviour
     /// 現在のワールドIDに対応するボタンをクリック
     /// </summary>
     /// <param name="value"></param>
-    public void OnSubmit(InputAction.CallbackContext _context)
+    public void OnSubmit(InputAction.CallbackContext context)
     {
+        if (!m_acceptInput)     { return; }
+        if (!context.performed) { return; }
+
         if (m_currentState != State.STAGE_SELECT || !gameObject.activeSelf)
         {
             return;
@@ -339,8 +355,16 @@ public class StageSelectController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// キャンセルボタンが押されたときの処理
+    /// </summary>
+    /// <param name="context"></param>
     public void OnCancel(InputAction.CallbackContext context)
     {
+        if (!m_acceptInput)     { return; }
+        if (!context.performed) { return; }
+
+
         if (!gameObject.activeSelf)
         {
             return;

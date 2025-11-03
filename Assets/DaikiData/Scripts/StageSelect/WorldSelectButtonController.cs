@@ -48,6 +48,16 @@ public class WorldSelectButtonController : MonoBehaviour
     private WorldObjectSelector m_worldObjectSelector; // ワールドオブジェクトセレクター
     private Dictionary<WorldID, GameObject> m_worldSelectButtonDictionary = new Dictionary<WorldID, GameObject>(); // 辞書型でワールドIDとボタンのGameObjectを紐付け
 
+    [Header("入力を受け付けるかどうか")]
+    [SerializeField]
+    private bool m_acceptInput = true; // 入力を受け付けるかどうか
+
+    public bool AcceptInput
+    {
+        get { return m_acceptInput; }
+        set { m_acceptInput = value; }
+    }
+
 
     private WorldID m_currentWorldID; // 現在のワールドID
 
@@ -83,26 +93,7 @@ public class WorldSelectButtonController : MonoBehaviour
 
         ChangeWorldObject(m_currentWorldID, WorldObjectSelector.ScrollDirection.RIGHT);
 
-        //Debug.Log($"OnSubmit called for {m_currentWorldID}");
-        //if (m_worldSelectButtonDictionary.TryGetValue(m_currentWorldID, out GameObject buttonObj))
-        //{
-        //    Button button = buttonObj.GetComponent<Button>();
-        //    if (button != null)
-        //    {
-        //        // 
-        //        button.OnSubmit(null);
-        //        ChangeState(State.CHANGING_STAGE_SELECT);
-        //        Debug.Log($"Clicked button for {m_currentWorldID}");
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning($"Button component not found on {buttonObj.name}");
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.LogWarning($"No button found for WorldID {m_currentWorldID}");
-        //}
+        
     }
 
     // Update is called once per frame
@@ -293,6 +284,8 @@ public class WorldSelectButtonController : MonoBehaviour
     /// <param name="value"></param>
     public void OnNavigate(InputAction.CallbackContext context)
     {
+        if (!m_acceptInput)     { return; }
+        if (!context.performed) { return; }
 
         if (m_currentState != State.WORLD_SELECT)
         {
@@ -340,6 +333,8 @@ public class WorldSelectButtonController : MonoBehaviour
     /// <param name="value"></param>
     public void OnSubmit(InputAction.CallbackContext context)
     {
+        if (!m_acceptInput)     { return; }
+        if (!context.performed) { return; }
         if (m_currentState != State.WORLD_SELECT)
         {
             return;
