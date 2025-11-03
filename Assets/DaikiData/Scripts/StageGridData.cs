@@ -262,6 +262,24 @@ public class StageGridData : MonoBehaviour
     {
         m_isAmidaDataChanged = false;
     }
+
+    /// <summary>
+    /// 指定したグリッド座標にあみだチューブが配置されているか確認。
+    /// </summary>
+    /// <param name="gridPos"></param>
+    /// <returns></returns>
+    public bool IsPlacedAmidaTube(GridPos gridPos)
+    {
+        // 範囲内かどうかを確認
+        if (!MapData.GetInstance.CheckInnerGridPos(gridPos))
+        {
+            Debug.LogWarning($"IsPlacedAmidaTube: Grid position ({gridPos.x},{gridPos.y}) is out of bounds.");
+            return false;
+        }
+        // タイルデータからあみだチューブを取得
+        TileData tile = m_tileData[gridPos.y, gridPos.x];
+        return tile.amidaTube != null;
+    }
 }
 
 
