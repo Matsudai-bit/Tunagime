@@ -40,6 +40,8 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private SceneTransitionEffect m_sceneTransitionFadeOut;
 
+    private PlayerInput m_playerInput; // プレイヤー入力
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -63,15 +65,17 @@ public class StoryDirector : MonoBehaviour
         m_storyIllustrationWindowController.Initialize(storyIllustrationDict[currentWorldID]);
         // ストーリー開始
         m_storyIllustrationWindowController.StartStory();
+
+        // プレイヤー入力取得
+        m_playerInput = GetComponent<PlayerInput>();
+        m_playerInput.actions.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SceneManager.LoadScene("StoryScene");
-        }
+        m_playerInput.actions.Enable();
+
     }
 
     /// <summary>

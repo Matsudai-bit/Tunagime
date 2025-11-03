@@ -1327,6 +1327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1191d41f1325846b56a04a381775d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_parentObject: {fileID: 113646368}
   m_startPointMenu: ContinueGame
   m_titleSelector: {fileID: 655870513}
   m_titleMenu:
