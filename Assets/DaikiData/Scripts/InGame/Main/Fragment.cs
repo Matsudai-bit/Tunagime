@@ -116,33 +116,9 @@ public class Fragment : MonoBehaviour
         // 現在の状態がMOVINGの場合のみ、移動処理を実行
         if (m_currentState == State.MOVING)
         {
-            // 現在のタイルを取得
-            var stageGridData = MapData.GetInstance.GetStageGridData();
 
-            var amidaTube = stageGridData.GetAmidaTube(m_stageBlock.GetGridPos());
-
-
-            if (amidaTube == null)
-            {
-                // 一番近い距離のあみだチューブを探す
-                var closestAmidaTube = StageAmidaUtility.FindClosestAmidaTube(transform.position);
-                if (closestAmidaTube != null && closestAmidaTube.GetState() == AmidaTube.State.NORMAL)
-                {
-                    var closetGridPos = closestAmidaTube.GetComponent<StageBlock>().GetGridPos();
-
-                    if (closetGridPos != m_stageBlock.GetGridPos())
-                    {
-                        m_stageBlock.UpdatePosition(closetGridPos, true);
-                        m_prevGridPos = m_stageBlock.GetGridPos();
-
-                        m_currentMovementDirection = m_currentSideDirection;
-                    }
-
-  
-                }
-
-            }
-
+            // あみだチューブに応じて位置を調整する
+            AdjustPositionAccordingToAmidaTube();
             // ステージのグリッドに沿って断片を移動させる
             MoveOnGrid();
         }
@@ -178,6 +154,47 @@ public class Fragment : MonoBehaviour
         {
             Vector3 movedDirection = GetMovementDirectionVector(m_currentMovementDirection);
             Debug.DrawRay(m_stageBlock.transform.position, movedDirection * m_raycastDistance, Color.red);
+        }
+    }
+
+    /// <summary>
+    /// あみだチューブに応じて位置を調整するリクエスト
+    /// </summary>
+    public void RequestAdjustingPositionAccordingToAmidaTube()
+    {
+        AdjustPositionAccordingToAmidaTube();
+    }
+
+    /// <summary>
+    /// あみだチューブに応じて位置を調整する
+    /// </summary>
+    private void AdjustPositionAccordingToAmidaTube()
+    {
+        // 現在のタイルを取得
+        var stageGridData = MapData.GetInstance.GetStageGridData();
+
+        var amidaTube = stageGridData.GetAmidaTube(m_stageBlock.GetGridPos());
+
+
+        if (amidaTube == null)
+        {
+            // 一番近い距離のあみだチューブを探す
+            var closestAmidaTube = StageAmidaUtility.FindClosestAmidaTube(transform.position,true, true);
+            if (closestAmidaTube != null && closestAmidaTube.GetState() == AmidaTube.State.NORMAL)
+            {
+                var closetGridPos = closestAmidaTube.GetComponent<StageBlock>().GetGridPos();
+
+                if (closetGridPos != m_stageBlock.GetGridPos())
+                {
+                    m_stageBlock.UpdatePosition(closetGridPos, true);
+                    m_prevGridPos = m_stageBlock.GetGridPos();
+
+                    m_currentMovementDirection = m_currentSideDirection;
+                }
+
+
+            }
+
         }
     }
 
