@@ -341,6 +341,8 @@ public class StageGenerator : MonoBehaviour
         amidaGenerator.m_addAmidaPos.Clear();
         amidaGenerator.m_horizonalAmidaPosY.Clear();
 
+        
+
 
         // ギミックの生成
         foreach (var generation in rootLayoutList)
