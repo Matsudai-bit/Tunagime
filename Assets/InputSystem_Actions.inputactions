@@ -1435,6 +1435,17 @@
                     "action": "EndTutorial",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "203fe858-61be-440a-bf82-8905a6598f92",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EndTutorial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

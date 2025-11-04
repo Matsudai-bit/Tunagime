@@ -55,8 +55,9 @@ public class SceneTransitionManager : MonoBehaviour
         // シーン遷移エフェクトを開始し、完了時にシーンをロードする
         sceneTransitionEffect.StartTransition(() =>
         {
+            LoadingSceneRequest.GetInstance.RequestLoadingScene(sceneName);
             // シーンのロード
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+          //  UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         });
 
     }
