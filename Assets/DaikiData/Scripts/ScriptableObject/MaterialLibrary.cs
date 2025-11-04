@@ -14,7 +14,8 @@ public class MaterialLibrary : ScriptableObject
         CURTAIN,
         CORE,
         FRAGMENT, // 追加: 想いの断片
-        FEELING_SLOT // 
+        FEELING_SLOT, // 
+        YARN_BRIDGE // 追加: 毛糸の橋
     }
 
     [Serializable]
@@ -44,6 +45,7 @@ public class MaterialLibrary : ScriptableObject
 
     // ランタイムで利用する辞書
     private Dictionary<MaterialGroup, Dictionary<EmotionCurrent.Type, Material>> m_materialMap;
+
 
     private static MaterialLibrary s_instance;
 

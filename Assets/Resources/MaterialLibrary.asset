@@ -109,3 +109,19 @@ MonoBehaviour:
       material: {fileID: 2100000, guid: ae9284f55ca69af4a872598658adf1a8, type: 2}
     - emotionType: 0
       material: {fileID: 2100000, guid: 9676f9d5386654744b409d4e11365901, type: 2}
+  - materialGroup: 6
+    materialEntries:
+    - emotionType: 6
+      material: {fileID: 2100000, guid: 94d17eb5f09944a47abcc75a6a04e7e3, type: 2}
+    - emotionType: 5
+      material: {fileID: 2100000, guid: 9821a2290101afd4fb81b373afd856e0, type: 2}
+    - emotionType: 4
+      material: {fileID: 2100000, guid: 303dfd4066930304cac144fcd04e6b74, type: 2}
+    - emotionType: 3
+      material: {fileID: 2100000, guid: d2e425bee2465a042a25c1b84963dff4, type: 2}
+    - emotionType: 2
+      material: {fileID: 2100000, guid: 9855424dab2aa9541a45b08a0384f018, type: 2}
+    - emotionType: 1
+      material: {fileID: 2100000, guid: 847a267ce25157e4a87e3fa1afe4381c, type: 2}
+    - emotionType: 0
+      material: {fileID: 2100000, guid: ff633e7b25d4d8a479337f1f46358e09, type: 2}
