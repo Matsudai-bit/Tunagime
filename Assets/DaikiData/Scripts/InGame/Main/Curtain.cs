@@ -249,7 +249,7 @@ public class Curtain : MonoBehaviour
             slotStateMonitor.IsConnected(EmotionCurrent.Type.REJECTION) == false)
         {
             // カーテンの状態を開く状態に設定
-            if (m_state == State.CLOSING_FINISHED)
+            if (m_state == State.CLOSING_FINISHED || (m_state == State.CLOSING && m_isClosing == false))
             {
                 ChangeState(State.OPENING);
             }
@@ -257,7 +257,7 @@ public class Curtain : MonoBehaviour
         else
         {
             // カーテンの状態を閉じる状態に設定
-            if (m_state == State.OPENING_FINISHED)
+            if (m_state == State.OPENING_FINISHED || (m_state == State.CLOSING && m_isClosing == false))
             {
                 if (CanClose())
                     ChangeState(State.CLOSING);

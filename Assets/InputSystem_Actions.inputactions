@@ -933,7 +933,7 @@
                 {
                     "name": "",
                     "id": "3581a17d-fe6c-4448-b3f9-d615c9d7d96c",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -954,19 +954,19 @@
                 },
                 {
                     "name": "",
-                    "id": "8e3e76f2-5ce4-485e-8443-7e3d9f042c8e",
-                    "path": "<Keyboard>/q",
+                    "id": "4f7f4a2a-d2b8-4d83-85af-86a863d15076",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4f7f4a2a-d2b8-4d83-85af-86a863d15076",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "1bf1b758-e530-49ea-bd0f-085098a0049d",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1417,7 +1417,7 @@
                 {
                     "name": "",
                     "id": "857a4f07-516f-44b7-acb6-957be31e83ab",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1428,7 +1428,7 @@
                 {
                     "name": "",
                     "id": "0a491da1-a6c4-46ec-bef1-184f5808f317",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
