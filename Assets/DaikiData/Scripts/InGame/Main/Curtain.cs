@@ -188,6 +188,13 @@ public class Curtain : MonoBehaviour
 
     private void StartOpenCurtain()
     {
+        // カーテンの開く音を再生
+        int soundID =  SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CURTAIN_OPEN, false);
+        if (soundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("Curtain: カーテン開くサウンドの再生に失敗しました。");
+        }
+
 
         m_collider.enabled = false; // カーテンのコライダーを無効化
         var stageGridData = MapData.GetInstance.GetStageGridData();
@@ -214,6 +221,7 @@ public class Curtain : MonoBehaviour
 
     private void StartCloseCurtain()
     {
+        
 
         var stageGridData = MapData.GetInstance.GetStageGridData();
         // ステージブロックのグリッド位置を取得して、カーテンのグリッドデータに追加
@@ -223,9 +231,18 @@ public class Curtain : MonoBehaviour
         {
             return; // カーテンを閉じられない場合は処理を中断
         }
-        m_collider.enabled = true; // カーテンのコライダーを無効化
 
         // カーテンを閉じる処理
+
+        // カーテンの閉じる音を再生
+        int soundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CURTAIN_CLOSE, false);
+        if (soundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("Curtain: カーテン閉じるサウンドの再生に失敗しました。");
+        }
+
+        m_collider.enabled = true; // カーテンのコライダーを無効化
+
         float backPower = 1.0f;
 
         m_curtainModel_R.transform.DOLocalMove(m_startPos_R, m_closingTime).SetEase(Ease.OutBack, backPower);

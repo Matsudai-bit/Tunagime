@@ -2,6 +2,7 @@
 
 public class WalkStatePlayer : PlayerState
 {
+    private int m_walkSoundID = -1;
     public WalkStatePlayer(Player owner) : base(owner)
     {
 
@@ -13,6 +14,13 @@ public class WalkStatePlayer : PlayerState
     {
         // 歩行状態の開始時にアニメーションを設定
         owner.GetAnimator().SetBool("Walk", true);
+
+        // 歩行状態の開始時にサウンドを再生
+        m_walkSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_WALK, true);
+        if ( m_walkSoundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("WalkStatePlayer: 歩行サウンドの再生に失敗しました。");
+        }
 
         OnFixedUpdateState();
     }
@@ -98,7 +106,10 @@ public class WalkStatePlayer : PlayerState
         // 歩行状態の終了時にアニメーションをリセット
         owner.GetAnimator().SetBool("Walk", false);
 
-     
+        // 歩行状態の終了時にサウンドを停止
+        SoundManager.GetInstance.RequestStopping(m_walkSoundID);
+
+
     }
 
     public bool CanSlide()

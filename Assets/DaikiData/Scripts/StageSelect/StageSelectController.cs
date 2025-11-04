@@ -300,7 +300,7 @@ public class StageSelectController : MonoBehaviour
 
         if (newStageID != (int)m_currentButtonIndex)
         {    // SEを鳴らす
-            SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_MOVE);
+            SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_MOVE);
             m_currentButtonIndex = newStageID;
             UpdateButtonState();
 
@@ -348,7 +348,7 @@ public class StageSelectController : MonoBehaviour
         if (button != null)
         {
             // SEを鳴らす
-            SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_PUSH);
+            SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_GAMESTART_PUSH);
             button.onClick.Invoke();
         }
         else
@@ -402,7 +402,7 @@ public class StageSelectController : MonoBehaviour
             return;
         }
         // SEを鳴らす
-        SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_BACK);
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_BACK);
         Debug.Log("OnCancel called");
         ChangeState(State.WORLD_SELECT);
         UpdateButtonState();

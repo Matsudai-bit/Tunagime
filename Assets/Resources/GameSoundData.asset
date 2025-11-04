@@ -46,3 +46,54 @@ MonoBehaviour:
   - labelName: SE_UI_BUTTON_MOVE
     id: 10
     clip: {fileID: 8300000, guid: 86c357eefadb14449a55dc3dc665aa2f, type: 3}
+  - labelName: SE_UI_BUTTON_GAMESTART_PUSH
+    id: 11
+    clip: {fileID: 8300000, guid: a947d8d6da63a61478727bf4221bef53, type: 3}
+  - labelName: SE_PLAYER_WALK
+    id: 12
+    clip: {fileID: 8300000, guid: b3ca63ccbcf1cbf498b600c9ab2f1ceb, type: 3}
+  - labelName: SE_PLAYER_KNIT
+    id: 13
+    clip: {fileID: 8300000, guid: 64e40325152ebd0428ab2e9ed453ee17, type: 3}
+  - labelName: SE_PLAYER_UNKNIT
+    id: 14
+    clip: {fileID: 8300000, guid: 057e6469df819be4caf586048ad8c9c0, type: 3}
+  - labelName: SE_PLAYER_PUSHBLOCK
+    id: 15
+    clip: {fileID: 8300000, guid: 275f2f0b549cf844ba4044333fe5a3dd, type: 3}
+  - labelName: SE_PLAYER_SLIDE
+    id: 16
+    clip: {fileID: 8300000, guid: dee48f3327705a544a314396555d738b, type: 3}
+  - labelName: SE_PAUSE_OPEN
+    id: 17
+    clip: {fileID: 8300000, guid: 526062b3905df9b4aa1b6c7369a15cdb, type: 3}
+  - labelName: SE_PAUSE_CLOSE
+    id: 18
+    clip: {fileID: 8300000, guid: f97c1124c30909a42a1bf5b2fba5efa5, type: 3}
+  - labelName: SE_INGAME_CONNECT_REJECTION_SLOT
+    id: 19
+    clip: {fileID: 8300000, guid: 41436fc3f753c9e4e80303bdaf9f8a7c, type: 3}
+  - labelName: SE_INGAME_STARTING_GAME
+    id: 20
+    clip: {fileID: 8300000, guid: 45385f445483cd946854f19caffde6a4, type: 3}
+  - labelName: SE_INGAME_CURTAIN_OPEN
+    id: 21
+    clip: {fileID: 8300000, guid: b95d886fea44609408c4012ee6899491, type: 3}
+  - labelName: SE_INGAME_CURTAIN_CLOSE
+    id: 22
+    clip: {fileID: 8300000, guid: 9c38975a720e6f94886370948bbff970, type: 3}
+  - labelName: SE_INGAME_CLOUD_MERGE
+    id: 23
+    clip: {fileID: 8300000, guid: ea0d4c7edb701bb409fc040f2b08dd6c, type: 3}
+  - labelName: SE_INGAME_CLOUD_MERGE_ALL
+    id: 24
+    clip: {fileID: 8300000, guid: 6a8a7162338105e4b9e0864ce2112dc0, type: 3}
+  - labelName: SE_INGAME_FEELING_PIECE_SPAWN
+    id: 25
+    clip: {fileID: 8300000, guid: 3c662e1c39a56a843a5f31aeb4c0dba3, type: 3}
+  - labelName: SE_INGAME_FEELING_PIECE_COLLECT
+    id: 26
+    clip: {fileID: 8300000, guid: f0f5a53d236238e4f9e643dff21d52a1, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 27
+    clip: {fileID: 8300000, guid: 402c6870b4c35d843bed4bce6bbbb8d0, type: 3}

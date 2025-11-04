@@ -145,6 +145,16 @@ public class Fragment : MonoBehaviour
                     RequestMerge(findingFragment);
                     findingFragment.RequestMerge(this);
 
+                    if (m_level == Level.LEVEL_4)
+                    {
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CLOUD_MERGE_ALL);
+                    }
+                    else
+                    {
+                        // マージ音を再生
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CLOUD_MERGE);
+                    }
+  
                 }
             }
         }
@@ -539,26 +549,25 @@ public class Fragment : MonoBehaviour
     /// 想いの断片をマージするリクエストを送る
     /// </summary>
     /// <param name="fragment">マージする相手の断片</param>
-    public void RequestMerge(Fragment fragment)
+    public bool RequestMerge(Fragment fragment)
     {
-        if (fragment.gameObject.activeSelf == false)
-        {
-            MergeFragment(fragment);
-        }
+
 
         if ((int)(fragment.level) < (int)(m_level))
         {
             MergeFragment(fragment);
-            return;
+            return true;
         }
+
 
         if ((int)(fragment.level) == (int)(m_level))
         {
+
             // 基本右優先
             if (m_currentSideDirection == MovementDirectionID.RIGHT && fragment.CurrentSideDirection == MovementDirectionID.LEFT)
             {
                 MergeFragment(fragment);
-                return;
+                return true;
             }
             else
             {
@@ -567,7 +576,7 @@ public class Fragment : MonoBehaviour
                     if ((fragment.transform.position - gameObject.transform.position ).x > 0.0f)
                     {
                         MergeFragment(fragment);
-                        return;
+                        return true;
                     }
                 }
 
@@ -589,7 +598,7 @@ public class Fragment : MonoBehaviour
         gameObject.SetActive(false); // 自分自身を非アクティブにする
         MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // グリッドデータから削除
 
-
+        return false;
     }
 
     private void MergeFragment(Fragment fragment)

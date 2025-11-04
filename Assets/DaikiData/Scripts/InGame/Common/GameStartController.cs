@@ -61,6 +61,7 @@ public class GameStartController
         rightCharacterRectTransform.position = targetRightCharacterPosition + new Vector3(1000.0f, 0.0f, 0.0f);
 
 
+
         // イージングで移動
         leftCharacterRectTransform.DOMove(targetLeftCharacterPosition, 2.0f).SetEase(Ease.OutBounce).SetDelay(0.5f);
         rightCharacterRectTransform.DOMove(targetRightCharacterPosition, 2.0f).SetEase(Ease.OutBounce).SetDelay(0.5f).OnComplete(() =>
@@ -77,6 +78,13 @@ public class GameStartController
             });
 
         
+        });
+
+
+        // 0.5秒待ってから音を鳴らす
+        DOVirtual.DelayedCall(1.1f, () =>
+        {
+            SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_STARTING_GAME, false);
         });
     }
 

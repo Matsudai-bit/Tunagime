@@ -23,4 +23,32 @@ public enum SoundID
     SE_UI_BUTTON_BACK, // 戻るボタン
     SE_UI_BUTTON_PUSH, // 決定ボタン
     SE_UI_BUTTON_MOVE, // カーソル移動
+    SE_UI_BUTTON_GAMESTART_PUSH, // ゲームスタートボタンを押したときの音
+
+    // **** プレイヤー ****
+    SE_PLAYER_WALK,     // プレイヤー歩行音
+    SE_PLAYER_KNIT,     // 編み音
+    SE_PLAYER_UNKNIT,  // 解き音
+    SE_PLAYER_PUSHBLOCK,     // 押す音
+    SE_PLAYER_SLIDE,     // 滑る音/
+
+    // **** ポーズ画面 ****
+    SE_PAUSE_OPEN,      // ポーズ画面オープン音
+    SE_PAUSE_CLOSE,     // ポーズ画面クローズ音
+
+    // **** インゲーム ****
+    SE_INGAME_CONNECT_REJECTION_SLOT,   // 拒絶の核接続音
+    SE_INGAME_STARTING_GAME,            // ゲームスタート音
+
+    SE_INGAME_CURTAIN_OPEN,          // カーテンオープン音
+    SE_INGAME_CURTAIN_CLOSE,         // カーテンクローズ音
+
+    SE_INGAME_CLOUD_MERGE,           // 想いの断片合成音
+    SE_INGAME_CLOUD_MERGE_ALL,        // 想いの断片全合成音
+
+    SE_INGAME_FEELING_PIECE_SPAWN,   // 想いの断片生成音
+    SE_INGAME_FEELING_PIECE_COLLECT, // 想いの断片回収音
+    SE_INGAME_FEELING_CORE_SETTING_SLOT,
+
+
 }

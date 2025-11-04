@@ -70,7 +70,7 @@ public class TitleSceneController : MonoBehaviour
         if (!value.performed) { return; }
 
         // SEを鳴らす
-        SoundManager.GetInstance.PlaySE(SoundID.SE_UI_BUTTON_PUSH);
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_PUSH);
         // 各タイトルメニューに対応する処理
         switch (m_titleSelector.CurrentTitleMenuName)
         {

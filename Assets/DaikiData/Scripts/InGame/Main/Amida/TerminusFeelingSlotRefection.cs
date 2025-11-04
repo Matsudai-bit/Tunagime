@@ -24,7 +24,12 @@ public class TerminusFeelingSlotRefection : MonoBehaviour
         {
             // 接続状態が変わった場合にのみ通知
             if (m_isConnected == false)
+            {
+                // 繋がった時の音を再生
+                SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_REJECTION_SLOT, false);
+
                 GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.CONNECTED_REJECTION_SLOT);
+            }
 
             m_isConnected = true;
         }
