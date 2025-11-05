@@ -9,7 +9,7 @@ public class SaveData
     /// <summary>
     /// JSON保存用構造体
     /// </summary>
-    public struct JsonSaver
+    public class JsonSaver
     {
         public List<WorldData> worldDataList;
     }
@@ -26,7 +26,7 @@ public class SaveData
     /// ステージクリアデータ
     /// </summary>
     [System.Serializable]
-    public struct StageData
+    public class StageData
     {
         public StageID      stageID; // ステージID
         public StageStatus  stageStatus; // ステージステータス
@@ -36,10 +36,10 @@ public class SaveData
     /// ステージステータス
     /// </summary>
     [System.Serializable]
-    public struct StageStatus
+    public class StageStatus
     {
         public bool isClear;   // クリアしたかどうか
-        public bool locked;  // アンロックされているかどうか
+        public bool isLocked = true;  // アンロックされているかどうか
         public float clearTime; // クリアタイム
     }
 
@@ -47,9 +47,10 @@ public class SaveData
     /// ワールドデータ
     /// </summary>
     [System.Serializable]
-    public struct WorldData
+    public class WorldData
     {
-        public WorldID worldID;                 // ワールドID
+        public WorldID worldID;      // ワールドID
+        public bool isLocked = true;              // ワールドがロックされているかどうか
         public List<StageData> stageDataList; // JSON保存用リスト
     }
 
@@ -101,6 +102,7 @@ public class SaveData
             WorldData worldData = new WorldData();
             worldData.worldID = worldID;
             worldData.stageDataList = new ();
+            worldData.isLocked =  true; 
 
             // ステージクリアデータの初期化
             for (int j = 0; j < Enum.GetValues(typeof(StageID)).Length; j++)
@@ -110,11 +112,22 @@ public class SaveData
                 stageClearData.stageID = stageID;
                 stageClearData.stageStatus = new StageStatus();
                 stageClearData.stageStatus.isClear = false;
-                stageClearData.stageStatus.locked = (j != 0) ? true : false; // 最初のステージだけアンロック
+                stageClearData.stageStatus.isLocked = true; 
                 stageClearData.stageStatus.clearTime = 0.0f;
                 worldData.stageDataList.Add(stageClearData);
             }
             worldDataDict[worldID] = worldData;
         }
+    }
+
+    /// <summary>
+    /// ステージのステータスを取得
+    /// </summary>
+    /// <param name="worldID"></param>
+    /// <param name="stageID"></param>
+    /// <returns></returns>
+    public StageStatus GetStageStatus(WorldID worldID, StageID stageID)
+    {
+        return worldDataDict[worldID].stageDataList[(int)stageID].stageStatus;
     }
 }

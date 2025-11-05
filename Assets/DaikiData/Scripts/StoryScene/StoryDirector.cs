@@ -2,13 +2,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 /// <summary>
 /// ストーリーシーン全体を管理するクラス
 /// </summary>
 public class StoryDirector : MonoBehaviour
 {
-    #region インスペクター用
+    #region クラス・構造体
 
     [Serializable]
     class InspectorStruct
@@ -17,10 +18,25 @@ public class StoryDirector : MonoBehaviour
         public bool   debugMode;    // デバッグモード
 
         public string label2Name =  "表示するワールドID"; // ストーリーイラストウィンドウコントローラープリファブのパス
-        public WorldID storyWorldID; // ストーリーイラストのワールドID
+        public NarrativeContext.NarrativeState state; // ストーリーイラストのワールドID
     }
+
+    /// <summary>
+    /// 再生状態
+    /// </summary>
+    enum PlayingState
+    {
+        IllustrationPlaying, // イラスト再生中
+        VideoPlaying         // ビデオ再生中
+    }
+
+
     #endregion
 
+
+    [Header("物語の状況クラスインスタンス(デバック用)")]
+    [SerializeField]
+    private NarrativeContext m_narrativeContext = NarrativeContext.GetInstance; // 物語の状況クラスインスタンス
 
     [Header("設定")]
     [SerializeField]
@@ -30,11 +46,21 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private StoryIllustrationWindowController m_storyIllustrationWindowController;
 
+    [Header("BGMプレイヤー")]
+    [SerializeField]
+    private BgmPlayer m_bgmPlayer; // BGMプレイヤー
 
+    [Header("ストーリービデオパネル")]
+    [SerializeField]
+    private GameObject m_storyVideoPanel; // ストーリービデオパネル
+
+    [Header("ビデオプレイヤー")]
+    [SerializeField]
+    private VideoPlayer m_storyVideoPlayer; // ビデオプレイヤー
 
     [Header("ストーリーイラストデータ")]
     [SerializeField]
-    private StoryIllustrationData m_storyIllustrationData;
+    private StoryRenderingData m_storyRenderingData;
 
     [Header("シーン遷移演出(フェードアウト)")]
     [SerializeField]
@@ -42,39 +68,85 @@ public class StoryDirector : MonoBehaviour
 
     private PlayerInput m_playerInput; // プレイヤー入力
 
+    private PlayingState m_playingState; // 再生状態
+
+    bool m_isFinished = false; // ストーリーシーン終了フラグ
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        var storyIllustrationDict = m_storyIllustrationData.GetStoryIllustrationDict();
+        m_isFinished = false;
 
-        WorldID currentWorldID;
+        var storyRenderingDict = m_storyRenderingData.GetStoryRenderingDict();
+
+        NarrativeContext.NarrativeState requestState;
 
         // デバッグモード判定
         if (m_inspector.debugMode)
         {
             // デバッグモード時はインスペクターで指定したワールドIDを使用
-            currentWorldID = m_inspector.storyWorldID;
+            requestState = m_inspector.state;
         }
         else
         {
             // 通常時はゲーム進行状況からワールドIDを取得
-            currentWorldID = GameProgressManager.Instance.GameProgressData.worldID;
+            requestState = NarrativeContext.GetInstance.GetNarrativeState;
         }
 
-        // ストーリーイラストウィンドウコントローラー初期化
-        m_storyIllustrationWindowController.Initialize(storyIllustrationDict[currentWorldID]);
-        // ストーリー開始
-        m_storyIllustrationWindowController.StartStory();
+        if (requestState == NarrativeContext.NarrativeState.INTRODUCTION || requestState == NarrativeContext.NarrativeState.ENDING)
+        {
+            m_storyVideoPanel.SetActive(true);
+            m_storyVideoPlayer.gameObject.SetActive(true);
+            m_storyVideoPlayer.clip = storyRenderingDict[requestState].videoClip;
+            m_storyVideoPlayer.Play();
+            m_playingState = PlayingState.VideoPlaying;
+        }
+        else
+        {
+            m_storyIllustrationWindowController.gameObject.SetActive(true);
+            m_bgmPlayer.PlayBGM();
+            
+            // ストーリーイラストウィンドウコントローラー初期化
+            m_storyIllustrationWindowController.Initialize(storyRenderingDict[requestState].illustrationSprites);
 
-        // プレイヤー入力取得
-        m_playerInput = GetComponent<PlayerInput>();
+            // ストーリー開始
+            m_storyIllustrationWindowController.StartStory();
+            m_playingState = PlayingState.IllustrationPlaying;
+        }
+
+
+
+            // プレイヤー入力取得
+         m_playerInput = GetComponent<PlayerInput>();
         m_playerInput.actions.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (m_isFinished) { return; }
+
         m_playerInput.actions.Enable();
+
+        if (m_playingState == PlayingState.VideoPlaying)
+        {
+            // ビデオ再生終了判定
+            if (m_storyVideoPlayer.isPlaying == false && !m_sceneTransitionFadeOut.IsTransitioning())
+            {
+                // シーン遷移演出開始
+                m_sceneTransitionFadeOut.StartTransition(() =>
+                {
+                    // 再生終了コールバック呼び出し
+                    if (m_narrativeContext.OnFinishScene != null)
+                    {
+                        m_narrativeContext.OnFinishScene();
+                        m_isFinished = true;
+                    }
+                });
+
+
+            }
+        }
 
     }
 
@@ -87,10 +159,19 @@ public class StoryDirector : MonoBehaviour
 
         if (m_storyIllustrationWindowController.CanEndStory() == false) { return; }
 
+        // シーン遷移演出開始
         m_sceneTransitionFadeOut.StartTransition(() =>
         {
-            SceneManager.LoadScene("StageSelectScene");
+            // 再生終了コールバック呼び出し
+            if (m_narrativeContext.OnFinishScene != null)
+            {
+                m_narrativeContext.OnFinishScene();
+                m_isFinished = true;
+
+            }
         });
+
+
 
     }
 

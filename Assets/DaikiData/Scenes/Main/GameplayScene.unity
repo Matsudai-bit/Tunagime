@@ -1836,6 +1836,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 686594425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &821719331
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810035147663437960, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014932245681624174, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
+      propertyPath: m_Name
+      value: MouseCursorHider
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75792deac0afabc44958a60fc8e144a6, type: 3}
 --- !u!1 &898359585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,6 +2300,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+--- !u!224 &1212281164 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7539002837361612925, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
+  m_PrefabInstance: {fileID: 3143452231487561664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1298601638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 310055186226604368, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
@@ -2674,7 +2736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27954c98bc913844f84dfde818b5a2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveDataSetting: {fileID: 11400000, guid: 4b97da6920e0d7743844ea8c973f4cdf, type: 2}
 --- !u!4 &2005554346
 Transform:
   m_ObjectHideFlags: 0
@@ -3478,6 +3539,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 659687282693530374, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087559641629839591, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
+      propertyPath: m_pageImageParent
+      value: 
+      objectReference: {fileID: 1212281164}
     - target: {fileID: 8523441215605579318, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4143,3 +4212,4 @@ SceneRoots:
   - {fileID: 898359587}
   - {fileID: 4685612197361750067}
   - {fileID: 2005554346}
+  - {fileID: 821719331}

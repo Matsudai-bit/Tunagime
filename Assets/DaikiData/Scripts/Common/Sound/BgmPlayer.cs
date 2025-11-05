@@ -27,7 +27,7 @@ public class BgmPlayer : MonoBehaviour
     /// <summary>
     /// BGM再生
     /// </summary>
-    void PlayBGM()
+    public void PlayBGM()
     {
         SoundManager.GetInstance.PlayBGM(m_soundID);
     }

@@ -18,13 +18,13 @@ MonoBehaviour:
     buttonPrefab: {fileID: 6368683164294973630, guid: ca751b18cd2b9464384f61be1243ed2c, type: 3}
   - stageName: World 2
     worldID: 1
-    buttonPrefab: {fileID: 6368683164294973630, guid: ca751b18cd2b9464384f61be1243ed2c, type: 3}
+    buttonPrefab: {fileID: 6368683164294973630, guid: da120fa307363e44daeb13d5be64d404, type: 3}
   - stageName: World 3
     worldID: 2
-    buttonPrefab: {fileID: 6368683164294973630, guid: ca751b18cd2b9464384f61be1243ed2c, type: 3}
+    buttonPrefab: {fileID: 6368683164294973630, guid: a955e3356144f024ba31e13deba35462, type: 3}
   - stageName: World 4
     worldID: 3
-    buttonPrefab: {fileID: 6368683164294973630, guid: ca751b18cd2b9464384f61be1243ed2c, type: 3}
+    buttonPrefab: {fileID: 6368683164294973630, guid: a656a3a9e680d4c41bc1fed79f27f112, type: 3}
   - stageName: World 5
     worldID: 4
-    buttonPrefab: {fileID: 6368683164294973630, guid: ca751b18cd2b9464384f61be1243ed2c, type: 3}
+    buttonPrefab: {fileID: 6368683164294973630, guid: cff3050b474cca5458af2ecfc654b672, type: 3}

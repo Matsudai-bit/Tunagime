@@ -22,10 +22,17 @@ public class AnyColorInTransitionEffect : SceneTransitionEffect
     [SerializeField]
     Image m_whiteImage;
 
- 
+    bool m_isTransitioning = false;
+
+    public override bool IsTransitioning()
+    {
+        return m_isTransitioning;
+    }
 
     public override void StartTransition(Action onComplete)
     {
+        m_isTransitioning = true;
+
         // 白飛びエフェクトの開始
         m_whiteImage.gameObject.SetActive(true);
 
@@ -37,6 +44,9 @@ public class AnyColorInTransitionEffect : SceneTransitionEffect
         {
             // エフェクト完了時にコールバックを呼び出す
             onComplete?.Invoke();
+
+            m_isTransitioning = false;
+
         });
 
 

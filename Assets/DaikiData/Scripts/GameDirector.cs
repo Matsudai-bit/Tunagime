@@ -91,9 +91,10 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // ステージの生成
         m_stageManager.Generate(map.GetStageGenerator(), this);
 
+        // 前のシーンがゲームプレイだったかどうかをリセットする
+        GameProgressManager.Instance.GameProgressData.isPrevSceneGamePlayed = true;
 
 
-        
         m_isFirstUpdate = true;
     }
 
@@ -321,7 +322,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.END_PAUSE_MENU:
                 Debug.Log("ポーズメニュー終了 ============================================================================================");
                 // 現在の状態に応じてプレイヤー入力を再開
-                if (m_currentEventID == InGameFlowEventID.GAME_PLAYING_START ||
+                if ((m_currentEventID == InGameFlowEventID.GAME_PLAYING_START && !m_tutorialController.gameObject.activeSelf) ||
                     m_currentEventID == InGameFlowEventID.GOING_GET_FEELING_PIECE_START)
                 {
                     StartPlayerInput();
@@ -342,6 +343,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                 if (pageSprites.pageKeyboardSprites.Count > 0  &&
                     pageSprites.pageGamepadSprites.Count > 0)
                 {
+                  
                     m_tutorialController.Initialize(pageSprites);
                     // チュートリアル開始を通知
                     InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.TUTORIAL_START);

@@ -7,47 +7,30 @@ using UnityEngine;
 /// </summary>
 public class SaveDataManager : MonoBehaviour
 {
-    [SerializeField]
-    private SaveDataSetting saveDataSetting;
-
-    private void Awake()
-    {
-        // セーブデータの初期化や読み込み処理をここに追加
-        Debug.Log("SaveDataManager Awake: " + saveDataSetting.fileFullPath);
-
-        // セーブデータのディレクトリが存在しない場合、作成する
-
-        if (!File.Exists(saveDataSetting.fileFullPath))
-        {
-            Save(new SaveData());
-        }
- 
-    }
-
     /// <summary>
     /// セーブデータの読み込み
     /// </summary>
     /// <param name="data"></param>
-    public void Save(SaveData data)
+    public void Save(SaveData data, string fileFullPath)
     {
         // JSON形式で保存
         string json = JsonUtility.ToJson(data.ConvertJsonSaver(), true);
         // ファイル書き込み指定
-        StreamWriter writer = new StreamWriter(saveDataSetting.fileFullPath, false);
+        StreamWriter writer = new StreamWriter(fileFullPath, false);
         // Json変換した情報をファイルに書き込み
         writer.Write(json);
         // ファイルを閉じる
         writer.Close();
     }
 
-    public SaveData Load()
+    public SaveData Load(string fileFullPath)
     {
         SaveData.JsonSaver data = new SaveData.JsonSaver();
         // ファイルが存在するか確認
-        if (File.Exists(saveDataSetting.fileFullPath))
+        if (File.Exists(fileFullPath))
         {
             // ファイル読み込み指定
-            StreamReader reader = new StreamReader(saveDataSetting.fileFullPath);
+            StreamReader reader = new StreamReader(fileFullPath);
             // ファイルの内容をすべて読み込む
             string json = reader.ReadToEnd();
             // Json形式のデータをオブジェクトに変換
@@ -57,7 +40,7 @@ public class SaveDataManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Save file not found: " + saveDataSetting.fileFullPath);
+            Debug.LogWarning("Save file not found: " + fileFullPath);
         }
         SaveData saveData = new SaveData();
         saveData.LoadFromJsonSaver(data);

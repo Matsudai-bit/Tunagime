@@ -51,7 +51,7 @@ public class MenuContentSelector : MonoBehaviour
 
     bool m_isMoving = false; // 移動中かどうか
 
-
+    bool m_canInput = false; // 入力可能かどうか
 
     /// <summary>
     /// 現在のタイトルメニュー名を取得
@@ -89,7 +89,7 @@ public class MenuContentSelector : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+        m_canInput = true;
 
         m_currentTitleMenu = m_startPointMenu;
         UpdateSelectorPosition();
@@ -175,6 +175,7 @@ public class MenuContentSelector : MonoBehaviour
     /// <param name="value"></param>
     public void OnNavigate(InputAction.CallbackContext context)
     {
+        if (!m_canInput) { return; }
         if (m_titleMenuDict.Count <= 0 ) { return; }
         if (m_parentObject == null || !m_parentObject.activeSelf) { return; }
 
@@ -251,4 +252,13 @@ public class MenuContentSelector : MonoBehaviour
         return null;
     }
 
+    public void SetInputEnabled(bool enabled)
+    {
+        m_canInput = enabled;
+    }
+
+    public bool CanInputEnabled()
+    {
+        return m_canInput;
+    }
 }
