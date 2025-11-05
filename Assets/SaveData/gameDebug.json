@@ -16,7 +16,7 @@
                     "stageID": 1,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -24,7 +24,7 @@
                     "stageID": 2,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -32,7 +32,7 @@
                     "stageID": 3,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -40,7 +40,7 @@
                     "stageID": 4,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 }
@@ -48,13 +48,13 @@
         },
         {
             "worldID": 1,
-            "isLocked": true,
+            "isLocked": false,
             "stageDataList": [
                 {
                     "stageID": 0,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -62,7 +62,7 @@
                     "stageID": 1,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -70,7 +70,7 @@
                     "stageID": 2,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -78,7 +78,7 @@
                     "stageID": 3,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -86,7 +86,7 @@
                     "stageID": 4,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 }
@@ -94,13 +94,13 @@
         },
         {
             "worldID": 2,
-            "isLocked": true,
+            "isLocked": false,
             "stageDataList": [
                 {
                     "stageID": 0,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -108,7 +108,7 @@
                     "stageID": 1,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -116,7 +116,7 @@
                     "stageID": 2,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -124,7 +124,7 @@
                     "stageID": 3,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -132,7 +132,7 @@
                     "stageID": 4,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 }
@@ -140,13 +140,13 @@
         },
         {
             "worldID": 3,
-            "isLocked": true,
+            "isLocked": false,
             "stageDataList": [
                 {
                     "stageID": 0,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -154,7 +154,7 @@
                     "stageID": 1,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -162,7 +162,7 @@
                     "stageID": 2,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -170,7 +170,7 @@
                     "stageID": 3,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -178,7 +178,7 @@
                     "stageID": 4,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 }
@@ -186,13 +186,13 @@
         },
         {
             "worldID": 4,
-            "isLocked": true,
+            "isLocked": false,
             "stageDataList": [
                 {
                     "stageID": 0,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -200,7 +200,7 @@
                     "stageID": 1,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -208,7 +208,7 @@
                     "stageID": 2,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -216,7 +216,7 @@
                     "stageID": 3,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 },
@@ -224,7 +224,7 @@
                     "stageID": 4,
                     "stageStatus": {
                         "isClear": false,
-                        "isLocked": true,
+                        "isLocked": false,
                         "clearTime": 0.0
                     }
                 }

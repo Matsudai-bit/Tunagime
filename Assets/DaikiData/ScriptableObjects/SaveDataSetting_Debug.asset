@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8e39e5ae9d2f7b44bb873c603245ebc, type: 3}
-  m_Name: SaveDataSetting
+  m_Name: SaveDataSetting_Debug
   m_EditorClassIdentifier: 
-  fileFullPath: C:/Users/it242245/Desktop/GameProjects/GameCreatorsKoshien/Tunagime/Tunagime/Assets/SaveData/saveData.json
+  fileFullPath: C:/Users/it242245/Desktop/GameProjects/GameCreatorsKoshien/Tunagime/Tunagime/Assets/SaveData/gameDebug.json
   filePath: SaveData
-  fileName: saveData.json
+  fileName: gameDebug.json

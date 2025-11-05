@@ -834,7 +834,7 @@ MonoBehaviour:
     labelName: "\u30C7\u30D0\u30C3\u30AF\u30E2\u30FC\u30C9\u3092\u6709\u52B9\u306B\u3059\u308B\u304B\u3069\u3046\u304B"
     debugMode: 0
     label2Name: "\u8868\u793A\u3059\u308B\u30EF\u30FC\u30EB\u30C9ID"
-    state: 5
+    state: 0
   m_storyIllustrationWindowController: {fileID: 8523441214481846435}
   m_bgmPlayer: {fileID: 1098658674}
   m_storyVideoPanel: {fileID: 1508910088}
@@ -927,6 +927,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 948142901851773625, guid: 72443f1074acbe542b53feecfbaefbd4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149312415945684605, guid: 72443f1074acbe542b53feecfbaefbd4, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6773464476009895276, guid: 72443f1074acbe542b53feecfbaefbd4, type: 3}
@@ -1280,6 +1284,14 @@ PrefabInstance:
     - target: {fileID: 5835495755955899524, guid: f3c01010dc480734e9d7b5cdab12ad8f, type: 3}
       propertyPath: m_Name
       value: InTransitionEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835495755955899524, guid: f3c01010dc480734e9d7b5cdab12ad8f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869802712065064142, guid: f3c01010dc480734e9d7b5cdab12ad8f, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

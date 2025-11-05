@@ -6,7 +6,9 @@ using UnityEngine;
 /// </summary>
 public abstract class SceneTransitionEffect : MonoBehaviour, ISceneTransitionEffect
 {
-     abstract public void StartTransition(Action onComplete);
+     abstract public bool IsTransitioning();
+
+    abstract public void StartTransition(Action onComplete);
 
 
 }

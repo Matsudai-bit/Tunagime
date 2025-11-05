@@ -93,18 +93,26 @@ public class TitleSceneController : MonoBehaviour
         switch (m_titleSelector.CurrentTitleMenuName)
         {
             case "ResetGame":
-                m_initializationWarningWindow.Open();
-                m_titleSelector.SetInputEnabled(false);
+                TryResetGame();
                 break;
             case "ContinueGame":
-                ContinueGame();
+                if (GameContext.GetInstance.GetSaveData().GetStageStatus(WorldID.World_1, StageID.STAGE_1).isLocked == false)
+                {
+                    // 最初のステージがロックされている場合、ゲーム開始
+                    ContinueGame();
+                }
+           
                 break;
             case "Setting":
                 break;
             case "QuitGame":
                 {
 #if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+                    m_sceneTransitionFadeOutEffect.StartTransition(() =>
+                    {
+                        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+
+                    });
 #else
                     Application.Quit();//ゲームプレイ終了
     
@@ -138,6 +146,11 @@ public class TitleSceneController : MonoBehaviour
         // 物語の状態を導入に設定
         NarrativeContext.GetInstance.SetNarrativeState(NarrativeContext.NarrativeState.INTRODUCTION, () =>
         {
+            // 最初のステージのロックを解除
+            GameContext.GetInstance.GetSaveData().worldDataDict[WorldID.World_1].isLocked = false;
+            GameContext.GetInstance.GetSaveData().GetStageStatus(WorldID.World_1, StageID.STAGE_1).isLocked = false;
+            GameContext.GetInstance.SaveGame();
+
             // 最初のワールド、ステージを設定
             GameProgressManager.Instance.GameProgressData.worldID = WorldID.World_1;
             GameProgressManager.Instance.GameProgressData.stageID = StageID.STAGE_1;
@@ -150,6 +163,22 @@ public class TitleSceneController : MonoBehaviour
 
         // 音の初期化
         SoundManager.GetInstance.StopBGM();
+    }
+
+    public void TryResetGame()
+    {
+        // 最初のステージがロックされている場合、初期化警告ウィンドウを表示
+        if (GameContext.GetInstance.GetSaveData().GetStageStatus(WorldID.World_1, StageID.STAGE_1).isLocked)
+        {
+            // ゲーム初期化
+            StartGame();
+        }
+        else
+        {
+            m_initializationWarningWindow.Open();
+            m_titleSelector.SetInputEnabled(false);
+        }
+
     }
 
     public void CancelInitializationWindow()

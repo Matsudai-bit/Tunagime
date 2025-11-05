@@ -11,6 +11,10 @@ public interface ISceneTransitionEffect
     /// </summary>
     /// <param name="onComplete">シーン遷移が完了した際に呼び出されるコールバック</param>
     public void StartTransition(System.Action onComplete);
+
+    // トランジション中かどうか
+    public bool IsTransitioning();
+
 }
 
 /// <summary>

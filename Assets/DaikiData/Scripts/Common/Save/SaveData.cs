@@ -102,7 +102,7 @@ public class SaveData
             WorldData worldData = new WorldData();
             worldData.worldID = worldID;
             worldData.stageDataList = new ();
-            worldData.isLocked = (i != 0) ? true : false; // 最初のワールドだけアンロック
+            worldData.isLocked =  true; 
 
             // ステージクリアデータの初期化
             for (int j = 0; j < Enum.GetValues(typeof(StageID)).Length; j++)
@@ -112,7 +112,7 @@ public class SaveData
                 stageClearData.stageID = stageID;
                 stageClearData.stageStatus = new StageStatus();
                 stageClearData.stageStatus.isClear = false;
-                stageClearData.stageStatus.isLocked = (j != 0) ? true : false; // 最初のステージだけアンロック
+                stageClearData.stageStatus.isLocked = true; 
                 stageClearData.stageStatus.clearTime = 0.0f;
                 worldData.stageDataList.Add(stageClearData);
             }

@@ -70,10 +70,13 @@ public class StoryDirector : MonoBehaviour
 
     private PlayingState m_playingState; // 再生状態
 
+    bool m_isFinished = false; // ストーリーシーン終了フラグ
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        m_isFinished = false;
+
         var storyRenderingDict = m_storyRenderingData.GetStoryRenderingDict();
 
         NarrativeContext.NarrativeState requestState;
@@ -121,12 +124,14 @@ public class StoryDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_isFinished) { return; }
+
         m_playerInput.actions.Enable();
 
         if (m_playingState == PlayingState.VideoPlaying)
         {
             // ビデオ再生終了判定
-            if (m_storyVideoPlayer.isPlaying == false)
+            if (m_storyVideoPlayer.isPlaying == false && !m_sceneTransitionFadeOut.IsTransitioning())
             {
                 // シーン遷移演出開始
                 m_sceneTransitionFadeOut.StartTransition(() =>
@@ -135,6 +140,7 @@ public class StoryDirector : MonoBehaviour
                     if (m_narrativeContext.OnFinishScene != null)
                     {
                         m_narrativeContext.OnFinishScene();
+                        m_isFinished = true;
                     }
                 });
 
@@ -160,6 +166,8 @@ public class StoryDirector : MonoBehaviour
             if (m_narrativeContext.OnFinishScene != null)
             {
                 m_narrativeContext.OnFinishScene();
+                m_isFinished = true;
+
             }
         });
 

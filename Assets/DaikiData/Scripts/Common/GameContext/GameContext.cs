@@ -58,7 +58,10 @@ public class GameContext : MonoBehaviour
         gameObject.transform.parent = transform;
         m_saveDataManager = gameObject.AddComponent<SaveDataManager>();
 
+        // 
         m_saveData = m_saveDataManager.Load(saveDataSetting.fileFullPath);
+        // ファイルが無い場合作成セーブデータの読み込み
+        SaveGame();
 
     }
 
