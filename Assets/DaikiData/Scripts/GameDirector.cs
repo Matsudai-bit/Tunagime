@@ -91,9 +91,10 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // ステージの生成
         m_stageManager.Generate(map.GetStageGenerator(), this);
 
+        // 前のシーンがゲームプレイだったかどうかをリセットする
+        GameProgressManager.Instance.GameProgressData.isPrevSceneGamePlayed = true;
 
 
-        
         m_isFirstUpdate = true;
     }
 

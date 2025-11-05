@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using Unity.Jobs;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -24,6 +26,11 @@ public class TitleSceneController : MonoBehaviour
     [Header("画面遷移(フェードイン)イメージ")]
     [SerializeField]
     private SceneTransitionEffect m_sceneTransitionFadeInEffect; // 画面遷移(フェードイン)イメージ
+
+    [Header("初期化警告ウィンドウ")]
+    [SerializeField]
+    private InitializationWarningWindow m_initializationWarningWindow;
+
 
     private void Awake()
     {
@@ -61,12 +68,23 @@ public class TitleSceneController : MonoBehaviour
             () => { });
     }
 
+    void Update()
+    {
+        if (!m_titleSelector.CanInputEnabled() && !m_initializationWarningWindow.gameObject.activeSelf)
+        {
+            m_titleSelector.SetInputEnabled(true);
+
+        }
+
+    }
+
     /// <summary>
     /// 現在のワールドIDに対応するボタンをクリック
     /// </summary>
     /// <param name="value"></param>
     public void OnSubmit(InputAction.CallbackContext value)
     {
+        if (m_initializationWarningWindow.gameObject.activeSelf) { return; }
         if (!value.performed) { return; }
 
         // SEを鳴らす
@@ -75,11 +93,11 @@ public class TitleSceneController : MonoBehaviour
         switch (m_titleSelector.CurrentTitleMenuName)
         {
             case "ResetGame":
-                StartGame();
+                m_initializationWarningWindow.Open();
+                m_titleSelector.SetInputEnabled(false);
                 break;
             case "ContinueGame":
-                // ステージセレクトシーンへ遷移
-                SceneTransitionManager.GetInstance.TransitionToScene("StageSelectScene", m_sceneTransitionFadeOutEffect);
+                ContinueGame();
                 break;
             case "Setting":
                 break;
@@ -105,23 +123,38 @@ public class TitleSceneController : MonoBehaviour
     /// </summary>
     void ContinueGame()
     {
-
+        // ステージセレクトシーンへ遷移
+        SceneTransitionManager.GetInstance.TransitionToScene("StageSelectScene", m_sceneTransitionFadeOutEffect);
     }
 
     /// <summary>
     /// ゲーム開始
     /// </summary>
-    void StartGame()
+    public void StartGame()
     {
         // ゲーム初期化
         InitialGame();
 
-        NarrativeContext.GetInstance.SetNarrativeState(NarrativeContext.NarrativeState.INTRODUCTION);
+        // 物語の状態を導入に設定
+        NarrativeContext.GetInstance.SetNarrativeState(NarrativeContext.NarrativeState.INTRODUCTION, () =>
+        {
+            // 最初のワールド、ステージを設定
+            GameProgressManager.Instance.GameProgressData.worldID = WorldID.World_1;
+            GameProgressManager.Instance.GameProgressData.stageID = StageID.STAGE_1;
+
+            LoadingSceneRequest.GetInstance.RequestLoadingScene("GameplayScene");
+           
+        });
         // ステージセレクトシーンへ遷移
         SceneTransitionManager.GetInstance.TransitionToScene("StoryScene", m_sceneTransitionFadeOutEffect);
 
         // 音の初期化
         SoundManager.GetInstance.StopBGM();
+    }
+
+    public void CancelInitializationWindow()
+    {
+        m_initializationWarningWindow.Close();
     }
 
     /// <summary>

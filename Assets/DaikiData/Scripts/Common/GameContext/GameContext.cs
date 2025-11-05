@@ -125,4 +125,44 @@ public class GameContext : MonoBehaviour
             }
         }
     }
+
+    public void UnlockNextStage(WorldID worldID, StageID stageID)
+    {
+        // 指定されたステージの次のステージをアンロックする処理をここに実装
+        if (m_saveData.worldDataDict.ContainsKey(worldID))
+        {
+            SaveData.WorldData worldData = m_saveData.worldDataDict[worldID];
+            int nextStageIndex = (int)stageID + 1;
+
+            // 同じワールド内の次のステージをアンロック
+            if (nextStageIndex < 5) // ステージ数が5の場合
+            {
+                StageID nextStageID = (StageID)nextStageIndex;
+                SaveData.StageData nextStageData = worldData.stageDataList.Find(sd => sd.stageID == nextStageID);
+                if (nextStageData != null)
+                {
+                    nextStageData.stageStatus.isLocked = false;
+                }
+            }
+            // 次のワールドの最初のステージをアンロック
+            else
+            {
+                int nextWorldIndex = (int)worldID + 1;
+                if (nextWorldIndex < 5) // ワールド数が5の場合
+                {
+                    WorldID nextWorldID = (WorldID)nextWorldIndex;
+                    if (m_saveData.worldDataDict.ContainsKey(nextWorldID))
+                    {
+                        SaveData.WorldData nextWorldData = m_saveData.worldDataDict[nextWorldID];
+                        SaveData.StageData firstStageData = nextWorldData.stageDataList.Find(sd => sd.stageID == StageID.STAGE_1);
+                        if (firstStageData != null)
+                        {
+                            firstStageData.stageStatus.isLocked = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

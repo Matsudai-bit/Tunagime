@@ -128,10 +128,17 @@ public class StoryDirector : MonoBehaviour
             // ビデオ再生終了判定
             if (m_storyVideoPlayer.isPlaying == false)
             {
+                // シーン遷移演出開始
                 m_sceneTransitionFadeOut.StartTransition(() =>
                 {
-                    LoadingSceneRequest.GetInstance.RequestLoadingScene("StageSelectScene");
+                    // 再生終了コールバック呼び出し
+                    if (m_narrativeContext.OnFinishScene != null)
+                    {
+                        m_narrativeContext.OnFinishScene();
+                    }
                 });
+
+
             }
         }
 
@@ -146,10 +153,17 @@ public class StoryDirector : MonoBehaviour
 
         if (m_storyIllustrationWindowController.CanEndStory() == false) { return; }
 
+        // シーン遷移演出開始
         m_sceneTransitionFadeOut.StartTransition(() =>
         {
-            SceneManager.LoadScene("StageSelectScene");
+            // 再生終了コールバック呼び出し
+            if (m_narrativeContext.OnFinishScene != null)
+            {
+                m_narrativeContext.OnFinishScene();
+            }
         });
+
+
 
     }
 

@@ -65,7 +65,8 @@ public class WorldSelectButtonController : MonoBehaviour
 
     private Dictionary<WorldID, Vector3> m_layoutPositions = new Dictionary<WorldID, Vector3>(); // ボタンのレイアウト位置リスト
 
-   
+    private bool m_requestStartingSelectStage = false; // 最初のステージ選択が要求されたかどうか
+
     void Awake()
     {
         // 配列のデータを辞書に変換
@@ -73,14 +74,24 @@ public class WorldSelectButtonController : MonoBehaviour
         {
             m_worldSelectButtonDictionary[data.worldID] = data.gameObject;
         }
+
+        m_requestStartingSelectStage = false;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        m_currentWorldID = WorldID.World_1; // 初期ワールドIDを設定
-        UpdateButtonState();
+        if (m_requestStartingSelectStage == false)
+        {
+            m_currentWorldID = WorldID.World_1; // 初期ワールドIDを設定
+            UpdateButtonState();
+            ChangeState(State.WORLD_SELECT);
+
+        }
+
+        // ボタンの位置を整列
         AlignButton();
+
 
         // 各ボタンの初期位置を保存
         foreach (var button in m_worldSelectButtonDictionary)
@@ -89,7 +100,6 @@ public class WorldSelectButtonController : MonoBehaviour
             m_layoutPositions.Add(button.Key, rectTransform.anchoredPosition);
         }
 
-        ChangeState(State.WORLD_SELECT);
 
         ChangeWorldObject(m_currentWorldID, WorldObjectSelector.ScrollDirection.RIGHT);
 
@@ -367,6 +377,20 @@ public class WorldSelectButtonController : MonoBehaviour
         {
             Debug.LogWarning($"No button found for WorldID {m_currentWorldID}");
         }
+    }
+
+    /// <summary>
+    /// 指定したワールドIDとステージIDでステージ選択を開始
+    /// </summary>
+    /// <param name="worldID"></param>
+    /// <param name="stageID"></param>
+    public void RequestStartSelectStage(WorldID worldID, StageID stageID)
+    {
+        m_currentWorldID = worldID;
+        UpdateButtonState();
+        ChangeState(State.CHANGING_STAGE_SELECT);
+
+        m_requestStartingSelectStage = true;
     }
 
     /// <summary>

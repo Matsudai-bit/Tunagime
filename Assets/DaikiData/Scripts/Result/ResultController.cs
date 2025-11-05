@@ -342,9 +342,18 @@ public class ResultController : MonoBehaviour
 
             m_sceneTransitionFadeOut.StartTransition(() =>
             {
+                // 次のステージを開放する
+                GameContext.GetInstance.UnlockNextStage(m_gameProgressData.worldID, m_gameProgressData.stageID);
+
+                // エンディングステージの場合
                 if (m_gameProgressData.stageID == StageID.STAGE_5)
                 {
-                    NarrativeContext.GetInstance.SetNarrativeState(GetNarrativeStateForWorldID(m_gameProgressData.stageID));
+                    // エンディングシーンへ遷移
+                    NarrativeContext.GetInstance.SetNarrativeState(GetNarrativeStateForWorldID(m_gameProgressData.stageID)
+                        , () => {
+                            UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
+                        }
+                        );
                     // ステージセレクトシーンへ遷移
                     UnityEngine.SceneManagement.SceneManager.LoadScene("StoryScene");
                 }

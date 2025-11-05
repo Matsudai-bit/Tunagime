@@ -71,6 +71,13 @@ public class StageSelectDirector : MonoBehaviour
         m_playerInput.actions.Enable();
         m_playerInput.SwitchCurrentActionMap("UI");
 
+        // ステージセレクトの入力モードに設定する
+        if (GameProgressManager.Instance.GameProgressData.isPrevSceneGamePlayed)
+        {
+            // ステージセレクトの入力モードに設定する
+            var gameProgressData = GameProgressManager.Instance.GameProgressData;
+            m_worldSelectController.RequestStartSelectStage(gameProgressData.worldID, gameProgressData.stageID);
+        }
     }
 
     // Update is called once per frame
@@ -132,12 +139,17 @@ public class StageSelectDirector : MonoBehaviour
     public void ReturnTitle()
     {
         SceneTransitionManager.GetInstance.TransitionToScene("TitleScene", m_sceneTransitionFadeOutEffect);
+
+        // 前のシーンがゲームプレイだったかどうかをリセットする
+        GameProgressManager.Instance.GameProgressData.isPrevSceneGamePlayed = false;
     }
 
     public void LoadGameplayScene()
     {
        
         SceneTransitionManager.GetInstance.TransitionToScene("GameplayScene", m_sceneTransitionFadeOutEffect);
+
+
     }
 
 }

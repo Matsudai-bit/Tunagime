@@ -16,4 +16,7 @@ public class GameProgressData : ScriptableObject
 
     [Header("クリア時間")]
     public float clearTime; // クリア時間
+
+    [Header("前のシーンでゲームがプレイされたか")]
+    public bool isPrevSceneGamePlayed = false;
 }
