@@ -262,9 +262,13 @@ public class WorldSelectButtonController : MonoBehaviour
     /// </summary>
     private void UpdateButtonState()
     {
+        var stageSaveData = GameContext.GetInstance.GetSaveData();
         foreach (var kvp in m_worldSelectButtonDictionary)
         {
             var targetButton = kvp.Value.GetComponent<Button>();
+
+            // ロックされているかどうかでボタンのインタラクトを切り替え
+            targetButton.interactable = !stageSaveData.worldDataDict[kvp.Key].isLocked;
 
             if (kvp.Key == m_currentWorldID)
             {
@@ -315,7 +319,8 @@ public class WorldSelectButtonController : MonoBehaviour
 
         newWorldID = Math.Clamp(newWorldID, 0, Enum.GetValues(typeof(WorldID)).Length - 1);
 
-        if (newWorldID != (int)m_currentWorldID)
+        if (newWorldID != (int)m_currentWorldID &&
+            m_worldSelectButtonDictionary[(WorldID)(newWorldID)].GetComponent<Button>().interactable)
         {
             // SEを鳴らす
             SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_MOVE);

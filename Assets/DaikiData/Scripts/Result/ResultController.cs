@@ -344,6 +344,7 @@ public class ResultController : MonoBehaviour
             {
                 if (m_gameProgressData.stageID == StageID.STAGE_5)
                 {
+                    NarrativeContext.GetInstance.SetNarrativeState(GetNarrativeStateForWorldID(m_gameProgressData.stageID));
                     // ステージセレクトシーンへ遷移
                     UnityEngine.SceneManagement.SceneManager.LoadScene("StoryScene");
                 }
@@ -393,5 +394,29 @@ public class ResultController : MonoBehaviour
 
         m_tunagimeAnimator.SetTrigger("Joy");
 
+    }
+
+    /// <summary>
+    /// ワールドIDから物語の状態を取得
+    /// </summary>
+    /// <param name="worldID"></param>
+    /// <returns></returns>
+    NarrativeContext.NarrativeState GetNarrativeStateForWorldID(StageID worldID)
+    {
+        switch (worldID)
+        {
+            case StageID.STAGE_1:
+                return NarrativeContext.NarrativeState.WORLD_1;
+            case StageID.STAGE_2:
+                return NarrativeContext.NarrativeState.WORLD_2;
+            case StageID.STAGE_3:
+                return NarrativeContext.NarrativeState.WORLD_3;
+            case StageID.STAGE_4:
+                return NarrativeContext.NarrativeState.WORLD_4;
+            case StageID.STAGE_5:
+                return NarrativeContext.NarrativeState.ENDING;
+            default:
+                return NarrativeContext.NarrativeState.INTRODUCTION;
+        }
     }
 }

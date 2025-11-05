@@ -75,6 +75,7 @@ public class TitleSceneController : MonoBehaviour
         switch (m_titleSelector.CurrentTitleMenuName)
         {
             case "ResetGame":
+                StartGame();
                 break;
             case "ContinueGame":
                 // ステージセレクトシーンへ遷移
@@ -97,6 +98,39 @@ public class TitleSceneController : MonoBehaviour
                 Debug.LogError("Invalid TitleMenuID");
                 break;
         }
+    }
+
+    /// <summary>
+    /// 続きからゲーム開始
+    /// </summary>
+    void ContinueGame()
+    {
+
+    }
+
+    /// <summary>
+    /// ゲーム開始
+    /// </summary>
+    void StartGame()
+    {
+        // ゲーム初期化
+        InitialGame();
+
+        NarrativeContext.GetInstance.SetNarrativeState(NarrativeContext.NarrativeState.INTRODUCTION);
+        // ステージセレクトシーンへ遷移
+        SceneTransitionManager.GetInstance.TransitionToScene("StoryScene", m_sceneTransitionFadeOutEffect);
+
+        // 音の初期化
+        SoundManager.GetInstance.StopBGM();
+    }
+
+    /// <summary>
+    /// ゲーム初期化
+    /// </summary>
+    void InitialGame()
+    {
+        var gameContext = GameContext.GetInstance;
+        gameContext.ResetGame();
     }
 
 }

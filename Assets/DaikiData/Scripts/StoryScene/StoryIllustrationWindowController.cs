@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static StoryIllustrationData;
 
 /// <summary>
 /// ストーリーの操作コンポーネント

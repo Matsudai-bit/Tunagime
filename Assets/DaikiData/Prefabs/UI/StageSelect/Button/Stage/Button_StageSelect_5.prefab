@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5643960715925442178}
   - component: {fileID: 3851922919837014534}
   m_Layer: 5
-  m_Name: Button_StageSelect_1
+  m_Name: Button_StageSelect_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6368683164294973630}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b028738d520dfc549b17d44d070d8b94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f55610caf34da844a94bda9b96ad256, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -106,9 +106,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: d6174d2200ad4a844b8a4bae10452b7b, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 070bd2f00bf2a564db56f7199f4473d6, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 070bd2f00bf2a564db56f7199f4473d6, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 1241be905e77cf046a11f946cd73af50, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 34ab3d55758532141ad8cca8f44ae33c, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 34ab3d55758532141ad8cca8f44ae33c, type: 3}
     m_DisabledSprite: {fileID: 21300000, guid: 7ae7a6f15d13359438f736c834d6d8ab, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal

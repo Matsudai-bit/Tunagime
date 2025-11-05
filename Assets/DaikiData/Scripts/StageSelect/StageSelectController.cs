@@ -77,38 +77,44 @@ public class StageSelectController : MonoBehaviour
     private void StartChangingStageSelection()
     {
 
-        if (m_buttonObjects.Count > 0)
-        {
-            // ボタンの作成
-            m_buttonObjects[0] = m_rootWorldButton;
+        //if (m_buttonObjects.Count > 0)
+        //{
+        //    // ボタンの作成
+        //    m_buttonObjects[0] = m_rootWorldButton;
 
-            int buttonCount = Enum.GetValues(typeof(StageID)).Length;
-            for (int i = 1; i <= buttonCount; i++)
-            {
-                var buttonObject = m_buttonObjects[i];
-                buttonObject.SetActive(true);
-                int stageIndex = i - 1;
-                var button = buttonObject.GetComponent<Button>();
-                button.onClick.AddListener(() =>
-                {
+        //    int buttonCount = Enum.GetValues(typeof(StageID)).Length;
+        //    for (int i = 1; i <= buttonCount; i++)
+        //    {
+        //        var buttonObject = m_buttonObjects[i];
+        //        buttonObject.SetActive(true);
+        //        int stageIndex = i - 1;
+        //        var button = buttonObject.GetComponent<Button>();
+        //        button.onClick.AddListener(() =>
+        //        {
 
-                    var gameProgressData = GameProgressManager.Instance.GameProgressData;
-                    gameProgressData.worldID = m_currentWorldID;
-                    gameProgressData.stageID = (StageID)stageIndex;
-                    gameProgressData.startState = InGameFlowEventID.ZOOM_OUT_PLAYER_START;
+        //            var gameProgressData = GameProgressManager.Instance.GameProgressData;
+        //            gameProgressData.worldID = m_currentWorldID;
+        //            gameProgressData.stageID = (StageID)stageIndex;
+        //            gameProgressData.startState = InGameFlowEventID.ZOOM_OUT_PLAYER_START;
 
 
-                    m_stageSelectDirector.LoadGameplayScene();
-                });
-            }
-        }
-        else
-        {
-            // ボタンの作成
-            int buttonCount = Enum.GetValues(typeof(StageID)).Length;
+        //            m_stageSelectDirector.LoadGameplayScene();
+        //        });
+
+        //        button.
+        //    }
+        //}
+        //else
+        //{
+
+        var stageSaveData = GameContext.GetInstance.GetSaveData();
+
+        m_buttonObjects.Clear();
+        // ボタンの作成
+        int buttonCount = Enum.GetValues(typeof(StageID)).Length;
 
             m_buttonObjects.Add(m_rootWorldButton);
-            for (int i = 1; i <= buttonCount; i++)
+            for (int i = 0; i < buttonCount; i++)
             {
                 StageID stageID = (StageID)i;
                 GameObject buttonObject = Instantiate(m_buttonPrefab, m_buttonParent);
@@ -118,10 +124,10 @@ public class StageSelectController : MonoBehaviour
                 var text = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
                 if (text)
                 {
-                    text.text = "ステージ" + i.ToString();
+                    text.text = "ステージ" + (i+1).ToString();
                 }
 
-                int stageIndex = i - 1;
+                int stageIndex = i ;
                 var button = buttonObject.GetComponent<Button>();
                 button.onClick.AddListener(() =>
                 {
@@ -134,8 +140,13 @@ public class StageSelectController : MonoBehaviour
 
                     m_stageSelectDirector.LoadGameplayScene();
                 });
+                if (stageSaveData.GetStageStatus(m_currentWorldID, stageID).isLocked)
+            {
+                button.interactable = false;
             }
-        }
+
+            }
+        //}
 
         AlignButton();
 
@@ -298,7 +309,8 @@ public class StageSelectController : MonoBehaviour
 
         newStageID = Math.Clamp(newStageID, 0, Enum.GetValues(typeof(StageID)).Length );
 
-        if (newStageID != (int)m_currentButtonIndex)
+        if (newStageID != (int)m_currentButtonIndex &&
+            m_buttonObjects[newStageID].GetComponent<Button>().interactable)
         {    // SEを鳴らす
             SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_MOVE);
             m_currentButtonIndex = newStageID;
