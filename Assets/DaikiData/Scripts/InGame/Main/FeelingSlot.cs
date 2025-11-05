@@ -100,6 +100,14 @@ public class FeelingSlot : MonoBehaviour
             return; // 既に想いの核が挿入されている場合は処理を中断
         }
 
+        // 置く音を鳴らす
+        int soundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_FEELING_CORE_SETTING_SLOT);
+        if (soundID != SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.Log("FeelingCore Insert Sound Played. SoundID: " + soundID);
+        }
+
+
         m_feelingCore.MeshRenderer.material = feelingCore.MeshRenderer.material;    // 想いの核のマテリアルを設定
         m_feelingCore.SetEmotionType(feelingCore.GetEmotionType());                 // 想いの核の感情タイプを設定
         m_feelingCore.SetActive(true);                                               // 想いの核をアクティブにする
