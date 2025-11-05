@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageOutLine_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2830999797673527947, guid: 097af25f932a82248b526c37812cf347, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5383336024257685706, guid: 097af25f932a82248b526c37812cf347, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

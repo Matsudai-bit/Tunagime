@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -172,6 +173,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     public void LoadResultScene()
     {
+        SoundManager.GetInstance.RequestAllStopping();
         SceneManager.LoadScene("ResultScene");
     }
 
@@ -250,17 +252,26 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                     break;
             case InGameFlowEventID.GAME_CLEAR:
                 Debug.Log("ゲームクリア ============================================================================================");
+                
+                DOVirtual.DelayedCall(2.0f, () =>
+                {
+                    // ゲームクリアイベントを通知
+                    OnGameClear();
+                });
 
-                // ゲームクリアイベントを通知
-                OnGameClear();
                 break;
 
             case InGameFlowEventID.GAME_PLAYING_END:
                 Debug.Log("ゲームプレイの終了 ============================================================================================");
+                {
+       
+                    DOVirtual.DelayedCall(2.0f, () =>
+                    {
+                        LoadResultScene();
 
-                var s = WaitAndLoadStageSelectScene(300);
-                // ゲーム終了イベントを通知
-                LoadResultScene();
+                    });
+
+                }
                 break;
 
             case InGameFlowEventID.GAME_CLEAR_EFFECT_START:

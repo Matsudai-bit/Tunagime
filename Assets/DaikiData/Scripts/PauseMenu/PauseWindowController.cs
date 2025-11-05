@@ -125,6 +125,9 @@ public class PauseWindowController : MonoBehaviour
 
     void OnOpenPause()
     {
+        //  開く音を再生
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_PAUSE_OPEN, false);
+
         // プレイヤー入力をUI用に切り替える
         m_playerInput.actions.Disable();
         m_playerInput.actions.FindActionMap("UI").Enable();
@@ -151,6 +154,9 @@ public class PauseWindowController : MonoBehaviour
 
     void OnClosePause()
     {
+        // 閉じる音を再生
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_PAUSE_CLOSE, false);
+
         // ポーズメニューが開かれたときの処理を呼び出す
         if (m_pauseMenuManualController)
         {
@@ -191,6 +197,9 @@ public class PauseWindowController : MonoBehaviour
         if (m_parentObject == null || !m_parentObject.activeSelf) { return; }
 
         var contentSelector = GetComponent<MenuContentSelector>();
+
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_PUSH);
+
 
         // 選択されているメニューに応じて処理を分岐
         switch (contentSelector.CurrentTitleMenuName)

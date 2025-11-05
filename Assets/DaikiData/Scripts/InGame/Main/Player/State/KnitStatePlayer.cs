@@ -20,6 +20,13 @@ public class KnitStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // 編む音を再生
+        int knitSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_KNIT, false);
+        if (knitSoundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("KnitStatePlayer: 編むサウンドの再生に失敗しました。");
+        }
+
         // 移動を停止
         owner.StopMove();
 

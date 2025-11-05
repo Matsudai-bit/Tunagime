@@ -89,6 +89,8 @@ public class FeelingCore : MonoBehaviour
             var feelingSlot = tile.gameObject.GetComponent<FeelingSlot>();
             if (feelingSlot != null)
             {
+       
+
                 // 想いの核を配置するスロットに感情タイプを設定
                 feelingSlot.InsertCore(this);
             }

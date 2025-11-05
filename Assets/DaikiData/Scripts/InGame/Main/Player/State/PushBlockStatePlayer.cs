@@ -13,6 +13,8 @@ public class PushBlockStatePlayer : PlayerState
     private Vector3 m_startPosition;    // ブロックを押す前の開始位置
     private float m_lerpValue = 0.0f; // 補間値
 
+    private int m_pushSoundID = -1; // 押す音のサウンドID
+
     public PushBlockStatePlayer(Player owner) : base(owner)
     {
         // アニメーションイベントハンドラーを初期化
@@ -23,6 +25,12 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // 押す音を再生
+        m_pushSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_PUSHBLOCK, false);
+        if (m_pushSoundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("PushBlockStatePlayer: 押すサウンドの再生に失敗しました。");
+        }
 
         // 移動を停止
         owner.StopMove();
@@ -114,18 +122,21 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnFinishState()
     {
-            m_animationEventHandler.StopAnimation(); // アニメーションを停止
+        // 音を停止
+        SoundManager.GetInstance.RequestStopping(m_pushSoundID);
+
+        m_animationEventHandler.StopAnimation(); // アニメーションを停止
     }
 
     private void FinishPush()
+
+
     {
         // 念のため
         m_tileMovement.GetMoveTransform().position = m_endPosition; // プレイヤーの位置を目標位置に設定
         owner.transform.SetParent(null); // ブロックの親を解除
                                          // ブロックを押す処理
         m_tileMovement.RequestMove(owner.GetForwardDirection());
-
-
 
         //フェルトブロックを押したことを通知
         GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/DaikiData/Scenes/Main/LogoScene.unity
+    guid: d67e272575030bf43b3e09c36f7273f0
+  - enabled: 1
     path: Assets/DaikiData/Scenes/Main/TitleScene.unity
     guid: 09371cdbd609a0346b4a386c5e11c1bb
   - enabled: 1
@@ -26,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DaikiData/Scenes/Main/StoryScene.unity
     guid: ada64e4205fc3c04a81a3dcbbbbdf220
+  - enabled: 1
+    path: Assets/DaikiData/Scenes/Main/LoadingScene.unity
+    guid: a0cb6919afbbd744baa8f40655436ac2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

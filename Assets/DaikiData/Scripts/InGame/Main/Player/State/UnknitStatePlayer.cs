@@ -19,6 +19,13 @@ public class UnknitStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // 解く音を再生
+        int unknitSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_UNKNIT, false);
+        if (unknitSoundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("UnknitStatePlayer: 解くサウンドの再生に失敗しました。");
+        }
+
         m_targetObject = owner.GetTargetObject();
 
         if (m_targetObject == null)

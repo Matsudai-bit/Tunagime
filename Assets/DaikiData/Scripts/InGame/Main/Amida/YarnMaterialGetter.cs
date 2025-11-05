@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class YarnMaterialGetter : MonoBehaviour
@@ -15,20 +15,20 @@ public class YarnMaterialGetter : MonoBehaviour
     public class YarnMaterialData
     {
        public MeshRenderer renderer;
-       public EmotionCurrent.Type emotionType; // EmotionCurrent.Type‚ğg—p‚µ‚Äƒ}ƒeƒŠƒAƒ‹‚Ìí—Ş‚ğw’è
+       public EmotionCurrent.Type emotionType; // EmotionCurrent.Typeã‚’ä½¿ç”¨ã—ã¦ãƒãƒ†ãƒªã‚¢ãƒ«ã®ç¨®é¡ã‚’æŒ‡å®š
        public MaterialType key;
     }
 
-    [Header("…‚Ìİ’èƒf[ƒ^")]
+    [Header("ç³¸ã®è¨­å®šãƒ‡ãƒ¼ã‚¿")]
     [SerializeField]
     private List< YarnMaterialData> m_yarnMaterialData = new List<YarnMaterialData>();
 
     private Dictionary<MaterialType, MeshRenderer> m_materials = new Dictionary<MaterialType, MeshRenderer>();
 
-    // ƒXƒ^[ƒg
+    // ã‚¹ã‚¿ãƒ¼ãƒˆ
     void Awake()
     {
-        // ƒf[ƒ^‚Éd•¡‚ª‚È‚¢‚©Šm”F
+        // ãƒ‡ãƒ¼ã‚¿ã«é‡è¤‡ãŒãªã„ã‹ç¢ºèª
         HashSet<MaterialType> uniqueKeys = new HashSet<MaterialType>();
         foreach (var data in m_yarnMaterialData)
         {
@@ -39,7 +39,7 @@ public class YarnMaterialGetter : MonoBehaviour
         }
 
 
-        // ƒ}ƒeƒŠƒAƒ‹‚Ì‰Šú‰»
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ã®åˆæœŸåŒ–
         foreach (var data in m_yarnMaterialData)
         {
             // 
@@ -63,13 +63,13 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½ƒ}ƒeƒŠƒAƒ‹ƒ^ƒCƒv‚ÌMeshRenderer‚ğæ“¾‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸãƒãƒ†ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ—ã®MeshRendererã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
     public MeshRenderer GetMeshRenderer(MaterialType type)
     {
-        // w’è‚³‚ê‚½ƒ^ƒCƒv‚Ìƒ}ƒeƒŠƒAƒ‹‚ª‘¶İ‚·‚é‚©Šm”F (”z—ñ‚ğg—p)
+        // æŒ‡å®šã•ã‚ŒãŸã‚¿ã‚¤ãƒ—ã®ãƒãƒ†ãƒªã‚¢ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª (é…åˆ—ã‚’ä½¿ç”¨)
         int index = m_yarnMaterialData.FindIndex(data => data.key == type);
         if (index != -1)
         {
@@ -85,13 +85,13 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½ƒ}ƒeƒŠƒAƒ‹ƒ^ƒCƒv‚É‘Î‰‚·‚éEmotionCurrent.Type‚ğæ“¾‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸãƒãƒ†ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ—ã«å¯¾å¿œã™ã‚‹EmotionCurrent.Typeã‚’å–å¾—ã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
     public EmotionCurrent.Type GetEmotionType(MaterialType type)
     {
-        // w’è‚³‚ê‚½ƒ^ƒCƒv‚ÌEmotionCurrent.Type‚ğæ“¾
+        // æŒ‡å®šã•ã‚ŒãŸã‚¿ã‚¤ãƒ—ã®EmotionCurrent.Typeã‚’å–å¾—
         int index = m_yarnMaterialData.FindIndex(data => data.key == type);
         if (index != -1)
         {
@@ -105,13 +105,13 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     /// <summary>
-    /// w’è‚³‚ê‚½ƒ}ƒeƒŠƒAƒ‹ƒ^ƒCƒv‚É‘Î‚µ‚ÄEmotionCurrent.Type‚ğİ’è‚µ‚Ü‚·B
+    /// æŒ‡å®šã•ã‚ŒãŸãƒãƒ†ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ—ã«å¯¾ã—ã¦EmotionCurrent.Typeã‚’è¨­å®šã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="type"></param>
     /// <param name="emotionType"></param>
     public void SetEmotionType(MaterialType type, EmotionCurrent.Type emotionType)
     {
-        // w’è‚³‚ê‚½ƒ^ƒCƒv‚ÌEmotionCurrent.Type‚ğİ’è
+        // æŒ‡å®šã•ã‚ŒãŸã‚¿ã‚¤ãƒ—ã®EmotionCurrent.Typeã‚’è¨­å®š
         int index = m_yarnMaterialData.FindIndex(data => data.key == type);
         if (index != -1)
         {
@@ -125,17 +125,25 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     /// <summary>
-    ///  ‘z‚¢‚Ìí—Ş‚É‰‚¶‚Äƒ}ƒeƒŠƒAƒ‹‚ğİ’è‚·‚é
+    ///  æƒ³ã„ã®ç¨®é¡ã«å¿œã˜ã¦ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨­å®šã™ã‚‹
     /// </summary>
-    public void ApplyMaterialForEmotion()
+    public void ApplyMaterialForEmotion(AmidaTube.State amidaShape)
     {
-        // «‘‚ÌƒL[‚ğƒ‹[ƒv‚µ‚ÄAŠeMeshRenderer‚É‘Î‰‚·‚éEmotionCurrent.Type‚ğİ’è
+        // è¾æ›¸ã®ã‚­ãƒ¼ã‚’ãƒ«ãƒ¼ãƒ—ã—ã¦ã€å„MeshRendererã«å¯¾å¿œã™ã‚‹EmotionCurrent.Typeã‚’è¨­å®š
         foreach (var data in m_yarnMaterialData)
         {
             if (data.renderer != null)
             {
-                // EmotionCurrent.Type‚ğİ’è
-                data.renderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, data.emotionType);
+                // EmotionCurrent.Typeã‚’è¨­å®š
+                if (amidaShape == AmidaTube.State.NORMAL)
+                {
+                    data.renderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN, data.emotionType);
+                }
+                else
+                {
+                    data.renderer.material = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.YARN_BRIDGE, data.emotionType);
+                }
+
               //  data.renderer.material =  YarnMaterialLibrary.Instance.GetMaterial(data.emotionType);
                 // Debug.Log($"Applied material for {data.key} with emotion type {data.emotionType}.");
             }
@@ -148,11 +156,11 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     /// <summary>
-    /// ‘S‚Ä‚Ìƒ}ƒeƒŠƒAƒ‹‚ÌEmotionCurrent.Type‚ğNONE‚ÉƒŠƒZƒbƒg‚µ‚Ü‚·B
+    /// å…¨ã¦ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã®EmotionCurrent.Typeã‚’NONEã«ãƒªã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
     /// </summary>
     public void ResetEmotionType()
     {
-        // ‘S‚Ä‚Ìƒ}ƒeƒŠƒAƒ‹‚ÌEmotionCurrent.Type‚ğNONE‚ÉƒŠƒZƒbƒg
+        // å…¨ã¦ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã®EmotionCurrent.Typeã‚’NONEã«ãƒªã‚»ãƒƒãƒˆ
         foreach (var data in m_yarnMaterialData)
         {
             data.emotionType = EmotionCurrent.Type.NONE;
@@ -161,12 +169,12 @@ public class YarnMaterialGetter : MonoBehaviour
     }
 
     /// <summary>
-    /// ‘S‚Ä‚Ìƒ}ƒeƒŠƒAƒ‹‚ÌEmotionCurrent.Type‚ğw’è‚³‚ê‚½’l‚Éİ’è‚µ‚Ü‚·B
+    /// å…¨ã¦ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã®EmotionCurrent.Typeã‚’æŒ‡å®šã•ã‚ŒãŸå€¤ã«è¨­å®šã—ã¾ã™ã€‚
     /// </summary>
     /// <param name="emotionType"></param>
     public void SetAllEmotionType(EmotionCurrent.Type emotionType)
     {
-        // ‘S‚Ä‚Ìƒ}ƒeƒŠƒAƒ‹‚ÌEmotionCurrent.Type‚ğw’è‚³‚ê‚½’l‚Éİ’è
+        // å…¨ã¦ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã®EmotionCurrent.Typeã‚’æŒ‡å®šã•ã‚ŒãŸå€¤ã«è¨­å®š
         foreach (var data in m_yarnMaterialData)
         {
             data.emotionType = emotionType;

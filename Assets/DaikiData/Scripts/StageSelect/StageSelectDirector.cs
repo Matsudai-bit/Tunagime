@@ -136,6 +136,7 @@ public class StageSelectDirector : MonoBehaviour
 
     public void LoadGameplayScene()
     {
+       
         SceneTransitionManager.GetInstance.TransitionToScene("GameplayScene", m_sceneTransitionFadeOutEffect);
     }
 

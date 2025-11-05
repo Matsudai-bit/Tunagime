@@ -25,7 +25,7 @@ public class ClearController : MonoBehaviour
 
     private GameObject m_stageObject; // ステージオブジェクト
 
-    private GameObject m_feelingPiece; // 感情ピースオブジェクト
+    private GameObject m_feelingPiece; // 想いの欠片オブジェクト
 
     bool m_isClearEffectStarted = false; // クリアエフェクトが開始されたかどうか
 
@@ -85,7 +85,7 @@ public class ClearController : MonoBehaviour
     }
 
     /// <summary>
-    /// 感情ピースのスポーンを開始する
+    /// 想いの欠片のスポーンを開始する
     /// </summary>
     private void StartSpawningFeelingPiece()
     {
@@ -101,20 +101,30 @@ public class ClearController : MonoBehaviour
             stageObjectPosition = m_stageObject.transform.position;
         }
 
-        // 感情ピースの初期位置をステージオブジェクトの少し下に設定
+        // 想いの欠片の初期位置をステージオブジェクトの少し下に設定
         m_feelingPiece.transform.position = stageObjectPosition + new Vector3(0.0f, -1.0f, 0.0f);
 
-        // 感情ピースを上に移動させるアニメーション
+        // 想いの欠片を上に移動させるアニメーション
         m_feelingPiece.transform.DOBlendableMoveBy(m_feelingPieceUpVelocity, 1.0f).SetEase(Ease.InBack).SetDelay(0.5f).OnComplete(() =>
         {
             m_feelingPiece.transform.DOBlendableMoveBy(m_feelingPieceDownVelocity, 1.0f).SetEase(Ease.OutBack).SetDelay(0.3f).OnComplete(() =>
             {
-                // 感情ピースのスポーン開始を通知
+                // 想いの欠片のスポーン開始を通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GOING_GET_FEELING_PIECE_START);
 
                 m_isClearEffectStarted = true; // クリアエフェクトが開始された
             });
 
+        });
+
+        // 想いの欠片の出現音を再生
+        DOVirtual.DelayedCall(0.8f, () =>
+        {
+            int soundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_FEELING_PIECE_SPAWN, false);
+            if (soundID == SoundManager.ERROR_SOUND_ID)
+            {
+                Debug.LogError("ClearController: 想いの欠片の出現サウンドの再生に失敗しました。");
+            }
         });
     }
 
@@ -125,11 +135,19 @@ public class ClearController : MonoBehaviour
         {
             var distance = Vector3.Distance(m_player.transform.position, m_feelingPiece.transform.position);
 
+            // 一定の距離以内に近づいたかどうかをチェック
             if (distance < 1.1f)
             {
-                // プレイヤーが感情ピースに近づいた場合、感情ピースを消す
+                // 回収音を再生
+                int soundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_FEELING_PIECE_COLLECT, false);
+                if (soundID == SoundManager.ERROR_SOUND_ID)
+                {
+                    Debug.LogError("ClearController: 想いの欠片の回収サウンドの再生に失敗しました。");
+                }
+
+                // プレイヤーが想いの欠片に近づいた場合、想いの欠片を消す
                 Destroy(m_feelingPiece);
-                // 感情ピースのスポーン完了を通知
+                // 想いの欠片のスポーン完了を通知
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GOING_GET_FEELING_PIECE_END);
                 m_isClearEffectStarted = false; // クリアエフェクトが終了した
             }

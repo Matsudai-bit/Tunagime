@@ -161,14 +161,14 @@ public class AmidaTube : MonoBehaviour, ISerializableComponent
     public void ApplyMaterial()
     {
         // YarnMeshChangerを使用してマテリアルを適用
-        m_meshChanger.ApplyMaterial();
+        m_meshChanger.ApplyMaterial(m_currentShapeType);
     }
 
     public void ApplyRejectionMaterial()
     {
         m_meshChanger.SetAllEmotionType(EmotionCurrent.Type.REJECTION);
         // すべてのマテリアルに対してEmotionCurrent.TypeをREJECTIONに設定
-        m_meshChanger.ApplyMaterial();
+        m_meshChanger.ApplyMaterial(m_currentShapeType);
     }
 
     /// <summary>

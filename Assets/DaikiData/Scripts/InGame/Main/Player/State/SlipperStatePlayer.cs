@@ -9,6 +9,8 @@ public class SlipperStatePlayer : PlayerState
 
     private readonly float SLIDE_SPEED = 4.0f; // スライド速度 1秒に動く量
 
+    private int m_slideSoundID = -1; // 滑る音のサウンドID
+
     public SlipperStatePlayer(Player owner) : base(owner)
     {
 
@@ -18,9 +20,14 @@ public class SlipperStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        // サテン床上で滑る音を再生
+        m_slideSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_SLIDE, true);
+        if (m_slideSoundID == SoundManager.ERROR_SOUND_ID)
+        {
+            Debug.LogError("SlipperStatePlayer: 滑るサウンドの再生に失敗しました。");
+        }
+
         var map = MapData.GetInstance;
-
-
 
         // 滑る状態を開始し、アニメーションを再生します
         owner.GetAnimator().SetBool("Slide", true);
@@ -84,6 +91,10 @@ public class SlipperStatePlayer : PlayerState
     /// </summary>
     public override void OnFinishState()
     {
+
+        // 滑る音を停止
+        SoundManager.GetInstance.RequestStopping(m_slideSoundID);
+
         // 滑る状態の終了時にアニメーションをリセット
         owner.GetAnimator().SetBool("Slide", false);
 

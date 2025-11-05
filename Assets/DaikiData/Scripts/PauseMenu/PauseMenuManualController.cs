@@ -25,6 +25,8 @@ public class PauseMenuManualController : MonoBehaviour
     /// </summary>
     public void OnOpenPause(float duration)
     {
+
+
         gameObject.SetActive(true);
 
         for (int i = 0; i < m_manualIcons.Count; i++)
@@ -50,6 +52,7 @@ public class PauseMenuManualController : MonoBehaviour
     /// </summary>
     public void OnClosePause(float duration)
     {
+
 
         // イージングを使って右にスライドさせるアニメーション
         for (int i = 0; i < m_manualIcons.Count; i++)

@@ -1,0 +1,4 @@
+Assets/DaikiData/Resources/Movie/Story/movie_story_ed.mp4 filter=lfs diff=lfs merge=lfs -text
+Assets/DaikiData/Resources/Movie/Story/movie_story_ed.mp4.meta filter=lfs diff=lfs merge=lfs -text
+Assets/DaikiData/Resources/Movie/Story/movie_story_op.mp4 filter=lfs diff=lfs merge=lfs -text
+Assets/DaikiData/Resources/Movie/Story/movie_story_op.mp4.meta filter=lfs diff=lfs merge=lfs -text

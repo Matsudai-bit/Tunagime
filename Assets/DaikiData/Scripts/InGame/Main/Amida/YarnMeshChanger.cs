@@ -142,7 +142,7 @@ public class YarnMeshChanger : MonoBehaviour
     /// <summary>
     /// 現在のメッシュインスタンスに対して、EmotionCurrent.Typeに基づいてマテリアルを適用します。
     /// </summary>
-    public void ApplyMaterial()
+    public void ApplyMaterial(AmidaTube.State amidaShape)
     {
         if (m_currentMeshInstance == null)
         {
@@ -153,7 +153,7 @@ public class YarnMeshChanger : MonoBehaviour
         if (materialGetter != null)
         {
 
-            materialGetter.ApplyMaterialForEmotion();
+            materialGetter.ApplyMaterialForEmotion(amidaShape);
 
         }
         else
