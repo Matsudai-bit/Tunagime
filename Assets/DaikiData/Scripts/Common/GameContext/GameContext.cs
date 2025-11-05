@@ -34,11 +34,15 @@ public class GameContext : MonoBehaviour
         {
             m_instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // 初期化
+            Initialize();
         }
         else
         {
             Destroy(gameObject);
         }
+
     }
 
 
@@ -49,7 +53,7 @@ public class GameContext : MonoBehaviour
     private SaveData m_saveData;
     private SaveDataManager m_saveDataManager;
 
-    public void Start()
+    public void Initialize()
     {
         // セーブデータ管理の作成
         GameObject gameObject = new GameObject("SaveDataManager");

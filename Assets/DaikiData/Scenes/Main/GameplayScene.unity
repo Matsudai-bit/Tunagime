@@ -2300,6 +2300,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+--- !u!224 &1212281164 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7539002837361612925, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
+  m_PrefabInstance: {fileID: 3143452231487561664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1298601638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 310055186226604368, guid: fa4e41d1572fdca48b5bff82a72699f6, type: 3}
@@ -3534,6 +3539,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 659687282693530374, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087559641629839591, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
+      propertyPath: m_pageImageParent
+      value: 
+      objectReference: {fileID: 1212281164}
     - target: {fileID: 8523441215605579318, guid: c745a3efaed5c814c9ee9a31b0ee13bc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
