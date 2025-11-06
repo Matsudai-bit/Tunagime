@@ -2231,6 +2231,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1773396888}
     m_Modifications:
+    - target: {fileID: 682966497139361600, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 08f8f149b58325644be70d580647863b, type: 3}
+    - target: {fileID: 682966497139361600, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1209453915936694064, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
       propertyPath: m_gameDirector
       value: 
@@ -2299,6 +2307,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6111839965181740928, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8164183478915395387, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2310,6 +2322,10 @@ PrefabInstance:
     - target: {fileID: 8164183478915395387, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848155619383850287, guid: 7f089ddba5ab1024e85c172047d56cb5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

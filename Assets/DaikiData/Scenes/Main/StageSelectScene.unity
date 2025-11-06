@@ -2960,6 +2960,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveDataSetting: {fileID: 11400000, guid: c6ec42a6d665a8b46a02d35525ac3359, type: 2}
+  m_debugSettings:
+    debugMode: 1
+    unlockAllStages: 0
+    debugSaveData: {fileID: 11400000, guid: c6ec42a6d665a8b46a02d35525ac3359, type: 2}
 --- !u!4 &949153344
 Transform:
   m_ObjectHideFlags: 0

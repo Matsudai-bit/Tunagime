@@ -50,12 +50,34 @@ public class GameContext : MonoBehaviour
     [SerializeField]
     private SaveDataSetting saveDataSetting;
 
+    #region デバック用設定
+
+
+    [System.Serializable]
+    class DebugSettings
+    {
+        public bool debugMode = false;          // デバッグモードの有効化
+        public bool unlockAllStages;    // 全てのステージをアンロック
+        public SaveDataSetting debugSaveData;  // デバッグ用セーブデータ設定
+
+    }
+    #endregion
+
+    [Header("デバッグ設定")]
+    [SerializeField]
+    private DebugSettings m_debugSettings = new(); // デバッグ用設定
+
+    [Header("セーブデータ")]
+    [SerializeField]
+
+
     private SaveData m_saveData;
     private SaveDataManager m_saveDataManager;
 
 
     public void Initialize()
     {
+
         // セーブデータ管理の作成
         GameObject gameObject = new GameObject("SaveDataManager");
         gameObject.name = "SaveDataManager";
@@ -63,10 +85,32 @@ public class GameContext : MonoBehaviour
         gameObject.transform.parent = transform;
         m_saveDataManager = gameObject.AddComponent<SaveDataManager>();
 
-        // 
-        m_saveData = m_saveDataManager.Load(saveDataSetting.GetFileFullPath());
+
+
+        // デバッグモードの適用
+        if (m_debugSettings.debugMode)
+        {
+            // デバッグ用セーブデータの読み込み
+            m_saveData = m_saveDataManager.Load(m_debugSettings.debugSaveData.GetFileFullPath());
+
+            // 全てのステージをアンロック
+            if (m_debugSettings.unlockAllStages)
+            {
+                UnlockAllStage(m_saveData);
+
+            }
+        }
+        else
+        {
+            // 通常セーブデータの読み込み 
+            m_saveData = m_saveDataManager.Load(saveDataSetting.GetFileFullPath());
+         
+
+        }
+
         // ファイルが無い場合作成セーブデータの読み込み
         SaveGame();
+
 
     }
 
@@ -93,6 +137,37 @@ public class GameContext : MonoBehaviour
     {
         m_saveData = new SaveData();
         SaveGame();
+    }
+
+    /// <summary>
+    /// デバッグモードを適用する
+    /// </summary>
+    static public void UnlockAllStage(SaveData saveData)
+    {
+        // 全てのワールドとステージをアンロック
+      
+        int worldCount = 5;
+        int stageCount = 5;
+        for (int w = 0; w < worldCount; w++)
+        {
+            WorldID worldID = (WorldID)w;
+            if (saveData.worldDataDict.ContainsKey(worldID))
+            {
+                SaveData.WorldData worldData = saveData.worldDataDict[worldID];
+                worldData.isLocked = false;
+                for (int s = 0; s < stageCount; s++)
+                {
+                    StageID stageID = (StageID)s;
+                    SaveData.StageData stageData = worldData.stageDataList.Find(sd => sd.stageID == stageID);
+                    if (stageData != null)
+                    {
+                        stageData.stageStatus.isLocked = false;
+                    }
+                }
+            }
+        }
+        
+
     }
 
     /// <summary>
