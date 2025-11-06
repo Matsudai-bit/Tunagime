@@ -97,3 +97,21 @@ MonoBehaviour:
   - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
     id: 27
     clip: {fileID: 8300000, guid: 402c6870b4c35d843bed4bce6bbbb8d0, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 28
+    clip: {fileID: 8300000, guid: b61e780c653704348a7a715286bda440, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 29
+    clip: {fileID: 8300000, guid: 9b5e5f301fa6a714d9a59f56a05fc4b9, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 30
+    clip: {fileID: 8300000, guid: 9d4668e90d225d44fab1c35ea7c1cf7a, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 31
+    clip: {fileID: 8300000, guid: 8d07aecd97751e344beb9e27e3dec948, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 32
+    clip: {fileID: 8300000, guid: 1715df98d251d4148b6079f6ffb300cd, type: 3}
+  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+    id: 33
+    clip: {fileID: 8300000, guid: 0a204bbb90bbb4245b9c89a6f6f21640, type: 3}

@@ -110,6 +110,10 @@ public class MapData : MonoBehaviour
     [Header("====== ゲームステージデータ ======")]
     [SerializeField] private GameStageData m_gameStageData; // ゲームステージデータ
 
+    [Header("====== クリア条件チェッカー ======")]
+    [SerializeField]
+    private ClearConditionChecker m_clearConditionChecker;  // クリア条件チェッカーの参照
+
     // 唯一のインスタンスにアクセスするためのプロパティ
     public static MapData GetInstance
     {
@@ -389,6 +393,16 @@ public class MapData : MonoBehaviour
     public GameObject GetFeelingPiece()
     {
         return m_mapSetting.feelingPiece;
+    }
+
+    public void SetClearConditionChecker(ClearConditionChecker clearConditionChecker)
+    {
+        m_clearConditionChecker = clearConditionChecker;
+    }
+
+    public ClearConditionChecker GetClearConditionChecker()
+    {
+        return m_clearConditionChecker;
     }
 
     public MapSetting MapSetting { get { return m_mapSetting; } }
