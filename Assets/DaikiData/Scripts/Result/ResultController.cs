@@ -106,7 +106,10 @@ public class ResultController : MonoBehaviour
 
         });
 
-
+        // 次のステージを開放する
+        GameContext.GetInstance.UnlockNextStage(m_gameProgressData.worldID, m_gameProgressData.stageID);
+        // セーブデータを保存する
+        GameContext.GetInstance.SaveGame();
 
     }
 
@@ -342,14 +345,13 @@ public class ResultController : MonoBehaviour
 
             m_sceneTransitionFadeOut.StartTransition(() =>
             {
-                // 次のステージを開放する
-                GameContext.GetInstance.UnlockNextStage(m_gameProgressData.worldID, m_gameProgressData.stageID);
+             
 
                 // エンディングステージの場合
-                if (m_gameProgressData.stageID == StageID.STAGE_5)
+                if ( m_gameProgressData.stageID == StageID.STAGE_5)
                 {
                     // エンディングシーンへ遷移
-                    NarrativeContext.GetInstance.SetNarrativeState(GetNarrativeStateForWorldID(m_gameProgressData.stageID)
+                    NarrativeContext.GetInstance.SetNarrativeState(GetNarrativeStateForWorldID(m_gameProgressData.worldID)
                         , () => {
                             UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
                         }
@@ -410,19 +412,19 @@ public class ResultController : MonoBehaviour
     /// </summary>
     /// <param name="worldID"></param>
     /// <returns></returns>
-    NarrativeContext.NarrativeState GetNarrativeStateForWorldID(StageID worldID)
+    NarrativeContext.NarrativeState GetNarrativeStateForWorldID(WorldID worldID)
     {
         switch (worldID)
         {
-            case StageID.STAGE_1:
+            case WorldID.World_1:
                 return NarrativeContext.NarrativeState.WORLD_1;
-            case StageID.STAGE_2:
+            case WorldID.World_2:
                 return NarrativeContext.NarrativeState.WORLD_2;
-            case StageID.STAGE_3:
+            case WorldID.World_3:
                 return NarrativeContext.NarrativeState.WORLD_3;
-            case StageID.STAGE_4:
+            case WorldID.World_4:
                 return NarrativeContext.NarrativeState.WORLD_4;
-            case StageID.STAGE_5:
+            case WorldID.World_5:
                 return NarrativeContext.NarrativeState.ENDING;
             default:
                 return NarrativeContext.NarrativeState.INTRODUCTION;

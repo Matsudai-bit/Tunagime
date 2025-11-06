@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e39e5ae9d2f7b44bb873c603245ebc, type: 3}
   m_Name: SaveDataSetting_MainGame
   m_EditorClassIdentifier: 
-  fileFullPath: C:/Users/it242245/Desktop/GameProjects/GameCreatorsKoshien/Tunagime/Tunagime/Assets/SaveData/saveData.json
-  filePath: SaveData
+  fileFullPath: C:/Users/it242245/AppData/LocalLow/Omoinokoubou/Tunagime\SaveData\saveData.json
+  saveDirectoryPath: SaveData
   fileName: saveData.json

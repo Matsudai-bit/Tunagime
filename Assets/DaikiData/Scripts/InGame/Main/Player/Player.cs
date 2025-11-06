@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -96,10 +97,6 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         m_stateMachine.UpdateState();
 
         var map = MapData.GetInstance;
-
- 
-
-    
         
     }
 
@@ -782,4 +779,5 @@ public class Player : MonoBehaviour , IGameInteractionObserver
         // ゲームインタラクションイベントのオブザーバーを解除
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
     }
+
 }

@@ -130,6 +130,7 @@ public class PauseWindowController : MonoBehaviour
 
         // プレイヤー入力をUI用に切り替える
         m_playerInput.actions.Disable();
+        m_playerInput.actions.FindActionMap("InGameSystem").Enable();
         m_playerInput.actions.FindActionMap("UI").Enable();
 
         // 透過画像をフェードインさせる
@@ -184,6 +185,8 @@ public class PauseWindowController : MonoBehaviour
         if (context.performed == false) return;
 
         if (!gameObject.activeSelf || m_isInitialStart) return;
+
+
         // ポーズメニューを閉じる
         OnClosePause();
     }

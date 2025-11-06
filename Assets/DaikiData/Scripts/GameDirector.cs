@@ -51,6 +51,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     private InGameFlowEventID m_currentEventID ;
 
+    
+
     private Action m_onStartUpdating ; // 更新開始時の処理
 
     void Awake()
@@ -396,6 +398,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     public void OpenPauseWindow(InputAction.CallbackContext context)
     {
         if (context.performed == false) return;
+        if (m_pauseWindowController.gameObject.activeSelf) return;
 
         // ポーズメニューを開くメッセージを送る
         InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.START_PAUSE_MENU);

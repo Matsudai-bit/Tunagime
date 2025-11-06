@@ -40,10 +40,12 @@ public class InitializationWarningWindow : MonoBehaviour
 
     private float m_initialScale = 1.0f; // 初期スケール
 
+    private float m_initialButtonScale = 1.0f; // ボタンの初期スケール
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         m_initialScale = m_rootObject.transform.localScale.x;
+
 
         // 各ボタンにクリックイベントを追加
         for (int i = 0; i < m_buttons.Count; i++)
@@ -73,6 +75,8 @@ public class InitializationWarningWindow : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        m_initialButtonScale = m_buttons[0].transform.localScale.x;
+
         m_canInput = false;
 
         m_currentSelectedIndex = 0;
@@ -93,6 +97,12 @@ public class InitializationWarningWindow : MonoBehaviour
         m_rootObject.transform.DOScale(targetScale, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
         {
             gameObject.SetActive(false);
+
+            // ボタンを元のスケールに戻す
+            for (int i = 0; i < m_buttons.Count; i++)
+            {
+                m_buttons[i].transform.localScale = Vector3.one * m_initialButtonScale;
+            }
         });
     }
 
@@ -193,16 +203,19 @@ public class InitializationWarningWindow : MonoBehaviour
             var colors = button.colors;
             if (i == m_currentSelectedIndex)
             {
-                // 暗くする
-                button.image.color = new Color(0.7f, 0.7f, 0.7f, 1.0f);
-                button.OnPointerEnter(null);
 
+                button.OnPointerEnter(null);
+                // 元に戻す
+                button.image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                button.transform.localScale = Vector3.one * (m_initialButtonScale + 0.05f);
             }
 
             else
-            {
-                // 元に戻す
-                button.image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            {   
+                // 暗くする
+                button.image.color = new Color(0.7f, 0.7f, 0.7f, 1.0f);
+                button.transform.localScale = Vector3.one * m_initialButtonScale;
+
 
                 button.OnPointerExit(null);
             }

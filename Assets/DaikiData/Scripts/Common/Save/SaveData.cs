@@ -71,6 +71,7 @@ public class SaveData
         jsonSaver.worldDataList.Clear();
         foreach (var worldData in worldDataDict)
         {
+            
             jsonSaver.worldDataList.Add(worldData.Value);
         }
         return jsonSaver;

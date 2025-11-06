@@ -114,7 +114,10 @@ public class TitleSceneController : MonoBehaviour
 
                     });
 #else
+    m_sceneTransitionFadeOutEffect.StartTransition(() =>
+                    {
                     Application.Quit();//ゲームプレイ終了
+                    });
     
 #endif
 

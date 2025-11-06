@@ -70,12 +70,12 @@ public class PushBlockStatePlayer : PlayerState
 
 
         // プレイヤーの前方に少し離れた位置を計算 
-        Vector3 dephPos = map.GetCommonData().tileSize / 2.0f * -owner.GetForwardDirectionForGrid();
-        // プレイヤーのグリッド位置を計算
-        GridPos playerGridPos = blockPos - owner.GetForwardDirection();
+        Vector3 dephPos = map.GetCommonData().tileSize / 2.1f * -owner.GetForwardDirectionForGrid();
+        //// プレイヤーのグリッド位置を計算
+        //GridPos playerGridPos = blockPos - owner.GetForwardDirection();
 
         // 自分の座標を設定 // ブロックのグリッド位置をワールド座標に変換して、プレイヤーの位置を設定
-        owner.transform.position = map.ConvertGridToWorldPos(playerGridPos) + dephPos;
+        owner.transform.position = map.ConvertGridToWorldPos(owner.GetGridPosition()) + dephPos;
         owner.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // プレイヤーの速度をリセット
 
         // フェルトブロックの方向を向く
@@ -122,6 +122,7 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnFinishState()
     {
+        if (owner.GetStateMachine().GetRequestState() == PlayerStateID.PUSH_BLOCK) { return; } ;
         // 音を停止
         SoundManager.GetInstance.RequestStopping(m_pushSoundID);
 
