@@ -93,25 +93,28 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
             if (m_isConnection == false)
             {
           
-
-                switch (6 - MapData.GetInstance.GetClearConditionChecker().GetRemainingUnconnectedTerminusFeelingSlotCount())
+                if (m_feelingSlot.GetEmotionType() != EmotionCurrent.Type.REJECTION)
                 {
-                    case 1:
-                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_1, false);
-                        break;
-                    case 2:
-                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_2, false);
-                        break;
-                    case 3:
-                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_3, false);
-                        break;
-                    case 4:
-                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_4, false);
-                        break;
-                    case 5:
-                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_5, false);
-                        break;
+                    switch (6 - MapData.GetInstance.GetClearConditionChecker().GetRemainingUnconnectedTerminusFeelingSlotCount())
+                    {
+                        case 1:
+                            SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_1, false);
+                            break;
+                        case 2:
+                            SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_2, false);
+                            break;
+                        case 3:
+                            SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_3, false);
+                            break;
+                        case 4:
+                            SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_4, false);
+                            break;
+                        case 5:
+                            SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_5, false);
+                            break;
+                    }
                 }
+               
             }
 
             // 終点の感情と一致している場合は繋がっている
