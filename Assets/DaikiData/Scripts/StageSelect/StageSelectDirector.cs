@@ -131,6 +131,7 @@ public class StageSelectDirector : MonoBehaviour
     public void OpenPause(InputAction.CallbackContext context)
     {
         if (!context.performed){ return; }
+        if (m_pauseWindowController.gameObject.activeSelf) { return; }
 
         SetUpPauseMenuInputMode();
         m_pauseWindowController.RequestOpenPause(m_playerInput, SetUpStageSelectInputMode);

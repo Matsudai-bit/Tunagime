@@ -53,6 +53,7 @@ public class GameContext : MonoBehaviour
     private SaveData m_saveData;
     private SaveDataManager m_saveDataManager;
 
+
     public void Initialize()
     {
         // セーブデータ管理の作成
@@ -63,7 +64,7 @@ public class GameContext : MonoBehaviour
         m_saveDataManager = gameObject.AddComponent<SaveDataManager>();
 
         // 
-        m_saveData = m_saveDataManager.Load(saveDataSetting.fileFullPath);
+        m_saveData = m_saveDataManager.Load(saveDataSetting.GetFileFullPath());
         // ファイルが無い場合作成セーブデータの読み込み
         SaveGame();
 
@@ -82,7 +83,7 @@ public class GameContext : MonoBehaviour
     /// </summary>
     public void SaveGame()
     {
-        m_saveDataManager.Save(m_saveData, saveDataSetting.fileFullPath);
+        m_saveDataManager.Save(m_saveData, saveDataSetting.GetFileFullPath());
     }
 
     /// <summary>
@@ -109,6 +110,7 @@ public class GameContext : MonoBehaviour
             if (m_saveData.worldDataDict.ContainsKey(worldID))
             {
                 SaveData.WorldData worldData = m_saveData.worldDataDict[worldID];
+                worldData.isLocked = false;
                 for (int s = 0; s < stageCount; s++)
                 {
                     StageID stageID = (StageID)s;
@@ -158,9 +160,11 @@ public class GameContext : MonoBehaviour
                 if (nextWorldIndex < 5) // ワールド数が5の場合
                 {
                     WorldID nextWorldID = (WorldID)nextWorldIndex;
+
                     if (m_saveData.worldDataDict.ContainsKey(nextWorldID))
                     {
                         SaveData.WorldData nextWorldData = m_saveData.worldDataDict[nextWorldID];
+                        nextWorldData.isLocked = false;
                         SaveData.StageData firstStageData = nextWorldData.stageDataList.Find(sd => sd.stageID == StageID.STAGE_1);
                         if (firstStageData != null)
                         {

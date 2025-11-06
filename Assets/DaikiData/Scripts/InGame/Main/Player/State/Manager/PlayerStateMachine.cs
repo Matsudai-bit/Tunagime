@@ -74,6 +74,11 @@ public class PlayerStateMachine
         m_requestedStateID = newStateID;
     }
 
+    public PlayerStateID GetRequestState()
+    {
+        return m_requestedStateID;
+    }
+
     /// <summary>
     /// 状態の変更
     /// </summary>

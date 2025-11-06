@@ -171,6 +171,7 @@ public class WorldSelectButtonController : MonoBehaviour
                 break;
             case State.CHANGING_STAGE_SELECT:
                 // ステージセレクトに切り替え中の処理
+                m_stageSelectController.SetCurrentWorldID(m_currentWorldID);
                 StartChangingStageSelect();
                 break;
             case State.STAGE_SELECT:
@@ -178,7 +179,6 @@ public class WorldSelectButtonController : MonoBehaviour
                 m_stageSelectController.SetButtonPrefab(m_stageSelectButtonDataForWorld.stageSelectButtonData[(int)m_currentWorldID].buttonPrefab);
                 m_stageSelectController.SetRootWorldButton(m_worldSelectButtonDictionary[m_currentWorldID]);
                 m_stageSelectController.gameObject.SetActive(true);
-                m_stageSelectController.SetCurrentWorldID(m_currentWorldID);
                 break;
             case State.CHANGING_WORLD_SELECT:
                 

@@ -141,9 +141,9 @@ public class StageSelectController : MonoBehaviour
                     m_stageSelectDirector.LoadGameplayScene();
                 });
                 if (stageSaveData.GetStageStatus(m_currentWorldID, stageID).isLocked)
-            {
-                button.interactable = false;
-            }
+                {
+                    button.interactable = false;
+                }
 
             }
         //}

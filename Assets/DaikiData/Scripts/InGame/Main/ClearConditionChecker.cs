@@ -38,18 +38,17 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
         m_isDelayClearCheck = false;
     }
 
+    void DelayedClearCheck()
+    {
+        // クリア条件のチェックを遅延させる場合は何もしない
+        m_isDelayClearCheck = false;
+    }
 
     /// <summary>
     /// 更新処理
     /// </summary>
     void Update()
     {
-        if (m_isDelayClearCheck)
-        {
-            // クリア条件のチェックを遅延させる場合は何もしない
-            m_isDelayClearCheck = false;
-            return;
-        }
 
         // クリア条件のチェック
         if (CheckClearCondition())
@@ -107,6 +106,8 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
                 break;
             case InteractionEvent.FLOWWING_AMIDAKUJI:
                 m_isDelayClearCheck = true; // あみだを辿るイベントが発生した場合、クリア判定を遅延させる
+                // 0.5秒後にクリア条件のチェックを行う
+                Invoke("DelayedClearCheck", 0.5f);
                 break;
             default:
                 break;

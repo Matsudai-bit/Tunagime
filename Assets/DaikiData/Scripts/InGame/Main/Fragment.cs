@@ -54,12 +54,18 @@ public class Fragment : MonoBehaviour
     [Header("=== 大きさの変わる速度 ===")]
     [SerializeField] private float SIZE_CHANGE_DURATION = 2.0f; // サイズ変更にかかる時間
 
+    [Header("=== レイオフセット ===")]
+    [SerializeField]
+    private float m_rayOffset = 0.5f; // レイオフセットの距離
+
     // === 公開プロパティ ===
 
     public MovementDirectionID MovementDirection => m_currentMovementDirection;
     public MovementDirectionID CurrentSideDirection => m_currentSideDirection;
     public Level level => m_level;
     public MeshRenderer MeshRenderer => m_meshRenderer != null ? m_meshRenderer : null;
+
+
 
     // === 列挙型 ===
 
@@ -113,6 +119,13 @@ public class Fragment : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_isDebugMode)
+        {
+            Debug.DrawRay(GetMovementRay().origin, GetMovementRay().direction * m_raycastDistance,   Color.red);
+
+        }
+            
+
         // 現在の状態がMOVINGの場合のみ、移動処理を実行
         if (m_currentState == State.MOVING)
         {
@@ -126,6 +139,7 @@ public class Fragment : MonoBehaviour
 
     private void Update()
     {
+
         if (m_level == Level.LEVEL_4)
         {
             var core =  StageObjectFactory.GetInstance().GenerateCarriableCore(null,m_stageBlock.GetGridPos(), GetComponent<EmotionCurrent>().CurrentType);
@@ -159,12 +173,7 @@ public class Fragment : MonoBehaviour
             }
         }
 
-        // レイキャストの可視化（デバッグ用）
-        if (m_isDebugMode)
-        {
-            Vector3 movedDirection = GetMovementDirectionVector(m_currentMovementDirection);
-            Debug.DrawRay(m_stageBlock.transform.position, movedDirection * m_raycastDistance, Color.red);
-        }
+
     }
 
     /// <summary>
@@ -336,37 +345,41 @@ public class Fragment : MonoBehaviour
         var currentPlacedAmidaTube = stageGridData.GetAmidaTube(targetGridPos);
         if (currentPlacedAmidaTube == null) { return; }
         
-        switch (m_currentMovementDirection)
-        {
-            case MovementDirectionID.UP:
-                {
-                    // 上方向にあみだチューブがあるか確認
-                    var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.UP);
-                    if (!nextToAmidaTube) { return; }
-                }
-                break;
-            case MovementDirectionID.DOWN:
-                {
-                    // 下方向にあみだチューブがあるか確認
-                    var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.DOWN);
-                    if (!nextToAmidaTube) { return; }
-                }
-                break;
-            case MovementDirectionID.LEFT: {
-                    // 左方向にあみだチューブがあるか確認
-                    var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.LEFT);
-                    if (!nextToAmidaTube) { return; }
-                }
-                break;
-            case MovementDirectionID.RIGHT:
-                {
-                    // 右方向にあみだチューブがあるか確認
-                    var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.RIGHT);
-                    if (!nextToAmidaTube) { return; }
-                }
-                break;
+        //switch (m_currentMovementDirection)
+        //{
+        //    case MovementDirectionID.UP:
+        //        {
+        //            // 上方向にあみだチューブがあるか確認
+        //            var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.UP);
+        //            if (!nextToAmidaTube) { return; }
+        //        }
+        //        break;
+        //    case MovementDirectionID.DOWN:
+        //        {
+        //            // 下方向にあみだチューブがあるか確認
+        //            var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.DOWN);
+        //            if (!nextToAmidaTube) { return; }
+        //        }
+        //        break;
+        //    case MovementDirectionID.LEFT: {
+        //            // 左方向にあみだチューブがあるか確認
+        //            var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.LEFT);
+        //            var stageBlock = stageGridData.GetTileObject(m_stageBlock.GetGridPos() + GetCurrentMovementDirectionForGridPos()).stageBlock;
+                    
+        //            if (!nextToAmidaTube && !(stageBlock && stageBlock.GetBlockType().Equals(StageBlock.BlockType.FEELING_SLOT))) { return; }
+        //        }
+        //        break;
+        //    case MovementDirectionID.RIGHT:
+        //        {
+        //            // 右方向にあみだチューブがあるか確認
+        //            var nextToAmidaTube = currentPlacedAmidaTube.GetNeighbor(AmidaTube.Direction.RIGHT);
+        //            var stageBlock = stageGridData.GetTileObject(m_stageBlock.GetGridPos() + GetCurrentMovementDirectionForGridPos()).stageBlock;
 
-        }
+        //            if (!nextToAmidaTube && !(stageBlock && stageBlock.GetBlockType().Equals(StageBlock.BlockType.FEELING_SLOT))) { return; }
+        //        }
+        //        break;
+
+        //}
 
         switch (ReverseDirection(m_currentMovementDirection))
         {
@@ -407,6 +420,21 @@ public class Fragment : MonoBehaviour
         var forwardHitObject = GetTargetDirectionNearHitObject(m_currentMovementDirection, m_raycastDistance +0.15f);
         if (forwardHitObject)
         {
+            //// 現在下にある編みを取得
+            //AmidaTube amidaTube = stageGridData.GetAmidaTube(m_stageBlock.GetGridPos());
+            //if (amidaTube.GetState().Equals(AmidaTube.State.KNOT_UP) && m_currentMovementDirection.Equals(Direction.UP))
+            //{
+                
+            //    StageBlock forwardObject = forwardHitObject?.GetComponent<StageBlock>();
+            //    if (forwardObject && forwardObject.GetBlockType() != StageBlock.BlockType.FRAGMENT)
+            //    {
+            //        return;
+            //    }
+            //}
+
+            //if (m_currentMovementDirection.Equals(MovementDirectionID.UP) )
+
+
             // プレイヤー以外に衝突した場合、方向を反転
             m_currentMovementDirection = ReverseDirection(m_currentMovementDirection);
             m_prevGridPos = m_prevGridPos + m_stageBlock.GetGridPos();
@@ -425,7 +453,7 @@ public class Fragment : MonoBehaviour
         Vector3 movedDirection = GetMovementDirectionVector(directionID);
 
         // レイキャストを使用して前方に障害物があるか確認
-        Ray ray = new Ray(m_stageBlock.transform.position, movedDirection);
+        Ray ray = GetMovementRay();
         RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance );
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
@@ -433,7 +461,7 @@ public class Fragment : MonoBehaviour
         {
             for (int i = 0; i < hits.Length; i++)
             {
-                
+                Debug.Log("Hit Object: " + hits[i].collider.gameObject.name);
 
                 RaycastHit hit = hits[i];
 
@@ -524,9 +552,11 @@ public class Fragment : MonoBehaviour
     /// <returns></returns>
     private bool TryFindFragmentToMovementDirection(out Fragment findingFragment)
     {
+        Physics.queriesHitBackfaces = true;
+
         RaycastHit hit;
         Vector3 movedDirection = GetMovementDirectionVector(m_currentMovementDirection);
-        Ray ray = new Ray(m_stageBlock.transform.position, movedDirection);
+        Ray ray = GetMovementRay();
         if (Physics.Raycast(ray, out hit, m_raycastDistance + 1.0f))
         {
     
@@ -666,6 +696,16 @@ public class Fragment : MonoBehaviour
                 break;
         }
         return direction;
+    }
+
+    /// <summary>
+    /// レイの取得 
+    /// </summary>
+    /// <returns></returns>
+    private Ray GetMovementRay()
+    {
+        Vector3 movedDirection = GetMovementDirectionVector(m_currentMovementDirection);
+        return new Ray(transform.position + new Vector3(0.0f, 0.2f, 0.0f) + movedDirection * m_rayOffset, movedDirection);
     }
 
 }

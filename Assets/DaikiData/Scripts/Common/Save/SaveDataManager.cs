@@ -27,21 +27,23 @@ public class SaveDataManager : MonoBehaviour
     {
         SaveData.JsonSaver data = new SaveData.JsonSaver();
         // ファイルが存在するか確認
-        if (File.Exists(fileFullPath))
+        if (!File.Exists(fileFullPath))
         {
-            // ファイル読み込み指定
-            StreamReader reader = new StreamReader(fileFullPath);
-            // ファイルの内容をすべて読み込む
-            string json = reader.ReadToEnd();
-            // Json形式のデータをオブジェクトに変換
-            data = JsonUtility.FromJson<SaveData.JsonSaver>(json);
-            // ファイルを閉じる
-            reader.Close();
+            // ファイルが存在しない場合は新規作成
+            Debug.LogWarning($"セーブデータファイルが存在しません。新規作成します。パス:{fileFullPath}");
+            SaveData newSaveData = new SaveData();
+            Save(newSaveData, fileFullPath);
         }
-        else
-        {
-            Debug.LogWarning("Save file not found: " + fileFullPath);
-        }
+
+        // ファイル読み込み指定
+        StreamReader reader = new StreamReader(fileFullPath);
+        // ファイルの内容をすべて読み込む
+        string json = reader.ReadToEnd();
+        // Json形式のデータをオブジェクトに変換
+        data = JsonUtility.FromJson<SaveData.JsonSaver>(json);
+        // ファイルを閉じる
+        reader.Close();
+
         SaveData saveData = new SaveData();
         saveData.LoadFromJsonSaver(data);
         return saveData;
