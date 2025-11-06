@@ -65,6 +65,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // 初期状態を設定
         m_currentEventID = m_startState;
 
+        // 
+        MapData.GetInstance.SetClearConditionChecker(GetComponent<ClearConditionChecker>());
+
         // ゲームフロウイベントの登録
         InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
     }

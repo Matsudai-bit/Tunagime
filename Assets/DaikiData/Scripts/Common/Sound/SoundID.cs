@@ -50,5 +50,13 @@ public enum SoundID
     SE_INGAME_FEELING_PIECE_COLLECT, // 想いの断片回収音
     SE_INGAME_FEELING_CORE_SETTING_SLOT,
 
+    SE_INGAME_CONNECT_SLOT_1,      // 核接続音1
+    SE_INGAME_CONNECT_SLOT_2,      // 核接続音2
+    SE_INGAME_CONNECT_SLOT_3,      // 核接続音3
+    SE_INGAME_CONNECT_SLOT_4,      // 核接続音4
+    SE_INGAME_CONNECT_SLOT_5,      // 核接続音5
+    SE_INGAME_CONNECT_SLOT_6,      // 核接続音6
+
+
 
 }

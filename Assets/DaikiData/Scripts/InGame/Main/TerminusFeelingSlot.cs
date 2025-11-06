@@ -87,11 +87,47 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
         // 接続状態の確認
         if (amidaTube.GetEmotionType(YarnMaterialGetter.MaterialType.OUTPUT) == m_feelingSlot.GetEmotionType() && 
             m_feelingSlot.IsInsertCore())
-  
+        {
+
+            // まだ接続されていなかった場合、接続音を再生
+            if (m_isConnection == false)
+            {
+          
+
+                switch (6 - MapData.GetInstance.GetClearConditionChecker().GetRemainingUnconnectedTerminusFeelingSlotCount())
+                {
+                    case 1:
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_1, false);
+                        break;
+                    case 2:
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_2, false);
+                        break;
+                    case 3:
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_3, false);
+                        break;
+                    case 4:
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_4, false);
+                        break;
+                    case 5:
+                        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CONNECT_SLOT_5, false);
+                        break;
+                }
+            }
+
             // 終点の感情と一致している場合は繋がっている
             m_isConnection = true;
+
+        }
+
         else
-            m_isConnection = false;
+        {
+            // まだ接続されていなかった場合、接続音を再生
+ 
+
+                m_isConnection = false;
+
+
+        }
     }
 
 

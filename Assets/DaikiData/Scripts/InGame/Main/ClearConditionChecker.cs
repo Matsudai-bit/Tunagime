@@ -119,5 +119,33 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
         // ゲームインタラクションイベントのオブザーバーを解除
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
     }
+
+    public int GetConnectedTerminusFeelingSlotCount()
+    {
+        int count = 0;
+        foreach (var slot in terminusFeelingSlots)
+        {
+            if (slot.IsConnected())
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // 残りの未接続の終点の型の数を取得
+    public int GetRemainingUnconnectedTerminusFeelingSlotCount()
+    {
+        int count = 0;
+        foreach (var slot in terminusFeelingSlots)
+        {
+            if (!slot.IsConnected() && !(slot.emotionType == EmotionCurrent.Type.REJECTION))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
 
