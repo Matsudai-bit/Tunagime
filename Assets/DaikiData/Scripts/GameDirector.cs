@@ -65,8 +65,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // 初期状態を設定
         m_currentEventID = m_startState;
 
-        // 
-        MapData.GetInstance.SetClearConditionChecker(GetComponent<ClearConditionChecker>());
+        
 
         // ゲームフロウイベントの登録
         InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
@@ -75,6 +74,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // 
+        MapData.GetInstance.SetClearConditionChecker(GetComponent<ClearConditionChecker>());
         // 60fpsに設定
         Application.targetFrameRate = 60;
 

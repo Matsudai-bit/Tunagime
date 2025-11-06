@@ -93,7 +93,7 @@ public class TerminusFeelingSlot : MonoBehaviour, IGameInteractionObserver
             if (m_isConnection == false)
             {
           
-                if (m_feelingSlot.GetEmotionType() != EmotionCurrent.Type.REJECTION)
+                if (m_feelingSlot.GetEmotionType() != EmotionCurrent.Type.REJECTION && MapData.GetInstance.GetClearConditionChecker())
                 {
                     switch (6 - MapData.GetInstance.GetClearConditionChecker().GetRemainingUnconnectedTerminusFeelingSlotCount())
                     {
