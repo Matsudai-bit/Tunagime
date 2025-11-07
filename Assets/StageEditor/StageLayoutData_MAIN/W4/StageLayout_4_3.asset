@@ -590,8 +590,8 @@ MonoBehaviour:
         gridPos:
           x: 16
           y: 2
-        blockType: 10
-        emotionType: 0
+        blockType: 7
+        emotionType: 1
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
@@ -793,8 +793,8 @@ MonoBehaviour:
         gridPos:
           x: 16
           y: 3
-        blockType: 7
-        emotionType: 1
+        blockType: 10
+        emotionType: 0
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
