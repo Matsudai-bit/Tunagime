@@ -104,6 +104,7 @@ public class StageGenerator : MonoBehaviour
         Transform floorParent,
         Transform gimmickParent,
         Transform feelingSlotParent,
+        Transform outerWallParent,
         ClearConditionChecker clearConditionChecker)
     {
 
@@ -135,6 +136,7 @@ public class StageGenerator : MonoBehaviour
                 floorParent,
                 gimmickParent,
                 feelingSlotParent,
+                outerWallParent,
                 clearConditionChecker);
         }
         else
@@ -150,6 +152,7 @@ public class StageGenerator : MonoBehaviour
                 floorParent,
                 gimmickParent,
                 feelingSlotParent,
+                outerWallParent,
                 clearConditionChecker);
         }
 
@@ -162,6 +165,7 @@ public class StageGenerator : MonoBehaviour
         Transform floorParent,
         Transform gimmickParent,
         Transform feelingSlotParent,
+        Transform outerWallParent,
         ClearConditionChecker clearConditionChecker)
     {
         var map = MapData.GetInstance;
@@ -327,6 +331,7 @@ public class StageGenerator : MonoBehaviour
         Transform floorParent,
         Transform gimmickParent,
         Transform feelingSlotParent,
+        Transform outerWallParent,
         ClearConditionChecker clearConditionChecker)
     {
         List<RootLayout> rootLayoutList = m_stageLayoutData.rootLayoutList
@@ -471,7 +476,7 @@ public class StageGenerator : MonoBehaviour
                 if (x == -1 || x == map.GetCommonData().width || y == -1 || y == map.GetCommonData().height)
                 {
                     GridPos fixedGridPos = new GridPos(x, y);
-                    GameObject blockObject = stageObjectFactory.GenerateNoMovementFeltBlock(gimmickParent, fixedGridPos);
+                    GameObject blockObject = stageObjectFactory.GenerateNoMovementFeltBlock(outerWallParent, fixedGridPos);
                     // 見えなくする
                     blockObject.GetComponent<FeltBlock>().meshRenderer.enabled = false;
                     //  map.GetStageGridData().TryPlaceTileObject(fixedGridPos, blockObject);

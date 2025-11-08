@@ -1721,7 +1721,9 @@ MonoBehaviour:
   m_storyVideoPlayer: {fileID: 42261004}
   m_storyRenderingData: {fileID: 11400000, guid: 8a1f404facf5b6149b7bf4ee6731d9a4, type: 2}
   m_sceneTransitionFadeOut: {fileID: 1424074117}
-  m_skipGuideController: {fileID: 539080237}
+  m_skipGuideParent: {fileID: 539080237}
+  m_skipGuideText: {fileID: 12668097}
+  m_skipGuideIcon: {fileID: 810190292}
 --- !u!1001 &1424074115
 PrefabInstance:
   m_ObjectHideFlags: 0

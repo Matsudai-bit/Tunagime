@@ -88,7 +88,7 @@ MonoBehaviour:
   m_speed: 0.1
   m_raycastDistance: 0.1
   LEVEL_1_SIZE: 0.75
-  LEVEL_2_SIZE: 1
+  LEVEL_2_SIZE: 1.2
   LEVEL_3_SIZE: 1.75
   SIZE_CHANGE_DURATION: 1
   m_rayOffset: 0

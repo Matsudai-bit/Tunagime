@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ed96d2465f226d34299e6027d0f930ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18fce04964ac95e40a878d9dd169d61e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2901,7 +2901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveDataSetting: {fileID: 11400000, guid: 4b97da6920e0d7743844ea8c973f4cdf, type: 2}
   m_debugSettings:
-    debugMode: 1
+    debugMode: 0
     unlockAllStages: 1
     debugSaveData: {fileID: 11400000, guid: c6ec42a6d665a8b46a02d35525ac3359, type: 2}
 --- !u!4 &1495995537
@@ -3366,7 +3366,7 @@ MonoBehaviour:
   m_sceneTransitionFadeInEffect: {fileID: 435933866}
   m_initializationWarningWindow: {fileID: 925663648}
   m_bacgroundImg: {fileID: 1074291670}
-  m_backgroundNormalSprite: {fileID: 21300000, guid: ed96d2465f226d34299e6027d0f930ff, type: 3}
+  m_backgroundNormalSprite: {fileID: 21300000, guid: 18fce04964ac95e40a878d9dd169d61e, type: 3}
   m_backgroundClearSprite: {fileID: 21300000, guid: fbc4b23c8c9eb2e4182f1d9c113a223d, type: 3}
 --- !u!1 &2049515202
 GameObject:

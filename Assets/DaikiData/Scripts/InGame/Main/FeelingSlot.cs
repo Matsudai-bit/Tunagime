@@ -44,7 +44,7 @@ public class FeelingSlot : MonoBehaviour
     void Update()
     {
         // 感情の種類に応じてマテリアルを更新
-        if (FeelingSlotStateMonitor.GetInstance.IsConnected(GetEmotionType()))
+        if (FeelingSlotStateMonitor.GetInstance.IsConnected(GetEmotionType()) || m_feelingCore.GetEmotionType() == EmotionCurrent.Type.NONE)
         {
             // 接続されている場合はスロットのマテリアルを点灯状態に変更
             var slotMaterial = MaterialLibrary.GetInstance.GetMaterial(MaterialLibrary.MaterialGroup.FEELING_SLOT, GetEmotionType());

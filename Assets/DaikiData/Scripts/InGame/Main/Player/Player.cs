@@ -806,6 +806,11 @@ public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEvent
                 // ゲームクリア時の処理
                 ResetTargetObject();
                 m_canInteractive = false;
+               m_stateMachine.RequestStateChange(PlayerStateID.IDLE);
+                break;
+            case InGameFlowEventID.GAME_PLAYING_END:
+                // ゲームプレイ終了時の処理
+                m_stateMachine.RequestStateChange(PlayerStateID.IDLE);
                 break;
         
         }

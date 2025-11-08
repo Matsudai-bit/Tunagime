@@ -1181,7 +1181,7 @@ MonoBehaviour:
           y: 5
         blockType: 8
         emotionType: 1
-        option: 1
+        option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
     - label: Grid (16, 6)

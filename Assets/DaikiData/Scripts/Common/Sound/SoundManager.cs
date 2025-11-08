@@ -150,7 +150,7 @@ public class SoundManager : MonoBehaviour
         audioSource.loop = isLoop;
         // 再生
         audioSource.Play();
-        audioSource.volume = 0.5f * GameContext.GetInstance.GetGameSettingParameters().seVolume;
+        audioSource.volume = 0.8f * GameContext.GetInstance.GetGameSettingParameters().seVolume;
 
         return audioPairSource.Key; //サウンド識別IDを返す
     }

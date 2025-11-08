@@ -16,6 +16,8 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
     
     private bool m_isDelayClearCheck = false;// クリア判定を遅延させるかどうか
 
+    bool m_isClear = false; // クリアしたかどうか
+
     private GameDirector m_gameDirector;
 
     private void Awake()
@@ -31,6 +33,7 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        m_isClear = false;
         // オブザーバーとして登録
         GameInteractionEventMessenger.GetInstance.RegisterObserver(this);
 
@@ -47,18 +50,20 @@ public class ClearConditionChecker : MonoBehaviour , IGameInteractionObserver
     /// <summary>
     /// 更新処理
     /// </summary>
-    void Update()
+    void FixedUpdate()
     {
 
         // クリア条件のチェック
         if (CheckClearCondition())
         {
             Debug.Log("クリア条件を達成しました！");
+
             // クリア処理をここに追加
-            if (m_gameDirector != null)
+            if (m_gameDirector != null && !m_isClear)
             {
                 InGameFlowEventMessenger.GetInstance.Notify(InGameFlowEventID.GAME_CLEAR); // ゲームクリアのイベントを通知
             }
+            m_isClear = true;
 
         }
 

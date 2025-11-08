@@ -46,22 +46,22 @@ public class FullScreenSettingContent : SettingsContent
         // フルスクリーンの設定を反転
         Screen.fullScreen = !isFullScreen;
         
-        UpdateCheckMark();
+        UpdateCheckMark(!isFullScreen);
     }
 
     /// <summary>
     /// チェックマークの表示更新
     /// </summary>
-    private void UpdateCheckMark()
+    private void UpdateCheckMark(bool isFullScreen)
     {
         // チェックマークの表示更新
         if (Screen.fullScreen)
         {
-            m_checkMark.SetActive(true);
+            m_checkMark.SetActive(isFullScreen);
         }
         else
         {
-            m_checkMark.SetActive(false);
+            m_checkMark.SetActive(isFullScreen);
         }
     }
 
@@ -140,7 +140,7 @@ public class FullScreenSettingContent : SettingsContent
     public override void ResetSettings()
     {
         Screen.fullScreen = true;
-        UpdateCheckMark();
+        UpdateCheckMark(Screen.fullScreen);
     }
 
     /// <summary>
@@ -154,12 +154,13 @@ public class FullScreenSettingContent : SettingsContent
     public override void CancelSettings()
     {
         Screen.fullScreen = m_prevFullScreenState;
-        UpdateCheckMark();
+        UpdateCheckMark(Screen.fullScreen);
     }
 
     public override void Initialize()
     {
+        LoadSettings();
         // チェックマークの表示更新
-        UpdateCheckMark();
+        UpdateCheckMark(Screen.fullScreen);
     }
 }

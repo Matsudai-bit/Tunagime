@@ -3028,10 +3028,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284988e489359764183344db51309348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveDataSetting: {fileID: 11400000, guid: c6ec42a6d665a8b46a02d35525ac3359, type: 2}
+  saveDataSetting: {fileID: 11400000, guid: 4b97da6920e0d7743844ea8c973f4cdf, type: 2}
   m_debugSettings:
-    debugMode: 1
-    unlockAllStages: 0
+    debugMode: 0
+    unlockAllStages: 1
     debugSaveData: {fileID: 11400000, guid: c6ec42a6d665a8b46a02d35525ac3359, type: 2}
 --- !u!4 &949153344
 Transform:
