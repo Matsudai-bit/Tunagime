@@ -33,6 +33,9 @@ public class StoryDirector : MonoBehaviour
 
     #endregion
 
+    [Header("ポーズウィンドウ")]
+    [SerializeField]
+    private PauseWindowController m_pauseWindowController; // ポーズウィンドウ
 
     [Header("物語の状況クラスインスタンス(デバック用)")]
     [SerializeField]
@@ -66,6 +69,10 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private SceneTransitionEffect m_sceneTransitionFadeOut;
 
+    [Header("スキップガイド")]
+    [SerializeField]
+    private GameObject m_skipGuideController; // スキップガイド
+
     private PlayerInput m_playerInput; // プレイヤー入力
 
     private PlayingState m_playingState; // 再生状態
@@ -75,6 +82,9 @@ public class StoryDirector : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SoundManager.GetInstance.RequestAllStopping();
+
+
         m_isFinished = false;
 
         var storyRenderingDict = m_storyRenderingData.GetStoryRenderingDict();
@@ -126,10 +136,14 @@ public class StoryDirector : MonoBehaviour
     {
         if (m_isFinished) { return; }
 
+
         m_playerInput.actions.Enable();
 
         if (m_playingState == PlayingState.VideoPlaying)
         {
+            // 音量調整
+            m_storyVideoPlayer.SetDirectAudioVolume(0, GameContext.GetInstance.GetGameSettingParameters().bgmVolume);
+
             // ビデオ再生終了判定
             if (m_storyVideoPlayer.isPlaying == false && !m_sceneTransitionFadeOut.IsTransitioning())
             {
@@ -159,6 +173,14 @@ public class StoryDirector : MonoBehaviour
 
         if (m_storyIllustrationWindowController.CanEndStory() == false) { return; }
 
+        ApplyExitStoryScene();
+    }
+
+    /// <summary>
+    /// ストーリーシーン終了適用処理
+    /// </summary>
+    public void ApplyExitStoryScene()
+    {
         // シーン遷移演出開始
         m_sceneTransitionFadeOut.StartTransition(() =>
         {
@@ -170,9 +192,52 @@ public class StoryDirector : MonoBehaviour
 
             }
         });
+    }
 
+    public void OnOpenPause(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
 
+        if (m_pauseWindowController.gameObject.activeSelf) { return; }
+        // ポーズウィンドウ表示
+        m_pauseWindowController.RequestOpenPause(m_playerInput, ()=> { });
+    }
 
+    public void ReturnTitleScene()
+    {
+        m_sceneTransitionFadeOut.StartTransition(() =>
+        {
+            // タイトルシーンへ遷移
+            LoadingSceneRequest.GetInstance.RequestLoadingScene("TitleScene");
+        });
+    }
+
+    /// <summary>
+    /// スキップ処理
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnSkip(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        ApplyExitStoryScene();
+    }
+
+    /// <summary>
+    /// スキップガイド表示処理
+    /// </summary>
+    /// <param name="contex"></param>
+    public void OnShowingSkipGuide(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        m_skipGuideController.SetActive(true);
+
+        // 5秒後に非表示にする
+        Invoke("HideSkipGuide", 5.0f);
+    }
+
+    private void HideSkipGuide()
+    {
+        m_skipGuideController.SetActive(false);
     }
 
 }

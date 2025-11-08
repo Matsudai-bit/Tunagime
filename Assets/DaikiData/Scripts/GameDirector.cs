@@ -47,6 +47,15 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     [Header("ポーズウィンドウ")]
     [SerializeField] private PauseWindowController m_pauseWindowController;
 
+
+    [Header("画面遷移(フェードイン)イメージ")]
+    [SerializeField]
+    private SceneTransitionEffect m_sceneTransitionFadeInEffect; // 画面遷移(フェードイン)イメージ
+
+    [Header("画面遷移(フェードアウト)イメージ")]
+    [SerializeField]
+    private SceneTransitionEffect m_sceneTransitionFadeOutEffect; // 画面遷移(フェードアウト)イメージ
+
     private bool m_isGameClear = false;
 
     private InGameFlowEventID m_currentEventID ;
@@ -74,6 +83,12 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SoundManager.GetInstance.RequestAllStopping();
+
+        // フェードインエフェクトの開始
+        m_sceneTransitionFadeInEffect.StartTransition(
+            () => { });
+
         // 
         MapData.GetInstance.SetClearConditionChecker(GetComponent<ClearConditionChecker>());
         // 60fpsに設定
@@ -152,19 +167,22 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // ゲームがクリアした時に呼ばれる
     public void OnGameClear()
     {
+        if (m_isGameClear) { return; }
+        
         // クリアUIを表示する処理
         Debug.Log("ゲームクリア！");
-        // ここにゲームクリアの処理を追加
-
         m_isGameClear = true;
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_CLEAR, false);
 
-        GameProgressManager.Instance.GameProgressData.clearTime = m_gameTime;
+        DOVirtual.DelayedCall(1.0f, () =>
+        {
+            // ここにゲームクリアの処理を追加
+            GameProgressManager.Instance.GameProgressData.clearTime = m_gameTime;
 
-        // クリアUIのパネルを表示
-        m_clearUIPanel.SetActive(true);
 
-
-
+            // クリアUIのパネルを表示
+            m_clearUIPanel.SetActive(true);
+        });
     }
 
     /// <summary>
@@ -181,7 +199,9 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     public void LoadResultScene()
     {
         SoundManager.GetInstance.RequestAllStopping();
-        SceneManager.LoadScene("ResultScene");
+        SceneTransitionManager.GetInstance.TransitionToScene("ResultScene", m_sceneTransitionFadeOutEffect);
+
+
     }
 
     /// <summary>
@@ -259,12 +279,10 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
                     break;
             case InGameFlowEventID.GAME_CLEAR:
                 Debug.Log("ゲームクリア ============================================================================================");
-                
-                DOVirtual.DelayedCall(2.0f, () =>
-                {
-                    // ゲームクリアイベントを通知
-                    OnGameClear();
-                });
+  
+                // ゲームクリア
+                OnGameClear();
+    
 
                 break;
 
@@ -426,7 +444,11 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
     public void ReturnStageSelectScene()
     {
-        SceneManager.LoadScene("StageSelectScene");
+        // ステージセレクトシーンに戻る
+
+
+        SceneTransitionManager.GetInstance.TransitionToScene("StageSelectScene", m_sceneTransitionFadeOutEffect);
+
     }
 }
 

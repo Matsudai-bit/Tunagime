@@ -57,6 +57,13 @@ public enum SoundID
     SE_INGAME_CONNECT_SLOT_5,      // 核接続音5
     SE_INGAME_CONNECT_SLOT_6,      // 核接続音6
 
+    // **** ゲームリセット ****
+    SE_GAMERESET_WINDOW_OPEN,    // ゲームリセットウィンドウオープン音
+    SE_GAMERESET_APPLY,        // ゲームリセット適用音
 
+
+    SE_INGAME_CLEAR,               // ゴール音
+
+    SE_RESULT_TIME_COUNTING,    // リザルトタイムカウント音
 
 }

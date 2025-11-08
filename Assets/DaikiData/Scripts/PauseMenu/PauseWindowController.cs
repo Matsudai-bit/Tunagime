@@ -35,6 +35,11 @@ public class PauseWindowController : MonoBehaviour
     [SerializeField]
     private PauseMenuManualController m_pauseMenuManualController; // ポーズメニューのマニュアルコントローラー
 
+    [Header("設定ウィンドウコントローラー")]
+    [SerializeField]
+    SettingsWindowController m_settingsWindowController; // 設定ウィンドウコントローラ
+
+
     #region インスペクター表示よう構造体
 
     /// <summary>
@@ -185,7 +190,7 @@ public class PauseWindowController : MonoBehaviour
         if (context.performed == false) return;
 
         if (!gameObject.activeSelf || m_isInitialStart) return;
-
+        if  (m_settingsWindowController.gameObject.activeSelf) return;
 
         // ポーズメニューを閉じる
         OnClosePause();
@@ -198,6 +203,8 @@ public class PauseWindowController : MonoBehaviour
 
         if (context.performed == false) return;
         if (m_parentObject == null || !m_parentObject.activeSelf) { return; }
+        if (m_settingsWindowController.gameObject.activeSelf) return;
+
 
         var contentSelector = GetComponent<MenuContentSelector>();
 
@@ -218,15 +225,38 @@ public class PauseWindowController : MonoBehaviour
                 break;
             // 設定
             case "Setting":
+                OpenSettingWindow();
                 break;
             // 戻る
             default:
-                m_submitEvent[contentSelector.CurrentTitleMenuName].Invoke();
+                m_submitEvent[contentSelector.CurrentTitleMenuName]?.Invoke();
                 break;
 
 
         }
 
    
+    }
+
+    void OpenSettingWindow()
+    {
+        // 設定ウィンドウを開く
+        m_playerInput.actions.Disable();
+        m_playerInput.SwitchCurrentActionMap("SettingWindow");
+        m_playerInput.currentActionMap.Enable();
+
+        GetComponent<MenuContentSelector>().SetInputEnabled(false);
+
+
+        m_settingsWindowController.Open(() => {
+
+            m_playerInput.actions.Disable();
+            m_playerInput.SwitchCurrentActionMap("UI");
+            m_playerInput.currentActionMap.Enable();
+
+            GetComponent<MenuContentSelector>().SetInputEnabled(true);
+
+        });
+
     }
 }

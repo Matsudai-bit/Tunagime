@@ -73,6 +73,24 @@ public class SoundManager : MonoBehaviour
         // 初期化
     }
 
+    private void FixedUpdate()
+    {
+        // 音量調整
+        foreach (var kvp in m_audioSourceDict)
+        {
+            var audioSource = kvp.Value;
+            if (audioSource != null)
+            {
+                audioSource.volume = 0.5f * GameContext.GetInstance.GetGameSettingParameters().seVolume;
+            }
+        }
+        // BGM音量調整
+        if (m_bgmAudioSource != null)
+        {
+            m_bgmAudioSource.volume = 0.2f * GameContext.GetInstance.GetGameSettingParameters().bgmVolume;
+        }
+    }
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -132,7 +150,8 @@ public class SoundManager : MonoBehaviour
         audioSource.loop = isLoop;
         // 再生
         audioSource.Play();
-        
+        audioSource.volume = 0.5f * GameContext.GetInstance.GetGameSettingParameters().seVolume;
+
         return audioPairSource.Key; //サウンド識別IDを返す
     }
 
@@ -158,7 +177,7 @@ public class SoundManager : MonoBehaviour
             // BGM用のAudioSourceを設定して再生
             m_bgmAudioSource.clip = soundData.clip;
             m_bgmAudioSource.loop = true;
-            m_bgmAudioSource.volume = 0.2f;
+            m_bgmAudioSource.volume = 0.2f * GameContext.GetInstance.GetGameSettingParameters().bgmVolume;
             m_bgmAudioSource.Play();
             //Play(soundData.clip); //見つかったら、再生
             return true;
@@ -221,11 +240,7 @@ public class SoundManager : MonoBehaviour
         {
             return audioSource.isPlaying;
         }
-        else
-        {
-            Debug.LogWarning($"そのサウンド識別IDは登録されていません:{soundKeyID}");
-            return false;
-        }
+        return false;
     }
 
     /// <summary>
@@ -242,6 +257,43 @@ public class SoundManager : MonoBehaviour
         if (bgm && m_bgmAudioSource != null)
         {
             m_bgmAudioSource.Stop();
+        }
+    }
+
+    public void RequestPausing(int id)
+    {
+        if (m_audioSourceDict.TryGetValue(id, out var audioSource))
+        {
+            audioSource.Pause();
+        }
+        else
+        {
+            Debug.LogWarning($"そのサウンド識別IDは登録されていません:{id}");
+        }
+    }
+
+    public void SetSpeed(int id, float speed)
+    {
+        if (m_audioSourceDict.TryGetValue(id, out var audioSource))
+        {
+            audioSource.pitch = speed;
+        }
+        else
+        {
+            Debug.LogWarning($"そのサウンド識別IDは登録されていません:{id}");
+        }
+    }
+
+    public AudioSource GetAudioSource(int id)
+    {
+        if (m_audioSourceDict.TryGetValue(id, out var audioSource))
+        {
+            return audioSource;
+        }
+        else
+        {
+            Debug.LogWarning($"そのサウンド識別IDは登録されていません:{id}");
+            return null;
         }
     }
 }
