@@ -162,6 +162,7 @@ public class GameContext : MonoBehaviour
                     if (stageData != null)
                     {
                         stageData.stageStatus.isLocked = false;
+                        stageData.stageStatus.isClear = true;
                     }
                 }
             }

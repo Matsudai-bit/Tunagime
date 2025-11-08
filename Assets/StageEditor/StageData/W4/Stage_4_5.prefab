@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_usingNewSystem: 1
-  m_stageLayoutData: {fileID: 11400000, guid: f836419484d1f3146ab11389f15836a3, type: 2}
+  m_stageLayoutData: {fileID: 11400000, guid: 1a077127089cb404cb18d2e1f9ede897, type: 2}
   m_gimmickData:
   - gridPos:
       x: 6
