@@ -31,6 +31,18 @@ public class TitleSceneController : MonoBehaviour
     [SerializeField]
     private InitializationWarningWindow m_initializationWarningWindow;
 
+    [Header("背景画像")]
+    [SerializeField]
+    private Image m_bacgroundImg;
+
+    [Header("背景画像(通常時)")]
+    [SerializeField]
+    private Sprite m_backgroundNormalSprite;
+
+    [Header("背景画像(クリア時)")]
+    [SerializeField]
+    private Sprite m_backgroundClearSprite;
+
 
     private void Awake()
     {
@@ -66,6 +78,16 @@ public class TitleSceneController : MonoBehaviour
         // フェードインエフェクトの開始
         m_sceneTransitionFadeInEffect.StartTransition(
             () => { });
+
+        // 背景画像の設定
+        if (GameContext.GetInstance.GetSaveData().GetStageStatus(WorldID.World_5, StageID.STAGE_5).isClear)
+        {
+            m_bacgroundImg.sprite = m_backgroundClearSprite;
+        }
+        else
+        {
+            m_bacgroundImg.sprite = m_backgroundNormalSprite;
+        }
     }
 
     void Update()

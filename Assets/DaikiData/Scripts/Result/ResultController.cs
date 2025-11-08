@@ -106,6 +106,11 @@ public class ResultController : MonoBehaviour
 
         });
 
+        // クリアタイムをセーブデータに保存する
+        GameContext.GetInstance.GetSaveData().GetStageStatus(m_gameProgressData.worldID, m_gameProgressData.stageID).clearTime = m_clearTime;
+        // ステージをクリア済みにする
+        GameContext.GetInstance.GetSaveData().GetStageStatus(m_gameProgressData.worldID, m_gameProgressData.stageID).isClear = true;
+
         // 次のステージを開放する
         GameContext.GetInstance.UnlockNextStage(m_gameProgressData.worldID, m_gameProgressData.stageID);
         // セーブデータを保存する
