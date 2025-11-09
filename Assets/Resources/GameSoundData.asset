@@ -97,21 +97,33 @@ MonoBehaviour:
   - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
     id: 27
     clip: {fileID: 8300000, guid: 402c6870b4c35d843bed4bce6bbbb8d0, type: 3}
-  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+  - labelName: SE_INGAME_CONNECT_SLOT_1
     id: 28
     clip: {fileID: 8300000, guid: b61e780c653704348a7a715286bda440, type: 3}
-  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+  - labelName: SE_INGAME_CONNECT_SLOT_2
     id: 29
     clip: {fileID: 8300000, guid: 9b5e5f301fa6a714d9a59f56a05fc4b9, type: 3}
-  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+  - labelName: SE_INGAME_CONNECT_SLOT_3
     id: 30
     clip: {fileID: 8300000, guid: 9d4668e90d225d44fab1c35ea7c1cf7a, type: 3}
-  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+  - labelName: SE_INGAME_CONNECT_SLOT_4
     id: 31
     clip: {fileID: 8300000, guid: 8d07aecd97751e344beb9e27e3dec948, type: 3}
-  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+  - labelName: SE_INGAME_CONNECT_SLOT_5
     id: 32
     clip: {fileID: 8300000, guid: 1715df98d251d4148b6079f6ffb300cd, type: 3}
-  - labelName: SE_INGAME_FEELING_CORE_SETTING_SLOT
+  - labelName: SE_INGAME_CONNECT_SLOT_6
     id: 33
     clip: {fileID: 8300000, guid: 0a204bbb90bbb4245b9c89a6f6f21640, type: 3}
+  - labelName: SE_GAMERESET_WINDOW_OPEN
+    id: 34
+    clip: {fileID: 8300000, guid: ac99ffc0f72c21b48879dd4558e9e605, type: 3}
+  - labelName: SE_GAMERESET_APPLY
+    id: 35
+    clip: {fileID: 8300000, guid: 1229b6e7c9c718e4b8350e32f2ebb4a1, type: 3}
+  - labelName: SE_INGAME_GOAL
+    id: 36
+    clip: {fileID: 8300000, guid: 02cfb2aab1efbc949a2bb5304f69d800, type: 3}
+  - labelName: SE_RESULT_TIME_COUNTING
+    id: 37
+    clip: {fileID: 8300000, guid: 77298a0b76d750c459467152bb2beb37, type: 3}

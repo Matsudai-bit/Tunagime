@@ -12,6 +12,15 @@ using static MenuContentSelector;
 /// </summary>
 public class TitleSceneController : MonoBehaviour
 {
+
+    [Header("設定ウィンドウコントローラ")]
+    [SerializeField]
+    private SettingsWindowController m_settingsWindowController; // 設定ウィンドウコントローラ
+
+    [Header("プレイヤー入力")]
+    [SerializeField]
+    private PlayerInput m_playerInput; // プレイヤー入力
+
     [Header("タイトルロゴ")]
     [SerializeField] private Image m_titleLogo; // タイトルロゴ
 
@@ -67,6 +76,7 @@ public class TitleSceneController : MonoBehaviour
 
     void Start()
     {
+        SoundManager.GetInstance.RequestAllStopping();
 
         // タイトルロゴの透明度を0に設定
         var color = m_titleLogo.color;
@@ -126,6 +136,18 @@ public class TitleSceneController : MonoBehaviour
            
                 break;
             case "Setting":
+                m_playerInput.actions.Disable();
+                m_playerInput.SwitchCurrentActionMap("SettingWindow");
+                m_playerInput.currentActionMap.Enable();
+
+                m_settingsWindowController.Open(() => {
+
+                    m_playerInput.actions.Disable();
+                    m_playerInput.SwitchCurrentActionMap("UI");
+                    m_playerInput.currentActionMap.Enable();
+                });
+
+
                 break;
             case "QuitGame":
                 {
@@ -161,9 +183,23 @@ public class TitleSceneController : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲーム開始（リセット用）
+    /// </summary>
+    public void StartGameForReset()
+    {
+        // リセット音を鳴らす
+        int id = SoundManager.GetInstance.RequestPlaying(SoundID.SE_GAMERESET_APPLY);
+
+        SoundManager.GetInstance.SetSpeed(id, 1.5f);
+
+        // ゲーム開始
+        StartGame();
+    }
+
+    /// <summary>
     /// ゲーム開始
     /// </summary>
-    public void StartGame()
+    private void StartGame()
     {
         // ゲーム初期化
         InitialGame();
@@ -205,6 +241,8 @@ public class TitleSceneController : MonoBehaviour
         }
 
     }
+
+    
 
     public void CancelInitializationWindow()
     {

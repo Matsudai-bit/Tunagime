@@ -16,6 +16,10 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private Transform m_floorBlockParent;
 
+    [Header("外壁（フィールドを囲むブロック）")]
+    [SerializeField]
+    private Transform m_outerWallParent;
+
     [Header("ギミック関連")]
     [SerializeField]
     private Transform m_gimmickParent;
@@ -38,28 +42,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
 
-        //var map = MapData.GetInstance; // マップデータのインスタンスを取得
-
-        //// ステージ生成器の取得
-        //m_stageGenerator = map.GetStageGenerator();
-
-        //// ステージ生成器のインスタンスを生成
-        //if (m_stageGenerator != null)
-        //{
-        //    m_stageGenerator = Instantiate(m_stageGenerator, Vector3.zero, Quaternion.identity);
-        //    m_stageGenerator.GetComponent<StageGenerator>().Generate(
-        //        m_amidaManager,
-        //        m_amidaParent,
-        //        m_floorBlockParent,
-        //        m_gimmickParent,
-        //        m_feelingSlotParent,
-        //        m_clearConditionChecker
-        //    );
-        //}
-        //else
-        //{
-        //    Debug.LogError("ステージ生成器が設定されていません。");
-        //}
+    
     }
 
     /// <summary>
@@ -79,6 +62,7 @@ public class StageManager : MonoBehaviour
                 m_floorBlockParent,
                 m_gimmickParent,
                 m_feelingSlotParent,
+                m_outerWallParent,
                 m_clearConditionChecker
             );
         }

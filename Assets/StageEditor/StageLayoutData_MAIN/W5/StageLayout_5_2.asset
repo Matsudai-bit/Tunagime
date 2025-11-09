@@ -1292,7 +1292,7 @@ MonoBehaviour:
         gridPos:
           x: 5
           y: 6
-        blockType: 10
+        blockType: 1
         emotionType: 0
         option: 0
         changeToSatinFloor: 0

@@ -23,6 +23,8 @@ public class GameStartController
     [SerializeField]
     private GameObject m_startUIPanel; // ゲーム開始UIパネル
 
+    private Tween m_soundTween;
+
     private void Awake()
     {
         // オブザーバーに登録
@@ -82,7 +84,7 @@ public class GameStartController
 
 
         // 0.5秒待ってから音を鳴らす
-        DOVirtual.DelayedCall(1.1f, () =>
+        m_soundTween = DOVirtual.DelayedCall(1.1f, () =>
         {
             SoundManager.GetInstance.RequestPlaying(SoundID.SE_INGAME_STARTING_GAME, false);
         });
@@ -121,6 +123,8 @@ public class GameStartController
 
         m_startCharacterLeft.GetComponent<TextMeshProUGUI>().DOPause();
         m_startCharacterRight.GetComponent<TextMeshProUGUI>().DOPause();
+
+        m_soundTween.Pause();
     }
 
     /// <summary>
@@ -133,6 +137,8 @@ public class GameStartController
         m_startCharacterRight.GetComponent<RectTransform>().DOPlay();
         m_startCharacterLeft.GetComponent<TextMeshProUGUI>().DOPlay();
         m_startCharacterRight.GetComponent<TextMeshProUGUI>().DOPlay();
+
+        m_soundTween.Play();
     }
 }
 

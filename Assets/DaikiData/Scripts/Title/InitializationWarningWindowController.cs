@@ -75,6 +75,9 @@ public class InitializationWarningWindow : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        // 音を鳴らす
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_GAMERESET_WINDOW_OPEN);
+
         m_initialButtonScale = m_buttons[0].transform.localScale.x;
 
         m_canInput = false;
@@ -92,6 +95,9 @@ public class InitializationWarningWindow : MonoBehaviour
 
     public void Close()
     {
+        SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_PUSH);
+
+
         m_canInput = false;
         float targetScale = 0.0f;
         m_rootObject.transform.DOScale(targetScale, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
@@ -135,6 +141,7 @@ public class InitializationWarningWindow : MonoBehaviour
         // 現在選択されているボタンのクリックイベントを呼び出す
         var selectedButton = m_buttons[m_currentSelectedIndex];
 
+
         if (selectedButton != null)
         {
             selectedButton.onClick.Invoke();
@@ -145,6 +152,8 @@ public class InitializationWarningWindow : MonoBehaviour
     {
         if (!value.performed) { return; }
         if (m_canInput == false) { return; }
+
+
         // ウィンドウを閉じる処理をここに追加
         Close();
     }

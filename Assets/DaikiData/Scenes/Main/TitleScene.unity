@@ -218,6 +218,7 @@ RectTransform:
   - {fileID: 1663052661}
   - {fileID: 925663647}
   - {fileID: 2068392618}
+  - {fileID: 1335744129}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -772,7 +773,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 417612697}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1817457881}
+        m_TargetAssemblyTypeName: TitleSceneController, Assembly-CSharp
+        m_MethodName: StartGameForReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &417612697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,6 +1125,7 @@ GameObject:
   - component: {fileID: 819849232}
   - component: {fileID: 819849231}
   - component: {fileID: 819849230}
+  - component: {fileID: 819849233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1193,6 +1207,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &819849233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819849229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &825802198
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,7 +2119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ed96d2465f226d34299e6027d0f930ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18fce04964ac95e40a878d9dd169d61e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2551,6 +2609,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278471779}
   m_CullTransparentMesh: 1
+--- !u!224 &1335744129 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+  m_PrefabInstance: {fileID: 6155018931008754241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1335744130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5422108792117725371, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+  m_PrefabInstance: {fileID: 6155018931008754241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91aaff92b7e602242a27c74dce545352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1357808557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3070,7 +3144,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1259338227}
-        m_TargetAssemblyTypeName: TitleSelector, Assembly-CSharp
+        m_TargetAssemblyTypeName: MenuContentSelector, Assembly-CSharp
         m_MethodName: OnNavigate
         m_Mode: 0
         m_Arguments:
@@ -3097,8 +3171,8 @@ MonoBehaviour:
     m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1817457881}
-        m_TargetAssemblyTypeName: TitleSceneController, Assembly-CSharp
+      - m_Target: {fileID: 925663648}
+        m_TargetAssemblyTypeName: InitializationWarningWindow, Assembly-CSharp
         m_MethodName: OnSubmit
         m_Mode: 0
         m_Arguments:
@@ -3109,8 +3183,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 925663648}
-        m_TargetAssemblyTypeName: InitializationWarningWindow, Assembly-CSharp
+      - m_Target: {fileID: 1817457881}
+        m_TargetAssemblyTypeName: TitleSceneController, Assembly-CSharp
         m_MethodName: OnSubmit
         m_Mode: 0
         m_Arguments:
@@ -3195,6 +3269,78 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f07144ab-ba5e-44ad-9ab8-bbcb75fb3860
     m_ActionName: 'InGameSystem/ClosePauseMenu[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1335744130}
+        m_TargetAssemblyTypeName: SettingsWindowController, Assembly-CSharp
+        m_MethodName: OnNavigate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 38bcb262-8135-401c-b74a-cb76cfad4686
+    m_ActionName: 'SettingWindow/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1335744130}
+        m_TargetAssemblyTypeName: SettingsWindowController, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c5ad03e7-bc09-4d08-90c8-cb56be32dc1f
+    m_ActionName: 'SettingWindow/Cancel[/Keyboard/c,/XInputControllerWindows/buttonEast,/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1335744130}
+        m_TargetAssemblyTypeName: SettingsWindowController, Assembly-CSharp
+        m_MethodName: OnSubmit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 92e2e850-67b6-4700-b599-5ebd5a061167
+    m_ActionName: 'SettingWindow/Submit[/Keyboard/space,/Keyboard/enter,/Keyboard/z,/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1335744130}
+        m_TargetAssemblyTypeName: SettingsWindowController, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 344998fa-e475-4eb0-b425-761b141ba402
+    m_ActionName: SettingWindow/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8f44c5d-d1ac-4c20-b3d8-558bfa1ec605
+    m_ActionName: 'StoryScene/Skip[/XInputControllerWindows/rightShoulder,/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1e78c8e-856b-41bb-9629-d1efb913161e
+    m_ActionName: 'StoryScene/ShowSkipGuide[/Keyboard/anyKey,/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonSouth,/XInputControllerWindows/buttonWest,/XInputControllerWindows/buttonNorth,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/down]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -3212,13 +3358,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5d3ff0d3be4a4488e65bfa97a6f74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_settingsWindowController: {fileID: 1335744130}
+  m_playerInput: {fileID: 1817457880}
   m_titleLogo: {fileID: 660088484}
   m_titleSelector: {fileID: 1259338227}
   m_sceneTransitionFadeOutEffect: {fileID: 819441590}
   m_sceneTransitionFadeInEffect: {fileID: 435933866}
   m_initializationWarningWindow: {fileID: 925663648}
   m_bacgroundImg: {fileID: 1074291670}
-  m_backgroundNormalSprite: {fileID: 21300000, guid: ed96d2465f226d34299e6027d0f930ff, type: 3}
+  m_backgroundNormalSprite: {fileID: 21300000, guid: 18fce04964ac95e40a878d9dd169d61e, type: 3}
   m_backgroundClearSprite: {fileID: 21300000, guid: fbc4b23c8c9eb2e4182f1d9c113a223d, type: 3}
 --- !u!1 &2049515202
 GameObject:
@@ -3528,6 +3676,107 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2f05dad9d466b54f8832231c2d986aa, type: 3}
+--- !u!1001 &6155018931008754241
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 113646372}
+    m_Modifications:
+    - target: {fileID: 2723688681420374550, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_Name
+      value: SettingWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872548493825540578, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149196652973218391, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
+      propertyPath: m_playerInput
+      value: 
+      objectReference: {fileID: 1817457880}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
 --- !u!1001 &6521499298420123954
 PrefabInstance:
   m_ObjectHideFlags: 0

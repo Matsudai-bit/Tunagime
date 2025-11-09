@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
+
+/// <summary>
+/// ゲーム設定データクラス
+/// </summary>
+public class GameSettingParameters
+{
+    public bool isFullScreen = true; // フルスクリーンモードかどうか
+    public float bgmVolume = 0.5f;    // BGM音量
+    public float seVolume = 0.5f;     // SE音量
+}
 
 /// <summary>
 /// ゲームのコンテキストを管理するクラス
@@ -70,6 +81,7 @@ public class GameContext : MonoBehaviour
     [Header("セーブデータ")]
     [SerializeField]
 
+    private GameSettingParameters m_gameSettingParameters = new GameSettingParameters(); // ゲーム設定パラメータ
 
     private SaveData m_saveData;
     private SaveDataManager m_saveDataManager;
@@ -77,7 +89,8 @@ public class GameContext : MonoBehaviour
 
     public void Initialize()
     {
-
+        // ゲーム設定パラメータの初期化
+        LoadSettingData();
         // セーブデータ管理の作成
         GameObject gameObject = new GameObject("SaveDataManager");
         gameObject.name = "SaveDataManager";
@@ -140,6 +153,15 @@ public class GameContext : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲーム設定パラメータを取得する
+    /// </summary>
+    /// <returns></returns>
+    public GameSettingParameters GetGameSettingParameters()
+    {
+        return m_gameSettingParameters;
+    }
+
+    /// <summary>
     /// デバッグモードを適用する
     /// </summary>
     static public void UnlockAllStage(SaveData saveData)
@@ -170,6 +192,35 @@ public class GameContext : MonoBehaviour
         
 
     }
+
+    private string settingFilePath = "settingData.json";
+    public bool SaveSettingData()
+    {
+        string json = JsonUtility.ToJson(m_gameSettingParameters, true);
+        string fullPath = Application.persistentDataPath + "/" + settingFilePath;
+        System.IO.File.WriteAllText(fullPath, json);
+        return true;
+    }
+
+    public bool LoadSettingData()
+    {
+        string fullPath = Application.persistentDataPath + "/" + settingFilePath;
+        if (System.IO.File.Exists(fullPath))
+        {
+            string json = System.IO.File.ReadAllText(fullPath);
+            m_gameSettingParameters = JsonUtility.FromJson<GameSettingParameters>(json);
+            return true;
+        }
+        // ファイルが存在しない場合デフォルト値で新規作成
+        else
+        {
+            m_gameSettingParameters = new GameSettingParameters();
+            SaveSettingData();
+            return true;
+        }
+
+    }
+
 
     /// <summary>
     /// 次のステージをアンロックする

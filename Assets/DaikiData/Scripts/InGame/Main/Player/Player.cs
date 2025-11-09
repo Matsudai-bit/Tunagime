@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour , IGameInteractionObserver
+public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEventObserver
 {
     [Header("プレイヤーの移動速度")]
     public float SPEED = 5.0f; // 移動速度
@@ -32,6 +32,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     private InputActionAsset m_inputActionAsset; // InputActionAsset
     private InputActionMap m_playerActionMap; // プレイヤーのInputActionMap
 
+    bool m_canInteractive = true; // インタラクティブ可能フラグ
+
     void Awake()
     {
         m_stageBlock = GetComponent<StageBlock>();
@@ -52,6 +54,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
             Debug.LogError("PlayerInput component or actions not found on the GameObject.");
         }
 
+        // ゲームフロー
+        InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
 
     }
 
@@ -312,6 +316,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// <returns></returns>
     public bool TryPickUp()
     {
+        if (m_canInteractive == false) return false;
+
         var map = MapData.GetInstance; // マップを取得
 
         // Zキーを押したときの処理  運んでいるオブジェクトを持ってない場合
@@ -348,6 +354,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// <returns></returns>
     public bool TryPutDown()
     {
+        if (m_canInteractive == false) return false;
+
         // Zキーを押したときの処理
         if (m_playerActionMap.FindAction("GimmickAction").IsPressed())
         {
@@ -382,6 +390,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// <returns>  </returns>
     public bool CanKnit()
     {
+        if (m_canInteractive == false) return false;
+
         var stageGridData = MapData.GetInstance.GetStageGridData(); // マップを取得
 
         // 編む位置
@@ -407,6 +417,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
 
     public void TryKnit()
     {
+        if (m_canInteractive == false) return ;
+
         // Xキーを押したときの処理
         if (m_playerActionMap.FindAction("KnittingAction").IsPressed() && CanKnit())
         {
@@ -425,6 +437,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     public void TryUnknit()
     {
         // Xキーを押したときの処理
+        if (m_canInteractive == false) return ;
         if (m_playerActionMap.FindAction("KnittingAction").IsPressed())
         {   
             // 解く位置
@@ -454,8 +467,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     /// </summary>
     public bool TryPushBlock()
     {
+        if (m_canInteractive == false) return false;
         if (m_targetObject == null) return false;
-
 
         // 正面に半ブロック分のレイを飛ばす
         if (m_playerActionMap.FindAction("GimmickAction").IsPressed())
@@ -778,6 +791,28 @@ public class Player : MonoBehaviour , IGameInteractionObserver
     {
         // ゲームインタラクションイベントのオブザーバーを解除
         GameInteractionEventMessenger.GetInstance.RemoveObserver(this);
+        InGameFlowEventMessenger.GetInstance.RemoveObserver(this);
     }
 
+    public void OnEvent(InGameFlowEventID eventID)
+    {
+        switch(eventID)
+        {
+            case InGameFlowEventID.GAME_PLAYING_START:
+                // ゲームプレイ開始時の処理
+                m_canInteractive = true;
+                break;
+            case InGameFlowEventID.GAME_CLEAR:
+                // ゲームクリア時の処理
+                ResetTargetObject();
+                m_canInteractive = false;
+               m_stateMachine.RequestStateChange(PlayerStateID.IDLE);
+                break;
+            case InGameFlowEventID.GAME_PLAYING_END:
+                // ゲームプレイ終了時の処理
+                m_stateMachine.RequestStateChange(PlayerStateID.IDLE);
+                break;
+        
+        }
+    }
 }

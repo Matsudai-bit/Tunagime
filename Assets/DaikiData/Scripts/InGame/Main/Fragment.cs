@@ -156,8 +156,14 @@ public class Fragment : MonoBehaviour
                 // 断片が見つかった場合、マージリクエストを送る
                 if (findingFragment != null)
                 {
-                    RequestMerge(findingFragment);
-                    findingFragment.RequestMerge(this);
+                    if (RequestMerge(findingFragment))
+                    {
+                        findingFragment.MergeNot();
+                    }
+                    else
+                    {
+                        findingFragment.MergeFragment(this);
+                    }
 
                     if (m_level == Level.LEVEL_4)
                     {
@@ -466,7 +472,8 @@ public class Fragment : MonoBehaviour
                 RaycastHit hit = hits[i];
 
                 if (hit.collider.gameObject.CompareTag("Player") ||
-                    hit.collider.gameObject == gameObject)
+                    hit.collider.gameObject == gameObject||
+                    (hit.collider.gameObject?.GetComponent<StageBlock>() && hit.collider.gameObject?.GetComponent<StageBlock>().GetBlockType() == StageBlock.BlockType.FRAGMENT))
                 {
                     return null;
                 }
@@ -611,24 +618,21 @@ public class Fragment : MonoBehaviour
                 }
 
             }
+         
 
-            //// 同じレベルの場合、移動方向に応じてマージを決定
-            //if (m_currentSideDirection == MovementDirectionID.RIGHT ||
-            //    (fragment.CurrentSideDirection == MovementDirectionID.LEFT && m_currentSideDirection == MovementDirectionID.LEFT))
-            //{
-            //    if (fragment.CurrentSideDirection != m_currentSideDirection || m_currentMovementDirection == MovementDirectionID.DOWN)
-            //    {
-            //        MergeFragment(fragment);
-            //        return;
-            //    }
-            //}
+          
         }
 
-
-        gameObject.SetActive(false); // 自分自身を非アクティブにする
-        MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // グリッドデータから削除
+        MergeNot();
+      
 
         return false;
+    }
+
+    public void MergeNot()
+    {
+        gameObject.SetActive(false); // 自分自身を非アクティブにする
+        MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // グリッドデータから削除
     }
 
     private void MergeFragment(Fragment fragment)

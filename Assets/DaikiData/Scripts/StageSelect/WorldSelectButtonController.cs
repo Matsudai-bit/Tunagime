@@ -386,8 +386,21 @@ public class WorldSelectButtonController : MonoBehaviour
     /// <param name="stageID"></param>
     public void RequestStartSelectStage(WorldID worldID, StageID stageID)
     {
+        if (stageID == StageID.STAGE_5)
+        {
+            if ((int)worldID + 1 < Enum.GetValues(typeof(WorldID)).Length)
+            {
+                worldID = (WorldID)((int)worldID + 1);
+
+                stageID = StageID.STAGE_1;
+            }
+
+            
+        }
+
         m_currentWorldID = worldID;
         UpdateButtonState();
+        ChangeWorldObject(m_currentWorldID, WorldObjectSelector.ScrollDirection.RIGHT);
         ChangeState(State.CHANGING_STAGE_SELECT);
 
         m_requestStartingSelectStage = true;

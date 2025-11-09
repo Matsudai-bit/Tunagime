@@ -1,7 +1,10 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 /// <summary>
@@ -33,6 +36,9 @@ public class StoryDirector : MonoBehaviour
 
     #endregion
 
+    [Header("ポーズウィンドウ")]
+    [SerializeField]
+    private PauseWindowController m_pauseWindowController; // ポーズウィンドウ
 
     [Header("物語の状況クラスインスタンス(デバック用)")]
     [SerializeField]
@@ -66,16 +72,31 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private SceneTransitionEffect m_sceneTransitionFadeOut;
 
+    [Header("スキップガイド")]
+    [SerializeField]
+    private GameObject m_skipGuideParent; // スキップガイド
+    [SerializeField]
+    private TextMeshProUGUI m_skipGuideText; // スキップガイド
+    [SerializeField]
+    private Image m_skipGuideIcon; // スキップガイド
+
+    private Tween m_skipGuideTween; // スキップガイド用Tween
+
     private PlayerInput m_playerInput; // プレイヤー入力
 
     private PlayingState m_playingState; // 再生状態
 
     bool m_isFinished = false; // ストーリーシーン終了フラグ
+    bool m_canSkip = false; // スキップ可能フラグ
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SoundManager.GetInstance.RequestAllStopping();
+
+
         m_isFinished = false;
+        m_canSkip = false;
 
         var storyRenderingDict = m_storyRenderingData.GetStoryRenderingDict();
 
@@ -126,10 +147,14 @@ public class StoryDirector : MonoBehaviour
     {
         if (m_isFinished) { return; }
 
+
         m_playerInput.actions.Enable();
 
         if (m_playingState == PlayingState.VideoPlaying)
         {
+            // 音量調整
+            m_storyVideoPlayer.SetDirectAudioVolume(0, GameContext.GetInstance.GetGameSettingParameters().bgmVolume);
+
             // ビデオ再生終了判定
             if (m_storyVideoPlayer.isPlaying == false && !m_sceneTransitionFadeOut.IsTransitioning())
             {
@@ -159,6 +184,14 @@ public class StoryDirector : MonoBehaviour
 
         if (m_storyIllustrationWindowController.CanEndStory() == false) { return; }
 
+        ApplyExitStoryScene();
+    }
+
+    /// <summary>
+    /// ストーリーシーン終了適用処理
+    /// </summary>
+    public void ApplyExitStoryScene()
+    {
         // シーン遷移演出開始
         m_sceneTransitionFadeOut.StartTransition(() =>
         {
@@ -170,9 +203,79 @@ public class StoryDirector : MonoBehaviour
 
             }
         });
+    }
 
+    public void OnOpenPause(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
 
+        if (m_pauseWindowController.gameObject.activeSelf) { return; }
+        // ポーズウィンドウ表示
+        m_pauseWindowController.RequestOpenPause(m_playerInput, ()=> { });
+    }
 
+    public void ReturnTitleScene()
+    {
+        m_sceneTransitionFadeOut.StartTransition(() =>
+        {
+            // タイトルシーンへ遷移
+            LoadingSceneRequest.GetInstance.RequestLoadingScene("TitleScene");
+        });
+    }
+
+    /// <summary>
+    /// スキップ処理
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnSkip(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+
+        if (!m_canSkip) { return; }
+        ApplyExitStoryScene();
+    }
+
+    /// <summary>
+    /// スキップガイド表示処理
+    /// </summary>
+    /// <param name="contex"></param>
+    public void OnShowingSkipGuide(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        ShowSkipGuide();
+    }
+
+    private void ShowSkipGuide()
+    {
+        if (m_skipGuideTween != null && m_skipGuideTween.IsPlaying() ) { return; }
+
+        m_skipGuideParent.SetActive(true);
+
+        // 初期値
+        m_skipGuideIcon.color = new Color(m_skipGuideIcon.color.r, m_skipGuideIcon.color.g, m_skipGuideIcon.color.b, 0.0f);
+        m_skipGuideText.color = new Color(m_skipGuideText.color.r, m_skipGuideText.color.g, m_skipGuideText.color.b, 0.0f);
+
+        // フェードイン
+       m_skipGuideTween = m_skipGuideIcon.DOFade(1.0f, 0.5f);
+        m_skipGuideText.DOFade(1.0f, 0.5f).OnComplete(()=>
+        {
+            m_canSkip = true;
+            DOVirtual.DelayedCall(4.0f, () =>
+            {
+                HideSkipGuide();
+            });
+        });
+    }
+
+    private void HideSkipGuide()
+    {
+        // フェードアウト
+        m_skipGuideIcon.DOFade(0.0f, 0.5f);
+        m_skipGuideText.DOFade(0.0f, 0.5f).OnComplete(() =>
+        {
+            m_skipGuideParent.SetActive(false);
+            m_canSkip = false;
+        });
     }
 
 }

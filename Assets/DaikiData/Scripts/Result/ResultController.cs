@@ -82,6 +82,7 @@ public class ResultController : MonoBehaviour
 
     private Vector3 m_feelingPieceStartPosition; // 想いのかけら開始位置
 
+    private int m_countUpSoundID = SoundManager.ERROR_SOUND_ID;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -99,10 +100,12 @@ public class ResultController : MonoBehaviour
         m_clearTimeObject.SetActive(false);
         m_feelingPiece.SetActive(false);
         m_stageSelectButton.SetActive(false);
+        m_clearTextTransform.gameObject.SetActive(false);
         m_idleAnimationHash = 0;
 
         m_sceneTransitionFadeIn.StartTransition(() => {
             ChangeState(State.DISPLAY_STAGE_CLEAR_TEXT);
+            m_clearTextTransform.gameObject.SetActive(true);
 
         });
 
@@ -188,11 +191,18 @@ public class ResultController : MonoBehaviour
 
     void UpdateCountUpClearTime()
     {
+        if (SoundManager.GetInstance.IsPlaying(m_countUpSoundID) == false)
+        {
+            m_countUpSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_RESULT_TIME_COUNTING, true);
+        
+        }
+
         m_currentUpperTime += m_upperValue * Time.deltaTime;
 
         if (m_currentUpperTime >= m_clearTime)
         {
             m_currentUpperTime = m_clearTime;
+            SoundManager.GetInstance.RequestStopping(m_countUpSoundID);
             ChangeState(State.DISPLAY_FEELING_PIECE);
         }
 
@@ -338,8 +348,10 @@ public class ResultController : MonoBehaviour
     /// ステージセレクトボタンが押されたときの処理
     /// </summary>
     /// <param name="inputValue"></param>
-    public void OnSubmit(InputValue inputValue)
+    public void OnSubmit(InputAction.CallbackContext context)
     {
+        if (!context.performed) { return; }
+
         if (m_currentState != State.END)
         {
             FinishForce();
@@ -347,6 +359,8 @@ public class ResultController : MonoBehaviour
         }
         else
         {
+            // 音を鳴らす
+            SoundManager.GetInstance.RequestPlaying(SoundID.SE_UI_BUTTON_PUSH);
 
             m_sceneTransitionFadeOut.StartTransition(() =>
             {
@@ -358,6 +372,7 @@ public class ResultController : MonoBehaviour
                     // エンディングシーンへ遷移
                     NarrativeContext.GetInstance.SetNarrativeState(GetNarrativeStateForWorldID(m_gameProgressData.worldID)
                         , () => {
+                          
                             UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
                         }
                         );
@@ -400,6 +415,9 @@ public class ResultController : MonoBehaviour
         m_timeText.text = string.Format("{0:00}", minutes) + " : " + string.Format("{0:00}", seconds);
 
         // つなぎ目アニメーションを終了させる
+
+        // 音を止める
+        SoundManager.GetInstance.RequestStopping(m_countUpSoundID);
 
         if (m_tunagimeAnimator.enabled == false)
         {
