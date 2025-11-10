@@ -135,7 +135,7 @@ public class Curtain : MonoBehaviour
 
     public void Initialize()
     {
-        m_isClosing = false;
+        m_isClosing = true;
         m_state = State.CLOSING_FINISHED; // 初期状態を閉じた状態に設定
 
         TryChangeState();
@@ -197,14 +197,20 @@ public class Curtain : MonoBehaviour
 
 
         m_collider.enabled = false; // カーテンのコライダーを無効化
-        var stageGridData = MapData.GetInstance.GetStageGridData();
-        // ステージブロックのグリッド位置を取得して、カーテンのグリッドデータから削除
-        stageGridData.RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ステージブロックのグリッドデータから削除
+
+        // 閉じていたらステージブロックのグリッドデータから削除
+        if (m_isClosing)
+        {
+            var stageGridData = MapData.GetInstance.GetStageGridData();
+            // ステージブロックのグリッド位置を取得して、カーテンのグリッドデータから削除
+            stageGridData.RemoveGridDataGameObject(m_stageBlock.GetGridPos()); // ステージブロックのグリッドデータから削除        
+        }
 
 
-        // カーテンを開く処理
 
-        float backPower = 2.5f;
+            // カーテンを開く処理
+
+            float backPower = 2.5f;
 
         m_curtainModel_R.transform.DOLocalMove(m_endPos_R, m_openingTime).SetEase(Ease.OutBack,  backPower);
         m_curtainModel_L.transform.DOLocalMove(new Vector3 (-m_endPos_R.x, m_endPos_R.y, m_endPos_R.z), m_openingTime).SetEase(Ease.OutBack, backPower);

@@ -16,6 +16,7 @@ public class CoreMove : MoveTile
     /// <param name="velocity"></param>
     public override void Move(GridPos velocity)
     {
+
         var map = MapData.GetInstance; // MapDataのインスタンスを取得
         var stageGridData = map.GetStageGridData(); // ステージグリッドデータを取得
 
@@ -40,6 +41,8 @@ public class CoreMove : MoveTile
             }
             return;
         }
+        SetPrevVelocity(velocity); // 前回の移動方向を保存
+
 
         gameObject.SetActive(true); // オブジェクトを表示する
 
@@ -58,11 +61,12 @@ public class CoreMove : MoveTile
 
         GridPos targetGridPos = currentGridPos + moveDirection;
 
+        // StageBlockのグリッド位置を取得
         MapData map = MapData.GetInstance; // マップデータを取得
+
         if (map.CheckInnerGridPos(targetGridPos) == false) return false;
 
 
-        // StageBlockのグリッド位置を取得
         TileObject targetTileObject = map.GetStageGridData().GetTileObject(targetGridPos);
 
         if ((targetTileObject.stageBlock != null))
@@ -75,9 +79,8 @@ public class CoreMove : MoveTile
             }
         }
 
-     
 
-        return targetTileObject.gameObject == null;
+        return (targetTileObject.gameObject == null);
     }
-
+       
 }

@@ -121,7 +121,7 @@ MonoBehaviour:
   - labelName: SE_GAMERESET_APPLY
     id: 35
     clip: {fileID: 8300000, guid: 1229b6e7c9c718e4b8350e32f2ebb4a1, type: 3}
-  - labelName: SE_INGAME_GOAL
+  - labelName: SE_INGAME_CLEAR
     id: 36
     clip: {fileID: 8300000, guid: 02cfb2aab1efbc949a2bb5304f69d800, type: 3}
   - labelName: SE_RESULT_TIME_COUNTING

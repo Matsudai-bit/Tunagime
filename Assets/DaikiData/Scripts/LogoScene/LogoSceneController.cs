@@ -13,7 +13,7 @@ public class LogoSceneController : MonoBehaviour
 
     private void Awake()
     {
-        if (m_logoVideoPlayer != null)
+        if (m_logoVideoPlayer != null && m_logoVideoPlayer.isPlaying == false)
         {
             m_logoVideoPlayer.Play();
         }

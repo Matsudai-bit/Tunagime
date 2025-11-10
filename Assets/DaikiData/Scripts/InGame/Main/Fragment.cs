@@ -472,8 +472,7 @@ public class Fragment : MonoBehaviour
                 RaycastHit hit = hits[i];
 
                 if (hit.collider.gameObject.CompareTag("Player") ||
-                    hit.collider.gameObject == gameObject||
-                    (hit.collider.gameObject?.GetComponent<StageBlock>() && hit.collider.gameObject?.GetComponent<StageBlock>().GetBlockType() == StageBlock.BlockType.FRAGMENT))
+                    hit.collider.gameObject == gameObject)
                 {
                     return null;
                 }

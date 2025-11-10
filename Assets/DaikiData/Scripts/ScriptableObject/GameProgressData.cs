@@ -19,4 +19,6 @@ public class GameProgressData : ScriptableObject
 
     [Header("前のシーンでゲームがプレイされたか")]
     public bool isPrevSceneGamePlayed = false;
+    [Header("直前のシーンゲームでゲームをクリアしたかどうか")]
+    public bool isPrevSceneGameCleared = false;
 }

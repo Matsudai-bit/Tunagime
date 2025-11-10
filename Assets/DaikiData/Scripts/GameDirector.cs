@@ -83,6 +83,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+      
+
         SoundManager.GetInstance.RequestAllStopping();
 
         // フェードインエフェクトの開始
@@ -94,8 +96,12 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         // 60fpsに設定
         Application.targetFrameRate = 60;
 
-        // ゲーム時間の初期化
-        m_gameTime = 0.0f;
+        if (m_startState != InGameFlowEventID.ZOOM_OUT_PLAYER_START)
+        {
+            // ゲーム時間を前のシーンから引き継ぐ
+            m_gameTime = GameProgressManager.Instance.GameProgressData.clearTime;
+        }
+     
 
         var map = MapData.GetInstance;
         // マップデータの初期化
@@ -114,6 +120,8 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
 
         // 前のシーンがゲームプレイだったかどうかをリセットする
         GameProgressManager.Instance.GameProgressData.isPrevSceneGamePlayed = true;
+        // 前のシーンがゲームクリアだったかどうかをリセットする
+        GameProgressManager.Instance.GameProgressData.isPrevSceneGameCleared = false;
 
 
         m_isFirstUpdate = true;
@@ -289,9 +297,13 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
             case InGameFlowEventID.GAME_PLAYING_END:
                 Debug.Log("ゲームプレイの終了 ============================================================================================");
                 {
-       
+
+
                     DOVirtual.DelayedCall(2.0f, () =>
                     {
+                        // 結果シーンへ遷移
+                        GameProgressManager.Instance.GameProgressData.isPrevSceneGameCleared = true;
+
                         LoadResultScene();
 
                     });
@@ -439,14 +451,15 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
         GameProgressManager.Instance.GameProgressData.startState = InGameFlowEventID.GAME_PLAYING_START;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        
+        // クリア時間を保持する
+        GameProgressManager.Instance.GameProgressData.clearTime = m_gameTime;
     }
 
     public void ReturnStageSelectScene()
     {
         // ステージセレクトシーンに戻る
 
-
+        GameProgressManager.Instance.GameProgressData.isPrevSceneGameCleared = false;
         SceneTransitionManager.GetInstance.TransitionToScene("StageSelectScene", m_sceneTransitionFadeOutEffect);
 
     }

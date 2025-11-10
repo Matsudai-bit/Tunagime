@@ -337,7 +337,7 @@ MonoBehaviour:
         gridPos:
           x: 11
           y: 1
-        blockType: 2
+        blockType: 10
         emotionType: 0
         option: 0
         changeToSatinFloor: 0

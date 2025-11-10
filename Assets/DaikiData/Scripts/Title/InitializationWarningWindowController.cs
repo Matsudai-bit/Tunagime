@@ -168,28 +168,24 @@ public class InitializationWarningWindow : MonoBehaviour
     {
         bool moved = false;
 
-        if (vector.x > 0)
+        if (vector.x < 0)
         {
             // 上移動
             m_currentSelectedIndex--;
-            if (m_currentSelectedIndex < 0)
-            {
-                m_currentSelectedIndex = m_buttons.Count - 1;
-
-                moved = true;
-            }
+            moved = true;
+            
         }
-        else if (vector.x < 0)
+        else if (vector.x > 0)
         {
             // 下移動
             m_currentSelectedIndex++;
-            if (m_currentSelectedIndex >= m_buttons.Count)
-            {
-                m_currentSelectedIndex = 0;
-
-                moved = true;
-            }
+        
+            moved = true;
+            
         }
+
+        // クランプする
+        m_currentSelectedIndex = Mathf.Clamp(m_currentSelectedIndex, 0, m_buttons.Count-1);
 
         if (moved)
         {

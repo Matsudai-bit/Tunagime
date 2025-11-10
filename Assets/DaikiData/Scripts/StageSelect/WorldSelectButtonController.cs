@@ -386,7 +386,7 @@ public class WorldSelectButtonController : MonoBehaviour
     /// <param name="stageID"></param>
     public void RequestStartSelectStage(WorldID worldID, StageID stageID)
     {
-        if (stageID == StageID.STAGE_5)
+        if (  stageID == StageID.STAGE_5 &&  GameProgressManager.Instance.GameProgressData.isPrevSceneGameCleared )
         {
             if ((int)worldID + 1 < Enum.GetValues(typeof(WorldID)).Length)
             {

@@ -1,28 +1,30 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ƒXƒe[ƒWƒuƒƒbƒN‚ÉŠÖ‚·‚éƒNƒ‰ƒX
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã«é–¢ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class StageBlock : MonoBehaviour
 {
     [SerializeField] private GridPos m_gridPos;
 
-    [SerializeField] private BlockType m_blockType = BlockType.NONE; // ƒuƒƒbƒN‚Ìí—Ş
+    [SerializeField] private BlockType m_blockType = BlockType.NONE; // ãƒ–ãƒ­ãƒƒã‚¯ã®ç¨®é¡
 
-    [SerializeField] private bool m_canInteract = false; // ƒCƒ“ƒ^ƒ‰ƒNƒg‰Â”\‚©‚Ç‚¤‚©
+    [SerializeField] private bool m_canInteract = false; // ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒˆå¯èƒ½ã‹ã©ã†ã‹
+
+    bool m_finishUpdatePosition = true; // åº§æ¨™æ›´æ–°å®Œäº†ãƒ•ãƒ©ã‚°
     public enum BlockType
     {
-        NONE = 0, // ‰½‚à‚È‚¢
+        NONE = 0, // ä½•ã‚‚ãªã„
 
-        FELT_BLOCK, // ƒtƒFƒ‹ƒgƒuƒƒbƒN
-        FLUFF_BALL, // –Ñ…‹…
-        FEELING_SLOT, // ƒGƒ‚[ƒVƒ‡ƒ“ƒXƒƒbƒg
-        AMIDA_TUBE, // ‚ ‚İ‚¾ƒ`ƒ…[ƒu
-        CURTAIN, // ƒJ[ƒeƒ“
-        SATIN_FLOOR, // ƒTƒeƒ“°
-        PAIR_BADGE, // ƒyƒAƒoƒbƒW
-        FRAGMENT, // ‘z‚¢‚Ì’f•Ğ
-        CARRIABLE_CORE // ‚¿‰^‚Ñ‰Â”\‚ÈƒRƒA
+        FELT_BLOCK, // ãƒ•ã‚§ãƒ«ãƒˆãƒ–ãƒ­ãƒƒã‚¯
+        FLUFF_BALL, // æ¯›ç³¸çƒ
+        FEELING_SLOT, // ã‚¨ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ­ãƒƒãƒˆ
+        AMIDA_TUBE, // ã‚ã¿ã ãƒãƒ¥ãƒ¼ãƒ–
+        CURTAIN, // ã‚«ãƒ¼ãƒ†ãƒ³
+        SATIN_FLOOR, // ã‚µãƒ†ãƒ³åºŠ
+        PAIR_BADGE, // ãƒšã‚¢ãƒãƒƒã‚¸
+        FRAGMENT, // æƒ³ã„ã®æ–­ç‰‡
+        CARRIABLE_CORE // æŒã¡é‹ã³å¯èƒ½ãªã‚³ã‚¢
     }
 
    
@@ -34,36 +36,36 @@ public class StageBlock : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        if (!m_finishUpdatePosition)
+        {
+            // åº§æ¨™æ›´æ–°ãŒå®Œäº†ã—ã¦ã„ãªã„å ´åˆã€å†åº¦é…ç½®ã‚’è©¦ã¿ã‚‹
+            m_finishUpdatePosition = MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_gridPos, gameObject);
+        }
     }
 
     /// <summary>
-    /// ‰Šú‰»ˆ—
+    /// åˆæœŸåŒ–å‡¦ç†
     /// </summary>
     /// <param name="map"></param>
     public void Initialize(GridPos gridPos)
     {
         MapData map = MapData.GetInstance;
 
-        // ƒOƒŠƒbƒhÀ•W‚Ìİ’è
+        // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã®è¨­å®š
         m_gridPos = gridPos;
 
 
-       // ƒOƒŠƒbƒhÀ•W‚©‚ç•ÏŠ·
+       // ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã‹ã‚‰å¤‰æ›
         transform.position = map.ConvertGridToWorldPos(gridPos.x, gridPos.y);
         transform.position += new Vector3(0.0f, MapData.GetInstance.GetCommonData().BaseTilePosY );
-
-
-
-
     }
 
     /// <summary>
-    /// ƒOƒŠƒbƒhˆÊ’u‚ğİ’è‚·‚é
+    /// ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’è¨­å®šã™ã‚‹
     /// </summary>
-    /// <param name="gridPos">İ’è‚·‚éƒOƒŠƒbƒhˆÊ’u</param>
+    /// <param name="gridPos">è¨­å®šã™ã‚‹ã‚°ãƒªãƒƒãƒ‰ä½ç½®</param>
     public void SetGridPos(GridPos gridPos)
     {
         m_gridPos = gridPos;
@@ -71,9 +73,9 @@ public class StageBlock : MonoBehaviour
 
 
     /// <summary>
-    /// ƒOƒŠƒbƒhˆÊ’u‚ğæ“¾‚·‚é
+    /// ã‚°ãƒªãƒƒãƒ‰ä½ç½®ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns>ƒOƒŠƒbƒhˆÊ’u</returns>
+    /// <returns>ã‚°ãƒªãƒƒãƒ‰ä½ç½®</returns>
     public  GridPos GetGridPos()
     {
         return m_gridPos;
@@ -82,7 +84,7 @@ public class StageBlock : MonoBehaviour
 
 
     /// <summary>
-    /// À•W‚ÌXV
+    /// åº§æ¨™ã®æ›´æ–°
     /// </summary>
     /// <param name="gridPos"></param>
     public void UpdatePosition(GridPos gridPos, bool fitPosition = true)
@@ -94,32 +96,48 @@ public class StageBlock : MonoBehaviour
 
         var tileData = MapData.GetInstance.GetStageGridData().GetTileData;
 
-        // ‰½‚©ƒIƒuƒWƒFƒNƒg‚ª‚¢‚éê‡ˆÈ‰º‚Ìˆ—‚ğ”ò‚Î‚·
-        if (tileData[gridPos.y, gridPos.x].tileObject.gameObject != null) return;
+        // ä½•ã‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã„ã‚‹å ´åˆä»¥ä¸‹ã®å‡¦ç†ã‚’é£›ã°ã™
+        if (tileData[gridPos.y, gridPos.x].tileObject.gameObject != null)
+        {
+
+            if (gameObject.activeSelf)
+            {
+                m_finishUpdatePosition = false;
+
+                Debug.LogWarning("StageBlock::UpdatePosition ç§»å‹•å…ˆã®åº§æ¨™ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®ã§ãã¾ã›ã‚“ã§ã—ãŸã€€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå  : " + gameObject.name + "åº§æ¨™ : (" + gridPos.x + "," + gridPos.y + ",)");
+
+                return;
+            }
+        }
         
 
-        // V‚µÀ•W
+        // æ–°ã—åº§æ¨™
         Vector3 newPos = map.ConvertGridToWorldPos(gridPos.x, gridPos.y);
 
-        // Œ»İ‚¢‚éêŠ‚ğnull‚É‚·‚é
+        // ç¾åœ¨ã„ã‚‹å ´æ‰€ã‚’nullã«ã™ã‚‹
         tileData[m_gridPos.y, m_gridPos.x].tileObject.gameObject = null;
 
-        // ˆÚ“®Œ³‚ğíœ
+        // ç§»å‹•å…ƒã‚’å‰Šé™¤
         MapData.GetInstance.GetStageGridData().RemoveGridDataGameObject(m_gridPos);
 
-        //ƒOƒŠƒbƒhÀ•W‚ÌXV
+        //ã‚°ãƒªãƒƒãƒ‰åº§æ¨™ã®æ›´æ–°
         m_gridPos = gridPos;
 
         if (fitPosition)
         {
-            // À•W‚ÌXV
+            // åº§æ¨™ã®æ›´æ–°
             transform.position = newPos + new Vector3(0.0f, transform.position.y, 0.0f);
         }
 
-        // ˆÚ“®æ‚ÌÀ•W‚ÉˆÚ“®‚·‚é
-        MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_gridPos, gameObject);
+        // ç§»å‹•å…ˆã®åº§æ¨™ã«ç§»å‹•ã™ã‚‹
+        m_finishUpdatePosition = MapData.GetInstance.GetStageGridData().TryPlaceTileObject(m_gridPos, gameObject);
 
 
+            if (gameObject.activeSelf && !m_finishUpdatePosition)
+            {
+                Debug.LogWarning("StageBlock::UpdatePosition ç§»å‹•å…ˆã®åº§æ¨™ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®ã§ãã¾ã›ã‚“ã§ã—ãŸã€€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå  : " + gameObject.name + "åº§æ¨™ : (" + gridPos.x + "," + gridPos.y + ",)");
+            }
+        
     }
 
     public void SetActive(bool activeSelf)
@@ -138,7 +156,7 @@ public class StageBlock : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒCƒ“ƒ^ƒ‰ƒNƒg‰Â”\‚©‚Ç‚¤‚©‚ğæ“¾‚·‚é
+    /// ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒˆå¯èƒ½ã‹ã©ã†ã‹ã‚’å–å¾—ã™ã‚‹
     /// </summary>
     /// <returns></returns>
     public bool CanInteract()

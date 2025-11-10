@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// ペアワッペン
@@ -50,8 +52,15 @@ public class PairBadge : MonoBehaviour
 
     public bool CanSlide()
     {
-        // すべてのフェルトブロックがスライド可能かチェック
-        return m_feltBlocks.Any(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsSlippery());
+        if (m_feltBlocks.TrueForAll(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsObstacleInPath(feltBlock.GetComponent<FeltBlockMove>().GetPrevVelocity())))
+        {
+            // すべてのフェルトブロックがスライド可能かチェック
+            return m_feltBlocks.Any(feltBlock => feltBlock.GetComponent<FeltBlockMove>().IsSlippery());
+        }
+
+        return false;
+
+       
     }
 
     public void Slide(GridPos velocity)

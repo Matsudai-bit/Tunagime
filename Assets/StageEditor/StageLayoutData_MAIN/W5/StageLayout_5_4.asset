@@ -1252,8 +1252,8 @@ MonoBehaviour:
         gridPos:
           x: 1
           y: 6
-        blockType: 10
-        emotionType: 0
+        blockType: 5
+        emotionType: 4
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
@@ -1465,8 +1465,8 @@ MonoBehaviour:
         gridPos:
           x: 2
           y: 7
-        blockType: 10
-        emotionType: 0
+        blockType: 0
+        emotionType: 3
         option: 0
         changeToSatinFloor: 0
         placeAmidaTube: 0
@@ -1475,9 +1475,9 @@ MonoBehaviour:
         gridPos:
           x: 3
           y: 7
-        blockType: 10
-        emotionType: 0
-        option: 0
+        blockType: 5
+        emotionType: 4
+        option: 1
         changeToSatinFloor: 0
         placeAmidaTube: 0
     - label: Grid (5, 8)
@@ -2385,7 +2385,7 @@ MonoBehaviour:
         x: 0
         y: 9
     - label: "\u7D42\u70B9\u306E\u578B"
-      slotType: 1
+      slotType: 2
       emotionType: 4
       gridPos:
         x: 19

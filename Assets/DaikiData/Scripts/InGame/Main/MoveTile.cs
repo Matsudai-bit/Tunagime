@@ -258,5 +258,15 @@ public class MoveTile : MonoBehaviour, IMoveTile
     {
         return m_prevState;
     }
+
+    public GridPos GetPrevVelocity()
+    {
+        return m_prevVelocity;
+    }
+
+    public void SetPrevVelocity(GridPos velocity)
+    {
+        m_prevVelocity = velocity;
+    }
 }
 

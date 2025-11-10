@@ -20,13 +20,6 @@ public class SlipperStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
-        // サテン床上で滑る音を再生
-        m_slideSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_SLIDE, true);
-        if (m_slideSoundID == SoundManager.ERROR_SOUND_ID)
-        {
-            Debug.LogError("SlipperStatePlayer: 滑るサウンドの再生に失敗しました。");
-        }
-
         var map = MapData.GetInstance;
 
         // 滑る状態を開始し、アニメーションを再生します
@@ -64,6 +57,24 @@ public class SlipperStatePlayer : PlayerState
         }
 
         owner.transform.position = new Vector3(newX, owner.transform.position.y, newZ);
+
+        // 前方にオブジェクトが無い場合、滑る音を再生
+
+        var targetGridPos = currentGridPos + m_directionBaseGrid;
+
+        var targetObject = map.GetStageGridData().GetTileObject(targetGridPos).stageBlock;
+
+        bool hasObstacleAhead = targetObject != null && targetObject.GetBlockType() != StageBlock.BlockType.FRAGMENT;
+
+        if (!hasObstacleAhead && SoundManager.GetInstance.IsPlaying(m_slideSoundID) == false)
+        {
+            // サテン床上で滑る音を再生
+            m_slideSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_SLIDE, true);
+            if (m_slideSoundID == SoundManager.ERROR_SOUND_ID)
+            {
+                Debug.LogError("SlipperStatePlayer: 滑るサウンドの再生に失敗しました。");
+            }
+        }
 
     }
 
