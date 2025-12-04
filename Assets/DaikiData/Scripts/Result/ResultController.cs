@@ -111,6 +111,7 @@ public class ResultController : MonoBehaviour
 
         // 現在の想いのカケラの取得
         Instantiate( MapData.GetInstance.GetFeelingPiece(), m_feelingPiece.transform);
+        m_feelingPieceStartPosition = m_feelingPiece.transform.position;
 
 
         // クリアタイムをセーブデータに保存する
@@ -159,7 +160,7 @@ public class ResultController : MonoBehaviour
 
             float sindValue = Mathf.Cos(m_feelingPieceBoundTimer * Mathf.Deg2Rad);
 
-            m_feelingPiece.transform.localPosition = m_feelingPieceStartPosition + new Vector3(0.0f, sindValue * 0.5f, 0.0f);
+            m_feelingPiece.transform.localPosition = m_feelingPieceStartPosition + new Vector3(0.0f, sindValue * 2.5f, 0.0f);
         }
 
       
@@ -276,7 +277,6 @@ public class ResultController : MonoBehaviour
         m_feelingPiece.SetActive(true);
 
         m_feelingPieceBoundTimer = 90.0f;
-        m_feelingPieceStartPosition = m_feelingPiece.transform.localPosition;
     }
 
     /// <summary>

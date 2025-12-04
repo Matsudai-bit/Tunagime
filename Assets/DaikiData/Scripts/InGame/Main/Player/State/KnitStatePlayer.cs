@@ -90,6 +90,8 @@ public class KnitStatePlayer : PlayerState
     /// </summary>
     private void FinishKnit()
     {
+        if (m_fluffBallObject == null) { return; } 
+
         var stageBlock = m_fluffBallObject.GetComponent<StageBlock>();
 
         if (stageBlock == null)
