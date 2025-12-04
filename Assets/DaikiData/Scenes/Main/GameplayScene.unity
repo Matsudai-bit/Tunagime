@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2bb0fdfc6ebe542a115281ae101678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isDebugMode: 1
+  m_isDebugMode: 0
   m_startState: 14
   m_gameStartUIPanel: {fileID: 493697163}
   m_clearUIPanel: {fileID: 133225239}
@@ -4583,7 +4583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_applyDebugSetting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
