@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 public class ClearController : MonoBehaviour
 {
@@ -17,8 +18,7 @@ public class ClearController : MonoBehaviour
 
     [Header("====== 想いのカケラの動き ======")]
     [SerializeField] private Vector3 m_feelingPieceUpVelocity   = new Vector3(0.0f, 5.0f, 0.0f); // 想いのカケラの位置
-    [SerializeField] private Vector3 m_feelingPieceDownVelocity = new Vector3(1.0f, -3.0f, 0.0f); // 想いのカケラの位置
-
+    [SerializeField] private Vector3 m_feelingPieceDownVelocity = new Vector3(1.0f, -1.0f, 0.0f); // 想いのカケラの位置
 
 
     public GameObject m_opaqueScreen; // クリア時に表示する不透明な画面
@@ -134,6 +134,8 @@ public class ClearController : MonoBehaviour
         if (m_isClearEffectStarted)
         {
             var distance = Vector3.Distance(m_player.transform.position, m_feelingPiece.transform.position);
+
+            m_feelingPiece.transform.Rotate(new Vector3(0.0f, Time.deltaTime * 100.0f, 0.0f));
 
             // 一定の距離以内に近づいたかどうかをチェック
             if (distance < 1.1f)

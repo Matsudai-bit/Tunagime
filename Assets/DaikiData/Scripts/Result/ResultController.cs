@@ -109,6 +109,10 @@ public class ResultController : MonoBehaviour
 
         });
 
+        // 現在の想いのカケラの取得
+        Instantiate( MapData.GetInstance.GetFeelingPiece(), m_feelingPiece.transform);
+
+
         // クリアタイムをセーブデータに保存する
         GameContext.GetInstance.GetSaveData().GetStageStatus(m_gameProgressData.worldID, m_gameProgressData.stageID).clearTime = m_clearTime;
         // ステージをクリア済みにする
@@ -254,10 +258,11 @@ public class ResultController : MonoBehaviour
     void StartDisplayFeelingPiece()
     {
         Transform feelingPieceTransform = m_feelingPiece.transform;
+        Vector3 scale = feelingPieceTransform.localScale;
 
         feelingPieceTransform.localScale = Vector3.zero;
 
-        feelingPieceTransform.DOScale(Vector3.one, 2.0f).SetEase(Ease.OutBack);
+        feelingPieceTransform.DOScale(scale, 2.0f).SetEase(Ease.OutBack);
 
 
         feelingPieceTransform.DOPunchRotation(new Vector3(100f, 180f, -145f),2.0f, 8).From().SetEase(Ease.OutSine).OnComplete(() =>
