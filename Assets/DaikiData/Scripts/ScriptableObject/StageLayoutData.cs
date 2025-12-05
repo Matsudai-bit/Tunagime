@@ -242,7 +242,22 @@ public class StageLayoutDataEditor : Editor
         // ボタンの描画
         if (GUILayout.Button("初期化"))
         {
-        StageLayoutData stageLayoutData = (StageLayoutData)target;
+            StageLayoutData stageLayoutData = (StageLayoutData)target;
+
+            // 初期化していいか確認ダイアログを表示
+            bool doInitialize = EditorUtility.DisplayDialog(
+                "初期化の確認",
+                $"ステージデータを {stageLayoutData.mapSetting.width} x {stageLayoutData.mapSetting.height} で初期化します。\n既存のデータは失われますが、よろしいですか？",
+                "はい",
+                "キャンセル"
+            );
+
+            if (!doInitialize)
+            {
+                Debug.Log("初期化処理はキャンセルされました。");
+                return;
+            }
+
             // 初期化ロジック
             if (stageLayoutData.mapSetting.width <= 0 || stageLayoutData.mapSetting.height <= 0)
             {
@@ -300,7 +315,8 @@ public class StageLayoutDataEditor : Editor
     /// </summary>
     /// <param name="stageLayoutData"></param>
     void InitializeSlotGrid(StageLayoutData stageLayoutData)
-    {
+    {        
+
         stageLayoutData.slotPlaceDataList.Clear();
         for (int y = 0; y < stageLayoutData.mapSetting.height; y++)
         {
