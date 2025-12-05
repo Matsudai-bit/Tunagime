@@ -27,7 +27,7 @@ public class TitleSceneController : MonoBehaviour
     [SerializeField]
     private PVData m_pvData; // PVデータ
 
-    private float m_inactivityTime = 0.0f; // 操作していない時間
+    public float m_inactivityTime = 0.0f; // 操作していない時間
 
     [Header("設定ウィンドウコントローラ")]
     [SerializeField]
@@ -94,6 +94,8 @@ public class TitleSceneController : MonoBehaviour
     {
         SoundManager.GetInstance.RequestAllStopping();
 
+        Application.targetFrameRate = 60;
+
         // タイトルロゴの透明度を0に設定
         var color = m_titleLogo.color;
         color.a = 0.0f;
@@ -129,6 +131,9 @@ public class TitleSceneController : MonoBehaviour
                 {
                     // PV停止
                     StopPV();
+
+                    // BGM再生
+                    SoundManager.GetInstance.PlayBGM(SoundID.BGM_TITLE);
                 }
                 m_inactivityTime = 0.0f;
             }
@@ -143,8 +148,12 @@ public class TitleSceneController : MonoBehaviour
                 // PV再生
                 PlayPV();
 
+                // BGM停止
+                SoundManager.GetInstance.StopBGM();
+
+
             }
-            else if (m_inactivityTime >= m_pvData.waitTime + 0.001f && !m_pvData.pvRenderer.activeSelf)
+            else if (m_inactivityTime >= m_pvData.waitTime + 0.1f && !m_pvData.pvRenderer.activeSelf)
             {
                 // PV表示
                 m_pvData.pvRenderer.SetActive(true);
@@ -315,6 +324,7 @@ public class TitleSceneController : MonoBehaviour
     {
         m_pvData.pvPlayer.Play();
 
+     
         // 音量調整
         m_pvData.pvPlayer.SetDirectAudioVolume(0, GameContext.GetInstance.GetGameSettingParameters().bgmVolume);
     }
@@ -335,6 +345,8 @@ public class TitleSceneController : MonoBehaviour
     {
         m_pvData.pvPlayer.Stop();
         m_pvData.pvRenderer.SetActive(false);
+
+
     }
 
 }

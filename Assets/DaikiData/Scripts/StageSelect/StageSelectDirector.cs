@@ -32,6 +32,12 @@ public class StageSelectDirector : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 60;
+
+        // 
+        GameContext.GetInstance.ReloadSaveData();
+
+
         if (m_stageSelectController == null)
         {
             Debug.LogError("StageSelectControllerがアタッチされていません。");
@@ -81,6 +87,11 @@ public class StageSelectDirector : MonoBehaviour
             m_worldSelectController.RequestStartSelectStage(gameProgressData.worldID, gameProgressData.stageID);
         }
     }
+
+    private void OnEnable()
+    {
+    }
+
 
     // Update is called once per frame
     void Update()

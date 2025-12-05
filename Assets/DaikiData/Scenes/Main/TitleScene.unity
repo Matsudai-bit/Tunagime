@@ -3400,6 +3400,7 @@ MonoBehaviour:
     pvRenderer: {fileID: 1147997825}
     pvPlayer: {fileID: 1863086470}
     waitTime: 8
+  m_inactivityTime: 0
   m_settingsWindowController: {fileID: 1335744130}
   m_playerInput: {fileID: 1817457880}
   m_titleLogo: {fileID: 660088484}
@@ -3458,7 +3459,7 @@ VideoPlayer:
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
-  m_SkipOnDrop: 0
+  m_SkipOnDrop: 1
   m_Looping: 1
   m_WaitForFirstFrame: 0
   m_FrameReadyEventEnabled: 0

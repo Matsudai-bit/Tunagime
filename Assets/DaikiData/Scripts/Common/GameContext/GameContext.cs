@@ -99,32 +99,17 @@ public class GameContext : MonoBehaviour
         m_saveDataManager = gameObject.AddComponent<SaveDataManager>();
 
 
+        LoadSaveData();
+        
+    }
 
-        // デバッグモードの適用
-        if (m_debugSettings.debugMode)
-        {
-            // デバッグ用セーブデータの読み込み
-            m_saveData = m_saveDataManager.Load(m_debugSettings.debugSaveData.GetFileFullPath());
-
-            // 全てのステージをアンロック
-            if (m_debugSettings.unlockAllStages)
-            {
-                UnlockAllStage(m_saveData);
-
-            }
-        }
-        else
-        {
-            // 通常セーブデータの読み込み 
-            m_saveData = m_saveDataManager.Load(saveDataSetting.GetFileFullPath());
-         
-
-        }
-
-        // ファイルが無い場合作成セーブデータの読み込み
-        SaveGame();
-
-
+    /// <summary>
+    /// 再読み込み
+    /// </summary>
+    /// <returns></returns>
+    public void ReloadSaveData()
+    {
+        LoadSaveData();
     }
 
     public SaveData GetSaveData()
@@ -202,6 +187,10 @@ public class GameContext : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// ゲーム設定データの読み込み
+    /// </summary>
+    /// <returns></returns>
     public bool LoadSettingData()
     {
         string fullPath = Application.persistentDataPath + "/" + settingFilePath;
@@ -303,4 +292,30 @@ public class GameContext : MonoBehaviour
         }
     }
 
+    private void LoadSaveData()
+    {
+        // デバッグモードの適用
+        if (m_debugSettings.debugMode)
+        {
+            // デバッグ用セーブデータの読み込み
+            m_saveData = m_saveDataManager.Load(m_debugSettings.debugSaveData.GetFileFullPath());
+
+            // 全てのステージをアンロック
+            if (m_debugSettings.unlockAllStages)
+            {
+                UnlockAllStage(m_saveData);
+
+            }
+        }
+        else
+        {
+            // 通常セーブデータの読み込み 
+            m_saveData = m_saveDataManager.Load(saveDataSetting.GetFileFullPath());
+
+
+        }
+
+        // ファイルが無い場合作成セーブデータの読み込み
+        SaveGame();
+    }
 }
