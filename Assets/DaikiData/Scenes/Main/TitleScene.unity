@@ -3399,7 +3399,7 @@ MonoBehaviour:
     isEnabled: 1
     pvRenderer: {fileID: 1147997825}
     pvPlayer: {fileID: 1863086470}
-    waitTime: 5
+    waitTime: 8
   m_settingsWindowController: {fileID: 1335744130}
   m_playerInput: {fileID: 1817457880}
   m_titleLogo: {fileID: 660088484}
