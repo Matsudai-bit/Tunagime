@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using static MenuContentSelector;
 
 /// <summary>
@@ -12,6 +13,21 @@ using static MenuContentSelector;
 /// </summary>
 public class TitleSceneController : MonoBehaviour
 {
+    [System.Serializable]
+    struct PVData
+    {
+        public bool        isEnabled; // PV有効フラグ
+        public GameObject pvRenderer; // PVレンダラー
+        public VideoPlayer pvPlayer; // PVプレイヤー
+        public float waitTime; // 再生待機時間
+    }
+
+
+    [Header("PVデータ")]
+    [SerializeField]
+    private PVData m_pvData; // PVデータ
+
+    private float m_inactivityTime = 0.0f; // 操作していない時間
 
     [Header("設定ウィンドウコントローラ")]
     [SerializeField]
@@ -102,6 +118,40 @@ public class TitleSceneController : MonoBehaviour
 
     void Update()
     {
+        if (m_pvData.isEnabled)
+        {
+            // 操作していない時間を計測
+            if (m_playerInput.actions["Move"].WasPerformedThisFrame() ||
+                m_playerInput.actions["Submit"].WasPerformedThisFrame() ||
+                m_playerInput.actions["Cancel"].WasPerformedThisFrame())
+            {
+                if (IsPVPlaying())
+                {
+                    // PV停止
+                    StopPV();
+                }
+                m_inactivityTime = 0.0f;
+            }
+            else
+            {
+
+                m_inactivityTime += Time.deltaTime;
+            }
+
+            if (m_inactivityTime >= m_pvData.waitTime && !IsPVPlaying())
+            {
+                // PV再生
+                PlayPV();
+
+            }
+            else if (m_inactivityTime >= m_pvData.waitTime + 0.001f && !m_pvData.pvRenderer.activeSelf)
+            {
+                // PV表示
+                m_pvData.pvRenderer.SetActive(true);
+            }
+
+        }
+
         if (!m_titleSelector.CanInputEnabled() && !m_initializationWarningWindow.gameObject.activeSelf)
         {
             m_titleSelector.SetInputEnabled(true);
@@ -256,6 +306,35 @@ public class TitleSceneController : MonoBehaviour
     {
         var gameContext = GameContext.GetInstance;
         gameContext.ResetGame();
+    }
+
+    /// <summary>
+    /// PV再生
+    /// </summary>
+    private void PlayPV()
+    {
+        m_pvData.pvPlayer.Play();
+
+        // 音量調整
+        m_pvData.pvPlayer.SetDirectAudioVolume(0, GameContext.GetInstance.GetGameSettingParameters().bgmVolume);
+    }
+
+    /// <summary>
+    /// PVが再生中かどうか
+    /// </summary>
+    /// <returns></returns>
+    private bool IsPVPlaying()
+    {
+        return m_pvData.pvPlayer.isPlaying;
+    }
+
+    /// <summary>
+    /// PV停止
+    /// </summary>
+    private void StopPV()
+    {
+        m_pvData.pvPlayer.Stop();
+        m_pvData.pvRenderer.SetActive(false);
     }
 
 }

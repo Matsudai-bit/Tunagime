@@ -109,6 +109,11 @@ public class ResultController : MonoBehaviour
 
         });
 
+        // 現在の想いのカケラの取得
+        Instantiate( MapData.GetInstance.GetFeelingPiece(), m_feelingPiece.transform);
+        m_feelingPieceStartPosition = m_feelingPiece.transform.position;
+
+
         // クリアタイムをセーブデータに保存する
         GameContext.GetInstance.GetSaveData().GetStageStatus(m_gameProgressData.worldID, m_gameProgressData.stageID).clearTime = m_clearTime;
         // ステージをクリア済みにする
@@ -155,7 +160,7 @@ public class ResultController : MonoBehaviour
 
             float sindValue = Mathf.Cos(m_feelingPieceBoundTimer * Mathf.Deg2Rad);
 
-            m_feelingPiece.transform.localPosition = m_feelingPieceStartPosition + new Vector3(0.0f, sindValue * 0.5f, 0.0f);
+            m_feelingPiece.transform.localPosition = m_feelingPieceStartPosition + new Vector3(0.0f, sindValue * 2.5f, 0.0f);
         }
 
       
@@ -254,10 +259,11 @@ public class ResultController : MonoBehaviour
     void StartDisplayFeelingPiece()
     {
         Transform feelingPieceTransform = m_feelingPiece.transform;
+        Vector3 scale = feelingPieceTransform.localScale;
 
         feelingPieceTransform.localScale = Vector3.zero;
 
-        feelingPieceTransform.DOScale(Vector3.one, 2.0f).SetEase(Ease.OutBack);
+        feelingPieceTransform.DOScale(scale, 2.0f).SetEase(Ease.OutBack);
 
 
         feelingPieceTransform.DOPunchRotation(new Vector3(100f, 180f, -145f),2.0f, 8).From().SetEase(Ease.OutSine).OnComplete(() =>
@@ -271,7 +277,6 @@ public class ResultController : MonoBehaviour
         m_feelingPiece.SetActive(true);
 
         m_feelingPieceBoundTimer = 90.0f;
-        m_feelingPieceStartPosition = m_feelingPiece.transform.localPosition;
     }
 
     /// <summary>
