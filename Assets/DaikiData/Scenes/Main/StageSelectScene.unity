@@ -3031,7 +3031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveDataSetting: {fileID: 11400000, guid: 4b97da6920e0d7743844ea8c973f4cdf, type: 2}
   m_debugSettings:
-    debugMode: 0
+    debugMode: 1
     unlockAllStages: 1
     debugSaveData: {fileID: 11400000, guid: c6ec42a6d665a8b46a02d35525ac3359, type: 2}
 --- !u!4 &949153344
@@ -5107,7 +5107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a525bf8785decff47a60bff7bd9eef1e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a66ee0ef725412b4b8f425cb4ef480d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5142,7 +5142,7 @@ MonoBehaviour:
     label1: "\u30AD\u30FC\u30DC\u30FC\u30C9\u5165\u529B\u30AC\u30A4\u30C9"
     keyboardGuideSprite: {fileID: 21300000, guid: a66ee0ef725412b4b8f425cb4ef480d5, type: 3}
     label2: "\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u5165\u529B\u30AC\u30A4\u30C9"
-    gamepadGuideSprite: {fileID: 21300000, guid: a525bf8785decff47a60bff7bd9eef1e, type: 3}
+    gamepadGuideSprite: {fileID: 21300000, guid: 32b47d7c86a6f174dbcc53827b86ccca, type: 3}
 --- !u!1 &1732413338
 GameObject:
   m_ObjectHideFlags: 0
