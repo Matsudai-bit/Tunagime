@@ -1,9 +1,15 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEventObserver
+public class Player 
+    : MonoBehaviour
+    , IGameInteractionObserver
+    , IInGameFlowEventObserver
+     , IUndoTransactionObserver
+
 {
     [Header("プレイヤーの移動速度")]
     public float SPEED = 5.0f; // 移動速度
@@ -17,6 +23,9 @@ public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEvent
     [SerializeField] private GameDirector m_gameDirector;
     [Header("現在のアミダ生成機")]
     [SerializeField] private AmidaTubeGenerator m_amidaGenerator;
+
+    public Dictionary<int, Vector3> m_transactionHistory = new();
+
 
     private Rigidbody m_rb;             // Rigidbodyコンポーネント
     private StageBlock m_stageBlock;
@@ -56,6 +65,7 @@ public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEvent
 
         // ゲームフロー
         InGameFlowEventMessenger.GetInstance.RegisterObserver(this);
+        UndoTransactionMessenger.GetInstance.RegisterObserver(this);
 
     }
 
@@ -88,14 +98,8 @@ public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEvent
     void Update()
     {
         m_playerActionMap = m_inputActionAsset.FindActionMap("Player"); // プレイヤーのInputActionMapを取得
-        if (m_playerActionMap.enabled )
-        {
-            UnityEngine.Debug.Log("Player Action Map is enabled");
-        }
-        else
-        {
-            UnityEngine.Debug.Log("Player Action Map is disabled");
-        }
+  
+
 
         // プレイヤーの状態マシンの更新
         m_stateMachine.UpdateState();
@@ -813,6 +817,19 @@ public class Player : MonoBehaviour , IGameInteractionObserver, IInGameFlowEvent
                 m_stateMachine.RequestStateChange(PlayerStateID.IDLE);
                 break;
         
+        }
+    }
+
+    public void OnEvent(int transactionID)
+    {
+        Vector3 position;
+        if (m_transactionHistory.TryGetValue(transactionID, out position))
+        {
+            transform.position = position;
+
+            m_stateMachine.RequestStateChange(PlayerStateID.IDLE);
+            m_transactionHistory.Remove(transactionID);
+
         }
     }
 }

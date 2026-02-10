@@ -1169,7 +1169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
+  m_MoveRepeatRate: 0.2
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -2543,6 +2543,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 344998fa-e475-4eb0-b425-761b141ba402
     m_ActionName: 'SettingWindow/Reset[/Keyboard/x,/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8f44c5d-d1ac-4c20-b3d8-558bfa1ec605
+    m_ActionName: 'StoryScene/Skip[/XInputControllerWindows/rightShoulder,/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1e78c8e-856b-41bb-9629-d1efb913161e
+    m_ActionName: 'StoryScene/ShowSkipGuide[/Keyboard/anyKey,/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonSouth,/XInputControllerWindows/buttonWest,/XInputControllerWindows/buttonNorth,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/rightShoulder,/XInputControllerWindows/leftShoulder,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

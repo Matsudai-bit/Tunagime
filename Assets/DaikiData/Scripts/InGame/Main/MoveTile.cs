@@ -1,11 +1,16 @@
 ﻿using DG.Tweening;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
 /// 
 /// </summary>
-public class MoveTile : MonoBehaviour, IMoveTile
+public class MoveTile 
+    : MonoBehaviour
+    , IMoveTile
+    , IUndoTransactionObserver
 {
     public enum State
     {
@@ -17,6 +22,8 @@ public class MoveTile : MonoBehaviour, IMoveTile
     [Header("監視用")]
     [SerializeField]
     private StageBlock m_stageBlock; // ステージブロック
+
+    protected Dictionary<int, GridPos> m_transactionHistory = new();
 
     private readonly float TARGET_TIME = 0.15f; // 動かすターゲット時間
 
@@ -49,7 +56,7 @@ public class MoveTile : MonoBehaviour, IMoveTile
 
     protected virtual void OnAwake()
     {
-
+        UndoTransactionMessenger.GetInstance.RegisterObserver(this);
     }
 
 
@@ -95,6 +102,10 @@ public class MoveTile : MonoBehaviour, IMoveTile
     ///// <param name="velocity"></param>
     public virtual void Move(GridPos velocity)
     {
+        if (m_stageBlock.GetBlockType() == StageBlock.BlockType.FLUFF_BALL)
+        {
+            AddTransactionHistory();
+        }
 
         GridPos newGridPos = m_stageBlock.GetGridPos() + velocity;
 
@@ -105,6 +116,13 @@ public class MoveTile : MonoBehaviour, IMoveTile
 
 
         ChangeState(State.IDLE);
+
+    }
+
+    protected void AddTransactionHistory()
+    {
+        Debug.Log("トランザクションの登録　名前：" + gameObject.name + "ID：" + UndoTransactionMessenger.GetInstance.CurrentTransactionID);
+        m_transactionHistory.Add(UndoTransactionMessenger.GetInstance.CurrentTransactionID, m_stageBlock.GetGridPos());
 
     }
 
@@ -267,6 +285,20 @@ public class MoveTile : MonoBehaviour, IMoveTile
     public void SetPrevVelocity(GridPos velocity)
     {
         m_prevVelocity = velocity;
+    }
+
+    public void OnEvent(int transactionID)
+    {
+        GridPos position;
+        if (m_transactionHistory.TryGetValue(transactionID, out position))
+        {
+            m_stageBlock.UpdatePosition(position);
+            m_state = State.IDLE;
+
+            m_transactionHistory.Remove(transactionID);
+            GameInteractionEventMessenger.GetInstance.Notify(InteractionEvent.PUSH_FELTBLOCK);
+
+        }
     }
 }
 

@@ -16,6 +16,7 @@ public class CoreMove : MoveTile
     /// <param name="velocity"></param>
     public override void Move(GridPos velocity)
     {
+        AddTransactionHistory();
 
         var map = MapData.GetInstance; // MapDataのインスタンスを取得
         var stageGridData = map.GetStageGridData(); // ステージグリッドデータを取得
@@ -49,6 +50,8 @@ public class CoreMove : MoveTile
         stageBlock.UpdatePosition(movementPosition); // StageBlockの位置を更新
         // グリッドデータに綿毛ボールを配置
         map.GetStageGridData().TryPlaceTileObject(movementPosition, gameObject);
+
+        AddTransactionHistory();
 
         if (CanSlide()) ChangeState(State.SLIDE);
         else ChangeState(State.IDLE);
