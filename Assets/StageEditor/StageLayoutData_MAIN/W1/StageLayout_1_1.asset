@@ -1204,13 +1204,13 @@ MonoBehaviour:
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 4
+      emotionType: 1
       gridPos:
         x: 0
         y: 3
     - label: "\u7D42\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 1
+      emotionType: 4
       gridPos:
         x: 15
         y: 3
@@ -1232,13 +1232,13 @@ MonoBehaviour:
     slotPlaceData:
     - label: "\u59CB\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 1
+      emotionType: 4
       gridPos:
         x: 0
         y: 5
     - label: "\u7D42\u70B9\u306E\u578B"
       slotType: 1
-      emotionType: 4
+      emotionType: 1
       gridPos:
         x: 15
         y: 5
