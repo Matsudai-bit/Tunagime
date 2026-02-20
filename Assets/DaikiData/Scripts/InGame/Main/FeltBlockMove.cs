@@ -10,7 +10,6 @@ public class FeltBlockMove
 
     private PairBadge m_pairBadge; // ペアワッペン
 
-
     public override bool CanMove(GridPos moveDirection)
     { 
         // ペアワッペンがある場合はペアワッペンの移動可能かチェック
@@ -29,6 +28,8 @@ public class FeltBlockMove
     /// <param name="velocity"></param>
     public override void RequestMove(GridPos velocity)
     {
+        AddTransactionHistory();
+
         if (m_pairBadge != null)
         {
             // ペアワッペンがある場合はペアワッペンに移動を依頼

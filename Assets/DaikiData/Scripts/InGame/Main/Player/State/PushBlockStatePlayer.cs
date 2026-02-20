@@ -25,6 +25,10 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnStartState()
     {
+        UndoTransactionMessenger.GetInstance.BeginTransaction();
+
+//        owner.m_transactionHistory.Add(UndoTransactionMessenger.GetInstance.CurrentTransactionID, new(owner.transform.position.x, owner.transform.position.y, owner.transform.position.z));
+
         // 押す音を再生
         m_pushSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_PUSHBLOCK, false);
         if (m_pushSoundID == SoundManager.ERROR_SOUND_ID)
@@ -122,6 +126,8 @@ public class PushBlockStatePlayer : PlayerState
     /// </summary>
     public override void OnFinishState()
     {
+        UndoTransactionMessenger.GetInstance.EndTransaction();
+
         if (owner.GetStateMachine().GetRequestState() == PlayerStateID.PUSH_BLOCK) { return; } ;
         // 音を停止
         SoundManager.GetInstance.RequestStopping(m_pushSoundID);

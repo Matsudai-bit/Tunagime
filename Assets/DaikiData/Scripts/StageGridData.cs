@@ -195,7 +195,7 @@ public class StageGridData : MonoBehaviour
         if (currentTile.tileObject.gameObject != null)
         {
             // 既にオブジェクトが存在する場合、設置しない
-            Debug.Log($"TryPlaceTileObject: Position ({gridPos.x},{gridPos.y}) already has an object: {currentTile.tileObject.gameObject.name}. Placement failed.");
+          //  Debug.Log($"TryPlaceTileObject: Position ({gridPos.x},{gridPos.y}) already has an object: {currentTile.tileObject.gameObject.name}. Placement failed.");
             return false;
         }
 
