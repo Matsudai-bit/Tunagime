@@ -27,7 +27,7 @@ public class PushBlockStatePlayer : PlayerState
     {
         UndoTransactionMessenger.GetInstance.BeginTransaction();
 
-        owner.m_transactionHistory.Add(UndoTransactionMessenger.GetInstance.CurrentTransactionID, new(owner.transform.position.x, owner.transform.position.y, owner.transform.position.z));
+//        owner.m_transactionHistory.Add(UndoTransactionMessenger.GetInstance.CurrentTransactionID, new(owner.transform.position.x, owner.transform.position.y, owner.transform.position.z));
 
         // 押す音を再生
         m_pushSoundID = SoundManager.GetInstance.RequestPlaying(SoundID.SE_PLAYER_PUSHBLOCK, false);

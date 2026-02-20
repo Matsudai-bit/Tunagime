@@ -19,6 +19,11 @@ public class UndoTransactionMessenger
         get { return m_currentTransactionID; }
     }
 
+    public void ResetID()
+    {
+        m_currentTransactionID = 0;
+        m_nextTransactionID = 1;
+    }
 
     /// <summary>
     /// 履歴
@@ -103,13 +108,13 @@ public class UndoTransactionMessenger
 
     public void BeginTransaction()
     {
-        m_currentTransactionID = m_nextTransactionID;
-        m_nextTransactionID++;
+        //m_currentTransactionID = m_nextTransactionID;
+        //m_nextTransactionID++;
     }
 
     public void EndTransaction()
     {
-        m_currentTransactionID = -1;
+        //m_currentTransactionID = -1;
     }
 
 

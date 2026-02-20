@@ -122,7 +122,7 @@ public class MoveTile
     protected void AddTransactionHistory()
     {
         Debug.Log("トランザクションの登録　名前：" + gameObject.name + "ID：" + UndoTransactionMessenger.GetInstance.CurrentTransactionID);
-        m_transactionHistory.Add(UndoTransactionMessenger.GetInstance.CurrentTransactionID, m_stageBlock.GetGridPos());
+        //m_transactionHistory.Add(UndoTransactionMessenger.GetInstance.CurrentTransactionID, m_stageBlock.GetGridPos());
 
     }
 

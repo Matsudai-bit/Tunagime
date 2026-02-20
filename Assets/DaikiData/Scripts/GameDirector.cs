@@ -83,7 +83,7 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-      
+        UndoTransactionMessenger.GetInstance.ResetID();
 
         SoundManager.GetInstance.RequestAllStopping();
 
@@ -448,14 +448,14 @@ public class GameDirector : MonoBehaviour, IInGameFlowEventObserver
     public void ReLoadScene(InputAction.CallbackContext context)
     {
         if (!context.performed) { return; }
-        //// リロード
-        //GameProgressManager.Instance.GameProgressData.startState = InGameFlowEventID.GAME_PLAYING_START;
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // リロード
+        GameProgressManager.Instance.GameProgressData.startState = InGameFlowEventID.GAME_PLAYING_START;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        //// クリア時間を保持する
-        //GameProgressManager.Instance.GameProgressData.clearTime = m_gameTime;
+        // クリア時間を保持する
+        GameProgressManager.Instance.GameProgressData.clearTime = m_gameTime;
 
-            UndoTransactionMessenger.GetInstance.NotifyUndo();
+        //     UndoTransactionMessenger.GetInstance.NotifyUndo();
 
     }
 

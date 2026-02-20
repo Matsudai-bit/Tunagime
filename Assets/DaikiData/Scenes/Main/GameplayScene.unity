@@ -1703,7 +1703,7 @@ MonoBehaviour:
     label1: "\u30AD\u30FC\u30DC\u30FC\u30C9\u5165\u529B\u30AC\u30A4\u30C9"
     keyboardGuideSprite: {fileID: 21300000, guid: 53a74f53a63fb6f46b2dc732cba0c040, type: 3}
     label2: "\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u5165\u529B\u30AC\u30A4\u30C9"
-    gamepadGuideSprite: {fileID: 21300000, guid: 0a3518404cb144b46aee0f4a005d96bc, type: 3}
+    gamepadGuideSprite: {fileID: 21300000, guid: a6f7dba470af73446ac54bff377b18dd, type: 3}
 --- !u!4 &650648820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2704117409311022249, guid: 7c23e4c250d615f4cb00955c54f7d2f9, type: 3}
@@ -3099,7 +3099,7 @@ MonoBehaviour:
     label1: "\u30AD\u30FC\u30DC\u30FC\u30C9\u5165\u529B\u30AC\u30A4\u30C9"
     keyboardGuideSprite: {fileID: 21300000, guid: 53a74f53a63fb6f46b2dc732cba0c040, type: 3}
     label2: "\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u5165\u529B\u30AC\u30A4\u30C9"
-    gamepadGuideSprite: {fileID: 21300000, guid: 0a3518404cb144b46aee0f4a005d96bc, type: 3}
+    gamepadGuideSprite: {fileID: 21300000, guid: a6f7dba470af73446ac54bff377b18dd, type: 3}
 --- !u!114 &1985508857 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5422108792117725371, guid: 3b05c601635996a45aed7aa53912cdc4, type: 3}
@@ -4572,7 +4572,7 @@ PrefabInstance:
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_stageSetting
       value: 
-      objectReference: {fileID: 11400000, guid: 64029a9d3824cf34fad8a99966a501be, type: 2}
+      objectReference: {fileID: 11400000, guid: a9870dc05d5a3894e9523a309d5b845f, type: 2}
     - target: {fileID: 7271573585618399965, guid: 8c2d79dba71732948914ed116dbb9d79, type: 3}
       propertyPath: m_gameStageData
       value: 
